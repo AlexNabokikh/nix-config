@@ -5,7 +5,6 @@
   pkgs,
   ...
 }: {
-
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd
@@ -48,7 +47,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot = {
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = ["quiet" "splash"];
     consoleLogLevel = 0;
     initrd.verbose = false;
   };
@@ -85,7 +84,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  services.xserver.excludePackages = with  pkgs; [ xterm ];
+  services.xserver.excludePackages = with pkgs; [xterm];
 
   # Configure keymap in X11
   services.xserver = {
@@ -117,7 +116,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nabokikh = {
     description = "Alexander Nabokikh";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     isNormalUser = true;
     shell = pkgs.zsh;
   };
@@ -126,27 +125,29 @@
   security.sudo.wheelNeedsPassword = false;
 
   # Excluding some GNOME applications from the default install
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-    snapshot
-  ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
-    gnome-music
-    gnome-terminal
-    gnome-contacts
-    simple-scan
-    gedit
-    simple-scan
-    gnome-maps
-    epiphany # web browser
-    geary # email reader
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-  ]);
+  environment.gnome.excludePackages =
+    (with pkgs; [
+      gnome-photos
+      gnome-tour
+      snapshot
+    ])
+    ++ (with pkgs.gnome; [
+      cheese # webcam tool
+      gnome-music
+      gnome-terminal
+      gnome-contacts
+      simple-scan
+      gedit
+      simple-scan
+      gnome-maps
+      epiphany # web browser
+      geary # email reader
+      totem # video player
+      tali # poker game
+      iagno # go game
+      hitori # sudoku game
+      atomix # puzzle game
+    ]);
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -197,12 +198,13 @@
     normcap
     obs-studio
     openconnect
-    (python3.withPackages(ps: with ps; [
-      pip
-      pre-commit
-      thefuzz
-      tornado
-      virtualenv
+    (python3.withPackages (ps:
+      with ps; [
+        pip
+        pre-commit
+        thefuzz
+        tornado
+        virtualenv
       ]))
     ripgrep
     saml2aws
@@ -220,7 +222,7 @@
     zoom-us
     zsh
     zsh-powerlevel10k
-   ];
+  ];
 
   # Docker configuration
   virtualisation.docker.enable = true;
@@ -255,18 +257,18 @@
 
   # GnuPG agent configuration
   programs.gnupg.agent = {
-     enable = true;
-     enableSSHSupport = true;
+    enable = true;
+    enableSSHSupport = true;
   };
 
   # Zsh configuration
   programs.zsh = {
-   enable = true;
+    enable = true;
   };
 
   # Fonts configuration
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
+    (nerdfonts.override {fonts = ["Meslo"];})
     roboto
   ];
 

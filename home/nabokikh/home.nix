@@ -4,19 +4,17 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   # Define theme name and configuration for GTK
   catppuccin_name = "Catppuccin-Macchiato-Standard-Lavender-Dark";
   catppuccin = pkgs.catppuccin-gtk.override {
-        accents = [ "lavender" ];
-        size = "standard";
-        tweaks = [ "normal" ];
-        variant = "macchiato";
+    accents = ["lavender"];
+    size = "standard";
+    tweaks = ["normal"];
+    variant = "macchiato";
   };
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
-in
-{
+in {
   imports = [
     # Spicetify
     inputs.spicetify-nix.homeManagerModule
@@ -39,6 +37,7 @@ in
   # List of packages installed for the user
   home.packages = [
     pkgs.krew
+    pkgs.alejandra
   ];
 
   # Nicely reload system units when changing configs
@@ -49,7 +48,7 @@ in
     Unit = {
       Description = "ulauncher application launcher service";
       Documentation = "https://ulauncher.io";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
 
     Service = {
@@ -58,7 +57,7 @@ in
       Restart = "on-failure";
     };
 
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = ["graphical-session.target"];
   };
 
   # GTK theme configuration
@@ -88,10 +87,10 @@ in
 
   # Environment session variables
   home.sessionVariables = {
-    BAT_THEME="Catppuccin-macchiato";
+    BAT_THEME = "Catppuccin-macchiato";
 
-    FZF_DEFAULT_COMMAND="find .";
-    FZF_DEFAULT_OPTS="
+    FZF_DEFAULT_COMMAND = "find .";
+    FZF_DEFAULT_OPTS = "
     --height=40%
     --layout=reverse
     --info=inline
@@ -107,7 +106,7 @@ in
     --bind 'ctrl-v:execute(code {+})'
     ";
 
-    SAML2AWS_SESSION_DURATION="3600";
+    SAML2AWS_SESSION_DURATION = "3600";
   };
 
   # Zsh shell configuration
@@ -115,25 +114,25 @@ in
     enable = true;
     enableCompletion = false;
     shellAliases = {
-      cat="bat -p";
-      grep="rg";
-      kupdate="krew update && krew upgrade";
-      ld="lazydocker";
-      lg="lazygit";
-      repo="cd $HOME/Documents/repositories";
-      temp="cd $HOME/Downloads/temp";
-      vim="nvim";
-      ls="exa --icons";                                 # default view
-      ll="exa -bhl --group-directories-first --icons";  # long list
-      la="exa -abhl --group-directories-first --icons"; # all list
-      lt="exa --tree --level=2 --icons";                # tree
+      cat = "bat -p";
+      grep = "rg";
+      kupdate = "krew update && krew upgrade";
+      ld = "lazydocker";
+      lg = "lazygit";
+      repo = "cd $HOME/Documents/repositories";
+      temp = "cd $HOME/Downloads/temp";
+      vim = "nvim";
+      ls = "exa --icons"; # default view
+      ll = "exa -bhl --group-directories-first --icons"; # long list
+      la = "exa -abhl --group-directories-first --icons"; # all list
+      lt = "exa --tree --level=2 --icons"; # tree
     };
     oh-my-zsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "kubectl"
-          "vi-mode"
+      enable = true;
+      plugins = [
+        "git"
+        "kubectl"
+        "vi-mode"
       ];
     };
     initExtra = ''
@@ -150,7 +149,7 @@ in
     "$HOME/.krew/bin"
   ];
 
-    # Tmux terminal multiplexer configuration
+  # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
     baseIndex = 1;
@@ -190,8 +189,8 @@ in
     colorScheme = "macchiato";
 
     enabledExtensions = with spicePkgs.extensions; [
-        keyboardShortcut
-        shuffle
+      keyboardShortcut
+      shuffle
     ];
   };
 
