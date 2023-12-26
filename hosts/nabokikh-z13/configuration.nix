@@ -165,7 +165,6 @@
     fzf
     gcc
     gimp
-    git
     jq
     gnome.dconf-editor
     gnome.gnome-session
@@ -225,6 +224,9 @@
     enable = true;
     setSocketVariable = true;
   };
+
+  # Git
+  programs.git.enable = true;
 
   # Neovim text editor configuration
   programs.neovim = {
