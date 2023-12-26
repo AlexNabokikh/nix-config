@@ -120,10 +120,8 @@ in
       kupdate="krew update && krew upgrade";
       ld="lazydocker";
       lg="lazygit";
-      rebuild="sudo nixos-rebuild switch";
       repo="cd $HOME/Documents/repositories";
       temp="cd $HOME/Downloads/temp";
-      update="sudo nixos-rebuild switch --upgrade";
       vim="nvim";
       ls="exa --icons";                                 # default view
       ll="exa -bhl --group-directories-first --icons";  # long list
