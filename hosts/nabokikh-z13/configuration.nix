@@ -7,7 +7,7 @@
 }: {
 
   imports = [
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-z13
+    inputs.hardware.nixosModules.lenovo-thinkpad-z13
 
     ./hardware-configuration.nix
   ];
@@ -122,9 +122,6 @@
 
   # Enable passwordless sudo
   security.sudo.wheelNeedsPassword = false;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # Excluding some GNOME applications from the default install
   environment.gnome.excludePackages = (with pkgs; [
