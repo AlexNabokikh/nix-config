@@ -16,7 +16,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     # NixOS Spicetify
-    spicetify-nix.url = github:the-argus/spicetify-nix;
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -31,7 +31,11 @@
     nixosConfigurations = {
       energy = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        modules = [./nixos/configuration.nix];
+        modules = [./hosts/energy/configuration.nix];
+      };
+      nabokikh-z13 = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/nabokikh-z13/configuration.nix];
       };
     };
 
@@ -39,7 +43,12 @@
       "nabokikh@energy" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home-manager/home.nix];
+        modules = [./home/nabokikh/home.nix];
+      };
+      "nabokikh-z13@nabokikh" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [./home/nabokikh/home.nix];
       };
     };
   };
