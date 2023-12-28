@@ -41,7 +41,7 @@
   };
 
   # Bootloader.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot = {
@@ -219,6 +219,10 @@
     zsh
     zsh-powerlevel10k
   ];
+
+  # virt-manager
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Docker configuration
   virtualisation.docker.enable = true;
