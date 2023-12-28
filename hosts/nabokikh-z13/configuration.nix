@@ -199,8 +199,6 @@
       with ps; [
         pip
         pre-commit
-        thefuzz
-        tornado
         virtualenv
       ]))
     ripgrep
