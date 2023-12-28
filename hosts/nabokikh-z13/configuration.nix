@@ -13,18 +13,6 @@
 
   # nixpkgs configuration
   nixpkgs = {
-    overlays = [
-      (final: prev: {
-        ulauncher = prev.ulauncher.overrideAttrs (old: {
-          propagatedBuildInputs = with prev.python3Packages;
-            old.propagatedBuildInputs
-            ++ [
-              thefuzz
-              tornado
-            ];
-        });
-      })
-    ];
     config = {
       allowUnfree = true;
     };
@@ -220,7 +208,6 @@
     telegram-desktop
     terraform
     terragrunt
-    ulauncher
     unzip
     vlc
     wget

@@ -20,7 +20,20 @@ in {
     inputs.spicetify-nix.homeManagerModule
   ];
 
+  # nixpkgs configuration
   nixpkgs = {
+    overlays = [
+      (final: prev: {
+        ulauncher = prev.ulauncher.overrideAttrs (old: {
+          propagatedBuildInputs = with prev.python3Packages;
+            old.propagatedBuildInputs
+            ++ [
+              thefuzz
+              tornado
+            ];
+        });
+      })
+    ];
     config = {
       allowUnfree = true;
     };
@@ -36,8 +49,9 @@ in {
 
   # List of packages installed for the user
   home.packages = [
-    pkgs.krew
     pkgs.alejandra
+    pkgs.krew
+    pkgs.ulauncher
   ];
 
   # Nicely reload system units when changing configs
