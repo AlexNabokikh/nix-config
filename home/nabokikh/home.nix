@@ -49,7 +49,6 @@ in {
 
   # List of packages installed for the user
   home.packages = [
-    pkgs.alejandra
     pkgs.krew
     pkgs.ulauncher
   ];
@@ -195,6 +194,42 @@ in {
       set -g @catppuccin_status_right_separator "█"
       set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
     '';
+  };
+
+  # Neovim text editor configuration
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    withNodeJs = true;
+    withPython3 = true;
+    withRuby = true;
+
+    extraPackages = [
+      pkgs.alejandra
+      pkgs.ansible-language-server
+      pkgs.ansible-lint
+      pkgs.black
+      pkgs.dockerfile-language-server-nodejs
+      pkgs.golangci-lint
+      pkgs.golangci-lint-langserver
+      pkgs.gotools
+      pkgs.hadolint
+      pkgs.isort
+      pkgs.lua-language-server
+      pkgs.markdownlint-cli
+      pkgs.marksman
+      pkgs.nodePackages.bash-language-server
+      pkgs.nodePackages.prettier
+      pkgs.nodePackages.pyright
+      pkgs.ruff
+      pkgs.ruff-lsp
+      pkgs.shellcheck
+      pkgs.shfmt
+      pkgs.stylua
+      pkgs.terraform-ls
+      pkgs.tflint
+      pkgs.yaml-language-server
+    ];
   };
 
   programs.spicetify = {

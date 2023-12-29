@@ -231,15 +231,6 @@
   # Git
   programs.git.enable = true;
 
-  # Neovim text editor configuration
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    withNodeJs = true;
-    withPython3 = true;
-    withRuby = true;
-  };
-
   # GnuPG agent configuration
   programs.gnupg.agent = {
     enable = true;
