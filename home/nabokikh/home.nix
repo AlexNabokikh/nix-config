@@ -128,12 +128,14 @@ in {
     enableCompletion = false;
     shellAliases = {
       cat = "bat -p";
+      du = "dust";
       grep = "rg";
       kupdate = "krew update && krew upgrade";
       ld = "lazydocker";
       lg = "lazygit";
       repo = "cd $HOME/Documents/repositories";
       temp = "cd $HOME/Downloads/temp";
+      top = "btm";
       vim = "nvim";
       ls = "exa --icons"; # default view
       ll = "exa -bhl --group-directories-first --icons"; # long list
