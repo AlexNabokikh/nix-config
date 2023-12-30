@@ -214,6 +214,7 @@ in {
       pkgs.dockerfile-language-server-nodejs
       pkgs.golangci-lint
       pkgs.golangci-lint-langserver
+      pkgs.gopls
       pkgs.gotools
       pkgs.hadolint
       pkgs.isort
