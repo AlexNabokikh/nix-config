@@ -37,10 +37,6 @@
         specialArgs = {inherit inputs outputs;};
         modules = [./hosts/nabokikh-z13/configuration.nix];
       };
-      test-pc = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/test-pc/configuration.nix];
-      };
     };
 
     homeConfigurations = {
@@ -50,11 +46,6 @@
         modules = [./home/nabokikh/home.nix];
       };
       "nabokikh@nabokikh-z13" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/nabokikh/home.nix];
-      };
-      "nabokikh@test-pc" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [./home/nabokikh/home.nix];
