@@ -94,7 +94,7 @@
   environment.localBinInPath = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;
+  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
