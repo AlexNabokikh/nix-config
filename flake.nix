@@ -12,9 +12,6 @@
     # NixOS profiles to optimize settings for different hardware
     hardware.url = "github:nixos/nixos-hardware";
 
-    # NixOS theming
-    nix-colors.url = "github:misterio77/nix-colors";
-
     # NixOS Spicetify
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
