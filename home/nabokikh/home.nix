@@ -206,32 +206,33 @@ in {
     withPython3 = true;
     withRuby = true;
 
-    extraPackages = [
-      pkgs.alejandra
-      pkgs.ansible-language-server
-      pkgs.ansible-lint
-      pkgs.black
-      pkgs.dockerfile-language-server-nodejs
-      pkgs.golangci-lint
-      pkgs.golangci-lint-langserver
-      pkgs.gopls
-      pkgs.gotools
-      pkgs.hadolint
-      pkgs.isort
-      pkgs.lua-language-server
-      pkgs.markdownlint-cli
-      pkgs.marksman
-      pkgs.nodePackages.bash-language-server
-      pkgs.nodePackages.prettier
-      pkgs.nodePackages.pyright
-      pkgs.ruff
-      pkgs.ruff-lsp
-      pkgs.shellcheck
-      pkgs.shfmt
-      pkgs.stylua
-      pkgs.terraform-ls
-      pkgs.tflint
-      pkgs.yaml-language-server
+    extraPackages = with pkgs; [
+      alejandra
+      ansible-language-server
+      ansible-lint
+      black
+      dockerfile-language-server-nodejs
+      golangci-lint
+      golangci-lint-langserver
+      gopls
+      gotools
+      hadolint
+      isort
+      lua-language-server
+      markdownlint-cli
+      marksman
+      nodePackages.bash-language-server
+      nodePackages.prettier
+      nodePackages.pyright
+      ruff
+      ruff-lsp
+      shellcheck
+      shfmt
+      stylua
+      terraform-ls
+      tflint
+      vscode-langservers-extracted
+      yaml-language-server
     ];
   };
 
