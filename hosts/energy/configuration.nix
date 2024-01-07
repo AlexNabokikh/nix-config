@@ -212,7 +212,6 @@
     telegram-desktop
     terraform
     terragrunt
-    ulauncher
     unzip
     vlc
     wget

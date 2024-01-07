@@ -201,6 +201,7 @@
         pre-commit
         virtualenv
       ]))
+    qt6.qtwayland
     ripgrep
     saml2aws
     sops
@@ -211,6 +212,8 @@
     unzip
     vlc
     wget
+    wineWowPackages.stable
+    wl-clipboard
     xclip
     zoom-us
     zsh
