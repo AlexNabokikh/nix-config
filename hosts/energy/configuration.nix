@@ -204,7 +204,7 @@
         pre-commit
         virtualenv
       ]))
-    qtwayland
+    qt6.qtwayland
     ripgrep
     saml2aws
     sops
