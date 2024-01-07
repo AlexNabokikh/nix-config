@@ -120,6 +120,8 @@ in {
     ";
 
     SAML2AWS_SESSION_DURATION = "3600";
+
+    QT_QPA_PLATFORM = "wayland";
   };
 
   # Zsh shell configuration
