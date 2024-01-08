@@ -26,7 +26,7 @@
     --prompt='~ ' --pointer='▶' --marker='✓'
     --bind '?:toggle-preview'
     --bind 'ctrl-a:select-all'
-    --bind 'ctrl-y:execute-silent(echo {+} | wl-clipboard -selection clipboard)'
+    --bind 'ctrl-y:execute-silent(echo {+} | wl-copy -selection clipboard)'
     --bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'
     --bind 'ctrl-v:execute(code {+})'
     ";
