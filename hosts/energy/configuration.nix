@@ -21,7 +21,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     lutris
-    neofetch
   ];
 
   # Steam gaming platform configuration
