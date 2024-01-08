@@ -6,9 +6,11 @@
   ...
 }: {
   # List of packages installed for the user
-  home.packages = with pkgs; [
-    fzf
-  ];
+  # home.packages = with pkgs; [
+  #   fzf
+  # ];
+
+  programs.fzf.enable = true;
 
   # Environment session variables
   home.sessionVariables = {
