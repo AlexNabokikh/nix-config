@@ -20,10 +20,10 @@
       temp = "cd $HOME/Downloads/temp";
       top = "btm";
       vim = "nvim";
-      ls = "exa --icons"; # default view
-      ll = "exa -bhl --group-directories-first --icons"; # long list
-      la = "exa -abhl --group-directories-first --icons"; # all list
-      lt = "exa --tree --level=2 --icons"; # tree
+      ls = "eza --icons"; # default view
+      ll = "eza -bhl --group-directories-first --icons"; # long list
+      la = "eza -abhl --group-directories-first --icons"; # all list
+      lt = "eza --tree --level=2 --icons"; # tree
     };
     oh-my-zsh = {
       enable = true;
