@@ -24,29 +24,29 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+
+    # Function for NixOS system configuration
+    nixosSystemFor = hostname: configurationFile:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [configurationFile];
+      };
+
+    # Function for Home Manager configuration
+    homeManagerFor = user: hostname: {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = {inherit inputs outputs;};
+      modules = [./home/${user}/home.nix];
+    };
   in {
     nixosConfigurations = {
-      energy = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/energy/configuration.nix];
-      };
-      nabokikh-z13 = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/nabokikh-z13/configuration.nix];
-      };
+      energy = nixosSystemFor "energy" ./hosts/energy/configuration.nix;
+      nabokikh-z13 = nixosSystemFor "nabokikh-z13" ./hosts/nabokikh-z13/configuration.nix;
     };
 
     homeConfigurations = {
-      "nabokikh@energy" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/nabokikh/home.nix];
-      };
-      "nabokikh@nabokikh-z13" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/nabokikh/home.nix];
-      };
+      "nabokikh@energy" = home-manager.lib.homeManagerConfiguration (homeManagerFor "nabokikh" "energy");
+      "nabokikh@nabokikh-z13" = home-manager.lib.homeManagerConfiguration (homeManagerFor "nabokikh" "nabokikh-z13");
     };
   };
 }
