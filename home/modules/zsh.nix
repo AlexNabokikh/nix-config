@@ -6,6 +6,7 @@
   ...
 }: {
   # Zsh shell configuration
+  # TODO: replace exa alias with eza once auto-complete fixed
   programs.zsh = {
     enable = true;
     enableCompletion = false;
