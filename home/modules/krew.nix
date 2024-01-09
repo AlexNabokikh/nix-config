@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  # List of packages installed for the user
+  # Ensure krew package installed
   home.packages = with pkgs; [
     krew
   ];

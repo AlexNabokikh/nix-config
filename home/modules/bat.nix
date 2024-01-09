@@ -5,9 +5,11 @@
   pkgs,
   ...
 }: {
-  # List of packages installed for the user
-  programs.bat = {
-    enable = true;
-    config.theme = "Catppuccin-macchiato";
+  # Install bat via home-manager module
+  programs.bat.enable = true;
+
+  # Set theme via env vars
+  home.sessionVariables = {
+    BAT_THEME = "Catppuccin-macchiato";
   };
 }

@@ -5,12 +5,12 @@
   pkgs,
   ...
 }: {
-  # List of packages installed for the user
+  # Ensure flameshot package installed
   home.packages = with pkgs; [
     flameshot
   ];
 
-  # Environment session variables
+  # Set env vars so flameshot works under wayland
   home.sessionVariables = {
     QT_QPA_PLATFORM = "wayland";
   };

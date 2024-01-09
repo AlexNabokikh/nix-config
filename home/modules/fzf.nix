@@ -5,10 +5,10 @@
   pkgs,
   ...
 }: {
-  # List of packages installed for the user
+  # Install fzf via home-manager module
   programs.fzf.enable = true;
 
-  # Environment session variables
+  # Set fzf options via env vars
   home.sessionVariables = {
     FZF_DEFAULT_COMMAND = "find .";
     FZF_DEFAULT_OPTS = "
