@@ -12,6 +12,24 @@
     ../common/common.nix
   ];
 
+  # hyprland test
+  environment.systemPackages = with pkgs; [
+    brightnessctl
+    cliphist
+    hyprpaper
+    mako
+    networkmanagerapplet
+    pamixer
+    pavucontrol
+    swaylock
+    wlogout
+  ];
+
+  # hyprland test
+  programs.hyprland.enable = true;
+  programs.waybar.enable = true;
+  services.blueman.enable = true;
+
   # Set hostname
   networking.hostName = "nabokikh-z13";
 
