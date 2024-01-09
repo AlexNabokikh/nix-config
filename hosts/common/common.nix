@@ -183,6 +183,7 @@
         pre-commit
         virtualenv
       ]))
+    pulseaudio
     qt6.qtwayland
     ripgrep
     sops
