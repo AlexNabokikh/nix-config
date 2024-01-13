@@ -21,6 +21,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     lutris
+    wineWowPackages.stable
   ];
 
   # Steam gaming platform configuration
