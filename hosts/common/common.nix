@@ -36,13 +36,13 @@
 
   # Bootloader.
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.loader.systemd-boot.enable = true;
+  boot.consoleLogLevel = 0;
+  boot.initrd.verbose = false;
+  boot.kernelParams = ["quiet" "splash"];
   boot.loader.efi.canTouchEfiVariables = true;
-  boot = {
-    kernelParams = ["quiet" "splash"];
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 0;
+  boot.plymouth.enable = true;
 
   # Enable networking
   networking.networkmanager.enable = true;
