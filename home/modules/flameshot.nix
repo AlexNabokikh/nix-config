@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Ensure flameshot package installed
   home.packages = with pkgs; [
     flameshot

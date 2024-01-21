@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Zsh shell configuration
   # TODO: replace exa alias with eza once auto-complete fixed
   programs.zsh = {
@@ -20,6 +14,7 @@
       repo = "cd $HOME/Documents/repositories";
       temp = "cd $HOME/Downloads/temp";
       top = "btm";
+      v = "nvim";
       vim = "nvim";
       ls = "exa --icons"; # default view
       ll = "exa -bhl --group-directories-first --icons"; # long list

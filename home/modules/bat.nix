@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   # Install bat via home-manager module
   programs.bat.enable = true;
 

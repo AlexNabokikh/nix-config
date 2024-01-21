@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Ulauncher plugins dependecies installation via overlay
   nixpkgs = {
     overlays = [

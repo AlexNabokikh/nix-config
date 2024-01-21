@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   # Install fzf via home-manager module
   programs.fzf.enable = true;
 

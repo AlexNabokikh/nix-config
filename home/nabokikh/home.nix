@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   imports = [
     ../modules/bat.nix
     ../modules/flameshot.nix
