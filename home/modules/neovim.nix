@@ -28,6 +28,7 @@
       lua-language-server
       markdownlint-cli
       marksman
+      nil
       nodePackages.bash-language-server
       nodePackages.prettier
       nodePackages.pyright
