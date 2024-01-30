@@ -143,6 +143,7 @@
     bottom
     brave
     delta
+    dig
     du-dust
     eza
     fd
