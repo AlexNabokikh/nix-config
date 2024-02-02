@@ -34,7 +34,6 @@
     slurp
     swappy
     swaylock-effects
-    waybar
     wlr-randr
     wlsunset
   ];
