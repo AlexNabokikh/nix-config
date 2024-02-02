@@ -79,7 +79,7 @@
     excludePackages = with pkgs; [xterm];
 
     displayManager.gdm.enable = true; # Enable GNOME Display Manager
-    desktopManager.gnome.enable = true; # Enable GNOME
+    desktopManager.gnome.enable = false; # Enable GNOME
   };
 
   # Add ~/.local/bin to PATH
