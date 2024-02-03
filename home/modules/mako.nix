@@ -10,6 +10,8 @@
     layer = "overlay";
     progressColor = "#363a4f";
     textColor = "#cad3f5";
+    width = 400;
+    height = 300;
 
     extraConfig = ''
       [urgency=high]
