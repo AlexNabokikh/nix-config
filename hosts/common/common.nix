@@ -111,7 +111,6 @@
   # Enable passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
-  # Excluding some GNOME applications from the default install
   environment.gnome.excludePackages =
     (with pkgs; [
       gedit
@@ -195,7 +194,34 @@
     wl-clipboard
     zoom-us
     zsh-powerlevel10k
+
+    # hyprland
+    brightnessctl
+    grim
+    gtklock
+    hyprpaper
+    libnotify
+    nwg-displays
+    nwg-panel
+    pamixer
+    pavucontrol
+    slurp
+    swappy
+    swaynotificationcenter
+    wlr-randr
+    wlsunset
   ];
+
+  # hyprland
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  programs.hyprland.enable = true;
+
+  services.blueman.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services.gtklock = {};
 
   # Docker configuration
   virtualisation.docker.enable = true;
