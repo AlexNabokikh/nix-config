@@ -202,7 +202,6 @@
     hyprpaper
     libnotify
     nwg-displays
-    nwg-panel
     pamixer
     pavucontrol
     slurp
