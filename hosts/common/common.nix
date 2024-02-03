@@ -206,7 +206,6 @@
     pavucontrol
     slurp
     swappy
-    swaynotificationcenter
     wlr-randr
     wlsunset
   ];
@@ -236,7 +235,8 @@
 
   # Fonts configuration
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["Meslo"];})
+    # (nerdfonts.override {fonts = ["Meslo"];})
+    nerdfonts
     roboto
   ];
 
