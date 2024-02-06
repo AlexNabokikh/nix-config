@@ -82,6 +82,9 @@
     desktopManager.gnome.enable = false; # Enable GNOME
   };
 
+  # Enable Ozone Wayland support in Chromium and Electron based applications
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 
