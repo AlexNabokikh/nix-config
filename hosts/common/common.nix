@@ -194,7 +194,6 @@
     wget
     wl-clipboard
     zoom-us
-    zsh
     zsh-powerlevel10k
   ];
 
@@ -203,15 +202,6 @@
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
-  };
-
-  # Git
-  programs.git.enable = true;
-
-  # GnuPG agent configuration
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 
   # Zsh configuration

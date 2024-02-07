@@ -1,4 +1,5 @@
 {...}: {
+  # Install lazygit via home-manager module
   programs.lazygit = {
     enable = true;
 
@@ -6,7 +7,7 @@
       git = {
         paging = {
           colorArg = "always";
-          pager = "delta --syntax-theme catppuccin --paging=never --line-numbers";
+          pager = "delta";
         };
       };
     };
