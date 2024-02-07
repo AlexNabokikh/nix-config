@@ -1,10 +1,12 @@
 {...}: {
   imports = [
     ../modules/bat.nix
+    ../modules/bottom.nix
     ../modules/flameshot.nix
     ../modules/fzf.nix
     ../modules/gtk.nix
     ../modules/krew.nix
+    ../modules/lazygit.nix
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix

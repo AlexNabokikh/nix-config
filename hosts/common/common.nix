@@ -140,7 +140,6 @@
     anki
     argo-rollouts
     awscli2
-    bottom
     brave
     delta
     dig
@@ -172,7 +171,6 @@
     kubectl
     kubernetes-helm
     lazydocker
-    lazygit
     mesa
     neofetch
     normcap
