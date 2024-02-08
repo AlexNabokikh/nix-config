@@ -138,7 +138,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    alacritty
     anki
     argo-rollouts
     awscli2
@@ -154,7 +153,6 @@
     gimp
     jq
     gnome.dconf-editor
-    gnome.gnome-session
     gnome.gnome-shell-extensions
     gnome.gnome-tweaks
     gnome.pomodoro
@@ -182,7 +180,6 @@
     (python3.withPackages (ps:
       with ps; [
         pip
-        pre-commit
         virtualenv
       ]))
     pulseaudio
