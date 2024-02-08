@@ -69,9 +69,11 @@
   # Enable the GNOME Desktop Environment.
   services.xserver = {
     enable = true; # X11 is enabled as a dependency of GNOME
-    layout = "pl"; # Configure keymap in X11
-    xkbVariant = "";
     libinput.enable = true; # Enable touchpad support
+    xkb = {
+      layout = "pl";
+      variant = "";
+    };
 
     # Exclude certain default packages
     excludePackages = with pkgs; [xterm];
@@ -112,6 +114,7 @@
   # Excluding some GNOME applications from the default install
   environment.gnome.excludePackages =
     (with pkgs; [
+      gedit
       gnome-photos
       gnome-tour
       snapshot
@@ -121,7 +124,6 @@
       gnome-music
       gnome-terminal
       gnome-contacts
-      gedit
       simple-scan
       gnome-maps
       epiphany # web browser
@@ -143,6 +145,7 @@
     brave
     delta
     dig
+    docker-compose
     du-dust
     eza
     fd

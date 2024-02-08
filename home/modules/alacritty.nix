@@ -55,8 +55,8 @@
 
       import = [
         (pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/catppuccin/alacritty/3c808cbb4f9c87be43ba5241bc57373c793d2f17/catppuccin-macchiato.yml";
-          hash = "sha256-+m8FyPStdh1A1xMVBOkHpfcaFPcyVL99tIxHuDZ2zXI=";
+          url = "https://raw.githubusercontent.com/catppuccin/alacritty/832787d6cc0796c9f0c2b03926f4a83ce4d4519b/catppuccin-macchiato.toml";
+          hash = "sha256-m0Y8OBD9Pgjw9ARwjeD8a+JIQRDboVVCywQS8/ZBAcc=";
         })
       ];
 
@@ -66,24 +66,6 @@
       };
 
       live_config_reload = true;
-
-      key_bindings = [
-        {
-          key = "X";
-          mods = "Control";
-          action = "ToggleViMode";
-        }
-        {
-          key = "J";
-          mods = "Control";
-          action = "ScrollLineDown";
-        }
-        {
-          key = "K";
-          mods = "Control";
-          action = "ScrollLineUp";
-        }
-      ];
     };
   };
 }

@@ -12,6 +12,7 @@
     ];
 
     extraConfig = ''
+      set -ga terminal-overrides ",xterm-256color:RGB:smcup@:rmcup@"
       set -g prefix C-q
       unbind C-b
       setw -g mode-keys vi
