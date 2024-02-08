@@ -19,5 +19,8 @@
         width = 280;
       };
     };
+    extraConfig = {
+      pull.rebase = "true";
+    };
   };
 }
