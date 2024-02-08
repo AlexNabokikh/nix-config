@@ -204,6 +204,7 @@
     gtklock
     hyprpaper
     libnotify
+    networkmanagerapplet
     nwg-displays
     pamixer
     pavucontrol
