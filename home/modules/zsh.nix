@@ -80,6 +80,7 @@
     enableZshIntegration = true;
     settings =
       {
+        add_newline = false;
         palette = "catppuccin_${flavour}";
       }
       // builtins.fromTOML (builtins.readFile
