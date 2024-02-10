@@ -66,7 +66,10 @@
       source <(kubectl completion zsh)
 
       # bindings
+      bindkey -v
       bindkey -s ^f "cd-to-project\n"
+      bindkey '^A' beginning-of-line
+      bindkey '^E' end-of-line
     '';
   };
 
