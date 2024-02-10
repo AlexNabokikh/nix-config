@@ -35,7 +35,10 @@
     # Function for Home Manager configuration
     homeManagerFor = user: hostname: {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      extraSpecialArgs = {inherit inputs outputs;};
+      extraSpecialArgs = {
+        inherit inputs outputs;
+        flakePath = toString ./.;
+      };
       modules = [./home/${user}/home.nix];
     };
   in {

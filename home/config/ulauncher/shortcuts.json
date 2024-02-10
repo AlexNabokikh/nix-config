@@ -1,0 +1,32 @@
+{
+    "6524dac6-7723-4a88-b920-65b1f96ee946": {
+        "id": "6524dac6-7723-4a88-b920-65b1f96ee946",
+        "name": "search",
+        "keyword": "br",
+        "cmd": "https://search.brave.com/search?q=%s",
+        "icon": "~/.config/ulauncher/brave.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1684850439.0202124
+    },
+    "0eb1c1b7-8e36-4a13-abd4-0b6bb1f7bdb9": {
+        "id": "0eb1c1b7-8e36-4a13-abd4-0b6bb1f7bdb9",
+        "name": "Quit All Applications",
+        "keyword": "quit",
+        "cmd": "#!/usr/bin/env bash\nHYPRCMDS=$(hyprctl -j clients | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"')\nhyprctl --batch \"$HYPRCMDS\" 2>&1",
+        "icon": "~/.config/ulauncher/quit.png",
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1687024658.867567
+    },
+    "b7d20d83-ca3d-4c5d-8705-1b567fa8dcee": {
+        "id": "b7d20d83-ca3d-4c5d-8705-1b567fa8dcee",
+        "name": "Work Tools",
+        "keyword": "work",
+        "cmd": "#!/usr/bin/env bash\n\n# Check if Brave is already running\nif ! pgrep \"brave\" >/dev/null; then\n\techo \"Launching Brave...\"\n\tbrave &\nelse\n\techo \"Brave is already running.\"\nfi\n\nsleep 2\n\n# Check if Alacritty is already running\nif ! pgrep -x \"alacritty\" >/dev/null; then\n\techo \"Launching Alacritty...\"\n\talacritty &\nelse\n\techo \"Alacritty is already running.\"\nfi\n\n# Check if Telegram is already running\nif ! pgrep -x \"telegram-desktop\" >/dev/null; then\n\techo \"Launching Telegram...\"\n\ttelegram-desktop\nelse\n\techo \"Telegram is already running.\"\nfi",
+        "icon": "~/.config/ulauncher/tools.png",
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1687025817.105349
+    }
+}

@@ -11,11 +11,13 @@
     ../modules/gtk.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
+    ../modules/mako.nix
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
+    ../modules/waybar.nix
     ../modules/zsh.nix
   ];
 

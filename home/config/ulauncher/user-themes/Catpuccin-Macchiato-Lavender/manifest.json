@@ -1,0 +1,13 @@
+
+{
+    "manifest_version": "1",
+    "name": "Catpuccin-Macchiato-Lavender",
+    "display_name": "Catpuccin Macchiato Lavender",
+    "extend_theme": "light",
+    "css_file": "theme.css",
+    "css_file_gtk_3.20+": "theme-gtk-3.20.css",
+    "matched_text_hl_colors": {
+        "when_selected": "#b7bdf8",
+        "when_not_selected": "#b7bdf8"
+    }
+}
