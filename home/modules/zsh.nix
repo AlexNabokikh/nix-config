@@ -82,6 +82,9 @@
       {
         add_newline = false;
         palette = "catppuccin_${flavour}";
+        directory = {
+          style = "bold lavender";
+        };
       }
       // builtins.fromTOML (builtins.readFile
         (pkgs.fetchFromGitHub
