@@ -11,6 +11,8 @@
       gaa = "git add --all";
       gcam = "git commit --all --message";
       gco = "git checkout";
+      ggl = "git pull";
+      ggp = "git push";
 
       du = "dust";
       grep = "rg";
@@ -38,6 +40,9 @@
       ked = "kubectl edit deployment";
       kdd = "kubectl describe deployment";
       kdeld = "kubectl delete deployment";
+      kgsec = "kubectl get secret";
+      kdsec = "kubectl describe secret";
+      kdelsec = "kubectl delete secret";
 
       ld = "lazydocker";
       lg = "lazygit";
