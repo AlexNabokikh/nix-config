@@ -81,10 +81,22 @@
     settings =
       {
         add_newline = false;
-        palette = "catppuccin_${flavour}";
         directory = {
           style = "bold lavender";
         };
+        kubernetes = {
+          disabled = false;
+          style = "bold pink";
+          format = "[$symbol$context( \($namespace\))]($style)";
+          contexts = [
+            {
+              context_pattern = "arn:aws:eks:(?P<var_region>.*):(?P<var_account>[0-9]{12}):cluster/(?P<var_cluster>.*)";
+              context_alias = "$var_cluster";
+            }
+          ];
+        };
+        palette = "catppuccin_${flavour}";
+        right_format = "$kubernetes";
       }
       // builtins.fromTOML (builtins.readFile
         (pkgs.fetchFromGitHub
