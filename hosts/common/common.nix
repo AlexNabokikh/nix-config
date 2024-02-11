@@ -35,7 +35,7 @@
   };
 
   # Bootloader.
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
   boot.kernelParams = ["quiet" "splash"];
