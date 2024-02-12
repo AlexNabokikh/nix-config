@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   # Zsh shell configuration
-  # TODO: replace exa alias with eza once auto-complete fixed
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -56,10 +55,10 @@
       vi = "nvim";
       vim = "nvim";
 
-      ls = "exa --icons"; # default view
-      ll = "exa -bhl --group-directories-first --icons"; # long list
-      la = "exa -abhl --group-directories-first --icons"; # all list
-      lt = "exa --tree --level=2 --icons"; # tree
+      ls = "eza --icons always"; # default view
+      ll = "eza -bhl --icons --group-directories-first"; # long list
+      la = "eza -abhl --icons --group-directories-first"; # all list
+      lt = "eza --tree --level=2 --icons"; # tree
     };
     initExtra = ''
       # kubectl auto-complete
