@@ -16,6 +16,7 @@
     ../modules/spicetify.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
+    ../modules/waybar.nix
     ../modules/zsh.nix
   ];
 
