@@ -162,7 +162,6 @@
     ]
   },
   "tray": {
-    "icon-size": 17,
     "spacing": 8
   },
   "custom/notification": {
