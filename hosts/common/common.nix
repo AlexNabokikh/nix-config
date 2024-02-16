@@ -210,7 +210,6 @@
     pavucontrol
     slurp
     swappy
-    swaynotificationcenter
     tesseract
     wlr-randr
     wlsunset

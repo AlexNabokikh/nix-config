@@ -16,6 +16,7 @@
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
+    ../modules/swaync.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
     ../modules/waybar.nix
