@@ -23,6 +23,10 @@ in {
       name = "Yaru";
       package = pkgs.yaru-theme;
     };
+    font = {
+      name = "Roboto";
+      size = 11;
+    };
   };
 
   # GTK-4 configuration files
