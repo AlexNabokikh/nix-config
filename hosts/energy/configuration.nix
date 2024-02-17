@@ -9,7 +9,8 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
-    ../common/common.nix
+    ../modules/common.nix
+    ../modules/hyprland.nix
   ];
 
   # Set hostname

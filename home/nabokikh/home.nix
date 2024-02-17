@@ -9,13 +9,17 @@
     ../modules/git.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
+    ../modules/gtklock.nix
+    ../modules/hyprland.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
+    ../modules/swaync.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
+    ../modules/waybar.nix
     ../modules/zsh.nix
   ];
 
