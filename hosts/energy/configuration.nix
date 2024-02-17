@@ -10,7 +10,6 @@
 
     ./hardware-configuration.nix
     ../modules/common.nix
-    ../modules/gnome.nix
     ../modules/hyprland.nix
   ];
 
