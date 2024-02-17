@@ -155,7 +155,6 @@
     terraform
     terragrunt
     unzip
-    vlc
     wget
     wl-clipboard
   ];

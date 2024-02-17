@@ -19,7 +19,6 @@
       gnome-maps
       epiphany # web browser
       geary # email reader
-      totem # video player
       tali # poker game
       iagno # go game
       hitori # sudoku game

@@ -11,6 +11,7 @@
     ../modules/gtk.nix
     ../modules/gtklock.nix
     ../modules/hyprland.nix
+    ../modules/kanshi.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
