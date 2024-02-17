@@ -19,6 +19,7 @@
 
   # List of Hyprland specific packages
   environment.systemPackages = with pkgs; [
+    evince # gnome document viewer
     gnome-text-editor
     gnome.gnome-calculator
     gnome.gnome-clocks
@@ -26,7 +27,6 @@
     gnome.gnome-weather
     gnome.nautilus
     gnome.seahorse # keyring manager
-    evince # gnome document viewer
     loupe # image viewer
 
     brightnessctl
