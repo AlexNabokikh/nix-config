@@ -34,41 +34,43 @@
     auto-optimise-store = true;
   };
 
-  # Bootloader.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
-  boot.kernelParams = ["quiet" "splash"];
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 0;
-  boot.plymouth.enable = true;
+  # Boot settings
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = ["quiet" "splash"];
+    loader.efi.canTouchEfiVariables = true;
+    loader.systemd-boot.enable = true;
+    loader.timeout = 0;
+    plymouth.enable = true;
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # Set your time zone
   time.timeZone = "Europe/Warsaw";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Internationalization settings
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IE.UTF-8";
-    LC_IDENTIFICATION = "en_IE.UTF-8";
-    LC_MEASUREMENT = "en_IE.UTF-8";
-    LC_MONETARY = "en_IE.UTF-8";
-    LC_NAME = "en_IE.UTF-8";
-    LC_NUMERIC = "en_IE.UTF-8";
-    LC_PAPER = "en_IE.UTF-8";
-    LC_TELEPHONE = "en_IE.UTF-8";
-    LC_TIME = "en_IE.UTF-8";
+  # Select internationalisation properties
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_IE.UTF-8";
+      LC_IDENTIFICATION = "en_IE.UTF-8";
+      LC_MEASUREMENT = "en_IE.UTF-8";
+      LC_MONETARY = "en_IE.UTF-8";
+      LC_NAME = "en_IE.UTF-8";
+      LC_NUMERIC = "en_IE.UTF-8";
+      LC_PAPER = "en_IE.UTF-8";
+      LC_TELEPHONE = "en_IE.UTF-8";
+      LC_TIME = "en_IE.UTF-8";
+    };
   };
 
-  # Enable the GNOME Desktop Environment.
+  # X11 settings
   services.xserver = {
-    enable = true; # X11 is enabled as a dependency of GNOME
+    enable = true;
     libinput.enable = true; # Enable touchpad support
     xkb = {
       layout = "pl";
@@ -78,12 +80,9 @@
     # Exclude certain default packages
     excludePackages = with pkgs; [xterm];
 
-    displayManager.gdm.enable = true; # Enable GNOME Display Manager
-    desktopManager.gnome.enable = false; # Enable GNOME
+    # Set GDM as the default display manager
+    displayManager.gdm.enable = true;
   };
-
-  # Enable Ozone Wayland support in Chromium and Electron based applications
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
@@ -114,31 +113,7 @@
   # Enable passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
-  environment.gnome.excludePackages =
-    (with pkgs; [
-      gedit
-      gnome-photos
-      gnome-tour
-      snapshot
-    ])
-    ++ (with pkgs.gnome; [
-      cheese # webcam tool
-      gnome-music
-      gnome-terminal
-      gnome-contacts
-      simple-scan
-      gnome-maps
-      epiphany # web browser
-      geary # email reader
-      totem # video player
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-    ]);
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List of common packages
   environment.systemPackages = with pkgs; [
     anki
     argo-rollouts
@@ -155,18 +130,6 @@
     gimp
     jq
     gnome.dconf-editor
-    gnome.gnome-shell-extensions
-    gnome.gnome-tweaks
-    gnome.pomodoro
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.caffeine
-    gnomeExtensions.clipboard-history
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.forge
-    gnomeExtensions.just-perfection
-    gnomeExtensions.space-bar
-    gnomeExtensions.unblank
-    gnomeExtensions.user-themes
     gnumake
     go
     helmfile
@@ -195,36 +158,7 @@
     vlc
     wget
     wl-clipboard
-    zoom-us
-    zsh-powerlevel10k
-
-    # hyprland
-    brightnessctl
-    grim
-    gtklock
-    hyprpaper
-    libnotify
-    networkmanagerapplet
-    nwg-displays
-    pamixer
-    pavucontrol
-    slurp
-    swappy
-    tesseract
-    wlr-randr
-    wlsunset
   ];
-
-  # hyprland
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  programs.hyprland.enable = true;
-
-  services.blueman.enable = true;
-
-  security.polkit.enable = true;
-  security.pam.services.gtklock = {};
 
   # Docker configuration
   virtualisation.docker.enable = true;
@@ -240,7 +174,6 @@
 
   # Fonts configuration
   fonts.packages = with pkgs; [
-    # (nerdfonts.override {fonts = ["Meslo"];})
     nerdfonts
     roboto
   ];

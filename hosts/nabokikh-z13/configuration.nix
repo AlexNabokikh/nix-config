@@ -3,7 +3,8 @@
     inputs.hardware.nixosModules.lenovo-thinkpad-z13
 
     ./hardware-configuration.nix
-    ../common/common.nix
+    ../modules/common.nix
+    ../modules/hyprland.nix
   ];
 
   # Set hostname
