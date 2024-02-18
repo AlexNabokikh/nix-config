@@ -90,6 +90,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
+  # Enable storage services
+  services.devmon.enable = true;
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;

@@ -2,6 +2,13 @@
   wallpaper = ./../../files/wallpapers/wallpaper.jpg;
   hyprland = ./../../files/configs/hypr;
 in {
+  imports = [
+    ./gtklock.nix
+    ./kanshi.nix
+    ./swaync.nix
+    ./waybar.nix
+    ./xdg.nix
+  ];
   # Source hyprland config from the home-manager store
   home.file = {
     ".config/hypr" = {
