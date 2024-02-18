@@ -23,22 +23,16 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
-  # Enable thunar file manager
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-    ];
-  };
-
   # List of Hyprland specific packages
   environment.systemPackages = with pkgs; [
     evince # gnome document viewer
     gnome-text-editor
+    gnome.file-roller # archive manager
     gnome.gnome-calculator
     gnome.gnome-clocks
     gnome.gnome-keyring # password and secrets
     gnome.gnome-weather
+    gnome.nautilus # file manager
     gnome.seahorse # keyring manager
     gnome.totem # Video player
     loupe # image viewer
