@@ -3,7 +3,6 @@
     ../modules/alacritty.nix
     ../modules/bat.nix
     ../modules/bottom.nix
-    ../modules/easyeffects.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix
