@@ -128,7 +128,6 @@
     du-dust
     eza
     fd
-    ffmpeg
     gcc
     gimp
     jq
@@ -143,7 +142,6 @@
     lazydocker
     mesa
     neofetch
-    normcap
     obs-studio
     openconnect
     (python3.withPackages (ps:
