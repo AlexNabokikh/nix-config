@@ -133,6 +133,7 @@
     gnumake
     go
     helmfile
+    killall
     kind
     kubectl
     kubernetes-helm
