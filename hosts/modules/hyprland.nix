@@ -11,9 +11,13 @@
   programs.hyprland.enable = true;
 
   # Enable security services support for gtklock
+  services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
-  security.pam.services.gtklock = {};
-
+  security.pam.services = {
+    gtklock = {};
+    gdm.enableGnomeKeyring = true;
+  };
+  #
   # Enable Ozone Wayland support in Chromium and Electron based applications
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -29,7 +33,6 @@
     gnome-text-editor
     gnome.file-roller # archive manager
     gnome.gnome-calculator
-    gnome.gnome-keyring # password and secrets
     gnome.gnome-weather
     gnome.nautilus # file manager
     gnome.seahorse # keyring manager

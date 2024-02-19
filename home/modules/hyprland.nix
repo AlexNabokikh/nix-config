@@ -3,10 +3,12 @@
   hyprland = ./../../files/configs/hypr;
 in {
   imports = [
+    ./clipboard.nix
     ./gtklock.nix
     ./kanshi.nix
     ./swaync.nix
     ./waybar.nix
+    ./wofi.nix
     ./xdg.nix
   ];
   # Source hyprland config from the home-manager store
