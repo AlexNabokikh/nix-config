@@ -33,11 +33,4 @@
       };
     };
   };
-
-  systemd.user.services.kanshi = {
-    serviceConfig = {
-      StartLimitBurst = 5;
-      StartLimitIntervalSec = 30;
-    };
-  };
 }
