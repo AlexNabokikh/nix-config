@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  # enables support for Bluetooth
+  # Call dbus-update-activation-environment on login
+  services.xserver.updateDbusEnvironment = true;
+
+  # Enables support for Bluetooth
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
