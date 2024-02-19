@@ -9,25 +9,25 @@
     enable = true;
     systemdTarget = "graphical-session.target";
     profiles = {
+      docked = {
+        outputs = [
+          {
+            criteria = "DP-1";
+            status = "enable";
+            position = "0,0";
+          }
+          {
+            criteria = "eDP-1";
+            status = "disable";
+          }
+        ];
+      };
       undocked = {
         outputs = [
           {
             criteria = "eDP-1";
             status = "enable";
-            mode = "2880x1800@60Hz";
-          }
-        ];
-      };
-      docked = {
-        outputs = [
-          {
-            criteria = "DP-1";
-            mode = "2560x1440@59.95";
-            status = "enable";
-          }
-          {
-            criteria = "eDP-1";
-            status = "disable";
+            position = "0,0";
           }
         ];
       };
