@@ -1,11 +1,10 @@
-{...}: {
+{pkgs, ...}: {
+  # Install kanshi via home-manager module
+  home.packages = with pkgs; [
+    kanshi
+  ];
+
   # Manage kanshi services via Home-manager
-  systemd.user.services.kanshi = {
-    serviceConfig = {
-      StartLimitBurst = 5;
-      StartLimitIntervalSec = 30;
-    };
-  };
   services.kanshi = {
     enable = true;
     systemdTarget = "graphical-session.target";
@@ -32,6 +31,13 @@
           }
         ];
       };
+    };
+  };
+
+  systemd.user.services.kanshi = {
+    serviceConfig = {
+      StartLimitBurst = 5;
+      StartLimitIntervalSec = 30;
     };
   };
 }
