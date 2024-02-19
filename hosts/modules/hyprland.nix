@@ -29,7 +29,6 @@
     gnome-text-editor
     gnome.file-roller # archive manager
     gnome.gnome-calculator
-    gnome.gnome-clocks
     gnome.gnome-keyring # password and secrets
     gnome.gnome-weather
     gnome.nautilus # file manager
