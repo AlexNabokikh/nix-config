@@ -3,6 +3,7 @@
     ../modules/alacritty.nix
     ../modules/bat.nix
     ../modules/bottom.nix
+    ../modules/dconf.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix
