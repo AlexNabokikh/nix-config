@@ -28,7 +28,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "gtk2";
+    pinentryFlavor = "gnome3";
     enableSshSupport = true;
     defaultCacheTtl = 86400;
   };
