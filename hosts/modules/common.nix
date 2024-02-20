@@ -160,6 +160,7 @@
     unzip
     wget
     wl-clipboard
+    zoom-us
   ];
 
   # Docker configuration
