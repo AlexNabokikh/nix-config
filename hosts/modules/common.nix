@@ -142,6 +142,7 @@
     lazydocker
     mesa
     neofetch
+    nh
     obs-studio
     openconnect
     (python3.withPackages (ps:
