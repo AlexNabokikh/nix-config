@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   # Call dbus-update-activation-environment on login
   services.xserver.updateDbusEnvironment = true;
 
@@ -11,7 +15,10 @@
   services.blueman.enable = true;
 
   # Enable Hyprland
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
 
   # Enable security services support for gtklock
   services.gnome.gnome-keyring.enable = true;
