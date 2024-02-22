@@ -45,6 +45,7 @@
     gnome.gnome-calculator
     gnome.gnome-weather
     gnome.nautilus # file manager
+    gnome.pomodoro
     gnome.seahorse # keyring manager
     gnome.totem # Video player
     loupe # image viewer
