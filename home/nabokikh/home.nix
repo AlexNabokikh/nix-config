@@ -14,6 +14,7 @@
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
+    ../modules/swappy.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
     ../modules/zsh.nix
