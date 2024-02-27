@@ -3,6 +3,12 @@
   dconf = {
     enable = true;
     settings = {
+      "org/blueman/general" = {
+        plugin-list = "['!StatusNotifierItem']";
+      };
+      "org/blueman/plugins/powermanager" = {
+        auto-power-on = true;
+      };
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "";
       };
