@@ -1,11 +1,10 @@
-{...}: let
-  swappy = ./../../files/configs/swappy;
-in {
+{...}: {
   # Source swappy config from the home-manager store
   home.file = {
-    ".config/swappy" = {
-      recursive = true;
-      source = "${swappy}";
-    };
+    ".config/swappy/config".text = ''
+      [Default]
+      save_dir=$HOME/Pictures/
+      save_filename_format=screenshot-%Y%m%d-%H%M%S.png
+    '';
   };
 }
