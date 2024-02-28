@@ -7,7 +7,7 @@
       git = {
         paging = {
           colorArg = "always";
-          pager = "delta";
+          pager = "delta --color-only --dark --paging=never";
         };
       };
     };
