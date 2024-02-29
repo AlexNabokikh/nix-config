@@ -6,6 +6,7 @@ in {
     ./clipboard.nix
     ./gtklock.nix
     ./kanshi.nix
+    ./swappy.nix
     ./swaync.nix
     ./waybar.nix
     ./wofi.nix
