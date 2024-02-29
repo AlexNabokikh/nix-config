@@ -3,18 +3,16 @@
     ../modules/alacritty.nix
     ../modules/bat.nix
     ../modules/bottom.nix
-    ../modules/dconf.nix
+    ../modules/flameshot.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
-    ../modules/hyprland.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
-    ../modules/swappy.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix
     ../modules/zsh.nix
