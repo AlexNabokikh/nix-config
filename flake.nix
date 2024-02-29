@@ -39,7 +39,7 @@
     homeManagerFor = user: hostname: {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {inherit inputs outputs;};
-      modules = [./home/${user}/home.nix];
+      modules = [./home/${user}/${hostname}.nix];
     };
   in {
     nixosConfigurations = {
