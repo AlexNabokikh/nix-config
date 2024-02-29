@@ -26,6 +26,8 @@
       DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = ["bluetooth" "wifi"];
       DEVICES_TO_ENABLE_ON_AC = ["bluetooth" "wifi"];
 
+      RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+
       DISK_IOSCHED = ["none"];
 
       START_CHARGE_THRESH_BAT0 = 30;
