@@ -4,7 +4,7 @@
     tlp = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "balanced";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
@@ -20,8 +20,13 @@
 
         DISK_IOSCHED = ["none"];
 
-        START_CHARGE_THRESH_BAT0 = 30;
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        # Battery charge thresholds for office usage
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 50;
+
+        # Battery charge thresholds for on-road usage
+        # START_CHARGE_THRESH_BAT0 = 85;
+        # STOP_CHARGE_THRESH_BAT0 = 90;
       };
     };
     power-profiles-daemon = {
