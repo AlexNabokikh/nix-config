@@ -15,6 +15,7 @@
 
         DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = ["bluetooth" "wifi" "wwan"];
         DEVICES_TO_ENABLE_ON_AC = ["bluetooth" "wifi" "wwan"];
+        USB_EXCLUDE_BTUSB = 1;
 
         RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
 
