@@ -1,0 +1,27 @@
+{
+  "diagnostics.globals": [
+    "ruff_lsp",
+    "yaml_language_server",
+    "tflint",
+    "terraform_ls",
+    "stylua",
+    "shfmt",
+    "pyright",
+    "prittier",
+    "marksman",
+    "markdownlint",
+    "lua_language_server",
+    "json_lsp",
+    "isort",
+    "hadolint",
+    "golangci_lint_langserver",
+    "golangci_lint",
+    "goimports",
+    "dockerfile_language_server",
+    "black",
+    "bash_language_server",
+    "ansible_lint",
+    "ansible_language_server",
+    "on_attach"
+  ]
+}

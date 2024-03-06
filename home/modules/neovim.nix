@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  neovim = ../../files/configs/nvim;
+in {
   # Neovim text editor configuration
   programs.neovim = {
     enable = true;
@@ -36,5 +38,10 @@
       vscode-langservers-extracted
       yaml-language-server
     ];
+  };
+
+  home.file.".config/nvim" = {
+    source = "${neovim}";
+    recursive = true;
   };
 }
