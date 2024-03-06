@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+VIDEODIR="$HOME/Videos"
+DATE_FORMAT="+%Y-%m-%d_%H-%M-%S"
+
+send_notification() {
+	notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low "$1"
+}
+
+if ! pgrep "wf-recorder" >/dev/null; then
+	if [ ! -d "$VIDEODIR" ]; then
+		mkdir -p "$VIDEODIR"
+	fi
+	FILENAME="$VIDEODIR/$(date --utc "$DATE_FORMAT").mp4"
+	send_notification "Recording started"
+	wf-recorder -f "$FILENAME" -g "$(slurp -c "#FFFFFF")" &>/dev/null &
+else
+	send_notification "Recording stopped"
+	killall -s SIGINT wf-recorder
+fi

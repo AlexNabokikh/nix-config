@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""
+The script is designed to run in environments where Kubernetes clusters are managed through AWS
+and access is controlled via SAML authentication. It automates the process of logging into the
+appropriate AWS account and setting up the shell environment for further interactions with AWS services.
+
+Key functionalities include:
+- Checking if 'saml2aws' is installed on the system.
+- Retrieving the current Kubernetes context and extracting the associated AWS account number.
+- Parsing the AWS configuration file to find the relevant profile.
+- Finding the correct profile name by matching the account number in the AWS configuration.
+- Executing the 'saml2aws' command with the identified profile to set up the shell environment.
+
+Dependencies:
+- saml2aws: A tool for logging into an AWS account.
+- kubectl: A command-line tool for interacting with Kubernetes clusters.
+- Python 3 and standard libraries: configparser, os, re, subprocess.
+
+Usage:
+The script is executed as a standalone Python script. It does not take any command-line arguments
+and relies on the correct configuration of the AWS and Kubernetes environments on the user's system.
+
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import configparser
+import os
+import re
+import subprocess
+
+
+def check_saml2aws():
+    """Check if saml2aws is installed."""
+    try:
+        subprocess.run(["saml2aws", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except subprocess.CalledProcessError:
+        print("Error: saml2aws not found")
+        exit(-1)
+
+
+def get_kube_context():
+    """Get the current Kubernetes context and extract the account number."""
+    try:
+        kube_context = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
+        print(f"Current Kubernetes context: {kube_context}")
+
+        match = re.search(r"arn:aws:eks:([\w-]+):(\d+):cluster/([\w-]+)", kube_context)
+        if match:
+            account_number = match.group(2)
+            print(f"Account Number: {account_number}")
+            return account_number
+        else:
+            raise ValueError("Invalid Kubernetes context ARN")
+    except subprocess.CalledProcessError as e:
+        print(f"Error in getting Kubernetes context: {e}")
+        exit(-1)
+
+
+def parse_aws_config():
+    """Parse AWS config file."""
+    aws_config_path = os.path.expanduser("~/.aws/config")
+    if not os.path.exists(aws_config_path):
+        print("AWS config file not found")
+        exit(-1)
+
+    config = configparser.ConfigParser()
+    config.read(aws_config_path)
+    return config
+
+
+def find_profile_name(config, account_number):
+    """Find the profile name by matching the account number."""
+    for section in config.sections():
+        if "role_arn" in config[section] and account_number in config[section]["role_arn"]:
+            return section.replace("profile ", "")
+    return None
+
+
+def execute_saml2aws_command(profile_name):
+    """Execute the saml2aws command with the found values."""
+    try:
+        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, os.getenv("SHELL", "/bin/zsh")], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error in executing saml2aws command: {e}")
+        exit(-1)
+
+
+def main():
+    """Main function."""
+    check_saml2aws()
+    account_number = get_kube_context()
+    aws_config = parse_aws_config()
+    profile_name = find_profile_name(aws_config, account_number)
+
+    if profile_name:
+        print(f"Profile Name: {profile_name}")
+        execute_saml2aws_command(profile_name)
+    else:
+        print("Profile not found for the account number")
+        exit(-1)
+
+
+if __name__ == "__main__":
+    main()

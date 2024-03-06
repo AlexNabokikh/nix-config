@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""
+This script automates the installation of Kubernetes plugins using the kubectl krew plugin manager.
+It reads a list of plugin names from a specified file and attempts to install each plugin using krew.
+
+Features:
+- Plugin List Reading: Reads a list of Kubernetes plugin names from a provided file.
+- Automated Installation: Installs each plugin listed in the file using kubectl krew.
+- Error Handling: Captures and displays errors if a plugin installation fails.
+
+Dependencies:
+- kubectl: For managing Kubernetes clusters.
+- krew: A plugin manager for kubectl.
+- Python 3 and standard libraries: os, subprocess, sys.
+
+Usage:
+The script is executed from the command line with a single argument specifying the path to the file
+containing the list of plugins to be installed. Example usage: `python script.py plugins.txt`.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import os
+import subprocess
+import sys
+
+
+def read_plugins(file_name):
+    """Read the list of plugins from the file."""
+    with open(file_name, "r") as f:
+        return [line.strip() for line in f]
+
+
+def install_plugin(plugin):
+    """Install a plugin using kubectl krew."""
+    try:
+        subprocess.run(["krew", "install", plugin], check=True)
+    except subprocess.CalledProcessError:
+        print(f"Failed to install plugin: {plugin}")
+
+
+def main():
+    # Check if the file name is provided
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <file_with_plugin_names>")
+        sys.exit(1)
+
+    file_name = sys.argv[1]
+
+    # Check if the file exists
+    if not os.path.exists(file_name):
+        print(f"The file {file_name} does not exist.")
+        sys.exit(1)
+
+    # Read the list of plugins from the file
+    plugins = read_plugins(file_name)
+
+    # Install each plugin
+    for plugin in plugins:
+        install_plugin(plugin)
+
+
+if __name__ == "__main__":
+    main()

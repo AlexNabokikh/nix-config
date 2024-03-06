@@ -13,6 +13,7 @@
     ../modules/neovim.nix
     ../modules/normcap.nix
     ../modules/saml2aws.nix
+    ../modules/scripts.nix
     ../modules/spicetify.nix
     ../modules/tmux.nix
     ../modules/ulauncher.nix

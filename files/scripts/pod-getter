@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""
+This script is a utility for retrieving and listing the names of all Kubernetes pods running on a specified node.
+It leverages the kubectl command-line tool to fetch detailed information about pods and then filters the data
+to display pods associated with the given node.
+
+Features:
+- Dependency Verification: Ensures that the necessary command-line tool (kubectl) is installed.
+- User Interaction: Prompts the user to enter the name of a Kubernetes node.
+- Pod Retrieval: Fetches a complete list of pods across all namespaces and filters them to show only those
+  running on the specified node.
+- Error Handling: Reports issues in fetching or processing pod data and handles user-initiated interruptions.
+
+Dependencies:
+- kubectl: For interacting with Kubernetes clusters.
+- Python 3 and standard libraries: json, subprocess, sys.
+
+Usage:
+The script is executed as a standalone Python script. The user is prompted to enter the name of the node,
+and the script then lists all pods running on that node.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import json
+import subprocess
+import sys
+
+
+def check_dependency(command):
+    """
+    Check if a command-line dependency exists.
+
+    Args:
+        command (str): The name of the command to check.
+
+    Raises:
+        SystemExit: If the command is not found.
+    """
+    try:
+        subprocess.run([command, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except FileNotFoundError:
+        print(f"Error: The command '{command}' is not found. Please install it before proceeding.")
+        sys.exit(1)
+
+
+def run_command(command):
+    """
+    Run a shell command.
+
+    Args:
+        command (list): The command to run.
+
+    Returns:
+        str or None: The stdout as a string or None if an error occurs.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            print(f"Command failed with error: {stderr}")
+            return None
+        return stdout.strip()
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user.")
+        sys.exit(0)
+
+
+def get_input(label):
+    """
+    Get input from the user.
+
+    Args:
+        label (str): Label for the input field.
+
+    Returns:
+        str: User input.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    try:
+        return input(f"Please enter the {label}: ")
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user.")
+        sys.exit(0)
+
+
+def get_pods_on_node(node_name):
+    """
+    Get the names of all pods running on a given node.
+
+    Args:
+        node_name (str): The name of the node.
+
+    Returns:
+        list or None: A list of pod names or None if an error occurs.
+    """
+    command = ["kubectl", "get", "po", "-A", "-o", "json"]
+    result = run_command(command)
+
+    if result is None:
+        return None
+
+    data = json.loads(result)
+    filtered_pods = [pod["metadata"]["name"] for pod in data["items"] if pod["spec"].get("nodeName") == node_name]
+
+    return filtered_pods
+
+
+def main():
+    """
+    Main function to execute the script logic.
+    """
+    check_dependency("kubectl")
+    node_name = get_input("node name")
+    pods = get_pods_on_node(node_name)
+
+    if pods is None:
+        print("Failed to fetch pod information.")
+        sys.exit(1)
+
+    for pod in pods:
+        print(pod)
+
+
+if __name__ == "__main__":
+    main()

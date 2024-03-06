@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Flameshot wayland workaround
+
+normcap -c '#B7BDF8' -l eng rus pol --clipboard-handler wlclipboard

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Flameshot wayland workaround
+
+flameshot gui
