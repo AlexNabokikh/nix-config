@@ -40,6 +40,7 @@ in {
     ];
   };
 
+  # source lua config from this repo
   home.file.".config/nvim" = {
     source = "${neovim}";
     recursive = true;
