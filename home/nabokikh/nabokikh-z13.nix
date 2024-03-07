@@ -4,6 +4,7 @@
     ../modules/bat.nix
     ../modules/bottom.nix
     ../modules/flameshot.nix
+    ../modules/forge.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix
