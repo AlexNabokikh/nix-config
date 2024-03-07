@@ -12,6 +12,7 @@
     powerOnBoot = true;
   };
 
+  # Enable Bluetooth support
   services.blueman.enable = true;
 
   # Enable Hyprland
@@ -27,7 +28,7 @@
     gtklock = {};
     gdm.enableGnomeKeyring = true;
   };
-  #
+
   # Enable Ozone Wayland support in Chromium and Electron based applications
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
