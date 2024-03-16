@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Install gpg via home-manager module
   programs.gpg = {
     enable = true;
@@ -28,8 +28,8 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "gnome3";
-    enableSshSupport = true;
     defaultCacheTtl = 86400;
+    enableSshSupport = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 }
