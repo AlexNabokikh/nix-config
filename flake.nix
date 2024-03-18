@@ -13,7 +13,7 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     # NixOS Spicetify
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    spicetify-nix.url = "github:MichaelPachec0/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hyprland

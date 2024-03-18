@@ -225,15 +225,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1704167711,
-        "narHash": "sha256-kFDq+kf/Di/P8bq5sUP8pVwRkrSVrABksBjMPmLic3s=",
-        "owner": "the-argus",
+        "lastModified": 1710700630,
+        "narHash": "sha256-7vLKH5veLdxmeRf9DCC9Z3rqHvK1nXrtzZRyFOvwWgI=",
+        "owner": "MichaelPachec0",
         "repo": "spicetify-nix",
-        "rev": "1325416f951d6a82cfddb1289864ad782e2b87c4",
+        "rev": "c4fd20b846823c9968f3eae618328104cb2703ce",
         "type": "github"
       },
       "original": {
-        "owner": "the-argus",
+        "owner": "MichaelPachec0",
         "repo": "spicetify-nix",
         "type": "github"
       }
