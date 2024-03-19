@@ -4,7 +4,6 @@
 in {
   imports = [
     ./clipboard.nix
-    ./dconf.nix
     ./gtklock.nix
     ./kanshi.nix
     ./swappy.nix
