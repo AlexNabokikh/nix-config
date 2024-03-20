@@ -4,7 +4,6 @@
     ../modules/bat.nix
     ../modules/bottom.nix
     ../modules/flameshot.nix
-    ../modules/forge.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix
@@ -13,6 +12,7 @@
     ../modules/lazygit.nix
     ../modules/neovim.nix
     ../modules/normcap.nix
+    ../modules/pop-shell.nix
     ../modules/saml2aws.nix
     ../modules/scripts.nix
     ../modules/spicetify.nix
