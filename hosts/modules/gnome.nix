@@ -31,11 +31,10 @@
     gnome.gnome-tweaks
     gnome.pomodoro
     gnomeExtensions.blur-my-shell
-    gnomeExtensions.caffeine
     gnomeExtensions.clipboard-history
     gnomeExtensions.dash-to-dock
-    gnomeExtensions.forge
     gnomeExtensions.just-perfection
+    gnomeExtensions.pop-shell
     gnomeExtensions.space-bar
     gnomeExtensions.unblank
     gnomeExtensions.user-themes
