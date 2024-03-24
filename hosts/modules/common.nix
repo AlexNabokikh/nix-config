@@ -130,11 +130,12 @@
     fd
     gcc
     gimp
-    jq
+    glib # TODO: Remove after ulauncher is fixed
     gnome.dconf-editor
     gnumake
     go
     helmfile
+    jq
     killall
     kind
     kubectl
