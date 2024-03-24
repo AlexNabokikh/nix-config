@@ -71,20 +71,20 @@ tooltip label {
   border-radius: 3px;
 }
 
+#backlight,
+#battery,
+#bluetooth,
 #clock,
+#cpu,
 #custom-notification,
 #custom-recorder,
-#battery,
-#cpu,
-#memory,
 #disk,
-#temperature,
 #language,
+#memory,
 #network,
+#privacy #tray,
 #pulseaudio,
-#tray,
-#backlight,
-#bluetooth,
+#temperature,
 #workspaces {
   color: #c2c5d4;
   padding: 0px 10px;

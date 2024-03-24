@@ -162,7 +162,7 @@
     ]
   },
   "tray": {
-    "spacing": 8
+    "spacing": 16
   },
   "custom/notification": {
     "tooltip": false,
@@ -192,5 +192,18 @@
     "exec-if": "pgrep wf-recorder",
     "interval": 1,
     "on-click": "screen-recorder"
+  },
+  "privacy": {
+    "orientation": "vertical",
+    "icon-spacing": 4,
+    "icon-size": 14,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ]
   }
 }
