@@ -73,6 +73,7 @@ tooltip label {
 
 #clock,
 #custom-notification,
+#custom-recorder,
 #battery,
 #cpu,
 #memory,
@@ -111,4 +112,8 @@ tooltip label {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+#custom-recorder {
+  color: #ff2800;
 }

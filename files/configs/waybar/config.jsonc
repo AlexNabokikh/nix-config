@@ -23,6 +23,7 @@
     "custom/notification"
   ],
   "modules-right": [
+    "custom/recorder",
     "hyprland/language",
     "tray",
     "bluetooth",
