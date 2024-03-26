@@ -55,6 +55,7 @@
     brightnessctl
     grim
     gtklock
+    hypridle
     hyprpaper
     libnotify
     networkmanagerapplet
