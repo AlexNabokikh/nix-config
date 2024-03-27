@@ -83,6 +83,9 @@
         directory = {
           style = "bold lavender";
         };
+        aws = {
+          disabled = true;
+        };
         kubernetes = {
           disabled = false;
           style = "bold pink";
