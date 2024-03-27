@@ -63,7 +63,6 @@ in {
           font_color = rgb(200, 200, 200)
           fade_on_empty = false
           capslock_color = -1
-          font_family = JetBrains Mono Nerd Font Mono
           placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
           hide_input = false
           position = 0, -120
