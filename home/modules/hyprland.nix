@@ -64,46 +64,44 @@ in {
           fade_on_empty = false
           capslock_color = -1
           font_family = JetBrains Mono Nerd Font Mono
-          placeholder_text = <i><span foreground="##cdd6f4">Input Password...</span></i>
+          placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
           hide_input = false
           position = 0, -120
           halign = center
           valign = center
       }
 
+      # Date
+      label {
+        monitor =
+        text = cmd[update:1000] echo "<span>$(date '+%A, %d %B')</span>"
+        color = rgba(255, 255, 255, 0.8)
+        font_size = 15
+        font_family = JetBrains Mono Nerd Font Mono ExtraBold
+        position = 0, -400
+        halign = center
+        valign = top
+      }
+
       # Time
       label {
           monitor =
-          text = cmd[update:1000] date +"%-I:%M%p"
-          color = $foreground
-          #color = rgba(255, 255, 255, 0.6)
+          text = cmd[update:1000] echo "<span>$(date '+%H:%M')</span>"
+          color = rgba(255, 255, 255, 0.8)
           font_size = 120
           font_family = JetBrains Mono Nerd Font Mono ExtraBold
-          position = 0, -300
+          position = 0, -400
           halign = center
           valign = top
-      }
-
-      # User
-      label {
-          monitor =
-          text = $USER
-          color = $foreground
-          #color = rgba(255, 255, 255, 0.6)
-          font_size = 25
-          font_family = JetBrains Mono Nerd Font Mono
-          position = 0, -40
-          halign = center
-          valign = center
       }
 
       # Keyboard layout
       label {
         text = cmd[update:200] hyprctl devices -j | jq -r '.keyboards[] | select(.name == "at-translated-set-2-keyboard") | .active_keymap'
-        color = rgba(129, 162, 190, 1.0)
+        color = rgba(255, 255, 255, 0.9)
         font_size = 10
         font_family = JetBrains Mono Nerd Font Mono
-        position = 0, -90
+        position = 0, -175
         halign = center
         valign = center
       }
