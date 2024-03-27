@@ -21,11 +21,11 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-  # Enable security services support for gtklock
+  # Enable security services
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
-    gtklock = {};
+    hyprlock = {};
     gdm.enableGnomeKeyring = true;
   };
 
@@ -54,8 +54,8 @@
 
     brightnessctl
     grim
-    gtklock
     hypridle
+    hyprlock
     hyprpaper
     libnotify
     networkmanagerapplet
