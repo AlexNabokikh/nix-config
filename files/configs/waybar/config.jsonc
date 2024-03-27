@@ -24,7 +24,6 @@
   ],
   "modules-right": [
     "custom/recorder",
-    "privacy",
     "hyprland/language",
     "tray",
     "bluetooth",
