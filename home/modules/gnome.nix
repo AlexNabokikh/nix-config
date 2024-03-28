@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ./flame.nix
+    ./flameshot.nix
     ./normcap.nix
     ./pop-shell.nix
   ];
