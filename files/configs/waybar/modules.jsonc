@@ -148,7 +148,10 @@
   "pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": " {volume} %",
-    "format-source-muted": ""
+    "format-source-muted": "",
+    "on-click": "pavucontrol",
+    "on-scroll-up": "pamixer --default-source -i 5",
+    "on-scroll-down": "pamixer --default-source -d 5"
   },
   "temperature": {
     "interval": 10,
