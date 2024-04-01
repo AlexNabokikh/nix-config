@@ -9,6 +9,7 @@
       # git
       gaa = "git add --all";
       gcam = "git commit --all --message";
+      gcl = "git clone";
       gco = "git checkout";
       ggl = "git pull";
       ggp = "git push";
