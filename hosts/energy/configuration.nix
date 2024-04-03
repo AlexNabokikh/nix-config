@@ -32,7 +32,10 @@
   # CoreCtrl for hardware monitoring and tuning
   programs.corectrl = {
     enable = true;
-    gpuOverclock.enable = true;
+    gpuOverclock = {
+      enable = true;
+      ppfeaturemask = "0xffffffff";
+    };
   };
 
   # This value determines the NixOS release from which the default
