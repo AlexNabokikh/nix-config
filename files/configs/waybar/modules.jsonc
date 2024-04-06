@@ -54,7 +54,7 @@
     "on-click": "blueman-manager"
   },
   "clock": {
-    "format": "{:%b %e %H:%M}",
+    "format": "{:%b %d %H:%M}",
     "format-alt": " {:%H:%M   %Y, %d %B, %A}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
