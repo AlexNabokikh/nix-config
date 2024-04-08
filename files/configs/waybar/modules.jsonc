@@ -114,7 +114,7 @@
   },
   "network": {
     "format": "{ifname}",
-    "format-wifi": "󰤨 {signalStrength}%",
+    "format-wifi": "{icon}",
     "format-ethernet": "󱘖 Wired",
     "format-disconnected": " Disconnected",
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
@@ -134,7 +134,7 @@
     }
   },
   "pulseaudio": {
-    "format": "{icon} {volume} %",
+    "format": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": {
       "default": [
@@ -156,7 +156,7 @@
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
-    "format-source": " {volume} %",
+    "format-source": " {volume}%",
     "format-source-muted": "",
     "on-click": "pavucontrol",
     "on-scroll-up": "pamixer --default-source -i 5",
