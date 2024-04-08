@@ -114,15 +114,24 @@
   },
   "network": {
     "format": "{ifname}",
-    "format-wifi": "󰤨 {essid}",
+    "format-wifi": "󰤨 {signalStrength}%",
     "format-ethernet": "󱘖 Wired",
     "format-disconnected": " Disconnected",
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
     "format-linked": "󱘖 {ifname} (No IP)",
     "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰤨",
-    "tooltip-format-ethernet": "{ifname} 󰈁",
+    "tooltip-format-ethernet": "{ifname} 󱘖",
     "tooltip-format-disconnected": " Disconnected",
-    "max-length": 50
+    "max-length": 50,
+    "format-icons": {
+      "wifi": [
+        "󰤯",
+        "󰤟",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ]
+    }
   },
   "pulseaudio": {
     "format": "{icon} {volume} %",
