@@ -119,7 +119,7 @@
     "format-disconnected": " Disconnected",
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
     "format-linked": "󱘖 {ifname} (No IP)",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰤨",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
     "tooltip-format-ethernet": "{ifname} 󱘖",
     "tooltip-format-disconnected": " Disconnected",
     "max-length": 50,
