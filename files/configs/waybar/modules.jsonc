@@ -113,25 +113,23 @@
     "on-click-right": "foot --title btop sh -c 'btop'"
   },
   "network": {
-    "format": "{ifname}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󱘖 Wired",
     "format-disconnected": " Disconnected",
-    "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
-    "format-linked": "󱘖 {ifname} (No IP)",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "{ifname} 󱘖",
-    "tooltip-format-disconnected": " Disconnected",
+    "format-ethernet": "󰈀",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format-wifi": "{icon}",
     "max-length": 50,
-    "format-icons": {
-      "wifi": [
-        "󰤯",
-        "󰤟",
-        "󰤢",
-        "󰤥",
-        "󰤨"
-      ]
-    }
+    "on-click": "nm-connection-editor",
+    "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+    "tooltip-format-disconnected": " Disconnected",
+    "tooltip-format-ethernet": "{ifname} 󰈀",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
