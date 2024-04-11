@@ -72,7 +72,7 @@
     }
   },
   "cpu": {
-    "format": "{usage}% 󰍛",
+    "format": "󰍛 {usage}%",
     "interval": 1,
     "format-alt-click": "click",
     "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
@@ -105,8 +105,8 @@
   },
   "memory": {
     "interval": 10,
-    "format": "{used:0.1f}G 󰾆",
-    "format-alt": "{percentage}% 󰾆",
+    "format": "󰾆 {used:0.1f}G",
+    "format-alt": "󰾆 {percentage}%",
     "format-alt-click": "click",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
@@ -165,8 +165,8 @@
     "tooltip": false,
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
     "critical-threshold": 82,
-    "format-critical": "{temperatureC}°C {icon}",
-    "format": "{temperatureC}°C {icon}",
+    "format-critical": "{icon} {temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
     "format-icons": [
       "󰈸"
     ]
