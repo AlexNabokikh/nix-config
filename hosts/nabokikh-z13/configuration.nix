@@ -1,6 +1,6 @@
 {inputs, ...}: {
   imports = [
-    inputs.hardware.nixosModules.lenovo-thinkpad-z13
+    inputs.hardware.nixosModules.lenovo-thinkpad-z13-gen1
 
     ./hardware-configuration.nix
     ../modules/common.nix

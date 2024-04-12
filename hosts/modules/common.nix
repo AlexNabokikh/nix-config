@@ -177,7 +177,7 @@
   };
 
   # Fonts configuration
-  fonts.packages = with pkgs; [
+  fonts.packages = with inputs.nixpkgs-stable.legacyPackages.x86_64-linux; [
     nerdfonts
     roboto
   ];
