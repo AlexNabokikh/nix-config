@@ -3,9 +3,6 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "<leader>aa", "<cmd>Dashboard<CR>", { desc = "Go to Dashboard Menu" })
-vim.keymap.set("n", "<leader>ce", "<cmd>Copilot enable<CR>", { desc = "Copilot enable" })
-vim.keymap.set("n", "<leader>cd", "<cmd>Copilot disable<CR>", { desc = "Copilot disable" })
-vim.keymap.set("n", "<leader>cp", "<cmd>Copilot panel<CR>", { desc = "Copilot panel" })
 vim.keymap.set("n", "<leader>fa", function()
   return require("telescope.builtin").find_files({
     find_command = { "rg", "--files", "--hidden", "-g", "!.git/" },
