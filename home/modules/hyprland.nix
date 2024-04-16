@@ -66,6 +66,7 @@ in {
           fade_on_empty = false
           capslock_color = -1
           placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
+          fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
           hide_input = false
           position = 0, -120
           halign = center
@@ -122,6 +123,7 @@ in {
           fade_on_empty = false
           capslock_color = -1
           placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
+          fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i>
           hide_input = false
           position = 0, -120
           halign = center
