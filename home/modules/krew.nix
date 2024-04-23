@@ -7,6 +7,7 @@
     "ctx"
     "get-all"
     "ns"
+    "rbac-lookup"
     "stern"
   ];
 

@@ -16,7 +16,6 @@
 
       du = "dust";
       grep = "rg";
-      kupdate = "krew update && krew upgrade";
 
       # kubectl
       k = "kubectl";
