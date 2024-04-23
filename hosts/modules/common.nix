@@ -151,6 +151,7 @@
         pip
         virtualenv
       ]))
+    pipenv
     pulseaudio
     qt6.qtwayland
     ripgrep
