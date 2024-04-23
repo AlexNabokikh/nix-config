@@ -18,9 +18,6 @@
     # NixOS Spicetify
     spicetify-nix.url = "github:MichaelPachec0/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
