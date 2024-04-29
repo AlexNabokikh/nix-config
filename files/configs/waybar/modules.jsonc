@@ -172,7 +172,7 @@
     ]
   },
   "tray": {
-    "spacing": 16
+    "spacing": 20
   },
   "custom/notification": {
     "tooltip": false,
