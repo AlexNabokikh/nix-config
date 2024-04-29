@@ -157,7 +157,7 @@ in {
       # Keyboard layout
       label {
         monitor = eDP-1
-        text = cmd[update:200] hyprctl devices -j | jq -r '.keyboards[] | select(.name == "at-translated-set-2-keyboard") | .active_keymap'
+        text = $LAYOUT
         color = rgba(255, 255, 255, 0.9)
         font_size = 20
         font_family = JetBrains Mono Nerd Font Mono
