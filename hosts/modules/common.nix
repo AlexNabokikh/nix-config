@@ -130,7 +130,7 @@
     fd
     gcc
     gimp
-    glib # TODO: Remove after ulauncher is fixed
+    glib
     gnome.dconf-editor
     gnumake
     go
@@ -154,6 +154,7 @@
     pipenv
     pulseaudio
     qt6.qtwayland
+    resources
     ripgrep
     sops
     telegram-desktop
