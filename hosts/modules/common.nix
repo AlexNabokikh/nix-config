@@ -127,6 +127,7 @@
     docker-compose
     du-dust
     eza
+    fastfetch
     fd
     gcc
     gimp
@@ -142,7 +143,6 @@
     kubernetes-helm
     lazydocker
     mesa
-    neofetch
     nh
     obs-studio
     openconnect
