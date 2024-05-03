@@ -127,7 +127,6 @@
     docker-compose
     du-dust
     eza
-    fastfetch
     fd
     gcc
     gimp

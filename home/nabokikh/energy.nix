@@ -5,6 +5,7 @@
     ../modules/bottom.nix
     ../modules/corectrl.nix
     ../modules/easyeffects.nix
+    ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/gpg.nix

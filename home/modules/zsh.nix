@@ -5,6 +5,7 @@
     enableCompletion = true;
     shellAliases = {
       cat = "bat -p";
+      ff = "fastfetch";
 
       # git
       gaa = "git add --all";
