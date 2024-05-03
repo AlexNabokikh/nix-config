@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  config = ./../../files/configs/fastfetch;
+  fastfetch_config = ./../../files/configs/fastfetch;
 in {
   # Install fastfetch via home-manager package
   home.packages = with pkgs; [
@@ -7,10 +7,10 @@ in {
   ];
 
   # Source fastfetch config from the home-manager store
-  home.file = {
-    ".config/fastfetch" = {
+  xdg.configFile = {
+    "fastfetch" = {
       recursive = true;
-      source = "${config}";
+      source = "${fastfetch_config}";
     };
   };
 }

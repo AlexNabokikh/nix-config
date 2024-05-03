@@ -1,14 +1,14 @@
 {...}: let
-  waybar = ./../../files/configs/waybar;
+  waybar_config = ./../../files/configs/waybar;
 in {
   # Install waybar via home-manager module
   programs.waybar.enable = true;
 
   # Source waybar config from the home-manager store
-  home.file = {
-    ".config/waybar" = {
+  xdg.configFile = {
+    "waybar" = {
       recursive = true;
-      source = "${waybar}";
+      source = "${waybar_config}";
     };
   };
 }

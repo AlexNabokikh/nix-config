@@ -1,7 +1,7 @@
 {...}: {
   # Configure Zoom-us settings from the home-manager store
-  home.file = {
-    ".config/zoomus.conf".text = ''
+  xdg.configFile = {
+    "zoomus.conf".text = ''
       [General]
       GeoLocale=system
       SensitiveInfoMaskOn=true

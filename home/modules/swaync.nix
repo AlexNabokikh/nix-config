@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  swaync = ./../../files/configs/swaync;
+  swaync_config = ./../../files/configs/swaync;
 in {
   # Install swaync via home-manager package
   home.packages = with pkgs; [
@@ -7,10 +7,10 @@ in {
   ];
 
   # Source swaync config from the home-manager store
-  home.file = {
-    ".config/swaync" = {
+  xdg.configFile = {
+    "swaync" = {
       recursive = true;
-      source = "${swaync}";
+      source = "${swaync_config}";
     };
   };
 }

@@ -6,8 +6,9 @@
   };
 
   # Source easyeffects preset from the home-manager store
-  home.file = {
-    ".config/easyeffects/input/rode.json".text = ''
+
+  xdg.configFile = {
+    "easyeffects/input/rode.json".text = ''
       {
       		"input": {
       				"blocklist": [],

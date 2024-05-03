@@ -1,11 +1,11 @@
 {...}: let
-  corectrl = ./../../files/configs/corectrl;
+  corectrl_config = ./../../files/configs/corectrl;
 in {
   # Source corectrl config from the home-manager store
-  home.file = {
-    ".config/corectrl" = {
+  xdg.configFile = {
+    "corectrl" = {
       recursive = true;
-      source = "${corectrl}";
+      source = "${corectrl_config}";
     };
   };
 }

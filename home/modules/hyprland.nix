@@ -1,7 +1,7 @@
 {...}: let
   wallpaper = ./../../files/wallpapers/wallpaper.jpg;
   lock = ./../../files/wallpapers/wallpaper-lock.png;
-  hyprland = ./../../files/configs/hypr;
+  hyprland_config = ./../../files/configs/hypr;
 in {
   imports = [
     ./clipboard.nix
@@ -14,20 +14,20 @@ in {
     ./xdg.nix
   ];
   # Source hyprland config from the home-manager store
-  home.file = {
-    ".config/hypr" = {
+  xdg.configFile = {
+    "hypr" = {
       recursive = true;
-      source = "${hyprland}";
+      source = "${hyprland_config}";
     };
 
-    ".config/hypr/hyprpaper.conf".text = ''
+    "hypr/hyprpaper.conf".text = ''
       splash = false
       preload = ${wallpaper}
       wallpaper = DP-1, ${wallpaper}
       wallpaper = eDP-1, ${wallpaper}
     '';
 
-    ".config/hypr/hypridle.conf".text = ''
+    "hypr/hypridle.conf".text = ''
       general {
         lock_cmd = pidof hyprlock || hyprlock
         before_sleep_cmd = loginctl lock-session
@@ -35,7 +35,7 @@ in {
       }
     '';
 
-    ".config/hypr/hyprlock.conf".text = ''
+    "hypr/hyprlock.conf".text = ''
       background {
           monitor =
           path = ${lock}

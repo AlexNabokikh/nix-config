@@ -93,8 +93,8 @@ in {
   };
 
   # Source ulauncher configuration from this repository
-  home.file = {
-    ".config/ulauncher" = {
+  xdg.configFile = {
+    "ulauncher" = {
       recursive = true;
       source = "${ulauncher_config}";
     };

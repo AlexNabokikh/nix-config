@@ -1,7 +1,7 @@
 {...}: {
   # Source Gnome pop-shell extention config from the home-manager
-  home.file = {
-    ".config/pop-shell/config.json".text = ''
+  xdg.configFile = {
+    "pop-shell/config.json".text = ''
       {
         "float": [
           {

@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  neovim = ../../files/configs/nvim;
+  neovim_config = ../../files/configs/nvim;
 in {
   # Neovim text editor configuration
   programs.neovim = {
@@ -41,8 +41,10 @@ in {
   };
 
   # source lua config from this repo
-  home.file.".config/nvim" = {
-    source = "${neovim}";
-    recursive = true;
+  xdg.configFile = {
+    "nvim" = {
+      source = "${neovim_config}";
+      recursive = true;
+    };
   };
 }
