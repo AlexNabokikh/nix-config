@@ -4,6 +4,10 @@ This repository contains NixOS configurations for my machines, managed through [
 
 It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), and various other community contributions for a seamless NixOS experience.
 
+## Showcase
+
+![showcase](./files/screenshots/screenshot-20240506.png)
+
 ## Structure
 
 - `flake.nix`: The flake itself, defining inputs (such as nixpkgs, home-manager, and hardware-specific optimizations) and outputs for NixOS and Home Manager configurations.
