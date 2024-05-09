@@ -27,5 +27,11 @@ in {
       name = "Roboto";
       size = 11;
     };
+    gtk3 = {
+      bookmarks = [
+        "file:///home/nabokikh/Downloads/temp"
+        "file:///home/nabokikh/Documents/repositories"
+      ];
+    };
   };
 }
