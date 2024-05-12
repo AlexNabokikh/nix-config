@@ -38,6 +38,19 @@
     };
   };
 
+  # Do not ask for password when launching corectrl
+  security.polkit.extraConfig = ''
+    polkit.addRule(function (action, subject) {
+      if ((action.id == "org.corectrl.helper.init" ||
+          action.id == "org.corectrl.helperkiller.init") &&
+          subject.local == true &&
+          subject.active == true &&
+          subject.isInGroup("users")) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
