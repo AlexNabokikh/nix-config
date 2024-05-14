@@ -68,10 +68,12 @@
     };
   };
 
+  # Enable touchpad support
+  services.libinput.enable = true;
+
   # X11 settings
   services.xserver = {
     enable = true;
-    libinput.enable = true; # Enable touchpad support
     xkb = {
       layout = "pl";
       variant = "";
