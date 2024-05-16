@@ -146,7 +146,6 @@
     mesa
     nh
     obs-studio
-    openconnect
     (python3.withPackages (ps:
       with ps; [
         pip
