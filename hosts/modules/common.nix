@@ -121,7 +121,6 @@
   # List of common packages
   environment.systemPackages = with pkgs; [
     anki
-    argo-rollouts
     awscli2
     brave
     delta
