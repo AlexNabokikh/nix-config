@@ -13,7 +13,7 @@
         "input": {
           "blocklist": [],
           "compressor#0": {
-            "attack": 5.0,
+            "attack": 10.0,
             "boost-amount": 6.0,
             "boost-threshold": -72.0,
             "bypass": false,
@@ -26,9 +26,9 @@
             "lpf-mode": "off",
             "makeup": 0.0,
             "mode": "Downward",
-            "output-gain": 0.0,
+            "output-gain": 8.9,
             "ratio": 4.0,
-            "release": 75.0,
+            "release": 60.0,
             "release-threshold": -40.0,
             "sidechain": {
               "lookahead": 0.0,
@@ -40,7 +40,7 @@
               "type": "Feed-forward"
             },
             "stereo-split": false,
-            "threshold": -20.0,
+            "threshold": -10.0,
             "wet": 0.0
           },
           "deepfilternet#0": {
@@ -50,178 +50,6 @@
             "min-processing-buffer": 0,
             "min-processing-threshold": -10.0,
             "post-filter-beta": 0.02
-          },
-          "deesser#0": {
-            "bypass": false,
-            "detection": "RMS",
-            "f1-freq": 3000.0,
-            "f1-level": -6.0,
-            "f2-freq": 5000.0,
-            "f2-level": -6.0,
-            "f2-q": 1.5000000000000004,
-            "input-gain": 0.0,
-            "laxity": 15,
-            "makeup": 0.0,
-            "mode": "Wide",
-            "output-gain": 0.0,
-            "ratio": 5.0,
-            "sc-listen": false,
-            "threshold": -20.0
-          },
-          "equalizer#0": {
-            "balance": 0.0,
-            "bypass": false,
-            "input-gain": 0.0,
-            "left": {
-              "band0": {
-                "frequency": 50.0,
-                "gain": 3.0,
-                "mode": "RLC (BT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Hi-pass",
-                "width": 4.0
-              },
-              "band1": {
-                "frequency": 90.0,
-                "gain": 3.0,
-                "mode": "RLC (MT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Lo-shelf",
-                "width": 4.0
-              },
-              "band2": {
-                "frequency": 425.0,
-                "gain": -2.0,
-                "mode": "BWC (MT)",
-                "mute": false,
-                "q": 0.9999999999999998,
-                "slope": "x2",
-                "solo": false,
-                "type": "Bell",
-                "width": 4.0
-              },
-              "band3": {
-                "frequency": 3500.0,
-                "gain": 3.0,
-                "mode": "BWC (BT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x2",
-                "solo": false,
-                "type": "Bell",
-                "width": 4.0
-              },
-              "band4": {
-                "frequency": 9000.0,
-                "gain": 2.0,
-                "mode": "LRX (MT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Hi-shelf",
-                "width": 4.0
-              }
-            },
-            "mode": "IIR",
-            "num-bands": 5,
-            "output-gain": 0.0,
-            "pitch-left": 0.0,
-            "pitch-right": 0.0,
-            "right": {
-              "band0": {
-                "frequency": 50.0,
-                "gain": 3.0,
-                "mode": "RLC (BT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Hi-pass",
-                "width": 4.0
-              },
-              "band1": {
-                "frequency": 90.0,
-                "gain": 3.0,
-                "mode": "RLC (MT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Lo-shelf",
-                "width": 4.0
-              },
-              "band2": {
-                "frequency": 425.0,
-                "gain": -2.0,
-                "mode": "BWC (MT)",
-                "mute": false,
-                "q": 0.9999999999999998,
-                "slope": "x2",
-                "solo": false,
-                "type": "Bell",
-                "width": 4.0
-              },
-              "band3": {
-                "frequency": 3500.0,
-                "gain": 3.0,
-                "mode": "BWC (BT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x2",
-                "solo": false,
-                "type": "Bell",
-                "width": 4.0
-              },
-              "band4": {
-                "frequency": 9000.0,
-                "gain": 2.0,
-                "mode": "LRX (MT)",
-                "mute": false,
-                "q": 0.7,
-                "slope": "x1",
-                "solo": false,
-                "type": "Hi-shelf",
-                "width": 4.0
-              }
-            },
-            "split-channels": false
-          },
-          "gate#0": {
-            "attack": 1.0,
-            "bypass": false,
-            "curve-threshold": -50.0,
-            "curve-zone": -2.0,
-            "dry": -100.0,
-            "hpf-frequency": 10.0,
-            "hpf-mode": "off",
-            "hysteresis": true,
-            "hysteresis-threshold": -3.0,
-            "hysteresis-zone": -1.0,
-            "input-gain": 0.0,
-            "lpf-frequency": 20000.0,
-            "lpf-mode": "off",
-            "makeup": 1.0,
-            "output-gain": 3.0,
-            "reduction": -15.0,
-            "release": 200.0,
-            "sidechain": {
-              "input": "Internal",
-              "lookahead": 0.0,
-              "mode": "RMS",
-              "preamp": 0.0,
-              "reactivity": 10.0,
-              "source": "Middle",
-              "stereo-split-source": "Left/Right"
-            },
-            "stereo-split": false,
-            "wet": -1.0
           },
           "limiter#0": {
             "alr": false,
@@ -246,27 +74,9 @@
           "plugins_order": [
             "deepfilternet#0",
             "stereo_tools#0",
-            "gate#0",
-            "deesser#0",
             "compressor#0",
-            "equalizer#0",
-            "speex#0",
             "limiter#0"
           ],
-          "speex#0": {
-            "bypass": false,
-            "enable-agc": false,
-            "enable-denoise": false,
-            "enable-dereverb": false,
-            "input-gain": 0.0,
-            "noise-suppression": -70,
-            "output-gain": 0.0,
-            "vad": {
-              "enable": true,
-              "probability-continue": 90,
-              "probability-start": 95
-            }
-          },
           "stereo_tools#0": {
             "balance-in": 0.0,
             "balance-out": 0.0,
