@@ -155,7 +155,7 @@ def get_asgs(region, cluster_name):
         "autoscaling",
         "describe-auto-scaling-groups",
         "--query",
-        f"AutoScalingGroups[? Tags[? (Key=='CLUSTER_ID') && Value=='{cluster_name}']].AutoScalingGroupName",
+        f"AutoScalingGroups[? Tags[? (Key=='kubernetes.io/cluster/{cluster_name}') && Value=='owned']].AutoScalingGroupName",
         "--output",
         "text",
         "--region",
