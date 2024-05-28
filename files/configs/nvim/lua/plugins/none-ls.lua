@@ -33,7 +33,7 @@ return {
         nls.builtins.diagnostics.hadolint,
         nls.builtins.diagnostics.markdownlint.with({ extra_args = { "--disable", "MD013" } }),
       },
-      on_attach = function(bufnr)
+      on_attach = function(client, bufnr)
         -- Disable diagnostics for helm files
         if vim.bo[bufnr].buftype ~= "" or vim.bo[bufnr].filetype == "helm" then
           vim.diagnostic.disable(bufnr)
