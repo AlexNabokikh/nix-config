@@ -130,15 +130,12 @@
     eza
     fd
     gcc
-    gimp
     glib
-    gnome.dconf-editor
     gnumake
     go
     helmfile
     jq
     killall
-    kind
     kubectl
     kubernetes-helm
     lazydocker
