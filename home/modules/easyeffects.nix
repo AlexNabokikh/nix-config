@@ -9,11 +9,11 @@
 
   xdg.configFile = {
     "easyeffects/input/rode.json".text = ''
-      {
+          {
         "input": {
           "blocklist": [],
           "compressor#0": {
-            "attack": 10.0,
+            "attack": 2.0,
             "boost-amount": 6.0,
             "boost-threshold": -72.0,
             "bypass": false,
@@ -26,9 +26,9 @@
             "lpf-mode": "off",
             "makeup": 0.0,
             "mode": "Downward",
-            "output-gain": 8.9,
+            "output-gain": 9.0,
             "ratio": 4.0,
-            "release": 60.0,
+            "release": 200.0,
             "release-threshold": -40.0,
             "sidechain": {
               "lookahead": 0.0,
@@ -40,7 +40,7 @@
               "type": "Feed-forward"
             },
             "stereo-split": false,
-            "threshold": -10.0,
+            "threshold": -16.0,
             "wet": 0.0
           },
           "deepfilternet#0": {
@@ -66,10 +66,10 @@
             "mode": "Herm Wide",
             "output-gain": 0.0,
             "oversampling": "Half x2(2L)",
-            "release": 5.0,
+            "release": 20.0,
             "sidechain-preamp": 0.0,
             "stereo-link": 100.0,
-            "threshold": -1.0
+            "threshold": -3.0
           },
           "plugins_order": [
             "deepfilternet#0",
@@ -100,6 +100,7 @@
           }
         }
       }
+
     '';
   };
 }
