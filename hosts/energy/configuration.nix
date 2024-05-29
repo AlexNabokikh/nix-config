@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd
@@ -16,40 +12,17 @@
   # Set hostname
   networking.hostName = "energy";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    lutris
-    wineWowPackages.stable
-  ];
+  # Lutris game launcher
+  # environment.systemPackages = with pkgs; [
+  #   lutris
+  #   wineWowPackages.stable
+  # ];
 
   # Steam gaming platform configuration
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-  };
-
-  # CoreCtrl for hardware monitoring and tuning
-  programs.corectrl = {
-    enable = true;
-    gpuOverclock = {
-      enable = true;
-      ppfeaturemask = "0xffffffff";
-    };
-  };
-
-  # Do not ask for password when launching corectrl
-  security.polkit.extraConfig = ''
-    polkit.addRule(function (action, subject) {
-      if ((action.id == "org.corectrl.helper.init" ||
-          action.id == "org.corectrl.helperkiller.init") &&
-          subject.local == true &&
-          subject.active == true &&
-          subject.isInGroup("users")) {
-        return polkit.Result.YES;
-      }
-    });
-  '';
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true;
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
