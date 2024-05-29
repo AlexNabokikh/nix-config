@@ -26,7 +26,7 @@
             "lpf-mode": "off",
             "makeup": 0.0,
             "mode": "Downward",
-            "output-gain": 9.0,
+            "output-gain": 0.0,
             "ratio": 4.0,
             "release": 200.0,
             "release-threshold": -40.0,
