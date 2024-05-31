@@ -322,7 +322,6 @@ def main():
         time.sleep(WAIT)
         run_command(["kubectl", "delete", "node", node_name])
 
-        # Terminate the EC2 instance using AWS CLI
         print(f"Terminating EC2 instance {instance} ...")
         run_command(["aws", "ec2", "terminate-instances", "--instance-ids", instance, "--region", AWS_DEFAULT_REGION])
 
