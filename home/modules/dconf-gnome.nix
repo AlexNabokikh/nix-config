@@ -176,7 +176,7 @@ in
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
         ];
         "logout" = ["<Shift><Alt>q"];
-        "screensaver" = ["<Super>Escape"];
+        "screensaver" = ["<Shift><Alt>l"];
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
