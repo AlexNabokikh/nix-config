@@ -198,7 +198,7 @@ in
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-        "binding" = "<Super>Return";
+        "binding" = "<Super><Shift>Return";
         "command" = "alacritty";
         "name" = "Alacritty";
       };
