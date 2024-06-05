@@ -175,7 +175,7 @@
   };
 
   # Fonts configuration
-  fonts.packages = with inputs.nixpkgs-stable.legacyPackages.x86_64-linux; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["Meslo" "JetBrainsMono"];})
     roboto
   ];

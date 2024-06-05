@@ -47,10 +47,10 @@
   },
   "bluetooth": {
     "format": "",
-    "format-connected": " {num_connections}",
-    "tooltip-format": " {device_alias}",
+    "format-connected": " {num_connections}",
+    "tooltip-format": " {device_alias}",
     "tooltip-format-connected": "{device_enumerate}",
-    "tooltip-format-enumerate-connected": " {device_alias}",
+    "tooltip-format-enumerate-connected": " {device_alias}",
     "on-click": "blueman-manager"
   },
   "clock": {
@@ -133,7 +133,7 @@
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": "",
+    "format-muted": "",
     "format-icons": {
       "default": [
         "",
@@ -175,14 +175,14 @@
     "tooltip": false,
     "format": "{icon}",
     "format-icons": {
-      "notification": "<span foreground='red'><sup></sup></span>",
-      "none": "",
-      "dnd-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-none": "",
-      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": ""
+      "notification": "󰍡<span foreground='red'><sup></sup></span>",
+      "none": "󰍡",
+      "dnd-notification": "󱙍<span foreground='red'><sup></sup></span>",
+      "dnd-none": "󱙍",
+      "inhibited-notification": "󰍡<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "󰍡",
+      "dnd-inhibited-notification": "󱙍<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "󱙍"
     },
     "return-type": "json",
     "exec-if": "which swaync-client",

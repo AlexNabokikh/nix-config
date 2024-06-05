@@ -1,67 +1,62 @@
-
 /*Catppuccin colors*/
 @define-color backgroundColor #24273a;
 @define-color accentColor #b7bdf8;
 @define-color textColor #cad3f5;
 @define-color subTextColor #b8c0e0;
 
-
 .app {
-    background-color: @backgroundColor;
-    border-color: @accentColor;
-    border-radius: 12px;
+  background-color: @backgroundColor;
+  border-color: @accentColor;
+  border-radius: 8px;
 }
 
 .input {
-    color: @accentColor;
+  color: @accentColor;
 }
-
 
 .input *:selected,
 .input *:focus,
 *:selected:focus {
-    background-color: alpha (@accentColor, 0.4);
-    color: @textColor;
+  background-color: alpha (@accentColor, 0.4);
+  color: @textColor;
 }
 
 .item-text {
-    color: @textColor;
+  color: @textColor;
 }
 .item-name {
-    color: @textColor;
-    font-size: 1.2rem;
+  color: @textColor;
+  font-size: 1.2rem;
 }
 
 .selected.item-box {
-    background-color: alpha (@accentColor, 0.3);
-    border-radius: 12px;
+  background-color: alpha (@accentColor, 0.3);
+  border-radius: 8px;
 }
 
 .selected.item-box .item-text {
-    color: @textColor;
+  color: @textColor;
 }
 .selected.item-box .item-name {
-    color: @textColor;
-    font-size: 1.2rem;
+  color: @textColor;
+  font-size: 1.2rem;
 }
-
 
 .item-shortcut {
-    color: @accentColor;
+  color: @accentColor;
 }
 .selected.item-box .item-shortcut {
-    color: @accentColor;
-    font-size: 1.1rem;
+  color: @accentColor;
+  font-size: 1.1rem;
 }
 
-.selected.item-box{
-    color: @accentColor;
+.selected.item-box {
+  color: @accentColor;
 }
 
 .prefs-btn {
-    opacity: 1;
+  opacity: 1;
 }
 .prefs-btn:hover {
-    background-color: alpha (@accentColor, 1);
+  background-color: alpha (@accentColor, 1);
 }
-
