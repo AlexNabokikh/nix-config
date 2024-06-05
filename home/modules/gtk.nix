@@ -1,19 +1,10 @@
-{pkgs, ...}: let
-  # Define theme name and configuration for GTK
-  catppuccin_name = "Catppuccin-Macchiato-Standard-Lavender-Dark";
-  catppuccin = pkgs.catppuccin-gtk.override {
-    accents = ["lavender"];
-    size = "standard";
-    tweaks = ["normal"];
-    variant = "macchiato";
-  };
-in {
+{pkgs, ...}: {
   # GTK theme configuration
   gtk = {
     enable = true;
-    theme = {
-      name = catppuccin_name;
-      package = catppuccin;
+    catppuccin = {
+      enable = true;
+      gnomeShellTheme = true;
     };
     iconTheme = {
       name = "Tela-circle-dark";

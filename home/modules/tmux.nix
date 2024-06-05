@@ -1,34 +1,32 @@
-{pkgs, ...}: {
+{...}: {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
     baseIndex = 1;
+    catppuccin = {
+      enable = true;
+      extraConfig = ''
+        set -g @catppuccin_flavour 'macchiato'
+        set -g @catppuccin_window_left_separator "█"
+        set -g @catppuccin_window_right_separator "█ "
+        set -g @catppuccin_window_middle_separator " █"
+        set -g @catppuccin_window_number_position "right"
+        set -g @catppuccin_window_default_fill "number"
+        set -g @catppuccin_window_default_text "#W"
+        set -g @catppuccin_window_current_fill "number"
+        set -g @catppuccin_window_current_text "#W"
+        set -g @catppuccin_status_modules_right "application host date_time"
+        set -g @catppuccin_status_left_separator "█"
+        set -g @catppuccin_status_right_separator "█"
+        set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
+      '';
+    };
     escapeTime = 10;
     terminal = "screen-256color";
     historyLimit = 10000;
     keyMode = "vi";
     mouse = true;
 
-    plugins = with pkgs.tmuxPlugins; [
-      {
-        plugin = catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavour 'macchiato'
-          set -g @catppuccin_window_left_separator "█"
-          set -g @catppuccin_window_right_separator "█ "
-          set -g @catppuccin_window_middle_separator " █"
-          set -g @catppuccin_window_number_position "right"
-          set -g @catppuccin_window_default_fill "number"
-          set -g @catppuccin_window_default_text "#W"
-          set -g @catppuccin_window_current_fill "number"
-          set -g @catppuccin_window_current_text "#W"
-          set -g @catppuccin_status_modules_right "application session user host date_time"
-          set -g @catppuccin_status_left_separator "█"
-          set -g @catppuccin_status_right_separator "█"
-          set -g @catppuccin_date_time_text "%Y-%m-%d %H:%M"
-        '';
-      }
-    ];
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
       set -g prefix C-q

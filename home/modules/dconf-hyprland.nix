@@ -31,7 +31,6 @@ with lib.hm.gvariant; {
     "org/gnome/desktop/interface" = {
       "cursor-theme" = "Yaru";
       "font-name" = "Roboto 11";
-      "gtk-theme" = "Catppuccin-Macchiato-Standard-Lavender-Dark";
       "icon-theme" = "Tela-circle-dark";
     };
 

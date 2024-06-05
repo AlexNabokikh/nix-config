@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{...}: {
   # Install alacritty via home-manager module
   programs.alacritty = {
     enable = true;
+    catppuccin.enable = true;
     settings = {
       shell.program = "zsh";
       shell.args = [
@@ -52,13 +53,6 @@
           style = "Italic";
         };
       };
-
-      import = [
-        (pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/catppuccin/alacritty/832787d6cc0796c9f0c2b03926f4a83ce4d4519b/catppuccin-macchiato.toml";
-          hash = "sha256-m0Y8OBD9Pgjw9ARwjeD8a+JIQRDboVVCywQS8/ZBAcc=";
-        })
-      ];
 
       selection = {
         semantic_escape_chars = '',│`|:"' ()[]{}<>'';

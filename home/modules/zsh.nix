@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   # Zsh shell configuration
   programs.zsh = {
     enable = true;
@@ -78,42 +78,30 @@
     '';
   };
 
-  programs.starship = let
-    flavour = "macchiato";
-  in {
+  programs.starship = {
     enable = true;
+    catppuccin.enable = true;
     enableZshIntegration = true;
-    settings =
-      {
-        add_newline = false;
-        directory = {
-          style = "bold lavender";
-        };
-        aws = {
-          disabled = true;
-        };
-        kubernetes = {
-          disabled = false;
-          style = "bold pink";
-          format = "[$symbol$context( \($namespace\))]($style)";
-          contexts = [
-            {
-              context_pattern = "arn:aws:eks:(?P<var_region>.*):(?P<var_account>[0-9]{12}):cluster/(?P<var_cluster>.*)";
-              context_alias = "$var_cluster";
-            }
-          ];
-        };
-        palette = "catppuccin_${flavour}";
-        right_format = "$kubernetes";
-      }
-      // builtins.fromTOML (builtins.readFile
-        (pkgs.fetchFromGitHub
+    settings = {
+      add_newline = false;
+      directory = {
+        style = "bold lavender";
+      };
+      aws = {
+        disabled = true;
+      };
+      kubernetes = {
+        disabled = false;
+        style = "bold pink";
+        format = "[$symbol$context( \($namespace\))]($style)";
+        contexts = [
           {
-            owner = "catppuccin";
-            repo = "starship";
-            rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
-            sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
+            context_pattern = "arn:aws:eks:(?P<var_region>.*):(?P<var_account>[0-9]{12}):cluster/(?P<var_cluster>.*)";
+            context_alias = "$var_cluster";
           }
-          + /palettes/${flavour}.toml));
+        ];
+      };
+      right_format = "$kubernetes";
+    };
   };
 }

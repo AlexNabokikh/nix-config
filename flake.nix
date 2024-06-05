@@ -12,6 +12,9 @@
     # NixOS profiles to optimize settings for different hardware
     hardware.url = "github:nixos/nixos-hardware";
 
+    # Global catppuccin theme
+    catppuccin.url = "github:catppuccin/nix";
+
     # NixOS Spicetify
     spicetify-nix.url = "github:MichaelPachec0/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +24,7 @@
     self,
     nixpkgs,
     home-manager,
+    catppuccin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -36,7 +40,10 @@
     homeManagerFor = user: hostname: {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {inherit inputs outputs;};
-      modules = [./home/${user}/${hostname}.nix];
+      modules = [
+        ./home/${user}/${hostname}.nix
+        catppuccin.homeManagerModules.catppuccin
+      ];
     };
   in {
     nixosConfigurations = {

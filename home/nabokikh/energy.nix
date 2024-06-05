@@ -34,8 +34,14 @@
     homeDirectory = "/home/nabokikh";
   };
 
-  # Enable home-manager and git
+  # Enable home-manager
   programs.home-manager.enable = true;
+
+  # Catpuccin flavor and accent
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "lavender";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

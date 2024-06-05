@@ -25,7 +25,6 @@ in
       "org/gnome/desktop/interface" = {
         "cursor-theme" = "Yaru";
         "font-name" = "Roboto 11";
-        "gtk-theme" = "Catppuccin-Macchiato-Standard-Lavender-Dark";
         "icon-theme" = "Tela-circle-dark";
         "color-scheme" = "prefer-dark";
         "document-font-name" = "Roboto 11";
@@ -440,10 +439,6 @@ in
       "org/gnome/shell/extensions/unblank" = {
         "power" = false;
         "time" = 0;
-      };
-
-      "org/gnome/shell/extensions/user-theme" = {
-        "name" = "Catppuccin-Macchiato-Standard-Lavender-Dark";
       };
 
       "org/gnome/shell/keybindings" = {
