@@ -3,6 +3,6 @@
   services.ollama = {
     enable = true;
     # Enable AMD GPU acceleration
-    acceleration = "rocm";
+    # acceleration = "rocm";
   };
 }
