@@ -7,22 +7,11 @@
     ./hardware-configuration.nix
     ../modules/common.nix
     ../modules/hyprland.nix
+    ../modules/ollama.nix
   ];
 
   # Set hostname
   networking.hostName = "energy";
-
-  # Lutris game launcher
-  # environment.systemPackages = with pkgs; [
-  #   lutris
-  #   wineWowPackages.stable
-  # ];
-
-  # Steam gaming platform configuration
-  # programs.steam = {
-  #   enable = true;
-  #   remotePlay.openFirewall = true;
-  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
