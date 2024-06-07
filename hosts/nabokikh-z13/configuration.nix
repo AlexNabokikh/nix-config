@@ -6,7 +6,6 @@
     ../modules/common.nix
     ../modules/hyprland.nix
     ../modules/laptop.nix
-    ../modules/ollama.nix
   ];
 
   # Set hostname
