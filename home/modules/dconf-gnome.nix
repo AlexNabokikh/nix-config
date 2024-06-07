@@ -151,6 +151,7 @@ in
         "center-new-windows" = true;
         "dynamic-workspaces" = true;
         "edge-tiling" = false;
+        "workspaces-only-on-primary" = true;
       };
 
       "org/gnome/nautilus/preferences" = {
@@ -173,9 +174,12 @@ in
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/"
         ];
-        "logout" = ["<Shift><Alt>q"];
-        "screensaver" = ["<Shift><Alt>l"];
+        "screensaver" = ["<Alt><Ctrl>l"];
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -185,7 +189,7 @@ in
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-        "binding" = "<Shift><Alt>x";
+        "binding" = "<Shift><Super>s";
         "command" = "flameshot-wayland";
         "name" = "Flameshot";
       };
@@ -197,7 +201,7 @@ in
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-        "binding" = "<Super><Shift>Return";
+        "binding" = "<Shift><Super>Return";
         "command" = "alacritty";
         "name" = "Alacritty";
       };
@@ -206,6 +210,30 @@ in
         "binding" = "<Shift><Super>b";
         "command" = "brave";
         "name" = "Brave";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5" = {
+        "binding" = "<Shift><Super>f";
+        "command" = "nautilus";
+        "name" = "Files";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6" = {
+        "binding" = "<Alt><Ctrl>q";
+        "command" = "gnome-session-quit";
+        "name" = "Logout";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7" = {
+        "binding" = "<Shift><Super>t";
+        "command" = "telegram-desktop";
+        "name" = "Telegram";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8" = {
+        "binding" = "<Alt><Ctrl>p";
+        "command" = "gnome-pomodoro --start-stop";
+        "name" = "Pomodoro";
       };
 
       "org/gnome/settings-daemon/plugins/power" = {
@@ -223,9 +251,9 @@ in
           "blur-my-shell@aunetx"
           "clipboard-history@alexsaveau.dev"
           "dash-to-dock@micxgx.gmail.com"
-          "forge@jmmaranan.com"
           "just-perfection-desktop@just-perfection"
           "pomodoro@arun.codito.in"
+          "pop-shell@system76.com"
           "rounded-window-corners@fxgn"
           "space-bar@luchrioh"
           "unblank@sun.wxg@gmail.com"
@@ -238,6 +266,10 @@ in
           "org.telegram.desktop.desktop"
           "spotify.desktop"
         ];
+      };
+
+      "org/gnome/shell/app-switcher" = {
+        "current-workspace-only" = true;
       };
 
       "org/gnome/shell/extensions/auto-move-windows" = {
@@ -305,27 +337,10 @@ in
         "transparency-mode" = "DYNAMIC";
       };
 
-      "org/gnome/shell/extensions/forge" = {
-        "auto-split-enabled" = false;
-        "css-last-update" = mkUint32 37;
-        "float-always-on-top-enabled" = false;
-        "focus-border-toggle" = false;
-        "preview-hint-enabled" = false;
-        "quick-settings-enabled" = false;
-        "stacked-tiling-mode-enabled" = false;
-        "tabbed-tiling-mode-enabled" = false;
-        "window-gap-size" = mkUint32 3;
-      };
-
-      "org/gnome/shell/extensions/forge/keybindings" = {
-        "con-split-layout-toggle" = ["<Super>g"];
-        "focus-border-toggle" = ["<Super>x"];
-        "window-focus-down" = ["<Super>j"];
-        "window-focus-left" = ["<Super>h"];
-        "window-focus-right" = ["<Super>l"];
-        "window-focus-up" = ["<Super>k"];
-        "window-swap-last-active" = ["<Shift><Super>Return"];
-        "window-toggle-float" = ["<Super>f"];
+      "org/gnome/shell/extensions/pop-shell" = {
+        "active-hint" = false;
+        "gap-inner" = mkUint32 1;
+        "gap-outer" = mkUint32 1;
       };
 
       "org/gnome/shell/extensions/just-perfection" = {

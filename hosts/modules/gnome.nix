@@ -33,8 +33,8 @@
     gnomeExtensions.blur-my-shell
     gnomeExtensions.clipboard-history
     gnomeExtensions.dash-to-dock
-    gnomeExtensions.forge
     gnomeExtensions.just-perfection
+    gnomeExtensions.pop-shell
     gnomeExtensions.space-bar
     gnomeExtensions.unblank
     gnomeExtensions.user-themes

@@ -1,8 +1,8 @@
 {...}: {
   imports = [
-    ./flameshot.nix
-    ./forge.nix
-    ./normcap.nix
     ./dconf-gnome.nix
+    ./flameshot.nix
+    ./normcap.nix
+    ./pop-shell.nix
   ];
 }
