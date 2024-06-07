@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ../modules/common.nix
     ../modules/hyprland.nix
-    ../modules/ollama.nix
   ];
 
   # Set hostname
