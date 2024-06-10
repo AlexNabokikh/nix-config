@@ -28,18 +28,8 @@ tooltip label {
   margin-left: 2px;
 }
 
-.modules-right {
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 0px solid #b4befe;
-  border-radius: 8px;
-}
-
-.modules-center {
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 0px solid #b4befe;
-  border-radius: 8px;
-}
-
+.modules-right,
+.modules-center,
 .modules-left {
   background-color: rgba(0, 0, 0, 0.6);
   border: 0px solid #b4befe;
