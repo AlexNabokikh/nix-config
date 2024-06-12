@@ -36,8 +36,8 @@
     gnomeExtensions.dash-to-dock
     gnomeExtensions.just-perfection
     gnomeExtensions.pop-shell
-    # gnomeExtensions.space-bar
-    # gnomeExtensions.unblank
+    gnomeExtensions.space-bar
+    gnomeExtensions.unblank
     gnomeExtensions.user-themes
     (pkgs.callPackage ../../files/custom_pkgs/rounded-window-corners-reborn.nix {})
   ];

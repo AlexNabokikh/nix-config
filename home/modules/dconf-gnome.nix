@@ -254,8 +254,8 @@ in
           "pomodoro@arun.codito.in"
           "pop-shell@system76.com"
           "rounded-window-corners@fxgn"
-          # "space-bar@luchrioh"
-          # "unblank@sun.wxg@gmail.com"
+          "space-bar@luchrioh"
+          "unblank@sun.wxg@gmail.com"
           "user-theme@gnome-shell-extensions.gcampax.github.com"
         ];
         "favorite-apps" = [
@@ -277,28 +277,30 @@ in
         ];
       };
 
-      "org/gnome/shell/extensions/blur-my-shell/appfolder" = {
-        "brightness" = 0.60;
-        "sigma" = 30;
+      "org/gnome/shell/extensions/blur-my-shell" = {
+        "settings-version" = 2;
       };
 
       "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
+        "blur" = false;
+        "pipeline" = "pipeline_default";
+      };
+
+      "org/gnome/shell/extensions/blur-my-shell/lockscreen" = {
+        "pipeline" = "pipeline_default";
+      };
+
+      "org/gnome/shell/extensions/blur-my-shell/overview" = {
         "blur" = true;
-        "brightness" = 0.60;
-        "sigma" = 30;
-        "static-blur" = true;
-        "style-dash-to-dock" = 0;
+        "pipeline" = "pipeline_default";
       };
 
       "org/gnome/shell/extensions/blur-my-shell/panel" = {
-        "brightness" = 0.60;
-        "sigma" = 30;
-        "static-blur" = true;
+        "pipeline" = "pipeline_default";
       };
 
-      "org/gnome/shell/extensions/blur-my-shell/window-list" = {
-        "brightness" = 0.60;
-        "sigma" = 30;
+      "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
+        "pipeline" = "pipeline_default";
       };
 
       "org/gnome/shell/extensions/clipboard-history" = {
