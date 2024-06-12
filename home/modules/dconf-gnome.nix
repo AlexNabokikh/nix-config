@@ -151,7 +151,6 @@ in
         "center-new-windows" = true;
         "dynamic-workspaces" = true;
         "edge-tiling" = false;
-        "workspaces-only-on-primary" = true;
       };
 
       "org/gnome/nautilus/preferences" = {
@@ -255,8 +254,8 @@ in
           "pomodoro@arun.codito.in"
           "pop-shell@system76.com"
           "rounded-window-corners@fxgn"
-          "space-bar@luchrioh"
-          "unblank@sun.wxg@gmail.com"
+          # "space-bar@luchrioh"
+          # "unblank@sun.wxg@gmail.com"
           "user-theme@gnome-shell-extensions.gcampax.github.com"
         ];
         "favorite-apps" = [
@@ -266,10 +265,6 @@ in
           "org.telegram.desktop.desktop"
           "spotify.desktop"
         ];
-      };
-
-      "org/gnome/shell/app-switcher" = {
-        "current-workspace-only" = true;
       };
 
       "org/gnome/shell/extensions/auto-move-windows" = {
@@ -345,7 +340,7 @@ in
 
       "org/gnome/shell/extensions/just-perfection" = {
         "accessibility-menu" = true;
-        "activities-button" = false;
+        "activities-button" = true;
         "activities-button-icon-monochrome" = false;
         "activities-button-label" = true;
         "animation" = 0;

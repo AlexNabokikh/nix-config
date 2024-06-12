@@ -11,32 +11,33 @@
       snapshot
     ])
     ++ (with pkgs.gnome; [
+      atomix # puzzle game
       cheese # webcam tool
-      gnome-music
-      gnome-terminal
-      gnome-contacts
-      simple-scan
-      gnome-maps
       epiphany # web browser
       geary # email reader
-      tali # poker game
-      iagno # go game
+      gnome-contacts
+      gnome-maps
+      gnome-music
+      gnome-shell-extensions
+      gnome-terminal
       hitori # sudoku game
-      atomix # puzzle game
+      iagno # go game
+      simple-scan
+      tali # poker game
     ]);
 
   # List of Gnome specific packages
   environment.systemPackages = with pkgs; [
-    gnome.gnome-shell-extensions
     gnome.gnome-tweaks
     gnome.pomodoro
+    gnomeExtensions.auto-move-windows
     gnomeExtensions.blur-my-shell
     gnomeExtensions.clipboard-history
     gnomeExtensions.dash-to-dock
     gnomeExtensions.just-perfection
     gnomeExtensions.pop-shell
-    gnomeExtensions.space-bar
-    gnomeExtensions.unblank
+    # gnomeExtensions.space-bar
+    # gnomeExtensions.unblank
     gnomeExtensions.user-themes
     (pkgs.callPackage ../../files/custom_pkgs/rounded-window-corners-reborn.nix {})
   ];
