@@ -27,7 +27,7 @@ in {
       nil
       nodePackages.bash-language-server
       nodePackages.prettier
-      nodePackages.pyright
+      pyright
       ruff
       ruff-lsp
       shellcheck

@@ -152,7 +152,6 @@
     qt6.qtwayland
     resources
     ripgrep
-    sops
     telegram-desktop
     terraform
     terragrunt

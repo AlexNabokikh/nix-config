@@ -6,9 +6,9 @@
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
+    ../modules/gnome.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
-    ../modules/hyprland.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
@@ -46,5 +46,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 }
