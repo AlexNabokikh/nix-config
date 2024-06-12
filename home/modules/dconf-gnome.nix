@@ -247,7 +247,7 @@ in
         ];
         "enabled-extensions" = [
           "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-          "blur-my-shell@aunetx"
+          # "blur-my-shell@aunetx"
           "clipboard-history@alexsaveau.dev"
           "dash-to-dock@micxgx.gmail.com"
           "just-perfection-desktop@just-perfection"
@@ -282,8 +282,7 @@ in
       };
 
       "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
-        "blur" = false;
-        "pipeline" = "pipeline_default";
+        "pipeline" = "pipeline_default_rounded";
       };
 
       "org/gnome/shell/extensions/blur-my-shell/lockscreen" = {
@@ -291,7 +290,6 @@ in
       };
 
       "org/gnome/shell/extensions/blur-my-shell/overview" = {
-        "blur" = true;
         "pipeline" = "pipeline_default";
       };
 
