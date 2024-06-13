@@ -6,7 +6,6 @@
         "float": [
           {
             "class": "ulauncher",
-            "title": "Ulauncher - Application Launcher"
           },
           {
             "class": "org.gnome.Calculator"
