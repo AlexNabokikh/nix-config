@@ -2,6 +2,11 @@
   # Enable GNOME
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Remove decorations for QT applications
+  environment.sessionVariables = {
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
+
   # Excluding some GNOME applications from the default install
   environment.gnome.excludePackages =
     (with pkgs; [
