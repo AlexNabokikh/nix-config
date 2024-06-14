@@ -190,13 +190,13 @@ in
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
         "binding" = "<Shift><Super>s";
-        "command" = "flameshot-wayland";
+        "command" = "flameshot gui";
         "name" = "Flameshot";
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
         "binding" = "<Shift><Alt>2";
-        "command" = "normcap-wayland";
+        "command" = "normcap -c '#B7BDF8' -l eng rus pol --clipboard-handler wlclipboard";
         "name" = "OCR";
       };
 
