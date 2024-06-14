@@ -452,7 +452,8 @@ in
       };
 
       "org/gnome/shell/keybindings" = {
-        "show-screenshot-ui" = ["<Shift><Alt>3"];
+        "show-screen-recording-ui" = ["<Shift><Super>r"];
+        "show-screenshot-ui" = ["<Ctrl><Alt>S"];
         "switch-to-application-1" = [];
         "switch-to-application-2" = [];
         "switch-to-application-3" = [];
