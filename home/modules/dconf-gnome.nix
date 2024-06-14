@@ -94,11 +94,12 @@ in
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
+        "speed" = 0.0;
         "accel-profile" = "flat";
       };
 
       "org/gnome/desktop/peripherals/touchpad" = {
-        "speed" = 0.0;
+        "speed" = 0.4;
         "tap-to-click" = true;
         "two-finger-scrolling-enabled" = true;
       };
