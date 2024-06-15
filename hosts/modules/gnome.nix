@@ -11,24 +11,36 @@
   environment.gnome.excludePackages =
     (with pkgs; [
       gedit
+      gnome-connections
+      gnome-console
       gnome-photos
       gnome-tour
       snapshot
     ])
     ++ (with pkgs.gnome; [
       atomix # puzzle game
+      baobab # disk usage analyzer
       cheese # webcam tool
       epiphany # web browser
+      evince # document viewer
       geary # email reader
+      gnome-calendar
+      gnome-characters
+      gnome-clocks
       gnome-contacts
+      gnome-disk-utility
+      gnome-font-viewer
+      gnome-logs
       gnome-maps
       gnome-music
       gnome-shell-extensions
+      gnome-system-monitor
       gnome-terminal
       hitori # sudoku game
       iagno # go game
       simple-scan
       tali # poker game
+      yelp # help viewer
     ]);
 
   # List of Gnome specific packages
