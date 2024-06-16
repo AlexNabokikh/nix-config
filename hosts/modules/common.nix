@@ -5,32 +5,24 @@
   pkgs,
   ...
 }: {
-  # nixpkgs configuration
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  # Nixpkgs configuration
+  nixpkgs.config.allowUnfree = true;
 
-  # This will add each flake input as a registry
-  # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  # Register flake inputs for nix commands
+  nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) (lib.filterAttrs (_: lib.isType "flake") inputs);
 
-  # This will additionally add your inputs to the system's legacy channels
-  # Making legacy nix commands consistent as well, awesome!
+  # Add inputs to legacy channels
   nix.nixPath = ["/etc/nix/path"];
   environment.etc =
-    lib.mapAttrs'
-    (name: value: {
+    lib.mapAttrs' (name: value: {
       name = "nix/path/${name}";
       value.source = value.flake;
     })
     config.nix.registry;
 
+  # Nix settings
   nix.settings = {
-    # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
     auto-optimise-store = true;
   };
 
@@ -46,56 +38,48 @@
     plymouth.enable = true;
   };
 
-  # Enable networking
+  # Networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone
+  # Timezone
   time.timeZone = "Europe/Warsaw";
 
-  # Select internationalisation properties
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_IE.UTF-8";
-      LC_IDENTIFICATION = "en_IE.UTF-8";
-      LC_MEASUREMENT = "en_IE.UTF-8";
-      LC_MONETARY = "en_IE.UTF-8";
-      LC_NAME = "en_IE.UTF-8";
-      LC_NUMERIC = "en_IE.UTF-8";
-      LC_PAPER = "en_IE.UTF-8";
-      LC_TELEPHONE = "en_IE.UTF-8";
-      LC_TIME = "en_IE.UTF-8";
-    };
+  # Internationalization
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_IE.UTF-8";
+    LC_IDENTIFICATION = "en_IE.UTF-8";
+    LC_MEASUREMENT = "en_IE.UTF-8";
+    LC_MONETARY = "en_IE.UTF-8";
+    LC_NAME = "en_IE.UTF-8";
+    LC_NUMERIC = "en_IE.UTF-8";
+    LC_PAPER = "en_IE.UTF-8";
+    LC_TELEPHONE = "en_IE.UTF-8";
+    LC_TIME = "en_IE.UTF-8";
   };
 
-  # Enable touchpad support
+  # Input settings
   services.libinput.enable = true;
 
   # X11 settings
   services.xserver = {
     enable = true;
-    xkb = {
-      layout = "pl";
-      variant = "";
-    };
-
-    # Exclude certain default packages
+    xkb.layout = "pl";
+    xkb.variant = "";
     excludePackages = with pkgs; [xterm];
-
-    # Set GDM as the default display manager
     displayManager.gdm.enable = true;
   };
 
-  # Add ~/.local/bin to PATH
+  # PATH configuration
   environment.localBinInPath = true;
 
-  # Enable CUPS to print documents.
+  # Disable CUPS printing
   services.printing.enable = false;
 
-  # Enable storage services
+  # Enable devmon for device management
   services.devmon.enable = true;
 
-  # Enable sound with pipewire.
+  # Enable PipeWire for sound
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -106,7 +90,7 @@
     jack.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User configuration
   users.users.nabokikh = {
     description = "Alexander Nabokikh";
     extraGroups = ["networkmanager" "wheel" "docker"];
@@ -114,10 +98,10 @@
     shell = pkgs.zsh;
   };
 
-  # Enable passwordless sudo
+  # Passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
-  # List of common packages
+  # System packages
   environment.systemPackages = with pkgs; [
     anki
     awscli2
@@ -141,11 +125,7 @@
     mesa
     nh
     obs-studio
-    (python3.withPackages (ps:
-      with ps; [
-        pip
-        virtualenv
-      ]))
+    (python3.withPackages (ps: with ps; [pip virtualenv]))
     pipenv
     pulseaudio
     qt6.qtwayland
@@ -162,15 +142,11 @@
 
   # Docker configuration
   virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+  virtualisation.docker.rootless.enable = true;
+  virtualisation.docker.rootless.setSocketVariable = true;
 
   # Zsh configuration
-  programs.zsh = {
-    enable = true;
-  };
+  programs.zsh.enable = true;
 
   # Fonts configuration
   fonts.packages = with pkgs; [
@@ -178,10 +154,10 @@
     roboto
   ];
 
-  # List services that you want to enable:
+  # Additional services
   services.locate.enable = true;
   services.locate.localuser = null;
 
-  # Enable the OpenSSH daemon.
+  # OpenSSH daemon
   services.openssh.enable = true;
 }
