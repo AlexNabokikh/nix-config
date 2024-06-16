@@ -22,12 +22,8 @@
     ../modules/zsh.nix
   ];
 
-  # nixpkgs configuration
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  # Nixpkgs configuration
+  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = "nabokikh";
