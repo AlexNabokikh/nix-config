@@ -28,7 +28,7 @@
 
   # Boot settings
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = ["quiet" "splash"];
