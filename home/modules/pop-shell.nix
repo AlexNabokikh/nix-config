@@ -8,7 +8,7 @@
             "class": "ulauncher"
           },
           {
-            "class": "org.gnome.Calculator"
+            "class": "gnome-calculator"
           },
           {
             "class": "zoom"
