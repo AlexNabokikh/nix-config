@@ -6,7 +6,7 @@
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
-    ../modules/gnome.nix
+    ../modules/hyprland.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
     ../modules/krew.nix
