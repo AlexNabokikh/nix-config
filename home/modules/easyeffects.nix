@@ -8,7 +8,7 @@
   # Source easyeffects preset from the home-manager store
 
   xdg.configFile = {
-    "easyeffects/input/rode.json".text = ''
+    "easyeffects/input/mic.json".text = ''
       {
         "input": {
           "blocklist": [],
@@ -16,11 +16,11 @@
             "attack": 2.0,
             "boost-amount": 6.0,
             "boost-threshold": -72.0,
-            "bypass": true,
+            "bypass": false,
             "dry": -100.0,
             "hpf-frequency": 10.0,
             "hpf-mode": "off",
-            "input-gain": 0.0,
+            "input-gain": 9.0,
             "knee": -6.0,
             "lpf-frequency": 20000.0,
             "lpf-mode": "off",
@@ -60,8 +60,8 @@
             "bypass": false,
             "dithering": "16bit",
             "external-sidechain": false,
-            "gain-boost": true,
-            "input-gain": 9.0,
+            "gain-boost": false,
+            "input-gain": 0.0,
             "lookahead": 5.0,
             "mode": "Herm Wide",
             "output-gain": 0.0,
