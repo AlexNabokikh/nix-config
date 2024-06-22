@@ -43,14 +43,6 @@
             "threshold": -16.0,
             "wet": 0.0
           },
-          "deepfilternet#0": {
-            "attenuation-limit": 100.0,
-            "max-df-processing-threshold": 20.0,
-            "max-erb-processing-threshold": 30.0,
-            "min-processing-buffer": 0,
-            "min-processing-threshold": -10.0,
-            "post-filter-beta": 0.02
-          },
           "limiter#0": {
             "alr": false,
             "alr-attack": 5.0,
@@ -72,10 +64,20 @@
             "threshold": -3.0
           },
           "plugins_order": [
-            "deepfilternet#0",
+            "rnnoise#0",
             "compressor#0",
             "limiter#0"
-          ]
+          ],
+          "rnnoise#0": {
+            "bypass": false,
+            "enable-vad": true,
+            "input-gain": 0.0,
+            "model-path": "",
+            "output-gain": 0.0,
+            "release": 20.0,
+            "vad-thres": 50.0,
+            "wet": 0.0
+          }
         }
       }
     '';
