@@ -40,7 +40,6 @@
 
   # List of Hyprland specific packages
   environment.systemPackages = with pkgs; [
-    evince # gnome document viewer
     gnome-text-editor
     gnome.file-roller # archive manager
     gnome.gnome-calculator
