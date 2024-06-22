@@ -2,7 +2,7 @@
   # Install easyeffects via home-manager module
   services.easyeffects = {
     enable = true;
-    preset = "rode";
+    preset = "mic";
   };
 
   # Source easyeffects preset from the home-manager store
