@@ -57,7 +57,7 @@ in {
   # Ulauncher plugins dependecies installation via overlay
   nixpkgs = {
     overlays = [
-      (final: prev: {
+      (_final: prev: {
         ulauncher = prev.ulauncher.overrideAttrs (old: {
           propagatedBuildInputs = with prev.python3Packages;
             old.propagatedBuildInputs
