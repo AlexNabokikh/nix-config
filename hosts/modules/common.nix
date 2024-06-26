@@ -107,20 +107,20 @@
     awscli2
     brave
     delta
-    dig
+    # dig
     docker-compose
     du-dust
     eza
     fd
-    gcc
+    # gcc
     glib
-    gnumake
+    # gnumake
     go
-    helmfile
+    # helmfile
     jq
     killall
     kubectl
-    kubernetes-helm
+    # kubernetes-helm
     lazydocker
     mesa
     nh
@@ -132,10 +132,10 @@
     resources
     ripgrep
     telegram-desktop
-    terraform
-    terragrunt
+    # terraform
+    # terragrunt
     unzip
-    wget
+    # wget
     wl-clipboard
     zoom-us
   ];

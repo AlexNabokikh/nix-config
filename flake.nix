@@ -30,7 +30,7 @@
     inherit (self) outputs;
 
     # Function for NixOS system configuration
-    nixosSystemFor = _hostname: configurationFile:
+    nixosSystemFor = _: configurationFile:
       nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [configurationFile];
