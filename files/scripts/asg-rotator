@@ -259,7 +259,7 @@ def main():
 
     AWS_DEFAULT_REGION, CLUSTER_NAME = fetch_cluster_info()
 
-    WAIT = 60
+    WAIT = 15
 
     asgs = get_asgs(AWS_DEFAULT_REGION, CLUSTER_NAME)
     if not asgs:
