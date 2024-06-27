@@ -112,7 +112,7 @@
     du-dust
     eza
     fd
-    # gcc
+    gcc
     glib
     gnumake
     go
