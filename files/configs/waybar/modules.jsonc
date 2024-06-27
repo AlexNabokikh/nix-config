@@ -146,7 +146,10 @@
     "on-scroll-down": "pamixer -d 5",
     "scroll-step": 5,
     "on-click-right": "pamixer -t",
-    "smooth-scrolling-threshold": 1
+    "smooth-scrolling-threshold": 1,
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
