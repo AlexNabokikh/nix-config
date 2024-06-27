@@ -114,7 +114,7 @@
     fd
     # gcc
     glib
-    # gnumake
+    gnumake
     go
     # helmfile
     jq
