@@ -164,7 +164,7 @@ in
       "org/gnome/settings-daemon/plugins/color" = {
         "night-light-enabled" = true;
         "night-light-last-coordinates" = mkTuple [44.437359000257999 26.090661799999999];
-        "night-light-temperature" = mkUint32 4000;
+        "night-light-temperature" = mkUint32 3700;
       };
 
       "org/gnome/settings-daemon/plugins/media-keys" = {

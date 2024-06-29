@@ -29,6 +29,7 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/desktop/interface" = {
+      "color-scheme" = "prefer-dark";
       "cursor-theme" = "Yaru";
       "font-name" = "Roboto 11";
       "icon-theme" = "Tela-circle-dark";
