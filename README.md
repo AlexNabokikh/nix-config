@@ -6,7 +6,13 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ## Showcase
 
-![showcase](./files/screenshots/screenshot-20240506.png)
+### Hyprland
+
+![hyprland](./files/screenshots/2024-05-06.png)
+
+### Gnome
+
+![gnome](./files/screenshots/2024-07-02.png)
 
 ## Structure
 
