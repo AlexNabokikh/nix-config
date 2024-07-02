@@ -32,4 +32,7 @@
       enable = false;
     };
   };
+
+  # Disable fingerprint reader
+  services.fprintd.enable = false;
 }
