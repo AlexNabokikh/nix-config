@@ -4,7 +4,14 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  stablepkgs = import inputs.nixpkgs-stable {
+    system = "x86_64-linux";
+    config = {
+      allowUnfree = true;
+    };
+  };
+in {
   # Nixpkgs configuration
   nixpkgs.config.allowUnfree = true;
 
@@ -103,6 +110,8 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    (python3.withPackages (ps: with ps; [pip virtualenv]))
+    (stablepkgs.zoom-us)
     anki
     awscli2
     brave
@@ -123,7 +132,6 @@
     mesa
     nh
     obs-studio
-    (python3.withPackages (ps: with ps; [pip virtualenv]))
     pipenv
     pulseaudio
     qt6.qtwayland
@@ -132,7 +140,6 @@
     telegram-desktop
     unzip
     wl-clipboard
-    zoom-us
   ];
 
   # Docker configuration
