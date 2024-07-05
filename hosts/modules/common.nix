@@ -138,6 +138,8 @@ in {
     resources
     ripgrep
     telegram-desktop
+    terraform
+    terragrunt
     unzip
     wl-clipboard
   ];
