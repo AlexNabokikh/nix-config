@@ -344,6 +344,7 @@ in
         "active-hint" = false;
         "gap-inner" = mkUint32 1;
         "gap-outer" = mkUint32 1;
+        "tile-by-default" = true;
       };
 
       "org/gnome/shell/extensions/just-perfection" = {
