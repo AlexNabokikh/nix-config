@@ -43,7 +43,7 @@ tooltip label {
 }
 
 #workspaces button.active {
-  color: #c2c5d4;
+  color: #dfdfdf;
   border-radius: 3px 3px 3px 3px;
 }
 
@@ -57,7 +57,7 @@ tooltip label {
 }
 
 #workspaces button:hover {
-  color: #c2c5d4;
+  color: #dfdfdf;
   border-radius: 3px;
 }
 
@@ -76,7 +76,7 @@ tooltip label {
 #pulseaudio,
 #temperature,
 #workspaces {
-  color: #c2c5d4;
+  color: #dfdfdf;
   padding: 0px 10px;
   border-radius: 8px;
 }
