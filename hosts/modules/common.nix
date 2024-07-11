@@ -4,14 +4,7 @@
   config,
   pkgs,
   ...
-}: let
-  stablepkgs = import inputs.nixpkgs-stable {
-    system = "x86_64-linux";
-    config = {
-      allowUnfree = true;
-    };
-  };
-in {
+}: {
   # Nixpkgs configuration
   nixpkgs.config.allowUnfree = true;
 
@@ -111,7 +104,6 @@ in {
   # System packages
   environment.systemPackages = with pkgs; [
     (python3.withPackages (ps: with ps; [pip virtualenv]))
-    (stablepkgs.zoom-us)
     anki
     awscli2
     brave
@@ -142,6 +134,7 @@ in {
     terragrunt
     unzip
     wl-clipboard
+    zoom-us
   ];
 
   # Docker configuration
