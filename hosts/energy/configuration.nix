@@ -6,7 +6,9 @@
 
     ./hardware-configuration.nix
     ../modules/common.nix
+    ../modules/corectrl.nix
     ../modules/hyprland.nix
+    ../modules/steam.nix
   ];
 
   # Set hostname
