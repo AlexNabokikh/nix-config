@@ -3,12 +3,7 @@
     "interval": 2,
     "align": 0,
     "rotate": 0,
-    "format": "{icon} {percent}%",
-    "format-icons": [
-      "󰃞",
-      "󰃟",
-      "󰃠"
-    ],
+    "format": " {percent}%",
     "icon-size": 10,
     "on-click": "",
     "on-click-middle": "",
@@ -72,25 +67,13 @@
     }
   },
   "cpu": {
-    "format": "󰍛 {usage}%",
-    "interval": 1,
-    "format-alt-click": "click",
-    "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
-    "format-icons": [
-      "▁",
-      "▂",
-      "▃",
-      "▄",
-      "▅",
-      "▆",
-      "▇",
-      "█"
-    ]
+    "format": "  {usage}%",
+    "interval": 1
   },
   "disk": {
     "interval": 30,
     "path": "/",
-    "format": "{percentage_used}% 󰋊",
+    "format": "{percentage_used}% ",
     "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
   },
   "hyprland/language": {
@@ -105,8 +88,8 @@
   },
   "memory": {
     "interval": 10,
-    "format": "󰾆 {used:0.1f}G",
-    "format-alt": "󰾆 {percentage}%",
+    "format": "  {used:0.1f}G",
+    "format-alt": "  {percentage}%",
     "format-alt-click": "click",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
@@ -114,21 +97,14 @@
   },
   "network": {
     "format-disconnected": " Disconnected",
-    "format-ethernet": "󰈀 ",
-    "format-linked": "󰈀 {ifname} (No IP)",
-    "format-icons": [
-      "󰤯 ",
-      "󰤟 ",
-      "󰤢 ",
-      "󰤥 ",
-      "󰤨 "
-    ],
-    "format-wifi": "{icon}",
+    "format-ethernet": " ",
+    "format-wifi": " ",
+    "format-linked": " {ifname} (No IP)",
     "max-length": 50,
     "on-click": "nm-connection-editor",
     "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
     "tooltip-format-disconnected": " Disconnected",
-    "tooltip-format-ethernet": "{ifname} 󰈀",
+    "tooltip-format-ethernet": "{ifname} ",
     "tooltip-format-wifi": "Network {essid}\nGateway {gwaddr}\nIP {ipaddr}\nFrequency {frequency} GHz\nSignal {signaldBm} dBm ({signalStrength}%)"
   },
   "pulseaudio": {
@@ -168,7 +144,11 @@
     "format-critical": "{icon} {temperatureC}°C",
     "format": "{icon} {temperatureC}°C",
     "format-icons": [
-      "󰈸"
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "tray": {
@@ -178,14 +158,14 @@
     "tooltip": false,
     "format": "{icon}",
     "format-icons": {
-      "notification": "󰍡<span foreground='red'><sup></sup></span>",
-      "none": "󰍡",
-      "dnd-notification": "󱙍<span foreground='red'><sup></sup></span>",
-      "dnd-none": "󱙍",
-      "inhibited-notification": "󰍡<span foreground='red'><sup></sup></span>",
-      "inhibited-none": "󰍡",
-      "dnd-inhibited-notification": "󱙍<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": "󱙍"
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
