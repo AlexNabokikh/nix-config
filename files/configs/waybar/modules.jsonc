@@ -3,7 +3,12 @@
     "interval": 2,
     "align": 0,
     "rotate": 0,
-    "format": " {percent}%",
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
     "icon-size": 10,
     "on-click": "",
     "on-click-middle": "",
@@ -67,13 +72,13 @@
     }
   },
   "cpu": {
-    "format": "  {usage}%",
-    "interval": 1
+    "format": "󰍛 {usage}%",
+    "interval": 1,
   },
   "disk": {
     "interval": 30,
     "path": "/",
-    "format": "{percentage_used}% ",
+    "format": "{percentage_used}% 󰋊",
     "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
   },
   "hyprland/language": {
@@ -88,8 +93,8 @@
   },
   "memory": {
     "interval": 10,
-    "format": "  {used:0.1f}G",
-    "format-alt": "  {percentage}%",
+    "format": "󰾆 {used:0.1f}G",
+    "format-alt": "󰾆 {percentage}%",
     "format-alt-click": "click",
     "tooltip": true,
     "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
@@ -142,14 +147,7 @@
     "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
     "critical-threshold": 82,
     "format-critical": "{icon} {temperatureC}°C",
-    "format": "{icon} {temperatureC}°C",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+    "format": "󰈸 {temperatureC}°C"
   },
   "tray": {
     "spacing": 20
