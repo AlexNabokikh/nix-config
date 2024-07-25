@@ -124,6 +124,7 @@
     mesa
     nh
     obs-studio
+    openconnect
     pipenv
     pulseaudio
     qt6.qtwayland
