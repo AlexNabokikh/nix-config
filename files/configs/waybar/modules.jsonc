@@ -73,7 +73,7 @@
   },
   "cpu": {
     "format": "󰍛 {usage}%",
-    "interval": 1,
+    "interval": 1
   },
   "disk": {
     "interval": 30,
