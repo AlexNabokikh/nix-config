@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ../modules/alacritty.nix
+    ../modules/atuin.nix
     ../modules/bat.nix
     ../modules/bottom.nix
     ../modules/corectrl.nix
