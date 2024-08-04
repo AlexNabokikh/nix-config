@@ -24,7 +24,7 @@ in {
       lua-language-server
       markdownlint-cli
       marksman
-      nil
+      nixd
       nodePackages.bash-language-server
       nodePackages.prettier
       pyright

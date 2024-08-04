@@ -39,7 +39,7 @@ return {
             },
           },
         },
-        nil_ls = {},
+        nixd = {},
         pyright = {
           settings = {
             python = {
