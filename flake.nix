@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/";
@@ -23,11 +24,20 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     catppuccin,
     ...
   } @ inputs: let
     inherit (self) outputs;
+
+    # Define the overlay for pkgs.unstable
+    unstable-packages = final: _prev: {
+      unstable = import inputs.nixpkgs-unstable {
+        system = final.system;
+        config.allowUnfree = true;
+      };
+    };
 
     # Function for NixOS system configuration
     nixosSystemFor = _: configurationFile:
@@ -38,7 +48,10 @@
 
     # Function for Home Manager configuration
     homeManagerFor = user: hostname: {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [unstable-packages];
+      };
       extraSpecialArgs = {inherit inputs outputs;};
       modules = [
         ./home/${user}/${hostname}.nix

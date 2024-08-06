@@ -4,6 +4,7 @@ in {
   # Neovim text editor configuration
   programs.neovim = {
     enable = true;
+    package = pkgs.unstable.neovim-unwrapped;
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
