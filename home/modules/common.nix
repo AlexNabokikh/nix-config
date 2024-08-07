@@ -31,4 +31,10 @@
       allowUnfree = true;
     };
   };
+
+  # Catpuccin flavor and accent
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "lavender";
+  };
 }
