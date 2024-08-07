@@ -44,7 +44,7 @@
     ]);
 
   # List of Gnome specific packages
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     gnome.gnome-tweaks
     gnome.pomodoro
     gnomeExtensions.auto-move-windows
@@ -56,6 +56,6 @@
     gnomeExtensions.space-bar
     gnomeExtensions.unblank
     gnomeExtensions.user-themes
-    (pkgs.callPackage ../../files/custom_pkgs/rounded-window-corners-reborn.nix {})
+    (callPackage ../../files/custom_pkgs/rounded-window-corners-reborn.nix {})
   ];
 }

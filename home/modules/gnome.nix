@@ -249,12 +249,9 @@ in
 
       "org/gnome/shell" = {
         "disable-user-extensions" = false;
-        "disabled-extensions" = [
-          "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-        ];
         "enabled-extensions" = [
           "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-          # "blur-my-shell@aunetx"
+          "blur-my-shell@aunetx"
           "clipboard-history@alexsaveau.dev"
           "dash-to-dock@micxgx.gmail.com"
           "just-perfection-desktop@just-perfection"
