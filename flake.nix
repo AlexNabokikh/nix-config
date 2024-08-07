@@ -30,14 +30,6 @@
   } @ inputs: let
     inherit (self) outputs;
 
-    # Define the overlay for pkgs.unstable
-    unstable-packages = final: _prev: {
-      unstable = import inputs.nixpkgs-unstable {
-        system = final.system;
-        config.allowUnfree = true;
-      };
-    };
-
     # Function for NixOS system configuration
     nixosSystemFor = _: configurationFile:
       nixpkgs.lib.nixosSystem {
@@ -49,7 +41,6 @@
     homeManagerFor = user: hostname: {
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        overlays = [unstable-packages];
       };
       extraSpecialArgs = {inherit inputs outputs;};
       modules = [
@@ -67,5 +58,8 @@
       "nabokikh@energy" = home-manager.lib.homeManagerConfiguration (homeManagerFor "nabokikh" "energy");
       "nabokikh@nabokikh-z13" = home-manager.lib.homeManagerConfiguration (homeManagerFor "nabokikh" "nabokikh-z13");
     };
+
+    # Custom packages and modifications, exported as overlays
+    overlays = import ./overlays {inherit inputs;};
   };
 }

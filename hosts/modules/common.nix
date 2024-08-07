@@ -1,12 +1,21 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
   ...
 }: {
   # Nixpkgs configuration
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.unstable-packages
+    ];
+
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   # Register flake inputs for nix commands
   nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) (lib.filterAttrs (_: lib.isType "flake") inputs);
