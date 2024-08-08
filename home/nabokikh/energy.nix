@@ -2,7 +2,6 @@
   imports = [
     ../modules/common.nix
     ../modules/corectrl.nix
-    ../modules/easyeffects.nix
     ../modules/hyprland.nix
   ];
 
