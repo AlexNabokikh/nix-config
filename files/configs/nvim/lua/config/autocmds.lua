@@ -6,9 +6,3 @@ vim.filetype.add({
     [".*/chart/*/templates/.{yaml,tpl}"] = "helm",
   },
 })
-
-vim.filetype.add({
-  pattern = {
-    [".*/tasks/.*%.ya?ml"] = "yaml.ansible",
-  },
-})

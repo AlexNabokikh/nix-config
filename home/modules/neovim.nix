@@ -10,27 +10,21 @@ in {
     withPython3 = true;
     withRuby = true;
 
-    extraPackages = with pkgs; [
+    extraPackages = with pkgs.unstable; [
       alejandra
-      ansible-language-server
-      ansible-lint
       black
-      dockerfile-language-server-nodejs
       golangci-lint
-      golangci-lint-langserver
       gopls
       gotools
       hadolint
       isort
       lua-language-server
       markdownlint-cli
-      marksman
       nixd
       nodePackages.bash-language-server
       nodePackages.prettier
       pyright
       ruff
-      ruff-lsp
       shellcheck
       shfmt
       stylua

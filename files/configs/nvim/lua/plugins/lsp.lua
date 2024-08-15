@@ -3,8 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        ansiblels = {},
-        dockerls = {},
         bashls = {},
         gopls = {
           settings = {
@@ -52,16 +50,7 @@ return {
             },
           },
         },
-        ruff_lsp = {
-          on_attach = on_attach,
-          init_options = {
-            settings = {
-              args = {
-                "--line-length=120",
-              },
-            },
-          },
-        },
+        ruff = {},
         terraformls = {},
         tflint = {},
         yamlls = {
