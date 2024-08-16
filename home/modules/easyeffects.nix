@@ -6,7 +6,6 @@
   };
 
   # Source easyeffects preset from the home-manager store
-
   xdg.configFile = {
     "easyeffects/input/mic.json".text = ''
       {
