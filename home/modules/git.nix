@@ -5,7 +5,7 @@
     userName = "Alexander Nabokikh";
     userEmail = "alexander.nabokikh@olx.pl";
     signing = {
-      key = "CD172433";
+      key = "C5810093";
       signByDefault = true;
     };
     delta = {
