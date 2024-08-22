@@ -137,7 +137,6 @@
     pipenv
     pulseaudio
     qt6.qtwayland
-    resources
     ripgrep
     telegram-desktop
     terraform
