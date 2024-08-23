@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
@@ -25,10 +25,6 @@
     historyLimit = 10000;
     keyMode = "vi";
     mouse = true;
-
-    plugins = with pkgs.unstable; [
-      {plugin = tmuxPlugins.vim-tmux-navigator;}
-    ];
 
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
@@ -58,6 +54,20 @@
 
       # Set default escape-time
       set-option -sg escape-time 10
+
+      # Smart pane switching with awareness of Vim splits
+      is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf|atuin)(diff)?$'"
+      bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+      bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+      bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+      bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+      bind-key -n 'C-\' if-shell "$is_vim" 'send-keys C-\'  'select-pane -l'
+
+      bind-key -T copy-mode-vi 'C-h' select-pane -L
+      bind-key -T copy-mode-vi 'C-j' select-pane -D
+      bind-key -T copy-mode-vi 'C-k' select-pane -U
+      bind-key -T copy-mode-vi 'C-l' select-pane -R
+      bind-key -T copy-mode-vi 'C-\' select-pane -l
     '';
   };
 }
