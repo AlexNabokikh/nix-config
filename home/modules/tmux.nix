@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
@@ -26,6 +26,10 @@
     keyMode = "vi";
     mouse = true;
 
+    plugins = with pkgs.unstable; [
+      {plugin = tmuxPlugins.vim-tmux-navigator;}
+    ];
+
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
       set -g prefix C-q
@@ -37,23 +41,13 @@
       bind + split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
 
-      # Bind D to resize the window to be 8 lines smaller
-      bind D resize-pane -D 8
-      bind U resize-pane -U 4
+      # Bind Arrow keys to resize the window
+      bind -n S-Down resize-pane -D 8
+      bind -n S-Up resize-pane -U 8
+      bind -n S-Left resize-pane -L 8
+      bind -n S-Right resize-pane -R 8
 
-      # Move around panes with hjkl, as one would in vim after pressing ctrl + q
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
-
-      # Use shift + arrow key to move between windows in a session
-      bind -n S-Left previous-window
-      bind -n S-Right next-window
-
-      # Automatically set window title
-      set-window-option -g automatic-rename on
-      set-option -g set-titles on
+      # Rename window with prefix + r
       bind r command-prompt -I "#W" "rename-window '%%'"
 
       # Apply Tc
