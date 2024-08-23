@@ -21,10 +21,11 @@
       '';
     };
     escapeTime = 10;
-    terminal = "screen-256color";
     historyLimit = 10000;
     keyMode = "vi";
     mouse = true;
+    sensibleOnTop = false;
+    terminal = "screen-256color";
 
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
