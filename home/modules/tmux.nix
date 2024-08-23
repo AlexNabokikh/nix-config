@@ -46,6 +46,9 @@
       # Rename window with prefix + r
       bind r command-prompt -I "#W" "rename-window '%%'"
 
+      # Clear screan with prefix + l
+      bind C-l send-keys 'C-l'
+
       # Apply Tc
       set -ga terminal-overrides ",xterm-256color:RGB:smcup@:rmcup@"
 
