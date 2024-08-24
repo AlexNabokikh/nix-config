@@ -35,8 +35,8 @@
       # Use | and - to split a window vertically and horizontally instead of " and % respoectively
       unbind '"'
       unbind %
-      bind + split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
+      bind v split-window -h -c "#{pane_current_path}"
+      bind s split-window -v -c "#{pane_current_path}"
 
       # Bind Arrow keys to resize the window
       bind -n S-Down resize-pane -D 8
