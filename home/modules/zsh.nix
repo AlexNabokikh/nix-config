@@ -96,6 +96,7 @@
       kubernetes = {
         disabled = false;
         style = "bold pink";
+        symbol = "󱃾 ";
         format = "[$symbol$context( \($namespace\))]($style)";
         contexts = [
           {
