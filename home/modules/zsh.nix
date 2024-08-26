@@ -90,6 +90,9 @@
       aws = {
         disabled = true;
       };
+      golang = {
+        symbol = " ";
+      };
       kubernetes = {
         disabled = false;
         style = "bold pink";
@@ -100,6 +103,12 @@
             context_alias = "$var_cluster";
           }
         ];
+      };
+      python = {
+        symbol = " ";
+      };
+      terraform = {
+        symbol = " ";
       };
       right_format = "$kubernetes";
     };
