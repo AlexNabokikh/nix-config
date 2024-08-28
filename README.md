@@ -28,7 +28,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **home-manager**: Manages user-specific configurations, following the `nixpkgs` input.
 - **hardware**: Optimizes settings for different hardware configurations.
 - **spicetify-nix**: Enhances Spotify client customization.
-- **hyprland**: A Wayland compositor configuration tailored for my setups.
 
 ## Usage
 
