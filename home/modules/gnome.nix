@@ -9,10 +9,6 @@ in
     ];
 
     dconf.settings = {
-      "org/gnome/Weather" = {
-        locations = [(mkVariant (mkTuple [(mkUint32 2) (mkVariant (mkTuple ["Warsaw" "EPWA" true [(mkTuple [0.91048009894147275 0.36593737231924195])] [(mkTuple [0.91193453416703718 0.36651914291880922])]]))]))];
-      };
-
       "org/gnome/calculator" = {
         "accuracy" = 9;
         "angle-units" = "degrees";
@@ -69,10 +65,6 @@ in
         "view-type" = "list";
       };
 
-      "org/gnome/GWeather4" = {
-        "temperature-unit" = "centigrade";
-      };
-
       "org/gnome/desktop/background" = {
         "color-shading-type" = "solid";
         "picture-options" = "zoom";
@@ -80,10 +72,6 @@ in
         "picture-uri-dark" = "file://${wallpaper}";
         "primary-color" = "#000000000000";
         "secondary-color" = "#000000000000";
-      };
-
-      "org/gnome/desktop/calendar" = {
-        "show-weekdate" = true;
       };
 
       "org/gnome/desktop/input-sources" = {
@@ -462,13 +450,6 @@ in
         "switch-to-application-9" = [];
         "toggle-application-view" = ["<Super>a"];
         "toggle-message-tray" = ["<Super>v"];
-      };
-
-      "org/gnome/shell/weather" = {
-        "automatic-location" = true;
-        "locations" = [
-          (mkVariant (mkTuple [(mkUint32 2) (mkVariant (mkTuple ["Warsaw" "EPWA" true [(mkTuple [0.91048009894147275 0.36593737231924195])] [(mkTuple [0.91193453416703718 0.36651914291880922])]]))]))
-        ];
       };
 
       "org/gnome/system/location" = {

@@ -36,6 +36,7 @@
       gnome-shell-extensions
       gnome-system-monitor
       gnome-terminal
+      gnome-weather
       hitori # sudoku game
       iagno # go game
       simple-scan
