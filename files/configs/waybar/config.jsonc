@@ -1,7 +1,6 @@
 {
   "include": "~/.config/waybar/modules.jsonc",
   "layer": "top",
-  "height": 36,
   "exclusive": true,
   "passthrough": false,
   "position": "top",
