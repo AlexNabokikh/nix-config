@@ -125,7 +125,6 @@
     gcc
     glib
     gnumake
-    go
     jq
     killall
     kubectl

@@ -19,7 +19,7 @@ in {
     krew
   ];
 
-  # Adding krew to a session PATH
+  # Ensure krew is in the PATH
   home.sessionPath = [
     "$HOME/.krew/bin"
   ];

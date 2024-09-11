@@ -8,6 +8,7 @@
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
+    ../modules/go.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
     ../modules/krew.nix
