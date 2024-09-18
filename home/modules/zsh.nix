@@ -4,7 +4,6 @@
     enable = true;
     enableCompletion = true;
     shellAliases = {
-      cat = "bat -p";
       ff = "fastfetch";
 
       # git
@@ -14,9 +13,6 @@
       gco = "git checkout";
       ggl = "git pull";
       ggp = "git push";
-
-      du = "dust";
-      grep = "rg";
 
       # kubectl
       k = "kubectl";
@@ -51,8 +47,6 @@
 
       repo = "cd $HOME/Documents/repositories";
       temp = "cd $HOME/Downloads/temp";
-
-      top = "btm";
 
       v = "nvim";
       vi = "nvim";
