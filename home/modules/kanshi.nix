@@ -8,9 +8,10 @@
   services.kanshi = {
     enable = true;
     systemdTarget = "graphical-session.target";
-    profiles = {
-      docked = {
-        outputs = [
+    settings = [
+      {
+        profile.name = "docked";
+        profile.outputs = [
           {
             criteria = "DP-1";
             status = "enable";
@@ -21,16 +22,17 @@
             status = "disable";
           }
         ];
-      };
-      undocked = {
-        outputs = [
+      }
+      {
+        profile.name = "undocked";
+        profile.outputs = [
           {
             criteria = "eDP-1";
             status = "enable";
             position = "0,0";
           }
         ];
-      };
-    };
+      }
+    ];
   };
 }
