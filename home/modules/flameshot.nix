@@ -1,4 +1,4 @@
-{...}: {
+{username, ...}: {
   services.flameshot = {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
         disabledTrayIcon = "true";
         drawColor = "#ff2800";
         drawFontSize = "4";
-        savePath = "/home/nabokikh/Downloads/temp";
+        savePath = "/home/${username}/Downloads/temp";
         showDesktopNotification = "false";
         showHelp = "false";
         showMagnifier = "true";

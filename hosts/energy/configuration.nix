@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  hostname,
+  ...
+}: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd
@@ -12,7 +16,7 @@
   ];
 
   # Set hostname
-  networking.hostName = "energy";
+  networking.hostName = hostname;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

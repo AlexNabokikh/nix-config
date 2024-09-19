@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  hostname,
+  ...
+}: {
   imports = [
     inputs.hardware.nixosModules.lenovo-thinkpad-z13-gen1
 
@@ -9,7 +13,7 @@
   ];
 
   # Set hostname
-  networking.hostName = "nabokikh-z13";
+  networking.hostName = hostname;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

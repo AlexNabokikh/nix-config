@@ -37,7 +37,7 @@
     # Function for NixOS system configuration
     mkNixosConfiguration = hostname: username:
       nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username;};
+        specialArgs = {inherit inputs outputs username hostname;};
         modules = [./hosts/${hostname}/configuration.nix];
       };
 
