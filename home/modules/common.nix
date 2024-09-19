@@ -11,6 +11,7 @@
     ../modules/go.nix
     ../modules/gpg.nix
     ../modules/gtk.nix
+    ../modules/home.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix

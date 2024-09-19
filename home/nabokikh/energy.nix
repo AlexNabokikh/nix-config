@@ -5,11 +5,6 @@
     ../modules/hyprland.nix
   ];
 
-  home = {
-    username = "nabokikh";
-    homeDirectory = "/home/nabokikh";
-  };
-
   # Enable home-manager
   programs.home-manager.enable = true;
 
