@@ -1,4 +1,4 @@
-{...}: {
+{userConfig, ...}: {
   # Configure Zoom-us settings from the home-manager store
   xdg.configFile = {
     "zoomus.conf".text = ''
@@ -49,7 +49,7 @@
       translationFreeTrialTipShowTime=0
       upcoming_meeting_header_image=
       useSystemTheme=false
-      userEmailAddress=alexander.nabokikh@olx.pl
+      userEmailAddress=${userConfig.email}
       xwayland=true
 
       [AS]

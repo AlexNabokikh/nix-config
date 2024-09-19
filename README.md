@@ -27,10 +27,27 @@ It is structured to easily accommodate multiple machines and user configurations
 
 - **nixpkgs**: Points to the `nixos-24.05` channel, providing stable NixOS packages.
 - **nixpkgs-unstable**: Points to the `nixos-unstable` channel for access to the latest packages.
-- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input.
+- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.05).
 - **hardware**: Optimizes settings for different hardware configurations.
 - **catppuccin**: Provides global Catppuccin theme integration.
 - **spicetify-nix**: Enhances Spotify client customization.
+
+## User Configuration
+
+The flake now includes a `users` attribute set, defining user-specific information:
+
+```nix
+users = {
+  jdoe = {
+    email = "joe.doe@example.com";
+    fullName = "Joe Doe";
+    gitKey = "A0000000";
+    name = "jdoe";
+  };
+};
+```
+
+This configuration is passed to both NixOS and Home Manager configurations, allowing for consistent user settings across the system.
 
 ## Usage
 

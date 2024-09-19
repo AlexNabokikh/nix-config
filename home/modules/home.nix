@@ -1,7 +1,7 @@
-{username, ...}: {
+{userConfig, ...}: {
   # Home-Manager configuration for the user's home environment
   home = {
-    username = "${username}";
-    homeDirectory = "/home/${username}";
+    username = "${userConfig.name}";
+    homeDirectory = "/home/${userConfig.name}";
   };
 }

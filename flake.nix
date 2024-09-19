@@ -34,10 +34,23 @@
   } @ inputs: let
     inherit (self) outputs;
 
+    # Define user configurations
+    users = {
+      nabokikh = {
+        email = "alexander.nabokikh@olx.pl";
+        fullName = "Alexander Nabokikh";
+        gitKey = "C5810093";
+        name = "nabokikh";
+      };
+    };
+
     # Function for NixOS system configuration
     mkNixosConfiguration = hostname: username:
       nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs username hostname;};
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+        };
         modules = [./hosts/${hostname}/configuration.nix];
       };
 
@@ -45,7 +58,10 @@
     mkHomeConfiguration = system: username: hostname:
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {inherit system;};
-        extraSpecialArgs = {inherit inputs outputs username;};
+        extraSpecialArgs = {
+          inherit inputs outputs;
+          userConfig = users.${username};
+        };
         modules = [
           ./home/${username}/${hostname}.nix
           catppuccin.homeManagerModules.catppuccin

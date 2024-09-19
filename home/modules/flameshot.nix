@@ -1,4 +1,4 @@
-{username, ...}: {
+{userConfig, ...}: {
   services.flameshot = {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
         disabledTrayIcon = "true";
         drawColor = "#ff2800";
         drawFontSize = "4";
-        savePath = "/home/${username}/Downloads/temp";
+        savePath = "/home/${userConfig.name}/Downloads/temp";
         showDesktopNotification = "false";
         showHelp = "false";
         showMagnifier = "true";

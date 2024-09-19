@@ -3,7 +3,7 @@
   outputs,
   lib,
   config,
-  username,
+  userConfig,
   pkgs,
   ...
 }: {
@@ -101,8 +101,8 @@
   };
 
   # User configuration
-  users.users.${username} = {
-    description = username;
+  users.users.${userConfig.name} = {
+    description = userConfig.fullName;
     extraGroups = ["networkmanager" "wheel" "docker"];
     isNormalUser = true;
     shell = pkgs.zsh;

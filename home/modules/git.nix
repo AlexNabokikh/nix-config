@@ -1,11 +1,11 @@
-{...}: {
+{userConfig, ...}: {
   # Install git via home-manager module
   programs.git = {
     enable = true;
-    userName = "Alexander Nabokikh";
-    userEmail = "alexander.nabokikh@olx.pl";
+    userName = userConfig.fullName;
+    userEmail = userConfig.email;
     signing = {
-      key = "C5810093";
+      key = userConfig.gitKey;
       signByDefault = true;
     };
     delta = {

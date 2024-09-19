@@ -1,5 +1,5 @@
 {
-  username,
+  userConfig,
   pkgs,
   ...
 }: {
@@ -24,8 +24,8 @@
     };
     gtk3 = {
       bookmarks = [
-        "file:///home/${username}/Downloads/temp"
-        "file:///home/${username}/Documents/repositories"
+        "file:///home/${userConfig.name}/Downloads/temp"
+        "file:///home/${userConfig.name}/Documents/repositories"
       ];
     };
   };
