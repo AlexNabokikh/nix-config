@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  username,
+  pkgs,
+  ...
+}: {
   # GTK theme configuration
   gtk = {
     enable = true;
@@ -20,8 +24,8 @@
     };
     gtk3 = {
       bookmarks = [
-        "file:///home/nabokikh/Downloads/temp"
-        "file:///home/nabokikh/Documents/repositories"
+        "file:///home/${username}/Downloads/temp"
+        "file:///home/${username}/Documents/repositories"
       ];
     };
   };
