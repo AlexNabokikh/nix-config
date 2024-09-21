@@ -158,14 +158,95 @@ nix flake update
 
 ## Custom Modules and Configurations
 
-This setup includes various custom modules and configurations:
+This setup includes a wide range of custom modules and configurations to enhance your NixOS experience. Here's a comprehensive list of available modules:
 
-- **Desktop Environments**: Supports both Hyprland and GNOME.
-- **Development Tools**: Includes configurations for Neovim, Git, Go, and more.
-- **System Tools**: Configures utilities like Alacritty, Atuin, Bottom, and FZF.
-- **Audio**: Includes EasyEffects for audio enhancement.
-- **Gaming**: Supports Steam and Lutris for gaming on NixOS.
-- **AI/ML**: Includes Ollama for local AI model running.
+### System Modules (in `hosts/modules/`)
+
+- `common.nix`: Common system configurations
+- `corectrl.nix`: CoreCtrl for AMD GPU management
+- `gnome.nix`: GNOME desktop environment
+- `hyprland.nix`: Hyprland window manager
+- `laptop.nix`: Laptop-specific configurations
+- `lutris.nix`: Lutris gaming platform
+- `ollama.nix`: Ollama for running large language models locally
+- `steam.nix`: Steam gaming platform
+
+### Home Manager Modules (in `home/modules/`)
+
+1. Terminal and Shell:
+
+   - `alacritty.nix`: Alacritty terminal emulator
+   - `atuin.nix`: Shell history sync
+   - `zsh.nix`: Zsh shell configuration
+   - `tmux.nix`: Terminal multiplexer
+
+2. Development Tools:
+
+   - `git.nix`: Git version control
+   - `go.nix`: Go programming language
+   - `neovim.nix`: Neovim text editor
+   - `lazygit.nix`: Terminal UI for Git
+
+3. System Utilities:
+
+   - `bat.nix`: A cat clone with syntax highlighting
+   - `bottom.nix`: System monitor
+   - `clipboard.nix`: Cliphist clipboard manager (for Hyprland)
+   - `fastfetch.nix`: System information tool
+   - `fzf.nix`: Fuzzy finder
+   - `gpg.nix`: GPG key management
+   - `krew.nix`: kubectl plugin manager
+
+4. Desktop Environment and UI:
+
+   - `gnome.nix`: GNOME desktop customizations
+   - `gtk.nix`: GTK theme settings
+   - `hyprland.nix`: Hyprland window manager configuration
+   - `kanshi.nix`: Automatic display configuration
+   - `pop-shell.nix`: Pop Shell for tiling windows
+   - `swaync.nix`: Notification center for Wayland
+   - `waybar.nix`: Highly customizable Wayland bar
+   - `wofi.nix`: Application launcher for Wayland
+
+5. Applications:
+
+   - `corectrl.nix`: GPU controls and monitoring
+   - `easyeffects.nix`: Audio effects for PipeWire
+   - `flameshot.nix`: Screenshot tool
+   - `normcap.nix`: OCR tool
+   - `spicetify.nix`: Spotify client customization
+   - `swappy.nix`: Wayland screenshot editing tool
+   - `ulauncher.nix`: Application launcher
+   - `zoom.nix`: Zoom video conferencing
+
+6. Cloud and DevOps:
+
+   - `saml2aws.nix`: CLI tool for SAML SSO
+
+7. Miscellaneous:
+   - `home.nix`: Main home configuration
+   - `scripts.nix`: Custom scripts
+   - `xdg.nix`: XDG base directory specification
+
+Each of these modules can be imported into your NixOS or Home Manager configurations to enable specific features or applications. To use a module, simply add it to the `imports` list in your configuration file.
+
+For example, to enable Alacritty and Neovim in your home configuration:
+
+```nix
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ./modules/alacritty.nix
+    ./modules/neovim.nix
+    # Other modules...
+  ];
+
+  # Additional configurations...
+}
+```
+
+Feel free to explore these modules and customize your NixOS setup according to your needs. If you need more information about a specific module, you can check its corresponding file in the `hosts/modules/` or `home/modules/` directory.
 
 ## Contributing
 
