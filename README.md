@@ -32,42 +32,121 @@ It is structured to easily accommodate multiple machines and user configurations
 - **catppuccin**: Provides global Catppuccin theme integration.
 - **spicetify-nix**: Enhances Spotify client customization.
 
-## User Configuration
-
-The flake now includes a `users` attribute set, defining user-specific information:
-
-```nix
-users = {
-  jdoe = {
-    email = "joe.doe@example.com";
-    fullName = "Joe Doe";
-    gitKey = "A0000000";
-    name = "jdoe";
-  };
-};
-```
-
-This configuration is passed to both NixOS and Home Manager configurations, allowing for consistent user settings across the system.
-
 ## Usage
 
-### Building and Applying NixOS Configurations
+### Adding a New Machine with a New User
 
-To apply a configuration to a specific system, run:
+To add a new machine with a new user to your NixOS configuration, follow these steps:
 
-```sh
-nixos-rebuild switch --flake .#<hostname>
-```
+1. **Update `flake.nix`**:
 
-Replace `<hostname>` with the name of the target machine, e.g., `energy` or `nabokikh-z13`.
+   a. Add the new user to the `users` attribute set:
 
-### Managing Home Configuration
+   ```nix
+   users = {
+     # Existing users...
+     newuser = {
+       email = "newuser@example.com";
+       fullName = "New User";
+       gitKey = "YOUR_GIT_KEY";
+       name = "newuser";
+     };
+   };
+   ```
 
-Home Manager is used to manage user configurations independently of system configurations. To apply a user configuration, use:
+   b. Add the new machine to the `nixosConfigurations`:
 
-```sh
-home-manager switch --flake .#<user>@<hostname>
-```
+   ```nix
+   nixosConfigurations = {
+     # Existing configurations...
+     newmachine = mkNixosConfiguration "newmachine" "newuser";
+   };
+   ```
+
+   c. Add the new home configuration:
+
+   ```nix
+   homeConfigurations = {
+     # Existing configurations...
+     "newuser@newmachine" = mkHomeConfiguration "x86_64-linux" "newuser" "newmachine";
+   };
+   ```
+
+2. **Create NixOS Configuration**:
+
+   a. Create a new directory under `hosts/` for your machine:
+
+   ```sh
+   mkdir -p hosts/newmachine
+   ```
+
+   b. Create `configuration.nix` in this directory:
+
+   ```sh
+   touch hosts/newmachine/configuration.nix
+   ```
+
+   c. Add the basic configuration to `configuration.nix`:
+
+   ```nix
+   { config, pkgs, ... }:
+
+   {
+     imports = [
+       ./hardware-configuration.nix
+       ../modules/common.nix
+       # Add other relevant modules
+     ];
+
+     # Add machine-specific configurations here
+   }
+   ```
+
+   d. Generate `hardware-configuration.nix`:
+
+   ```sh
+   sudo nixos-generate-config --show-hardware-config > hosts/newmachine/hardware-configuration.nix
+   ```
+
+3. **Create Home Manager Configuration**:
+
+   a. Create a new file for the user's home configuration:
+
+   ```sh
+   mkdir -p home/newuser
+   touch home/newuser/newmachine.nix
+   ```
+
+   b. Add basic home configuration:
+
+   ```nix
+   { config, pkgs, ... }:
+
+   {
+     imports = [
+       ../modules/common.nix
+       # Add other relevant modules
+     ];
+
+     # Add user-specific configurations here
+   }
+   ```
+
+4. **Building and Applying Configurations**:
+
+   a. Do not forget to check-in new files in git by running `git add .`
+
+   b. Build and switch to the new NixOS configuration:
+
+   ```sh
+   sudo nixos-rebuild switch --flake .#newmachine
+   ```
+
+   c. Build and switch to the new Home Manager configuration:
+
+   ```sh
+   home-manager switch --flake .#newuser@newmachine
+   ```
 
 ## Updating Flakes
 
