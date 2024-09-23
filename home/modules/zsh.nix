@@ -99,6 +99,15 @@
           }
         ];
       };
+      lua = {
+        symbol = " ";
+      };
+      package = {
+        symbol = " ";
+      };
+      php = {
+        symbol = " ";
+      };
       python = {
         symbol = " ";
       };
