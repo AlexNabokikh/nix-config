@@ -23,7 +23,6 @@
       no-symkey-cache = true;
       use-agent = true;
       throw-keyids = true;
-      disable-ccid = true;
     };
   };
 
