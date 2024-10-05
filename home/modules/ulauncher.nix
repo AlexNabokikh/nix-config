@@ -54,22 +54,6 @@
     sed -i "s|\\\$HOME|$HOME|g" "$shortcutsFile"
   '';
 in {
-  # Ulauncher plugins dependecies installation via overlay
-  nixpkgs = {
-    overlays = [
-      (_: prev: {
-        ulauncher = prev.ulauncher.overrideAttrs (old: {
-          propagatedBuildInputs = with prev.python3Packages;
-            old.propagatedBuildInputs
-            ++ [
-              thefuzz
-              tornado
-            ];
-        });
-      })
-    ];
-  };
-
   # Ulauncher package
   home.packages = with pkgs; [
     ulauncher

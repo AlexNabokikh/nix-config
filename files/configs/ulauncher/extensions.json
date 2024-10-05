@@ -27,13 +27,6 @@
         "last_commit": "241dae0ca39b857a0da2b8ede201ff6d33523849",
         "last_commit_time": "2024-03-15T14:30:05"
     },
-    "com.github.alexnabokikh.ulauncher-notion-search": {
-        "id": "com.github.alexnabokikh.ulauncher-notion-search",
-        "url": "https://github.com/AlexNabokikh/ulauncher-notion-search",
-        "updated_at": "2024-06-15T06:43:47.795452",
-        "last_commit": "f801ae19aadb5ba63361c30eec29579818a32da4",
-        "last_commit_time": "2024-01-27T09:17:08"
-    },
     "com.github.ulauncher.ulauncher-emoji": {
         "id": "com.github.ulauncher.ulauncher-emoji",
         "url": "https://github.com/Ulauncher/ulauncher-emoji",
