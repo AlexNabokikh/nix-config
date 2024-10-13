@@ -69,6 +69,11 @@
       bindkey '^H' backward-delete-word
       bindkey '^[[1;5C' forward-word
       bindkey '^[[1;5D' backward-word
+
+      # open commands in $EDITOR with C-e
+      autoload -z edit-command-line
+      zle -N edit-command-line
+      bindkey "^e" edit-command-line
     '';
   };
 
