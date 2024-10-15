@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""
+This script is designed to recursively search for and delete .terraform and .terragrunt-cache
+directories within a specified base directory (~/Documents/repositories/).
+
+Features:
+- Directory Traversal: Scans the ~/Documents/repositories/ directory to find all .terraform
+  and .terragrunt-cache directories.
+- Directory Deletion: Removes identified .terraform and .terragrunt-cache directories.
+- Error Handling: Provides feedback on successful deletions and any errors encountered.
+
+Dependencies:
+- Python 3 and standard libraries: os, shutil.
+
+Usage:
+The script is executed as a standalone Python script. It requires no additional input from the user,
+automatically finding and deleting .terraform and .terragrunt-cache directories in the specified path.
+"""
+
+__author__ = "Assistant"
+__license__ = "GPL-2.0 license"
+
+import os
+import shutil
+
+
+def delete_directory(path):
+    """Delete a directory and its contents."""
+    try:
+        shutil.rmtree(path)
+        print(f"Deleted: {path}")
+    except Exception as e:
+        print(f"Error deleting {path}: {e}")
+
+
+def find_and_delete_dirs(base):
+    """Find and delete .terraform and .terragrunt-cache directories."""
+    for root, dirs, _ in os.walk(base, topdown=False):
+        for dir_name in [".terraform", ".terragrunt-cache"]:
+            if dir_name in dirs:
+                path_to_delete = os.path.join(root, dir_name)
+                delete_directory(path_to_delete)
+                dirs.remove(dir_name)
+
+
+def main():
+    """Main function."""
+    base_directory = os.path.expanduser("~/Documents/repositories/")
+
+    if not os.path.exists(base_directory):
+        print(f"The specified directory does not exist: {base_directory}")
+        return
+
+    try:
+        find_and_delete_dirs(base_directory)
+        print("Finished searching and deleting .terraform and .terragrunt-cache directories.")
+    except KeyboardInterrupt:
+        print("\nScript interrupted by the user. Exiting.")
+
+
+if __name__ == "__main__":
+    main()
