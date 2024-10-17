@@ -8,7 +8,7 @@
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/go.nix
-    ../modules/gpg.nix
+    # ../modules/gpg.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
