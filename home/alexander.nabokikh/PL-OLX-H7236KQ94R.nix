@@ -15,7 +15,7 @@
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
     ../modules/tmux.nix
-    ../modules/zoom.nix
+    # ../modules/zoom.nix
     ../modules/zsh.nix
   ];
 
