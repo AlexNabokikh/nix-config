@@ -8,7 +8,6 @@
   # Install some basic packages
   environment.systemPackages = with pkgs; [
     (python3.withPackages (ps: with ps; [pip virtualenv]))
-    anki
     awscli2
     delta
     du-dust
@@ -38,6 +37,8 @@
     enable = true;
     casks = [
       "alacritty"
+      "anki"
+      "brave"
     ];
   };
 
