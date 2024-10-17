@@ -10,10 +10,10 @@
   home.homeDirectory = "/Users/alexander.nabokikh";
 
   # Catpuccin flavor and accent
-  # catppuccin = {
-  #   flavor = "macchiato";
-  #   accent = "lavender";
-  # };
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "lavender";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
