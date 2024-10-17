@@ -1,12 +1,28 @@
-{hostname, ...}: {
-  # Set hostname
-  networking.hostName = hostname;
+{pkgs, ...}: {
+  # Basic system settings
+  system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
+  system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
+  system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
+  system.defaults.NSGlobalDomain.KeyRepeat = 2;
 
+  # Install some basic packages
+  environment.systemPackages = with pkgs; [
+    lazydocker
+  ];
+
+  # Enable some system services
   services.nix-daemon.enable = true;
+  nix.package = pkgs.nix;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
+  # Add ability to use TouchID for sudo
+  security.pam.enableSudoTouchIdAuth = true;
+
+  # Set up user
+  users.users.alexander-nabokikh = {
+    name = "alexander.nabokikh";
+    home = "/Users/alexander.nabokikh";
+  };
+
+  # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 5;
 }
