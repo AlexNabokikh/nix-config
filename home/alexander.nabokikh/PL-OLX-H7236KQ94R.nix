@@ -6,7 +6,7 @@
     ../modules/bottom.nix
     ../modules/fastfetch.nix
     ../modules/fzf.nix
-    ../modules/git.nix
+    # ../modules/git.nix
     ../modules/go.nix
     # ../modules/gpg.nix
     ../modules/krew.nix
