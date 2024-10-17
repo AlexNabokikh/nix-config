@@ -6,8 +6,8 @@
   # Enable home-manager
   programs.home-manager.enable = true;
 
-  # home.username = "alexander.nabokikh";
-  # home.homeDirectory = "/Users/alexander.nabokikh";
+  home.username = "alexander.nabokikh";
+  home.homeDirectory = "/Users/alexander.nabokikh";
 
   # Catpuccin flavor and accent
   # catppuccin = {
