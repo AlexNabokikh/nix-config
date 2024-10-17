@@ -28,14 +28,18 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Homebrew
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
   outputs = {
     self,
-    nixpkgs,
-    home-manager,
     catppuccin,
     darwin,
+    home-manager,
+    nix-homebrew,
+    nixpkgs,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -77,6 +81,15 @@
         modules = [
           ./hosts/${hostname}/configuration.nix
           home-manager.darwinModules.home-manager
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = "${username}";
+              autoMigrate = true;
+            };
+          }
         ];
       };
 

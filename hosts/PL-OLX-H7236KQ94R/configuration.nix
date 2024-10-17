@@ -14,6 +14,19 @@
   services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
 
+  # Fonts configuration
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["Meslo" "JetBrainsMono"];})
+    roboto
+  ];
+
+  homebrew = {
+    enable = true;
+    casks = [
+      "alacritty"
+    ];
+  };
+
   # Add ability to use TouchID for sudo
   security.pam.enableSudoTouchIdAuth = true;
 
