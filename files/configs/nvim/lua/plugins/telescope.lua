@@ -16,13 +16,13 @@ return {
       vimgrep_arguments = {
         "rg",
         "--color=never",
-        "--hidden",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
         "--column",
+        "--hidden",
+        "--line-number",
+        "--no-heading",
         "--smart-case",
-        "-u", -- thats the new thing
+        "--unrestricted",
+        "--with-filename",
       },
     },
   },
