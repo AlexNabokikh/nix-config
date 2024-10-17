@@ -7,9 +7,9 @@
 
   # Install some basic packages
   environment.systemPackages = with pkgs; [
-    (python3.withPackages (ps: with ps; [pip virtualenv]))
     awscli2
     delta
+    kubectl
     du-dust
     eza
     fd
@@ -20,7 +20,6 @@
     openconnect
     pipenv
     ripgrep
-    telegram-desktop
   ];
 
   # Enable some system services
