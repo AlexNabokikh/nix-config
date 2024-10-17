@@ -1,4 +1,4 @@
-{...}: {
+{outputs, ...}: {
   imports = [
     ../modules/alacritty.nix
     ../modules/atuin.nix
@@ -24,6 +24,17 @@
 
   home.username = "alexander.nabokikh";
   home.homeDirectory = "/Users/alexander.nabokikh";
+
+  # Nixpkgs configuration
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.unstable-packages
+    ];
+
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   # Catpuccin flavor and accent
   catppuccin = {
