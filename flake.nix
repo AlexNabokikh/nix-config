@@ -100,7 +100,7 @@
             home = {
               inherit username;
               homeDirectory =
-                if system == "x86_64-darwin"
+                if system == "aarch64-darwin"
                 then "/Users/${username}"
                 else "/home/${username}";
             };
