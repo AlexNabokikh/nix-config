@@ -77,6 +77,11 @@
         modules = [
           ./hosts/${hostname}/configuration.nix
           home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = import ./home/${username}/${hostname}.nix;
+          }
         ];
       };
 
@@ -91,6 +96,15 @@
         modules = [
           ./home/${username}/${hostname}.nix
           catppuccin.homeManagerModules.catppuccin
+          {
+            home = {
+              inherit username;
+              homeDirectory =
+                if system == "x86_64-darwin"
+                then "/Users/${username}"
+                else "/home/${username}";
+            };
+          }
         ];
       };
   in {
