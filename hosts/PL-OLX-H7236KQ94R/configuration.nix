@@ -57,6 +57,7 @@
     du-dust
     eza
     fd
+    flameshot
     jq
     kubectl
     lazydocker
@@ -86,6 +87,7 @@
       "nikitabobko/tap/aerospace"
       "raycast"
     ];
+    onActivation.cleanup = "zap";
   };
 
   # Used for backwards compatibility, please read the changelog before changing.

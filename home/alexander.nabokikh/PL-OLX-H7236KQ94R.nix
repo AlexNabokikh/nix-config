@@ -5,6 +5,7 @@
     ../modules/bat.nix
     ../modules/bottom.nix
     ../modules/fastfetch.nix
+    ../modules/flameshot.nix
     ../modules/fzf.nix
     # ../modules/git.nix
     ../modules/go.nix
