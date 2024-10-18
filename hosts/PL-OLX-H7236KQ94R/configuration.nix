@@ -39,8 +39,11 @@
   system.defaults = {
     finder = {
       AppleShowAllFiles = true;
+      FXDefaultSearchScope = "SCcf";
+      CreateDesktop = false;
       ShowPathbar = true;
       ShowStatusBar = true;
+      _FXShowPosixPathInTitle = true;
       _FXSortFoldersFirst = true;
     };
     trackpad = {
