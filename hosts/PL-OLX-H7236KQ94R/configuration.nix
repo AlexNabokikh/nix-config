@@ -37,25 +37,51 @@
 
   # System settings
   system.defaults = {
-    finder = {
-      AppleShowAllFiles = true;
-      FXDefaultSearchScope = "SCcf";
-      CreateDesktop = false;
-      ShowPathbar = true;
-      ShowStatusBar = true;
-      _FXShowPosixPathInTitle = true;
-      _FXSortFoldersFirst = true;
+    NSGlobalDomain = {
+      AppleInterfaceStyle = "Dark";
+      ApplePressAndHoldEnabled = false;
+      AppleShowAllExtensions = true;
+      KeyRepeat = 2;
+      NSAutomaticCapitalizationEnabled = false;
+      NSAutomaticDashSubstitutionEnabled = false;
+      NSAutomaticQuoteSubstitutionEnabled = false;
+      NSAutomaticSpellingCorrectionEnabled = false;
+      NSDocumentSaveNewDocumentsToCloud = false;
+      NSNavPanelExpandedStateForSaveMode = true;
+      PMPrintingExpandedStateForPrint = true;
+    };
+    LaunchServices = {
+      LSQuarantine = false;
     };
     trackpad = {
       TrackpadRightClick = true;
       TrackpadThreeFingerDrag = true;
       Clicking = true;
     };
-    NSGlobalDomain = {
-      AppleInterfaceStyle = "Dark";
-      AppleKeyboardUIMode = 3;
-      InitialKeyRepeat = 15;
-      KeyRepeat = 2;
+    finder = {
+      AppleShowAllFiles = true;
+      FXDefaultSearchScope = "SCcf";
+      CreateDesktop = false;
+      FXEnableExtensionChangeWarning = false;
+      QuitMenuItem = true;
+      ShowPathbar = true;
+      ShowStatusBar = true;
+      _FXShowPosixPathInTitle = true;
+      _FXSortFoldersFirst = true;
+    };
+    dock = {
+      expose-animation-duration = 0.15;
+      showhidden = true;
+      persistent-apps = [
+      ];
+      tilesize = 30;
+      wvous-bl-corner = 4;
+      wvous-br-corner = 2;
+    };
+    screencapture = {
+      location = "/Users/${userConfig.name}/Downloads/temp";
+      type = "png";
+      disable-shadow = true;
     };
   };
 
