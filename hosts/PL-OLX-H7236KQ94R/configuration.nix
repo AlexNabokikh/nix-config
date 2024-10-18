@@ -97,7 +97,6 @@
     jq
     kubectl
     lazydocker
-    nh
     openconnect
     pipenv
     ripgrep
