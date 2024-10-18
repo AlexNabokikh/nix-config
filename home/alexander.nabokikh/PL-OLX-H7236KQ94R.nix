@@ -8,14 +8,12 @@
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/go.nix
-    # ../modules/gpg.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/spicetify.nix
     ../modules/tmux.nix
-    # ../modules/zoom.nix
     ../modules/zsh.nix
   ];
 
