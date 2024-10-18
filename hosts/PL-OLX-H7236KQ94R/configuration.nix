@@ -71,8 +71,10 @@
     };
     dock = {
       expose-animation-duration = 0.15;
+      show-recents = false;
       showhidden = true;
       persistent-apps = [
+        "/Applications/Brave Browser.app"
       ];
       tilesize = 30;
       wvous-bl-corner = 4;
@@ -100,6 +102,8 @@
     openconnect
     pipenv
     ripgrep
+    spotify
+    telegram-desktop
     terraform
     terragrunt
   ];
@@ -116,12 +120,14 @@
   homebrew = {
     enable = true;
     casks = [
-      "alacritty"
+      "aerospace"
       "anki"
       "brave-browser"
-      "nikitabobko/tap/aerospace"
       "flameshot"
       "raycast"
+    ];
+    taps = [
+      "nikitabobko/tap"
     ];
     onActivation.cleanup = "zap";
   };
