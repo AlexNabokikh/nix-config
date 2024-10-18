@@ -1,15 +1,51 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  outputs,
+  userConfig,
+  ...
+}: {
+  # Nixpkgs configuration
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.unstable-packages
+    ];
+
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  # Nix settings
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    auto-optimise-store = true;
+  };
+
+  nix.package = pkgs.nix;
+
+  # Enable Nix daemon
+  services.nix-daemon.enable = true;
+
+  # User configuration
+  users.users.${userConfig.name} = {
+    name = "${userConfig.name}";
+    home = "/Users/${userConfig.name}";
+  };
+
+  # Add ability to use TouchID for sudo
+  security.pam.enableSudoTouchIdAuth = true;
+
   # Basic system settings
   system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
   system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
   system.defaults.NSGlobalDomain.KeyRepeat = 2;
 
-  # Install some basic packages
+  # System packages
   environment.systemPackages = with pkgs; [
+    (python3.withPackages (ps: with ps; [pip virtualenv]))
     awscli2
     delta
-    kubectl
     du-dust
     eza
     fd
@@ -20,14 +56,12 @@
     openconnect
     pipenv
     ripgrep
+    terraform
+    terragrunt
   ];
 
-  # Enable some system services
-  services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
-
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
+  # Zsh configuration
+  programs.zsh.enable = true;
 
   # Fonts configuration
   fonts.packages = with pkgs; [
@@ -42,17 +76,6 @@
       "anki"
       "brave-browser"
     ];
-  };
-
-  programs.zsh.enable = true;
-
-  # Add ability to use TouchID for sudo
-  security.pam.enableSudoTouchIdAuth = true;
-
-  # Set up user
-  users.users.alexander-nabokikh = {
-    name = "alexander.nabokikh";
-    home = "/Users/alexander.nabokikh";
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
