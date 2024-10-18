@@ -52,7 +52,7 @@
         gitKey = "C5810093";
         name = "nabokikh";
       };
-      alexander.nabokikh = {
+      "alexander.nabokikh" = {
         email = "alexander.nabokikh@olx.pl";
         fullName = "Alexander Nabokikh";
         gitKey = "C5810093";
