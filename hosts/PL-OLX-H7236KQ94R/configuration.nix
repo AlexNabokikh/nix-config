@@ -75,6 +75,8 @@
       "alacritty"
       "anki"
       "brave-browser"
+      "nikitabobko/tap/aerospace"
+      "raycast"
     ];
   };
 
