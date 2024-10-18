@@ -37,7 +37,7 @@
     casks = [
       "alacritty"
       "anki"
-      "brave"
+      "brave-browser"
     ];
   };
 
