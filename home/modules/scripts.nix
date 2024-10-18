@@ -1,4 +1,8 @@
-{...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   scripts = ./../../files/scripts;
 in {
   # Source scripts from the home-manager store
@@ -8,4 +12,11 @@ in {
       source = "${scripts}";
     };
   };
+
+  # Conditional configuration for Darwin systems
+  home.sessionPath = lib.mkMerge [
+    (lib.mkIf pkgs.stdenv.isDarwin [
+      "$HOME/.local/bin"
+    ])
+  ];
 }
