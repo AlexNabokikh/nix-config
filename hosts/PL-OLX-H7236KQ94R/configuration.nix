@@ -57,7 +57,6 @@
     du-dust
     eza
     fd
-    flameshot
     jq
     kubectl
     lazydocker
@@ -85,6 +84,7 @@
       "anki"
       "brave-browser"
       "nikitabobko/tap/aerospace"
+      "flameshot"
       "raycast"
     ];
     onActivation.cleanup = "zap";
