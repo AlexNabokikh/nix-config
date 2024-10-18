@@ -35,18 +35,25 @@
   # Add ability to use TouchID for sudo
   security.pam.enableSudoTouchIdAuth = true;
 
-  # Trackpad, mouse, keyboard, and input
-  system.defaults.NSGlobalDomain = {
-    AppleInterfaceStyle = "Dark";
-    AppleKeyboardUIMode = 3;
-    InitialKeyRepeat = 15;
-    KeyRepeat = 2;
-  };
-
-  system.defaults.trackpad = {
-    TrackpadRightClick = true;
-    TrackpadThreeFingerDrag = true;
-    Clicking = true;
+  # System settings
+  system.defaults = {
+    finder = {
+      AppleShowAllFiles = true;
+      ShowPathbar = true;
+      ShowStatusBar = true;
+      _FXSortFoldersFirst = true;
+    };
+    trackpad = {
+      TrackpadRightClick = true;
+      TrackpadThreeFingerDrag = true;
+      Clicking = true;
+    };
+    NSGlobalDomain = {
+      AppleInterfaceStyle = "Dark";
+      AppleKeyboardUIMode = 3;
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+    };
   };
 
   # System packages
