@@ -37,6 +37,7 @@
     casks = [
       "alacritty"
       "anki"
+      "brave"
     ];
   };
 
