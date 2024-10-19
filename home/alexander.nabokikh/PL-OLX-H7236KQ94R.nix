@@ -4,6 +4,7 @@
     ../modules/atuin.nix
     ../modules/bat.nix
     ../modules/bottom.nix
+    ../modules/darwin-aerospace.nix
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
