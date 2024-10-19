@@ -80,8 +80,10 @@
         "${pkgs.telegram-desktop}/Applications/Telegram.app"
       ];
       tilesize = 30;
-      wvous-bl-corner = 4;
-      wvous-br-corner = 2;
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
     };
     screencapture = {
       location = "/Users/${userConfig.name}/Downloads/temp";
