@@ -75,6 +75,8 @@
       showhidden = true;
       persistent-apps = [
         "/Applications/Brave Browser.app"
+        "${pkgs.alacritty}/Applications/Alacritty.app"
+        "${pkgs.telegram-desktop}/Applications/Telegram.app"
       ];
       tilesize = 30;
       wvous-bl-corner = 4;
@@ -99,10 +101,10 @@
     jq
     kubectl
     lazydocker
+    nh
     openconnect
     pipenv
     ripgrep
-    spotify
     telegram-desktop
     terraform
     terragrunt
@@ -124,6 +126,7 @@
       "anki"
       "brave-browser"
       "flameshot"
+      "obs"
       "raycast"
     ];
     taps = [

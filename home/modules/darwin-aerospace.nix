@@ -130,6 +130,10 @@
     run = 'move-node-to-workspace 4'
 
     [[on-window-detected]]
+    if.app-id = 'com.obsproject.obs-studio'
+    run = 'move-node-to-workspace 4'
+
+    [[on-window-detected]]
     if.app-id = 'us.zoom.xos'
     run = 'move-node-to-workspace 5'
   '';
