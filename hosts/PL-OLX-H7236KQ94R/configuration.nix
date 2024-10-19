@@ -134,7 +134,6 @@
       "aerospace"
       "anki"
       "brave-browser"
-      "flameshot"
       "obs"
       "raycast"
     ];
