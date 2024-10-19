@@ -2,3 +2,4 @@ files/configs/nvim/lazy-lock.json
 files/configs/ulauncher/user-themes/Catpuccin-Macchiato-Lavender/generated.css
 files/configs/ulauncher/shortcuts.json
 files/configs/nvim/lazyvim.json
+.DS_Store
