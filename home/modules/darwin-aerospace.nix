@@ -16,7 +16,8 @@
     default-root-container-orientation = 'auto'
 
     # Mouse follows focus settings
-    on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+    on-focused-monitor-changed = ['move-mouse monitor-force-center']
+    on-focus-changed = ['move-mouse window-force-center']
 
     # Automatically unhide macOS hidden apps
     automatically-unhide-macos-hidden-apps = true
@@ -46,6 +47,7 @@
     alt-q = "close"
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
+    alt-m = 'fullscreen'
 
     # Focus movement
     alt-h = 'focus left'
