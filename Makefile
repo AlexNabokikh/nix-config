@@ -1,4 +1,4 @@
-.PHONY: bootstrap-mac install-nix install-nix-darwin
+.PHONY: bootstrap-mac install-nix install-nix-darwin darwin-rebuild
 
 bootstrap-mac: install-nix install-nix-darwin
 
@@ -11,3 +11,8 @@ install-nix-darwin:
 	@echo "Installing nix-darwin..."
 	@nix run nix-darwin --extra-experimental-features "nix-command flakes" -- switch --flake .#$(hostname)
 	@echo "nix-darwin installation complete."
+
+darwin-rebuild:
+	@echo "Rebuilding darwin configuration..."
+	@darwin-rebuild switch --flake .#$(hostname)
+	@echo "Darwin rebuild complete."
