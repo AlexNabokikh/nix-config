@@ -24,6 +24,11 @@
   home.username = "alexander.nabokikh";
   home.homeDirectory = "/Users/alexander.nabokikh";
 
+  # Ensure homebrew is in the PATH
+  home.sessionPath = [
+    "/opt/homebrew/bin/"
+  ];
+
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
