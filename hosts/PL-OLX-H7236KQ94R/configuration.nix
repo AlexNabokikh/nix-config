@@ -134,6 +134,7 @@
       "aerospace"
       "anki"
       "brave-browser"
+      "dozer"
       "obs"
       "raycast"
     ];
