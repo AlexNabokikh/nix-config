@@ -46,6 +46,7 @@
       NSAutomaticDashSubstitutionEnabled = false;
       NSAutomaticQuoteSubstitutionEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
+      NSAutomaticWindowAnimationsEnabled = false;
       NSDocumentSaveNewDocumentsToCloud = false;
       NSNavPanelExpandedStateForSaveMode = true;
       PMPrintingExpandedStateForPrint = true;
