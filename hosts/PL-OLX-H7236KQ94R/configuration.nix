@@ -72,6 +72,7 @@
         _FXSortFoldersFirst = true;
       };
       dock = {
+        autohide = true;
         expose-animation-duration = 0.15;
         show-recents = false;
         showhidden = true;
@@ -93,8 +94,9 @@
       };
     };
     keyboard = {
-      swapLeftCtrlAndFn = true;
+      enableKeyMapping = true;
       nonUS.remapTilde = true;
+      swapLeftCtrlAndFn = true;
     };
   };
 
