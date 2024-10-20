@@ -98,7 +98,7 @@
     };
     keyboard = {
       enableKeyMapping = true;
-      swapLeftCtrlAndFn = true;
+      # swapLeftCtrlAndFn = true;
       # Remap §± to ~
       userKeyMapping = [
         {
