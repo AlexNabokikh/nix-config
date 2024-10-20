@@ -98,8 +98,14 @@
     };
     keyboard = {
       enableKeyMapping = true;
-      nonUS.remapTilde = true;
       swapLeftCtrlAndFn = true;
+      # Remap §± to ~
+      userKeyMapping = [
+        {
+          HIDKeyboardModifierMappingDst = 30064771125;
+          HIDKeyboardModifierMappingSrc = 30064771172;
+        }
+      ];
     };
   };
 
