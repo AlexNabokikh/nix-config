@@ -16,8 +16,8 @@
     default-root-container-orientation = 'auto'
 
     # Mouse follows focus settings
-    on-focused-monitor-changed = ['move-mouse monitor-force-center']
-    on-focus-changed = ['move-mouse window-force-center']
+    on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+    on-focus-changed = ['move-mouse window-lazy-center']
 
     # Automatically unhide macOS hidden apps
     automatically-unhide-macos-hidden-apps = true

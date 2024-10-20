@@ -38,6 +38,9 @@
   # System settings
   system = {
     defaults = {
+      ".GlobalPreferences" = {
+        "com.apple.mouse.scaling" = -1.0;
+      };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
         ApplePressAndHoldEnabled = false;
