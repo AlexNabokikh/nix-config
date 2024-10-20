@@ -89,6 +89,9 @@
       aws = {
         disabled = true;
       };
+      docker_context = {
+        symbol = " ";
+      };
       golang = {
         symbol = " ";
       };
