@@ -1,8 +1,8 @@
-# NixOS Configurations for My Machines
+# NixOS and nix-darwin Configurations for My Machines
 
-This repository contains NixOS configurations for my machines, managed through [Nix Flakes](https://nixos.wiki/wiki/Flakes).
+This repository contains NixOS and nix-darwin configurations for my machines, managed through [Nix Flakes](https://nixos.wiki/wiki/Flakes).
 
-It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), and various other community contributions for a seamless NixOS experience.
+It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), [nix-darwin](https://github.com/LnL7/nix-darwin), and various other community contributions for a seamless experience across NixOS and macOS.
 
 ## Showcase
 
@@ -16,8 +16,8 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ## Structure
 
-- `flake.nix`: The flake itself, defining inputs (such as nixpkgs, home-manager, and hardware-specific optimizations) and outputs for NixOS and Home Manager configurations.
-- `hosts/`: NixOS configurations for each machine, including system-specific settings.
+- `flake.nix`: The flake itself, defining inputs and outputs for NixOS, nix-darwin, and Home Manager configurations.
+- `hosts/`: NixOS and nix-darwin configurations for each machine, including system-specific settings.
 - `home/`: Home Manager configurations for user-specific settings and applications.
 - `files/`: Miscellaneous configuration files and scripts used across various applications and services.
 - `flake.lock`: Lock file ensuring reproducible builds by pinning input versions.
@@ -31,12 +31,14 @@ It is structured to easily accommodate multiple machines and user configurations
 - **hardware**: Optimizes settings for different hardware configurations.
 - **catppuccin**: Provides global Catppuccin theme integration.
 - **spicetify-nix**: Enhances Spotify client customization.
+- **darwin**: Enables nix-darwin for macOS system configuration.
+- **nix-homebrew**: Integrates Homebrew package management with nix-darwin.
 
 ## Usage
 
 ### Adding a New Machine with a New User
 
-To add a new machine with a new user to your NixOS configuration, follow these steps:
+To add a new machine with a new user to your NixOS or nix-darwin configuration, follow these steps:
 
 1. **Update `flake.nix`**:
 
@@ -54,12 +56,23 @@ To add a new machine with a new user to your NixOS configuration, follow these s
    };
    ```
 
-   b. Add the new machine to the `nixosConfigurations`:
+   b. Add the new machine to the appropriate configuration set:
+
+   For NixOS:
 
    ```nix
    nixosConfigurations = {
      # Existing configurations...
      newmachine = mkNixosConfiguration "newmachine" "newuser";
+   };
+   ```
+
+   For nix-darwin:
+
+   ```nix
+   darwinConfigurations = {
+     # Existing configurations...
+     newmachine = mkDarwinConfiguration "newmachine" "newuser";
    };
    ```
 
@@ -72,7 +85,7 @@ To add a new machine with a new user to your NixOS configuration, follow these s
    };
    ```
 
-2. **Create NixOS Configuration**:
+2. **Create System Configuration**:
 
    a. Create a new directory under `hosts/` for your machine:
 
@@ -88,6 +101,8 @@ To add a new machine with a new user to your NixOS configuration, follow these s
 
    c. Add the basic configuration to `configuration.nix`:
 
+   For NixOS:
+
    ```nix
    { config, pkgs, ... }:
 
@@ -102,7 +117,22 @@ To add a new machine with a new user to your NixOS configuration, follow these s
    }
    ```
 
-   d. Generate `hardware-configuration.nix`:
+   For nix-darwin:
+
+   ```nix
+   { config, pkgs, ... }:
+
+   {
+     imports = [
+       ../modules/common.nix
+       # Add other relevant modules
+     ];
+
+     # Add machine-specific configurations here
+   }
+   ```
+
+   d. For NixOS, generate `hardware-configuration.nix`:
 
    ```sh
    sudo nixos-generate-config --show-hardware-config > hosts/newmachine/hardware-configuration.nix
@@ -136,10 +166,18 @@ To add a new machine with a new user to your NixOS configuration, follow these s
 
    a. Do not forget to check-in new files in git by running `git add .`
 
-   b. Build and switch to the new NixOS configuration:
+   b. Build and switch to the new system configuration:
+
+   For NixOS:
 
    ```sh
    sudo nixos-rebuild switch --flake .#newmachine
+   ```
+
+   For nix-darwin:
+
+   ```sh
+   darwin-rebuild switch --flake .#newmachine
    ```
 
    c. Build and switch to the new Home Manager configuration:
@@ -158,7 +196,7 @@ nix flake update
 
 ## Custom Modules and Configurations
 
-This setup includes a wide range of custom modules and configurations to enhance your NixOS experience. Here's a comprehensive list of available modules:
+This setup includes a wide range of custom modules and configurations to enhance your NixOS and macOS experience. Here's a comprehensive list of available modules:
 
 ### System Modules (in `hosts/modules/`)
 
@@ -223,12 +261,16 @@ This setup includes a wide range of custom modules and configurations to enhance
 
    - `saml2aws.nix`: CLI tool for SAML SSO
 
-7. Miscellaneous:
+7. macOS-specific:
+
+   - `darwin-aerospace.nix`: macOS-specific configurations
+
+8. Miscellaneous:
    - `home.nix`: Main home configuration
    - `scripts.nix`: Custom scripts
    - `xdg.nix`: XDG base directory specification
 
-Each of these modules can be imported into your NixOS or Home Manager configurations to enable specific features or applications. To use a module, simply add it to the `imports` list in your configuration file.
+Each of these modules can be imported into your NixOS, nix-darwin, or Home Manager configurations to enable specific features or applications. To use a module, simply add it to the `imports` list in your configuration file.
 
 For example, to enable Alacritty and Neovim in your home configuration:
 
@@ -246,7 +288,7 @@ For example, to enable Alacritty and Neovim in your home configuration:
 }
 ```
 
-Feel free to explore these modules and customize your NixOS setup according to your needs. If you need more information about a specific module, you can check its corresponding file in the `hosts/modules/` or `home/modules/` directory.
+Feel free to explore these modules and customize your NixOS or macOS setup according to your needs. If you need more information about a specific module, you can check its corresponding file in the `hosts/modules/` or `home/modules/` directory.
 
 ## Contributing
 
