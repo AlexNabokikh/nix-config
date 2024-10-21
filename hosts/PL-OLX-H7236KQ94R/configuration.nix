@@ -119,7 +119,6 @@
     du-dust
     eza
     fd
-    gnupg
     jq
     kubectl
     lazydocker

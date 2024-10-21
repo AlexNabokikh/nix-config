@@ -4,6 +4,7 @@ in
   with lib.hm.gvariant; {
     imports = [
       ./flameshot.nix
+      ./gtk.nix
       ./normcap.nix
       ./pop-shell.nix
     ];

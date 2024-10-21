@@ -1,7 +1,10 @@
 {...}: {
   imports = [
     ../modules/common.nix
+    ../modules/easyeffects.nix
     ../modules/hyprland.nix
+    ../modules/ulauncher.nix
+    ../modules/zoom.nix
   ];
 
   # Enable home-manager

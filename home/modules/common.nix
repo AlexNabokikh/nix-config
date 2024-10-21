@@ -4,13 +4,11 @@
     ../modules/atuin.nix
     ../modules/bat.nix
     ../modules/bottom.nix
-    ../modules/easyeffects.nix
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
     ../modules/go.nix
     ../modules/gpg.nix
-    ../modules/gtk.nix
     ../modules/home.nix
     ../modules/krew.nix
     ../modules/lazygit.nix
@@ -19,8 +17,6 @@
     ../modules/scripts.nix
     ../modules/spicetify.nix
     ../modules/tmux.nix
-    ../modules/ulauncher.nix
-    ../modules/zoom.nix
     ../modules/zsh.nix
   ];
 

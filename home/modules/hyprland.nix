@@ -4,6 +4,7 @@
 in {
   imports = [
     ./clipboard.nix
+    ./gtk.nix
     ./kanshi.nix
     ./swappy.nix
     ./swaync.nix
