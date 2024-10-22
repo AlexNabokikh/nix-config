@@ -65,9 +65,10 @@
       };
       finder = {
         AppleShowAllFiles = true;
-        FXDefaultSearchScope = "SCcf";
         CreateDesktop = false;
+        FXDefaultSearchScope = "SCcf";
         FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv";
         QuitMenuItem = true;
         ShowPathbar = true;
         ShowStatusBar = true;
