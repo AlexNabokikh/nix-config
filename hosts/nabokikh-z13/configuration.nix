@@ -8,7 +8,7 @@
 
     ./hardware-configuration.nix
     ../modules/common.nix
-    ../modules/hyprland.nix
+    ../modules/gnome.nix
     ../modules/laptop.nix
   ];
 
