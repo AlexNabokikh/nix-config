@@ -1,7 +1,5 @@
 .PHONY: bootstrap-mac install-nix install-nix-darwin darwin-rebuild
 
-bootstrap-mac: install-nix install-nix-darwin
-
 install-nix:
 	@echo "Installing Nix..."
 	@sudo curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
@@ -16,3 +14,5 @@ darwin-rebuild:
 	@echo "Rebuilding darwin configuration..."
 	@darwin-rebuild switch --flake .#$(hostname)
 	@echo "Darwin rebuild complete."
+
+bootstrap-mac: install-nix install-nix-darwin
