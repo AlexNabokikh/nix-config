@@ -52,12 +52,6 @@
         gitKey = "C5810093";
         name = "nabokikh";
       };
-      "alexander.nabokikh" = {
-        email = "alexander.nabokikh@olx.pl";
-        fullName = "Alexander Nabokikh";
-        gitKey = "C5810093";
-        name = "alexander.nabokikh";
-      };
     };
 
     # Function for NixOS system configuration
@@ -122,13 +116,13 @@
     };
 
     darwinConfigurations = {
-      "PL-OLX-H7236KQ94R" = mkDarwinConfiguration "PL-OLX-H7236KQ94R" "alexander.nabokikh";
+      "nabokikh-mac" = mkDarwinConfiguration "nabokikh-mac" "nabokikh";
     };
 
     homeConfigurations = {
       "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
+      "nabokikh@nabokikh-mac" = mkHomeConfiguration "aarch64-darwin" "nabokikh" "nabokikh-mac";
       "nabokikh@nabokikh-z13" = mkHomeConfiguration "x86_64-linux" "nabokikh" "nabokikh-z13";
-      "alexander.nabokikh@PL-OLX-H7236KQ94R" = mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh" "PL-OLX-H7236KQ94R";
     };
 
     overlays = import ./overlays {inherit inputs;};
