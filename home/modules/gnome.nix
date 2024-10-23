@@ -191,7 +191,7 @@ in
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
         "binding" = "<Shift><Alt>2";
-        "command" = "normcap -c '#B7BDF8' -l eng rus pol --clipboard-handler wlclipboard";
+        "command" = "normcap -c '#B7BDF8' -l eng rus pol";
         "name" = "OCR";
       };
 
