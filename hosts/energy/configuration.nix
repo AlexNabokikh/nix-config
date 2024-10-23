@@ -11,7 +11,7 @@
     ./hardware-configuration.nix
     ../modules/common.nix
     ../modules/corectrl.nix
-    ../modules/hyprland.nix
+    ../modules/energy.nix
     ../modules/steam.nix
   ];
 
