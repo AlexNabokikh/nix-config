@@ -8,11 +8,15 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ### Hyprland
 
-![hyprland](./files/screenshots/2024-05-06.png)
+![hyprland](./files/screenshots/hyprland.png)
 
 ### Gnome
 
-![gnome](./files/screenshots/2024-07-02.png)
+![gnome](./files/screenshots/gnome.png)
+
+### macOS
+
+![macos](./files/screenshots/mac.png)
 
 ## Structure
 
