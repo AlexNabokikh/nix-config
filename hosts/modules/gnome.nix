@@ -46,8 +46,8 @@
 
   # List of Gnome specific packages
   environment.systemPackages = with pkgs.unstable; [
-    gnome.gnome-tweaks
-    gnome.pomodoro
+    gnome-pomodoro
+    gnome-tweaks
     gnomeExtensions.auto-move-windows
     gnomeExtensions.blur-my-shell
     gnomeExtensions.clipboard-history
