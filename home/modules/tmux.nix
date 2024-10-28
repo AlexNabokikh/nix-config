@@ -50,6 +50,9 @@
       # Clear screen with prefix + l
       bind C-l send-keys 'C-l'
 
+      # Open a project in a separate window
+      bind-key -n C-f run-shell "tmux neww cd-to-project"
+
       # Apply Tc
       set -ga terminal-overrides ",xterm-256color:RGB:smcup@:rmcup@"
 
