@@ -5,7 +5,7 @@ in
     imports = [
       ./flameshot.nix
       ./gtk.nix
-      ./normcap.nix
+      ./ocr-x11.nix
       ./pop-shell.nix
     ];
 
@@ -191,7 +191,7 @@ in
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
         "binding" = "<Shift><Alt>2";
-        "command" = "normcap -c '#B7BDF8' -l eng rus pol";
+        "command" = "ocr";
         "name" = "OCR";
       };
 

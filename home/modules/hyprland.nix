@@ -3,7 +3,7 @@
   hyprland_config = ./../../files/configs/hypr;
 in {
   imports = [
-    ./clipboard.nix
+    ./cliphist.nix
     ./gtk.nix
     ./kanshi.nix
     ./swappy.nix
