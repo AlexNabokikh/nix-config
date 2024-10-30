@@ -1,6 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  userConfig,
+  ...
+}: {
   # Enable GNOME
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Set User's avatar
+  system.activationScripts.script.text = ''
+    mkdir -p /var/lib/AccountsService/{icons,users}
+    cp ${userConfig.avatar} /var/lib/AccountsService/icons/${userConfig.name}
+    echo -e "[User]\nIcon=/var/lib/AccountsService/icons/${userConfig.name}\n" > /var/lib/AccountsService/users/${userConfig.name}
+  '';
 
   # Remove decorations for QT applications
   environment.sessionVariables = {

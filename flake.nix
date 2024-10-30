@@ -47,6 +47,7 @@
     # Define user configurations
     users = {
       nabokikh = {
+        avatar = ./files/avatar/face;
         email = "alexander.nabokikh@olx.pl";
         fullName = "Alexander Nabokikh";
         gitKey = "C5810093";
