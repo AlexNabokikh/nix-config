@@ -99,15 +99,6 @@
         modules = [
           ./home/${username}/${hostname}.nix
           catppuccin.homeManagerModules.catppuccin
-          {
-            home = {
-              inherit username;
-              homeDirectory =
-                if system == "aarch64-darwin"
-                then "/Users/${username}"
-                else "/home/${username}";
-            };
-          }
         ];
       };
   in {
