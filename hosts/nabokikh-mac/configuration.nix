@@ -4,6 +4,14 @@
   userConfig,
   ...
 }: {
+  # Add nix-homebrew configuration
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = "${userConfig.name}";
+    autoMigrate = true;
+  };
+
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
