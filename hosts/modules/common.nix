@@ -112,7 +112,15 @@
   system.activationScripts.script.text = ''
     mkdir -p /var/lib/AccountsService/{icons,users}
     cp ${userConfig.avatar} /var/lib/AccountsService/icons/${userConfig.name}
-    echo -e "[User]\nIcon=/var/lib/AccountsService/icons/${userConfig.name}\n" > /var/lib/AccountsService/users/${userConfig.name}
+
+    touch /var/lib/AccountsService/users/${userConfig.name}
+
+    if ! grep -q "^Icon=" /var/lib/AccountsService/users/${userConfig.name}; then
+      if ! grep -q "^\[User\]" /var/lib/AccountsService/users/${userConfig.name}; then
+        echo "[User]" >> /var/lib/AccountsService/users/${userConfig.name}
+      fi
+      echo "Icon=/var/lib/AccountsService/icons/${userConfig.name}" >> /var/lib/AccountsService/users/${userConfig.name}
+    fi
   '';
 
   # Passwordless sudo
