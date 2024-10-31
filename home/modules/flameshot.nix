@@ -4,7 +4,7 @@
     settings = {
       General = {
         checkForUpdates = "false";
-        contrastOpacity = 188;
+        contrastOpacity = 96;
         disabledTrayIcon = "true";
         drawColor = "#ff2800";
         drawFontSize = "4";
@@ -15,7 +15,7 @@
         showStartupLaunchMessage = "false";
         squareMagnifier = "true";
         startupLaunch = "true";
-        uiColor = "#B7BDF8";
+        uiColor = "#8aadf4";
       };
     };
   };
