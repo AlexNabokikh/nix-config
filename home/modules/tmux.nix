@@ -47,6 +47,9 @@
       # Rename window with prefix + r
       bind r command-prompt -I "#W" "rename-window '%%'"
 
+      # Reload tmux config by pressing prefix + R
+      bind R source-file ~/.config/tmux/tmux.conf \; display "TMUX Conf Reloaded"
+
       # Clear screen with prefix + l
       bind C-l send-keys 'C-l'
 
