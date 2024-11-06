@@ -149,6 +149,7 @@
     nh
     obs-studio
     openconnect
+    pavucontrol
     pipenv
     pulseaudio
     qt6.qtwayland

@@ -58,7 +58,6 @@
     libnotify
     networkmanagerapplet
     pamixer
-    pavucontrol
     slurp
     swappy
     tesseract
