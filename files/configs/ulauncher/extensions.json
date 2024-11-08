@@ -6,13 +6,6 @@
         "last_commit": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f",
         "last_commit_time": "2022-11-26T16:15:05"
     },
-    "com.github.episode6.ulauncher-system-management-direct": {
-        "id": "com.github.episode6.ulauncher-system-management-direct",
-        "url": "https://github.com/episode6/ulauncher-system-management-direct",
-        "updated_at": "2024-06-15T06:39:55.655889",
-        "last_commit": "c6c0febff9eae884e4a8bc97d057480436fb5c9b",
-        "last_commit_time": "2020-07-22T18:41:36"
-    },
     "com.github.nortmas.chrome-bookmarks": {
         "id": "com.github.nortmas.chrome-bookmarks",
         "url": "https://github.com/nortmas/chrome-bookmarks",
@@ -20,18 +13,25 @@
         "last_commit": "b4598ea1e208cd6feb49574e998721dcc771157f",
         "last_commit_time": "2021-01-09T15:04:28"
     },
-    "com.github.yetanothersimon.ulauncher-pulsecontrol": {
-        "id": "com.github.yetanothersimon.ulauncher-pulsecontrol",
-        "url": "https://github.com/YetAnotherSimon/ulauncher-pulsecontrol",
-        "updated_at": "2024-06-15T06:43:10.419827",
-        "last_commit": "241dae0ca39b857a0da2b8ede201ff6d33523849",
-        "last_commit_time": "2024-03-15T14:30:05"
-    },
     "com.github.ulauncher.ulauncher-emoji": {
         "id": "com.github.ulauncher.ulauncher-emoji",
         "url": "https://github.com/Ulauncher/ulauncher-emoji",
         "updated_at": "2024-06-15T06:44:40.571969",
         "last_commit": "827cfe5e1d2f89f742f811f981759787b0654fa9",
         "last_commit_time": "2023-11-04T18:37:13"
+    },
+    "com.github.yetanothersimon.ulauncher-pulsecontrol": {
+        "id": "com.github.yetanothersimon.ulauncher-pulsecontrol",
+        "url": "https://github.com/YetAnotherSimon/ulauncher-pulsecontrol",
+        "updated_at": "2024-11-08T20:41:44.006145",
+        "last_commit": "241dae0ca39b857a0da2b8ede201ff6d33523849",
+        "last_commit_time": "2024-03-15T14:30:05"
+    },
+    "com.github.alexnabokikh.ulauncher-power-manager": {
+        "id": "com.github.alexnabokikh.ulauncher-power-manager",
+        "url": "https://github.com/AlexNabokikh/ulauncher-power-manager",
+        "updated_at": "2024-11-08T20:45:20.547633",
+        "last_commit": "8593156ef8f0fb63a0b0577b2fc5e79be48d82ab",
+        "last_commit_time": "2024-11-08T19:34:38"
     }
 }
