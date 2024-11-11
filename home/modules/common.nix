@@ -23,7 +23,7 @@
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-      outputs.overlays.unstable-packages
+      outputs.overlays.stable-packages
     ];
 
     config = {

@@ -10,7 +10,7 @@
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
-      outputs.overlays.unstable-packages
+      outputs.overlays.stable-packages
     ];
 
     config = {
@@ -159,7 +159,7 @@
     terragrunt
     unzip
     wl-clipboard
-    zoom-us
+    stable.zoom-us
   ];
 
   # Docker configuration

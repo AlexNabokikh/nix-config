@@ -40,14 +40,14 @@
 
   # List of Hyprland specific packages
   environment.systemPackages = with pkgs; [
+    file-roller # archive manager
+    gnome-calculator
     gnome-pomodoro
     gnome-text-editor
-    gnome.file-roller # archive manager
-    gnome.gnome-calculator
-    gnome.nautilus # file manager
-    gnome.seahorse # keyring manager
-    gnome.totem # Video player
     loupe # image viewer
+    nautilus # file manager
+    seahorse # keyring manager
+    totem # Video player
 
     brightnessctl
     grim

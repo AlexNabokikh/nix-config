@@ -4,12 +4,18 @@
     enable = true;
     catppuccin.enable = true;
     settings = {
-      shell.program = "zsh";
-      shell.args = [
-        "-l"
-        "-c"
-        "tmux attach || tmux "
-      ];
+      general = {
+        live_config_reload = true;
+      };
+
+      terminal = {
+        shell.program = "zsh";
+        shell.args = [
+          "-l"
+          "-c"
+          "tmux attach || tmux "
+        ];
+      };
 
       env = {
         TERM = "xterm-256color";
@@ -64,8 +70,6 @@
         semantic_escape_chars = '',│`|:"' ()[]{}<>'';
         save_to_clipboard = true;
       };
-
-      live_config_reload = true;
     };
   };
 }

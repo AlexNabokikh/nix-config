@@ -393,27 +393,27 @@ in
           (mkDictionaryEntry [
             "padding"
             (mkVariant [
-              (mkDictionaryEntry ["top" (mkVariant 1)])
               (mkDictionaryEntry ["left" (mkVariant 1)])
               (mkDictionaryEntry ["right" (mkVariant 1)])
+              (mkDictionaryEntry ["top" (mkVariant 1)])
               (mkDictionaryEntry ["bottom" (mkVariant 1)])
             ])
           ])
 
           (mkDictionaryEntry [
-            "keep_rounded_corners"
+            "keepRoundedCorners"
             (mkVariant [
               (mkDictionaryEntry ["maximized" (mkVariant true)])
               (mkDictionaryEntry ["fullscreen" (mkVariant false)])
             ])
           ])
 
-          (mkDictionaryEntry ["border_radius" (mkVariant 8)])
+          (mkDictionaryEntry ["borderRadius" (mkVariant 8)])
           (mkDictionaryEntry ["smoothing" (mkVariant 0)])
           (mkDictionaryEntry ["enabled" (mkVariant true)])
         ];
+        "settings-version" = mkUint32 6;
         "skip-libadwaita-app" = false;
-        "skip-libhandy-app" = false;
       };
 
       "org/gnome/shell/extensions/space-bar/appearance" = {

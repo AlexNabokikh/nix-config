@@ -5,7 +5,6 @@
       General = {
         checkForUpdates = "false";
         contrastOpacity = 96;
-        disabledTrayIcon = "true";
         drawColor = "#ff2800";
         drawFontSize = "4";
         savePath = "/home/${userConfig.name}/Downloads/temp";

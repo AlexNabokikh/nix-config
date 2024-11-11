@@ -4,13 +4,13 @@ in {
   # Neovim text editor configuration
   programs.neovim = {
     enable = true;
-    package = pkgs.unstable.neovim-unwrapped;
+    package = pkgs.neovim-unwrapped;
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
     withRuby = true;
 
-    extraPackages = with pkgs.unstable; [
+    extraPackages = with pkgs; [
       alejandra
       black
       golangci-lint
