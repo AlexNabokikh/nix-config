@@ -3,7 +3,7 @@
     ../modules/alacritty.nix
     ../modules/atuin.nix
     ../modules/bat.nix
-    ../modules/bottom.nix
+    ../modules/btop.nix
     ../modules/fastfetch.nix
     ../modules/fzf.nix
     ../modules/git.nix
