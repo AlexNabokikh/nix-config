@@ -3,7 +3,6 @@
     enable = true;
     settings = {
       General = {
-        checkForUpdates = "false";
         contrastOpacity = 96;
         drawColor = "#ff2800";
         drawFontSize = "4";

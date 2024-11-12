@@ -132,8 +132,7 @@ in
         "switch-to-workspace-7" = ["<Super>7"];
         "switch-to-workspace-8" = ["<Super>8"];
         "switch-to-workspace-9" = ["<Super>9"];
-        "toggle-fullscreen" = ["<Shift><Super>m"];
-        "toggle-maximized" = ["<Super>m"];
+        "toggle-fullscreen" = ["<Super>m"];
       };
 
       "org/gnome/desktop/wm/preferences" = {
