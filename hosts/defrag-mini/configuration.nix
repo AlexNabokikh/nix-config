@@ -138,6 +138,7 @@
     telegram-desktop
     terraform
     terragrunt
+    home-manager
   ];
 
   # Zsh configuration
@@ -164,6 +165,7 @@
     ];
     onActivation.cleanup = "zap";
   };
+
 
   # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 5;

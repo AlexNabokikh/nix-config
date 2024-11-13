@@ -50,7 +50,7 @@
         avatar = ./files/avatar/face;
         email = "damon.oehlman@gmail.com";
         fullName = "Damon Oehlman";
-        gitKey = "asdfasd";
+        gitKey = "C339367066473070";
         name = "damo";
       };
     };
@@ -107,6 +107,7 @@
       "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
       "nabokikh@nabokikh-mac" = mkHomeConfiguration "aarch64-darwin" "nabokikh" "nabokikh-mac";
       "nabokikh@nabokikh-z13" = mkHomeConfiguration "x86_64-linux" "nabokikh" "nabokikh-z13";
+      "damo@defrag-mini" = mkHomeConfiguration "aarch64-darwin" "damo" "defrag-mini";
     };
 
     overlays = import ./overlays {inherit inputs;};
