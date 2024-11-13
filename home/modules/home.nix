@@ -8,7 +8,7 @@
     username = "${userConfig.name}";
     homeDirectory =
       if pkgs.stdenv.isDarwin
-      then "/Users/${userConfig.name}"
+      then "/Volumes/user-${userConfig.name}"
       else "/home/${userConfig.name}";
   };
 }

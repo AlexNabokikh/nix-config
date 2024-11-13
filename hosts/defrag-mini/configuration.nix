@@ -26,9 +26,9 @@
   # Nix settings
   nix.settings = {
     experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
   };
 
+  nix.optimise.automatic = true;
   nix.package = pkgs.nix;
 
   # Enable Nix daemon
@@ -37,7 +37,7 @@
   # User configuration
   users.users.${userConfig.name} = {
     name = "${userConfig.name}";
-    home = "/Users/${userConfig.name}";
+    home = "/Volumes/user-${userConfig.name}";
   };
 
   # Add ability to use TouchID for sudo
@@ -100,7 +100,7 @@
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/temp";
+        location = "/Volumes/user-${userConfig.name}/Downloads/temp";
         type = "png";
         disable-shadow = true;
       };
