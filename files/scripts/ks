@@ -32,12 +32,25 @@ import re
 import subprocess
 
 
-def check_saml2aws():
-    """Check if saml2aws is installed."""
+def check_dependencies():
+    """
+    Check if required command-line tools are installed.
+    """
     try:
-        subprocess.run(["saml2aws", "--version"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    except subprocess.CalledProcessError:
-        print("Error: saml2aws not found")
+        for command in ["saml2aws", "kubectl"]:
+            subprocess.run([command, "help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except FileNotFoundError:
+        print(f"Error: The command '{command}' is not found. Please install it before proceeding.")
+        exit(1)
+
+
+def select_context():
+    """Run kubectl ctx to choose context"""
+    try:
+        subprocess.run(["kubectl", "ctx"])
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error: kubectl ctx failed with an erro: {e}")
         exit(-1)
 
 
@@ -81,16 +94,20 @@ def find_profile_name(config, account_number):
 
 def execute_saml2aws_command(profile_name):
     """Execute the saml2aws command with the found values."""
+    shell = os.getenv("SHELL", "/bin/zsh")
+
     try:
-        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, os.getenv("SHELL", "/bin/zsh")], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error in executing saml2aws command: {e}")
-        exit(-1)
+        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], check=True)
+    except subprocess.CalledProcessError:
+        print("Existing credentials failed, attempting new login")
+        subprocess.run(["saml2aws", "login", "--skip-prompt"], check=True)
+        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], check=True)
 
 
 def main():
     """Main function."""
-    check_saml2aws()
+    check_dependencies()
+    select_context()
     account_number = get_kube_context()
     aws_config = parse_aws_config()
     profile_name = find_profile_name(aws_config, account_number)
