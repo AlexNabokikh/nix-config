@@ -139,6 +139,7 @@
     terraform
     terragrunt
     home-manager
+    pass
   ];
 
   # Zsh configuration

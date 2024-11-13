@@ -73,6 +73,9 @@
       autoload -z edit-command-line
       zle -N edit-command-line
       bindkey "^e" edit-command-line
+
+      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+      gpgconf --launch gpg-agent
     '';
   };
 

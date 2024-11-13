@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, userConfig, ...}: {
   # Install gpg via home-manager module
   programs.gpg = {
     enable = true;
@@ -27,12 +27,16 @@
   };
 
   services.gpg-agent = {
-    enable =
-      if pkgs.stdenv.isDarwin
-      then false
-      else true;
+    # enable =
+    #   if pkgs.stdenv.isDarwin
+    #   then false
+    #   else true;
+    enable = true;
     defaultCacheTtl = 86400;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    sshKeys = [
+      "${userConfig.gpgSshKey}"
+    ];
+    # pinentryPackage = pkgs.pinentry-gnome3;
   };
 }
