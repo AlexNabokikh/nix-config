@@ -46,12 +46,12 @@
 
     # Define user configurations
     users = {
-      nabokikh = {
+      damo = {
         avatar = ./files/avatar/face;
-        email = "alexander.nabokikh@olx.pl";
-        fullName = "Alexander Nabokikh";
-        gitKey = "C5810093";
-        name = "nabokikh";
+        email = "damon.oehlman@gmail.com";
+        fullName = "Damon Oehlman";
+        gitKey = "asdfasd";
+        name = "damo";
       };
     };
 
@@ -100,7 +100,7 @@
     };
 
     darwinConfigurations = {
-      "nabokikh-mac" = mkDarwinConfiguration "nabokikh-mac" "nabokikh";
+      "defrag-mini" = mkDarwinConfiguration "defrag-mini" "damo";
     };
 
     homeConfigurations = {
