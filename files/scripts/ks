@@ -5,7 +5,8 @@ and access is controlled via SAML authentication. It automates the process of lo
 appropriate AWS account and setting up the shell environment for further interactions with AWS services.
 
 Key functionalities include:
-- Checking if 'saml2aws' is installed on the system.
+- Checking if 'saml2aws' and 'kubectl' are installed on the system.
+- Executes 'kubectl ctx' to switch to specific kubernets context.
 - Retrieving the current Kubernetes context and extracting the associated AWS account number.
 - Parsing the AWS configuration file to find the relevant profile.
 - Finding the correct profile name by matching the account number in the AWS configuration.
