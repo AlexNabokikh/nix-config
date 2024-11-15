@@ -27,8 +27,6 @@
   # Enable Ozone Wayland support in Chromium and Electron based applications
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    XCURSOR_SIZE = "24";
-    XCURSOR_THEME = "Yaru";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
