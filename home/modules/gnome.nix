@@ -7,6 +7,7 @@ in
       ./gtk.nix
       ./ocr-x11.nix
       ./pop-shell.nix
+      ./xdg.nix
     ];
 
     dconf.settings = {
