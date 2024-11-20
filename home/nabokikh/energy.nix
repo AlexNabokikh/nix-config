@@ -1,7 +1,6 @@
 {...}: {
   imports = [
     ../modules/common.nix
-    ../modules/corectrl.nix
     ../modules/easyeffects.nix
     ../modules/gnome.nix
     ../modules/ulauncher.nix
