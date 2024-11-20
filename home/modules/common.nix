@@ -15,7 +15,6 @@
     ../modules/neovim.nix
     ../modules/saml2aws.nix
     ../modules/scripts.nix
-    ../modules/spicetify.nix
     ../modules/tmux.nix
     ../modules/zsh.nix
   ];
