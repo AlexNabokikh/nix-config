@@ -44,7 +44,6 @@ in {
         "text/plain" = "org.gnome.TextEditor.desktop";
         "video/*" = ["org.gnome.Totem.dekstop"];
         "video/mp4" = ["org.gnome.Totem.dekstop"];
-        "x-scheme-handler/spotify" = ["spotify.desktop"];
         "x-scheme-handler/tg" = ["org.telegram.desktop.desktop"];
       };
     };

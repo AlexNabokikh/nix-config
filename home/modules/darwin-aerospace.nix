@@ -128,10 +128,6 @@
     run = 'move-node-to-workspace 3'
 
     [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
-    run = 'move-node-to-workspace 4'
-
-    [[on-window-detected]]
     if.app-id = 'com.obsproject.obs-studio'
     run = 'move-node-to-workspace 4'
 

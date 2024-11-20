@@ -257,7 +257,6 @@ in
           "brave-browser.desktop"
           "Alacritty.desktop"
           "org.telegram.desktop.desktop"
-          "spotify.desktop"
         ];
       };
 
@@ -267,7 +266,6 @@ in
           "Alacritty.desktop:2"
           "org.telegram.desktop.desktop:3"
           "com.obsproject.Studio.desktop:4"
-          "spotify.desktop:4"
           "steam.desktop:4"
           "Zoom.desktop:5"
         ];
