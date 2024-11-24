@@ -159,7 +159,6 @@
     terragrunt
     unzip
     wl-clipboard
-    zoom-us
   ];
 
   # Docker configuration
