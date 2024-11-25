@@ -66,7 +66,7 @@ in {
       upcoming_meeting_header_image=
       useSystemTheme=false
       userEmailAddress=${userConfig.email}
-      xwayland=false
+      xwayland=true
 
       [AS]
       showframewindow=true
