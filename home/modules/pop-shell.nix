@@ -9,9 +9,6 @@
           },
           {
             "class": "gnome-calculator"
-          },
-          {
-            "class": "zoom"
           }
         ],
         "skiptaskbarhidden": [],
