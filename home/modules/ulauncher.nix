@@ -69,7 +69,7 @@ in {
 
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.bash}/bin/bash -lc '${pkgs.ulauncher}/bin/ulauncher --hide-window --no-window-shadow'";
+      ExecStart = "${pkgs.bash}/bin/bash -lc '${pkgs.ulauncher}/bin/ulauncher --hide-window'";
       Restart = "always";
     };
 

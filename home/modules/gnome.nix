@@ -385,6 +385,7 @@ in
       };
 
       "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
+        "blacklist" = ["ulauncher"];
         "border-color" = mkTuple [0.71764707565307617 0.74117660522460938 0.97254902124404907 1.0];
         "border-width" = 1;
         global-rounded-corner-settings = [
