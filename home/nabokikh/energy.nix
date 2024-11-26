@@ -2,7 +2,7 @@
   imports = [
     ../modules/common.nix
     ../modules/easyeffects.nix
-    ../modules/gnome.nix
+    ../modules/hyprland.nix
     ../modules/ulauncher.nix
     ../modules/zoom.nix
   ];
