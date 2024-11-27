@@ -17,6 +17,7 @@
     cursorTheme = {
       name = "Yaru";
       package = pkgs.yaru-theme;
+      size = 24;
     };
     font = {
       name = "Roboto";
