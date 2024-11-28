@@ -6,7 +6,9 @@
         contrastOpacity = 96;
         drawColor = "#ff2800";
         drawFontSize = "4";
+        saveAsFileExtension = ".png";
         savePath = "/home/${userConfig.name}/Pictures/screenshots";
+        savePathFixed = "true";
         showDesktopNotification = "false";
         showHelp = "false";
         showMagnifier = "true";
