@@ -53,7 +53,6 @@
     pamixer
     slurp
     swappy
-    tesseract
     wf-recorder
     wlr-randr
     wlsunset

@@ -157,6 +157,7 @@
     telegram-desktop
     terraform
     terragrunt
+    tesseract
     unzip
     wl-clipboard
   ];
