@@ -7,7 +7,7 @@
         drawColor = "#ff2800";
         drawFontSize = "4";
         saveAsFileExtension = ".png";
-        savePath = "/home/${userConfig.name}/Pictures/screenshots";
+        savePath = "/home/${userConfig.name}/Pictures";
         savePathFixed = "true";
         showDesktopNotification = "false";
         showHelp = "false";
