@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Simple workaround to start flameshot on Gnome Wayland
+flameshot gui

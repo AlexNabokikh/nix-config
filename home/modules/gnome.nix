@@ -5,7 +5,6 @@ in
     imports = [
       ./flameshot.nix
       ./gtk.nix
-      ./ocr-x11.nix
       ./pop-shell.nix
       ./xdg.nix
     ];
@@ -186,7 +185,7 @@ in
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
         "binding" = "<Shift><Super>s";
-        "command" = "flameshot gui";
+        "command" = "flameshot-wayland";
         "name" = "Flameshot";
       };
 
