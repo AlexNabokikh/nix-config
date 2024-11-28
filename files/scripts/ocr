@@ -2,10 +2,11 @@
 
 case "$XDG_SESSION_TYPE" in
 "wayland")
-	grim -t png -g "$(slurp)" - | tesseract stdin stdout -l "eng+rus+pol" | tr -d '\f' | wl-copy
-	;;
-"x11")
-	maim -s -u | tesseract stdin stdout -l "eng+rus+pol" | xclip -selection clipboard
+	if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+		flameshot gui --raw | tesseract stdin stdout -l "eng+rus+pol" | tr -d '\f' | wl-copy
+	else
+		grim -t png -g "$(slurp)" - | tesseract stdin stdout -l "eng+rus+pol" | tr -d '\f' | wl-copy
+	fi
 	;;
 *)
 	echo "Unsupported session type: $XDG_SESSION_TYPE"
