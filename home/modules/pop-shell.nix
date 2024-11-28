@@ -8,7 +8,7 @@
             "class": "ulauncher"
           },
           {
-            "class": "gnome-calculator"
+            "class": "org.gnome.Calculator"
           }
         ],
         "skiptaskbarhidden": [],
