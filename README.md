@@ -30,8 +30,8 @@ It is structured to easily accommodate multiple machines and user configurations
 ### Key Inputs
 
 - **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages.
-- **nixpkgs-stable**: Points to the `nixos-24.05` channel, providing stable NixOS packages.
-- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.05).
+- **nixpkgs-stable**: Points to the `nixos-24.11` channel, providing stable NixOS packages.
+- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.11).
 - **hardware**: Optimizes settings for different hardware configurations.
 - **catppuccin**: Provides global Catppuccin theme integration.
 - **spicetify-nix**: Enhances Spotify client customization.
