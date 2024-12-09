@@ -186,9 +186,23 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
 
    c. Build and switch to the new Home Manager configuration:
 
+   > [!IMPORTANT]
+   > On the fresh system to have home-manager in your PATH it needs to be bootstrapped first.
+
+   - First, get the required tools:
+
    ```sh
-   home-manager switch --flake .#newuser@newmachine
+   nix-shell -p home-manager
    ```
+
+   - Second, apply home-manager configuration:
+
+```sh
+   home-manager switch --flake .#newuser@newmachine
+
+```
+
+After this initial setup, you can rebuild configurations separately and home-manager will be available without additional steps
 
 ## Updating Flakes
 
@@ -252,7 +266,6 @@ This setup includes a wide range of custom modules and configurations to enhance
 
 5. Applications:
 
-   - `corectrl.nix`: GPU controls and monitoring
    - `easyeffects.nix`: Audio effects for PipeWire
    - `flameshot.nix`: Screenshot tool
    - `normcap.nix`: OCR tool
