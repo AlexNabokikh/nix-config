@@ -189,13 +189,13 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
 > [!IMPORTANT]
 > On the fresh system to have home-manager in your PATH it needs to be bootstrapped first.
 
-- First, get the required tools:
+First, get the required tools:
 
 ```sh
 nix-shell -p home-manager
 ```
 
-- Second, apply home-manager configuration:
+Second, apply home-manager configuration:
 
 ```sh
 home-manager switch --flake .#newuser@newmachine
