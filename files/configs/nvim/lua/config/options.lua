@@ -3,3 +3,4 @@
 -- Add any additional options here
 vim.opt.winbar = "%=%m %f"
 vim.g.lazygit_config = false
+vim.g.snacks_animate = false
