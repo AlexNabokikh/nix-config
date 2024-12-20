@@ -2,7 +2,6 @@
   # Install alacritty via home-manager module
   programs.alacritty = {
     enable = true;
-    catppuccin.enable = true;
     settings = {
       general = {
         live_config_reload = true;
@@ -72,4 +71,7 @@
       };
     };
   };
+
+  # Enable catppuccin theming for alacritty.
+  catppuccin.alacritty.enable = true;
 }

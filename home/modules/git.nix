@@ -10,7 +10,6 @@
     };
     delta = {
       enable = true;
-      catppuccin.enable = true;
       options = {
         keep-plus-minus-markers = true;
         light = false;
@@ -23,4 +22,7 @@
       pull.rebase = "true";
     };
   };
+
+  # Enable catppuccin theming for git delta
+  catppuccin.delta.enable = true;
 }
