@@ -29,6 +29,18 @@
           }
         ];
       };
+      helm = {
+        symbol = " ";
+      };
+      gradle = {
+        symbol = " ";
+      };
+      java = {
+        symbol = " ";
+      };
+      kotlin = {
+        symbol = " ";
+      };
       lua = {
         symbol = " ";
       };
