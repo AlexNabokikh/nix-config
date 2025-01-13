@@ -3,14 +3,13 @@
   pkgs,
   ...
 }: {
-  # Ensure krew package installed
+  # Ensure appflowy package installed
   home.packages = with pkgs; [
     appflowy
   ];
 
   # https://github.com/AppFlowy-IO/AppFlowy/issues/6105#issuecomment-2317462095
   xdg.mimeApps = {
-    enable = true;
     associations.added = {
       "x-scheme-handler/appflowy-flutter" = ["appflowy-flutter.desktop"];
     };
