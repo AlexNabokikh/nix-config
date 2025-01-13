@@ -143,7 +143,6 @@
     brave
     delta
     dig
-    docker-compose
     du-dust
     eza
     fd
