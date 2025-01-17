@@ -56,6 +56,5 @@
     gnomeExtensions.space-bar
     gnomeExtensions.unblank
     gnomeExtensions.user-themes
-    xclip
   ];
 }
