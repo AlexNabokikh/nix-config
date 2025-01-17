@@ -142,7 +142,6 @@
     gnumake
     killall
     mesa
-    qt6.qtwayland
   ];
 
   # Docker configuration
