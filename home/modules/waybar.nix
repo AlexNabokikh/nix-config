@@ -61,8 +61,8 @@
             critical = 20;
           };
           format = "<big>{icon}</big>  {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
           format-full = "{icon} Full";
           format-alt = "{icon} {time}";
           format-icons = [
