@@ -11,8 +11,8 @@
 
     ./hardware-configuration.nix
     "${nixosModules}/common"
-    "${nixosModules}/services/tlp"
     "${nixosModules}/programs/hyprland"
+    "${nixosModules}/programs/steam"
   ];
 
   # Set hostname

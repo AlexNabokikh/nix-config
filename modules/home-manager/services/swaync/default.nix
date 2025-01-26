@@ -6,8 +6,7 @@
 
   # Source swaync config from the home-manager store
   xdg.configFile = {
-    "swaync" = {
-      recursive = true;
+    "swaync/style.css" = {
       source = ./style.css;
     };
   };

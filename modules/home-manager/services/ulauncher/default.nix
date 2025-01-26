@@ -3,7 +3,6 @@
   lib,
   ...
 }: let
-  ulauncher_config = ./../../../../files/configs/ulauncher;
   manageShortcutsScript = pkgs.writeScriptBin "manage-ulauncher-shortcuts" ''
     #!/usr/bin/env bash
     set -euo pipefail
@@ -80,7 +79,7 @@ in {
   xdg.configFile = {
     "ulauncher" = {
       recursive = true;
-      source = "${ulauncher_config}";
+      source = ./config;
     };
   };
 

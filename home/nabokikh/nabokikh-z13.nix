@@ -1,10 +1,10 @@
-{...}: {
+{nhModules, ...}: {
   imports = [
-    ../../modules/home-manager/common
-    ../../modules/home-manager/services/easyeffects
-    ../../modules/home-manager/programs/hyprland
-    ../../modules/home-manager/services/ulauncher
-    ../../modules/home-manager/programs/zoom
+    "${nhModules}/common"
+    "${nhModules}/programs/hyprland"
+    "${nhModules}/programs/zoom"
+    "${nhModules}/services/easyeffects"
+    "${nhModules}/services/ulauncher"
   ];
 
   # Enable home-manager
