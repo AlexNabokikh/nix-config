@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+re='^[0-9]+$'
+line_number=$(cat -n ~/.ssh/known_hosts | fzf | awk '{print $1}')
+if ! [[ $line_number =~ $re ]]; then
+	echo "error: line number missing" >&2
+else
+	sed -i "${line_number}d" ~/.ssh/known_hosts
+fi

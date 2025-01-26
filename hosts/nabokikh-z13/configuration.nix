@@ -1,15 +1,16 @@
 {
   inputs,
   hostname,
+  nixosModules,
   ...
 }: {
   imports = [
     inputs.hardware.nixosModules.lenovo-thinkpad-z13-gen1
 
     ./hardware-configuration.nix
-    ../modules/common.nix
-    ../modules/hyprland.nix
-    ../modules/laptop.nix
+    "${nixosModules}/common"
+    "${nixosModules}/services/tlp"
+    "${nixosModules}/programs/hyprland"
   ];
 
   # Set hostname

@@ -1,0 +1,334 @@
+#!/usr/bin/env python3
+"""
+This script automates the process of updating Kubernetes nodes in an AWS environment. It integrates
+AWS CLI and kubectl to rotate nodes within Auto Scaling Groups (ASGs).
+
+Features:
+- Cluster Information Retrieval: Fetches the name and default region of the current AWS Kubernetes cluster.
+- ASG and Instance Management: Lists ASGs associated with the cluster, allows the user to select an ASG,
+  and fetches EC2 instance IDs within the selected ASG.
+- Node Management: For each EC2 instance, identifies the corresponding Kubernetes node, checks its 
+  Kubernetes version, and performs updates if necessary.
+- Draining and Deleting Nodes: Drains Kubernetes nodes that don't match the specified version and 
+  then deletes them after a specified wait time.
+- User Interaction: Prompts the user for inputs and confirmation, handles keyboard interrupts and 
+  unexpected inputs.
+
+Dependencies:
+- AWS CLI: For interacting with AWS services.
+- kubectl: For Kubernetes cluster management.
+- Python 3 and standard libraries: json, re, subprocess, sys, time.
+
+Usage:
+The script is executed as a standalone Python script. It guides the user through selecting an ASG,
+specifying the target Kubernetes version, and then proceeds to update the nodes.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import json
+import re
+import subprocess
+import sys
+import time
+
+
+def check_dependency(command):
+    """
+    Check if a given command-line tool is installed.
+
+    Args:
+        command (str): The command-line tool to check.
+
+    Raises:
+        SystemExit: If the command is not installed.
+    """
+    try:
+        subprocess.run([command, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except FileNotFoundError:
+        print(f"Error: The command '{command}' is not found. Please install it before proceeding.")
+        sys.exit(1)
+
+
+def fetch_cluster_info():
+    """
+    Fetches AWS cluster name and default region from `kubectl config current-context`.
+
+    Returns:
+        tuple: AWS_DEFAULT_REGION and CLUSTER_NAME or None if an error occurs.
+    """
+    command = ["kubectl", "config", "current-context"]
+    cluster_info = run_command(command)
+    if not cluster_info:
+        print("Failed to fetch cluster information.")
+        return None, None
+
+    match = re.search(r"arn:aws:eks:(.+?):\d+:cluster/(.+)$", cluster_info)
+    if match:
+        region, cluster_name = match.groups()
+        return region, cluster_name
+
+    return None, None
+
+
+def run_command(command_list, capture_output=True):
+    """
+    Run a shell command and capture its output.
+
+    Args:
+        command_list (list): List of command and arguments.
+        capture_output (bool, optional): Whether to capture output. Defaults to True.
+
+    Returns:
+        str: The standard output of the command.
+
+    Raises:
+        SystemExit: If the command fails to execute.
+    """
+    try:
+        result = subprocess.run(command_list, capture_output=capture_output, text=True, check=True)
+        return result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed with error: {e}")
+        sys.exit(1)
+
+
+def prompt():
+    """
+    Prompt the user to continue or not.
+
+    Returns:
+        bool: True if the user wants to continue, False otherwise.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    while True:
+        try:
+            ans = input("Continue? (y/n): ")
+            if ans.lower() == "y":
+                return True
+            elif ans.lower() == "n":
+                return False
+            else:
+                print("Invalid input. Please enter 'y' or 'n'.")
+        except KeyboardInterrupt:
+            print("\nOperation cancelled by the user.")
+            sys.exit(0)
+
+
+def get_input(label):
+    """
+    Get input from the user.
+
+    Args:
+        label (str): Label for the input field.
+
+    Returns:
+        str: User input.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    try:
+        return input(f"Please enter the {label}: ")
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user.")
+        sys.exit(0)
+
+
+def get_asgs(region, cluster_name):
+    """
+    Get the Auto Scaling Groups for a given cluster in a region.
+
+    Args:
+        region (str): AWS region.
+        cluster_name (str): Name of the cluster.
+
+    Returns:
+        list: List of Auto Scaling Groups or empty list if none found.
+    """
+    command = [
+        "aws",
+        "autoscaling",
+        "describe-auto-scaling-groups",
+        "--query",
+        f"AutoScalingGroups[? Tags[? (Key=='kubernetes.io/cluster/{cluster_name}') && Value=='owned']].AutoScalingGroupName",
+        "--output",
+        "text",
+        "--region",
+        region,
+    ]
+    asgs_str = run_command(command)
+    return asgs_str.split("\t") if asgs_str else []
+
+
+def get_instances(asg_name, region):
+    """
+    Get a list of instance IDs for a given Auto Scaling Group (ASG).
+
+    Args:
+        ASG_NAME (str): The name of the ASG.
+
+    Returns:
+        list: List of instance IDs.
+    """
+    return run_command(
+        [
+            "aws",
+            "autoscaling",
+            "describe-auto-scaling-groups",
+            "--auto-scaling-group-name",
+            asg_name,
+            "--region",
+            region,
+            "--query",
+            "AutoScalingGroups[].Instances[][InstanceId]",
+            "--output",
+            "text",
+        ]
+    ).split()
+
+
+def get_node_name(instance_id, region):
+    """
+    Get the node name corresponding to a given EC2 instance ID.
+
+    Args:
+        instance_id (str): EC2 instance ID.
+
+    Returns:
+        str: Node name.
+    """
+    return run_command(
+        [
+            "aws",
+            "ec2",
+            "describe-instances",
+            "--instance-ids",
+            instance_id,
+            "--region",
+            region,
+            "--query",
+            "Reservations[].Instances[].PrivateDnsName",
+            "--output",
+            "text",
+        ]
+    )
+
+
+def get_node_version(node_name):
+    """
+    Get the Kubernetes version for a given node.
+
+    Args:
+        node_name (str): The name of the Kubernetes node.
+
+    Returns:
+        str: The Kubernetes version of the node.
+    """
+    try:
+        result = subprocess.run(
+            [
+                "kubectl",
+                "get",
+                "node",
+                node_name,
+                "-o",
+                "custom-columns=VERSION:.status.nodeInfo.kubeletVersion",
+                "--no-headers=true",
+            ],
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        return None
+
+
+def main():
+    """
+    The main function that orchestrates the entire process of updating Kubernetes nodes.
+    """
+    for cmd in ["aws", "kubectl"]:
+        check_dependency(cmd)
+
+    AWS_DEFAULT_REGION, CLUSTER_NAME = fetch_cluster_info()
+
+    WAIT = 15
+
+    asgs = get_asgs(AWS_DEFAULT_REGION, CLUSTER_NAME)
+    if not asgs:
+        print("No ASGs found.")
+        exit(1)
+
+    print("Found the following Auto Scaling Groups:")
+    for idx, asg in enumerate(asgs):
+        print(f"{idx + 1}. {asg}")
+
+    asg_number = int(get_input("Enter the number corresponding to the ASG"))
+    if 1 <= asg_number <= len(asgs):
+        selected_asg = asgs[asg_number - 1]
+    else:
+        print("Invalid ASG number.")
+        sys.exit(1)
+
+    K8S_VERSION = get_input("Enter the target Kubernetes version (e.g., 1.24)")
+    if not K8S_VERSION:
+        print("Error - Kubernetes version not provided.")
+        sys.exit(1)
+
+    instances = get_instances(selected_asg, AWS_DEFAULT_REGION)
+
+    for instance in instances:
+        node_name = get_node_name(instance, AWS_DEFAULT_REGION)
+        print(f"Node name: {node_name}")
+
+        node_version = get_node_version(node_name)
+
+        if not node_version:
+            print("Version is empty. Skipping...")
+            continue
+
+        if K8S_VERSION in node_version:
+            print(f"Node {node_name} matches desired version {K8S_VERSION}. Skipping...")
+            continue
+
+        print(f"Do you want to proceed with draining the node {node_name}?")
+        if not prompt():
+            print("Skipping this node.")
+            continue
+
+        subprocess.run(
+            ["kubectl", "drain", "--ignore-daemonsets=true", "--delete-emptydir-data=true", "--force", node_name]
+        )
+
+        print(f"Checking for pods on node {node_name} ...")
+
+        pod_data = json.loads(run_command(["kubectl", "get", "po", "-A", "-o", "json"]))
+
+        for item in pod_data["items"]:
+            try:
+                if item["spec"]["nodeName"] == node_name:
+                    print(item["metadata"]["name"])
+            except KeyError:
+                print(f"KeyError: 'nodeName' not found in item: {item['metadata']['name']}")
+
+        print(f"Deleting node in {WAIT} seconds... press Ctrl-C to abort")
+        time.sleep(WAIT)
+        run_command(["kubectl", "delete", "node", node_name])
+
+        print(f"Terminating EC2 instance {instance} ...")
+        run_command(["aws", "ec2", "terminate-instances", "--instance-ids", instance, "--region", AWS_DEFAULT_REGION])
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user. Exiting...")
+        sys.exit(1)

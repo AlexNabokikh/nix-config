@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+case "$XDG_SESSION_TYPE" in
+"wayland")
+	if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+		flameshot gui --raw | tesseract stdin stdout -l "eng+rus+pol" | tr -d '\f' | wl-copy
+	else
+		grim -t png -g "$(slurp)" - | tesseract stdin stdout -l "eng+rus+pol" | tr -d '\f' | wl-copy
+	fi
+	;;
+*)
+	echo "Unsupported session type: $XDG_SESSION_TYPE"
+	exit 1
+	;;
+esac

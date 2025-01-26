@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+"""
+This script is designed to lists AWS EKS clusters and updates the kubeconfig file for each found cluster.
+It is particularly useful for administrators who manage multiple AWS accounts with EKS clusters
+in different regions, allowing them to quickly switch contexts and manage these clusters.
+
+Features:
+- Account Retrieval: Parses the AWS configuration file to fetch a list of AWS profiles (accounts).
+- Cluster Listing: For each account and predefined region, lists all EKS clusters using the AWS CLI.
+- Kubeconfig Update: Updates the kubeconfig file for each discovered cluster, facilitating
+  Kubernetes cluster management.
+- Region Support: Currently supports 'eu-west-1' and 'eu-central-1' regions.
+
+
+Dependencies:
+- AWS CLI: For interacting with AWS EKS and managing configurations.
+- jq: Command-line JSON processor used for parsing AWS CLI output.
+- Python 3 and standard libraries: configparser, os, shutil, subprocess.
+
+Usage:
+The script is executed as a standalone Python script. It automatically iterates over the predefined 
+accounts and regions, performing actions without needing additional user input.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import configparser
+import os
+import shutil
+import subprocess
+
+regions = ["eu-west-1", "eu-central-1", "us-east-1", "ap-southeast-1"]
+
+
+def check_dependencies():
+    """Check if required dependencies are available."""
+
+    if not shutil.which("aws"):
+        print("Error: AWS provider not found")
+        exit(-1)
+
+
+def get_accounts():
+    """Get the list of accounts by parsing the ~/.aws/config file."""
+    config_file_path = os.path.expanduser("~/.aws/config")
+
+    if not os.path.exists(config_file_path):
+        print("Error: AWS config file not found")
+        exit(-1)
+
+    config_parser = configparser.ConfigParser()
+
+    config_parser.read(config_file_path)
+
+    accounts = []
+    for section in config_parser.sections():
+        if section.startswith("profile "):
+            profile_name = section.split(" ", 1)[1]
+            accounts.append(profile_name)
+
+    if not accounts:
+        print("Error: No AWS profiles found")
+        exit(-1)
+
+    return accounts
+
+
+def list_clusters(account, region):
+    """List clusters in the given account and region."""
+    clusters_process = subprocess.run(
+        ["aws", "eks", "list-clusters", "--region", region, "--profile", account], capture_output=True, text=True
+    )
+    if clusters_process.returncode != 0:
+        print(f"Error: Failed to list clusters on {account} {region}")
+        return []
+    return subprocess.run(
+        ["jq", "-r", ".clusters | .[]"], input=clusters_process.stdout, capture_output=True, text=True
+    ).stdout.splitlines()
+
+
+def main():
+    """Main function."""
+    try:
+        check_dependencies()
+
+        accounts = get_accounts()
+
+        for account in accounts:
+            for region in regions:
+                print(f"Switching for {account} {region}")
+
+                clusters = list_clusters(account, region)
+
+                if not clusters:
+                    print(f"No clusters found on {account} {region}")
+                    continue
+
+                print(f"Found Clusters on {account} {region}:")
+                print("\n".join(clusters))
+
+                for cluster in clusters:
+                    subprocess.run(
+                        ["aws", "eks", "update-kubeconfig", "--name", cluster, "--region", region, "--profile", account]
+                    )
+
+    except KeyboardInterrupt:
+        print("\nScript interrupted by the user. Exiting.")
+
+
+if __name__ == "__main__":
+    main()

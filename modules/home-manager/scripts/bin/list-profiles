@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""
+This script is a utility for listing all the profile names defined in the AWS configuration file.
+It's a simple tool designed to assist users in quickly viewing the available AWS CLI profiles on their system.
+
+Features:
+- AWS Configuration Reading: Accesses and reads the AWS configuration file typically located at '~/.aws/config'.
+- Profile Listing: Extracts and prints the names of all AWS profiles found in the configuration file.
+- Error Handling: Captures and reports issues in accessing or reading the configuration file.
+
+Dependencies:
+- Python 3 and standard libraries: configparser, os.
+
+Usage:
+The script is executed as a standalone Python script without any arguments. It automatically reads
+the AWS configuration file and lists the available profiles.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import configparser
+import os
+
+
+def list_aws_profiles():
+    """
+    Reads the AWS configuration file and prints the names of the available profiles.
+    """
+    # Define the path to the AWS config file
+    config_file_path = os.path.join(os.path.expanduser("~"), ".aws", "config")
+
+    # Check if the config file exists
+    if not os.path.exists(config_file_path):
+        print("AWS config file not found at:", config_file_path)
+        return
+
+    # Initialize the ConfigParser
+    config = configparser.ConfigParser()
+
+    # Try to read the AWS config file
+    try:
+        config.read(config_file_path)
+    except configparser.Error as e:
+        print("Error reading AWS config file:", e)
+        return
+
+    # Iterate over the sections in the config file and print profile names
+    for section in config.sections():
+        if section.startswith("profile "):
+            print(section.split(" ", 1)[1])
+
+
+if __name__ == "__main__":
+    list_aws_profiles()

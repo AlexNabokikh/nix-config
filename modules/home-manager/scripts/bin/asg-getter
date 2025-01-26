@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+"""
+This script is designed to assist in managing AWS Kubernetes clusters, it provides functionality
+for querying information about ASGs, and their respective instances using AWS CLI and kubectl.
+
+Features:
+- Cluster Information Retrieval: Fetches the current AWS Kubernetes cluster's name and default region.
+- Auto Scaling Group Interaction: Lists ASGs associated with the Kubernetes cluster and allows the user
+  to select an ASG to query further.
+- Instance Information: For a selected ASG, lists all EC2 instances and retrieves their corresponding
+  Kubernetes node names.
+
+Dependencies:
+- AWS CLI: For interacting with AWS services.
+- kubectl: For Kubernetes cluster management.
+- Python 3 and standard libraries: re, subprocess, sys.
+
+Usage:
+The script is executed as a standalone Python script. It guides the user through a series of prompts to select
+the desired ASG and view details about its instances.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import re
+import subprocess
+import sys
+
+
+def check_dependency(command):
+    """
+    Check if a command-line dependency exists.
+
+    Args:
+        command (str): The name of the command to check.
+
+    Raises:
+        SystemExit: If the command is not found.
+    """
+    try:
+        subprocess.run([command, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except FileNotFoundError:
+        print(f"Error: The command '{command}' is not found. Please install it before proceeding.")
+        sys.exit(1)
+
+
+def fetch_cluster_info():
+    """
+    Fetches AWS cluster name and default region from `kubectl config current-context`.
+
+    Returns:
+        tuple: AWS_DEFAULT_REGION and CLUSTER_NAME or None if an error occurs.
+    """
+    command = ["kubectl", "config", "current-context"]
+    cluster_info = run_command(command)
+    if not cluster_info:
+        print("Failed to fetch cluster information.")
+        return None, None
+
+    match = re.search(r"arn:aws:eks:(.+?):\d+:cluster/(.+)$", cluster_info)
+    if match:
+        region, cluster_name = match.groups()
+        return region, cluster_name
+
+    return None, None
+
+
+def prompt(message):
+    """
+    Prompt the user for a 'y' or 'n' response.
+
+    Args:
+        message (str): The message to display to the user.
+
+    Returns:
+        bool: True if 'y', False if 'n'.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    while True:
+        try:
+            ans = input(message)
+            if ans.lower() == "y":
+                return True
+            elif ans.lower() == "n":
+                return False
+            else:
+                print("Invalid input. Please enter 'y' or 'n'.")
+        except KeyboardInterrupt:
+            print("\nOperation cancelled by the user.")
+            sys.exit(0)
+
+
+def get_input(label):
+    """
+    Get input from the user.
+
+    Args:
+        label (str): Label for the input field.
+
+    Returns:
+        str: User input.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    try:
+        return input(f"Please enter the {label}: ")
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user.")
+        sys.exit(0)
+
+
+def run_command(command):
+    """
+    Run a shell command.
+
+    Args:
+        command (list): The command to run.
+
+    Returns:
+        str or None: The stdout as a string or None if an error occurs.
+
+    Raises:
+        SystemExit: If the operation is cancelled by the user.
+    """
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            print(f"Command failed with error: {stderr}")
+            return None
+        return stdout.strip()
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user.")
+        sys.exit(0)
+
+
+def get_asgs(region, cluster_name):
+    """
+    Get the Auto Scaling Groups for a given cluster in a region.
+
+    Args:
+        region (str): AWS region.
+        cluster_name (str): Name of the cluster.
+
+    Returns:
+        list: List of Auto Scaling Groups or empty list if none found.
+    """
+    command = [
+        "aws",
+        "autoscaling",
+        "describe-auto-scaling-groups",
+        "--query",
+        f"AutoScalingGroups[? Tags[? (Key=='kubernetes.io/cluster/{cluster_name}') && Value=='owned']].AutoScalingGroupName",
+        "--output",
+        "text",
+        "--region",
+        region,
+    ]
+    asgs_str = run_command(command)
+    return asgs_str.split("\t") if asgs_str else []
+
+
+def get_instances_in_asg(region, asg):
+    """
+    Get the EC2 instances in a given Auto Scaling Group in a region.
+
+    Args:
+        region (str): AWS region.
+        asg (str): Name of the Auto Scaling Group.
+
+    Returns:
+        list: List of instance IDs or empty list if none found.
+    """
+    command = [
+        "aws",
+        "autoscaling",
+        "describe-auto-scaling-groups",
+        "--auto-scaling-group-name",
+        asg,
+        "--query",
+        "AutoScalingGroups[].Instances[][InstanceId]",
+        "--output",
+        "text",
+        "--region",
+        region,
+    ]
+    ins_str = run_command(command)
+    return ins_str.split() if ins_str else []
+
+
+def get_node_by_instance(region, instance_id):
+    """
+    Get the node name by instance ID.
+
+    Args:
+        region (str): AWS region.
+        instance_id (str): EC2 instance ID.
+
+    Returns:
+        str or None: Node name as a string or None if an error occurs.
+    """
+    command = [
+        "aws",
+        "ec2",
+        "describe-instances",
+        "--instance-ids",
+        instance_id,
+        "--query",
+        "Reservations[].Instances[].PrivateDnsName",
+        "--output",
+        "text",
+        "--region",
+        region,
+    ]
+    return run_command(command)
+
+
+def main():
+    """
+    Main function.
+    """
+    for cmd in ["aws", "kubectl"]:
+        check_dependency(cmd)
+
+    AWS_DEFAULT_REGION, CLUSTER_NAME = fetch_cluster_info()
+
+    asgs = get_asgs(AWS_DEFAULT_REGION, CLUSTER_NAME)
+    if not asgs:
+        print("No ASGs found.")
+        exit(1)
+
+    print("Found the following Auto Scaling Groups:")
+    for idx, asg in enumerate(asgs):
+        print(f"{idx + 1}. {asg}")
+
+    while True:
+        asg_number = int(get_input("Enter the number corresponding to the ASG you want to query"))
+        if 1 <= asg_number <= len(asgs):
+            selected_asg = asgs[asg_number - 1]
+        else:
+            print("Invalid ASG number.")
+            sys.exit(1)
+
+        print(f"Querying information for autoscaling-group: {selected_asg}")
+        instances = get_instances_in_asg(AWS_DEFAULT_REGION, selected_asg)
+
+        if not instances:
+            print("No instances found in the selected ASG.")
+        else:
+            for instance in instances:
+                node = get_node_by_instance(AWS_DEFAULT_REGION, instance)
+                if node:
+                    subprocess.run(["kubectl", "get", "node", node, "--no-headers=true"])
+
+        if not prompt("Would you like to query another ASG? (y/n): "):
+            break
+
+
+if __name__ == "__main__":
+    main()

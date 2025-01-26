@@ -1,6 +1,7 @@
 {
   inputs,
   hostname,
+  nixosModules,
   ...
 }: {
   imports = [
@@ -9,9 +10,9 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
-    ../modules/common.nix
-    ../modules/hyprland.nix
-    ../modules/steam.nix
+    "${nixosModules}/common"
+    "${nixosModules}/services/tlp"
+    "${nixosModules}/programs/hyprland"
   ];
 
   # Set hostname

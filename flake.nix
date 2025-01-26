@@ -61,6 +61,7 @@
         specialArgs = {
           inherit inputs outputs hostname;
           userConfig = users.${username};
+          nixosModules = "${self}/modules/nixos";
         };
         modules = [./hosts/${hostname}/configuration.nix];
       };

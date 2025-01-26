@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""
+This script is designed to automate the process of resetting multiple Git repositories to their latest
+commit on the current branch. It is especially useful in environments where multiple repositories are
+managed simultaneously and require frequent synchronization.
+
+Features:
+- Git Repository Reset: Resets any identified Git repository to the latest commit on its current branch.
+- Directory Traversal: Scans a specified base directory (defaulting to the current directory) to find 
+  all directories containing a Git repository.
+- Terragrunt Cache Exclusion: Skips over directories named '.terragrunt-cache', which are typically 
+  used for caching in Terraform workflows.
+
+Dependencies:
+- Git: For managing and resetting the repositories.
+- Python 3 and standard libraries: os, subprocess.
+
+Usage:
+The script is executed as a standalone Python script. It requires no additional input from the user,
+automatically finding and resetting Git repositories in the current or specified directory.
+"""
+
+__author__ = "Alexander Nabokikh"
+__license__ = "GPL-2.0 license"
+
+
+import os
+import subprocess
+
+
+def reset_git_repo(path):
+    """Reset a git repository to the latest commit on the current branch."""
+    old_cwd = os.getcwd()
+
+    try:
+        os.chdir(path)
+        subprocess.run(["git", "reset", "--hard", "HEAD"])
+    finally:
+        os.chdir(old_cwd)
+
+
+def find_git_dirs(base="."):
+    """Find all directories containing a .git directory and excluding .terragrunt-cache."""
+    for root, dirs, _ in os.walk(base):
+        if ".terragrunt-cache" in dirs:
+            dirs.remove(".terragrunt-cache")
+
+        if ".git" in dirs:
+            yield root
+
+
+def main():
+    """Main function."""
+    try:
+        for git_repo in find_git_dirs():
+            print(f"Resetting repository: {git_repo}")
+            reset_git_repo(git_repo)
+    except KeyboardInterrupt:
+        print("\nScript interrupted by the user. Exiting.")
+
+
+if __name__ == "__main__":
+    main()
