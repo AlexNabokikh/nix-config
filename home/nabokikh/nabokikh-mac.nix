@@ -1,7 +1,7 @@
-{...}: {
+{nhModules, ...}: {
   imports = [
-    ../modules/common.nix
-    ../modules/darwin-aerospace.nix
+    "${nhModules}/common"
+    "${nhModules}/programs/aerospace"
   ];
 
   # Enable home-manager
