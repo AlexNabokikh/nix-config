@@ -41,20 +41,4 @@
     tali # poker game
     yelp # help viewer
   ];
-
-  # List of Gnome specific packages
-  environment.systemPackages = with pkgs; [
-    gnome-pomodoro
-    gnome-tweaks
-    gnomeExtensions.auto-move-windows
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.clipboard-history
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.just-perfection
-    gnomeExtensions.pop-shell
-    gnomeExtensions.rounded-window-corners-reborn
-    gnomeExtensions.space-bar
-    gnomeExtensions.unblank
-    gnomeExtensions.user-themes
-  ];
 }

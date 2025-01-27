@@ -2,6 +2,7 @@
   config,
   lib,
   nhModules,
+  pkgs,
   ...
 }:
 with lib.hm.gvariant; {
@@ -9,8 +10,23 @@ with lib.hm.gvariant; {
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
-    "${nhModules}/programs/pop-shell"
     "${nhModules}/services/flameshot"
+  ];
+
+  # Ensure Gnome extensions installed
+  home.packages = with pkgs; [
+    gnome-pomodoro
+    gnome-tweaks
+    gnomeExtensions.auto-move-windows
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.clipboard-history
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.just-perfection
+    gnomeExtensions.pop-shell
+    gnomeExtensions.rounded-window-corners-reborn
+    gnomeExtensions.space-bar
+    gnomeExtensions.unblank
+    gnomeExtensions.user-themes
   ];
 
   dconf.settings = {
@@ -464,5 +480,23 @@ with lib.hm.gvariant; {
     "system/locale" = {
       "region" = "en_IE.UTF-8";
     };
+  };
+
+  # pop-shell settings
+  xdg.configFile = {
+    "pop-shell/config.json".text = ''
+      {
+        "float": [
+          {
+            "class": "ulauncher"
+          },
+          {
+            "class": "org.gnome.Calculator"
+          }
+        ],
+        "skiptaskbarhidden": [],
+        "log_on_focus": false
+      }
+    '';
   };
 }
