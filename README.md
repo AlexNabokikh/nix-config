@@ -21,22 +21,26 @@ It is structured to easily accommodate multiple machines and user configurations
 ## Structure
 
 - `flake.nix`: The flake itself, defining inputs and outputs for NixOS, nix-darwin, and Home Manager configurations.
-- `hosts/`: NixOS and nix-darwin configurations for each machine, including system-specific settings.
-- `home/`: Home Manager configurations for user-specific settings and applications.
-- `files/`: Miscellaneous configuration files and scripts used across various applications and services.
-- `flake.lock`: Lock file ensuring reproducible builds by pinning input versions.
-- `overlays/`: Custom Nix overlays for package modifications or additions.
+- `hosts/`: NixOS and nix-darwin configurations for each machine
+- `home/`: Home Manager configurations for each machine
+- `files/`: Miscellaneous configuration files and scripts used across various applications and services
+- `modules/`: Reusable configuration mplatform-specific modules
+  - `nixos/`: NixOS-specific modules
+  - `darwin/`: macOS-specific modules
+  - `home-manager/`: User-space configuration modules
+- `flake.lock`: Lock file ensuring reproducible builds by pinning input versions
+- `overlays/`: Custom Nix overlays for package modifications or additions
 
 ### Key Inputs
 
-- **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages.
-- **nixpkgs-stable**: Points to the `nixos-24.11` channel, providing stable NixOS packages.
-- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.11).
-- **hardware**: Optimizes settings for different hardware configurations.
-- **catppuccin**: Provides global Catppuccin theme integration.
-- **spicetify-nix**: Enhances Spotify client customization.
-- **darwin**: Enables nix-darwin for macOS system configuration.
-- **nix-homebrew**: Integrates Homebrew package management with nix-darwin.
+- **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages
+- **nixpkgs-stable**: Points to the `nixos-24.11` channel, providing stable NixOS packages
+- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.11)
+- **hardware**: Optimizes settings for different hardware configurations
+- **catppuccin**: Provides global Catppuccin theme integration
+- **spicetify-nix**: Enhances Spotify client customization
+- **darwin**: Enables nix-darwin for macOS system configuration
+- **nix-homebrew**: Integrates Homebrew package management with nix-darwin
 
 ## Usage
 
@@ -97,27 +101,27 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
    mkdir -p hosts/newmachine
    ```
 
-   b. Create `configuration.nix` in this directory:
+   b. Create `default.nix` in this directory:
 
    ```sh
-   touch hosts/newmachine/configuration.nix
+   touch hosts/newmachine/default.nix
    ```
 
-   c. Add the basic configuration to `configuration.nix`:
+   c. Add the basic configuration to `default.nix`:
 
    For NixOS:
 
    ```nix
-   { config, pkgs, ... }:
-
+   { inputs, hostname, nixosModules, ... }:
    {
      imports = [
+       inputs.hardware.nixosModules.common-cpu-amd
        ./hardware-configuration.nix
-       ../modules/common.nix
-       # Add other relevant modules
+       "${nixosModules}/common"
+       "${nixosModules}/programs/hyprland"
      ];
 
-     # Add machine-specific configurations here
+     networking.hostName = hostname;
    }
    ```
 
@@ -125,13 +129,7 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
 
    ```nix
    { config, pkgs, ... }:
-
    {
-     imports = [
-       ../modules/common.nix
-       # Add other relevant modules
-     ];
-
      # Add machine-specific configurations here
    }
    ```
@@ -144,31 +142,33 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
 
 3. **Create Home Manager Configuration**:
 
-   a. Create a new file for the user's home configuration:
+   a. Create a new directory for the user's host-specific configuration:
 
    ```sh
-   mkdir -p home/newuser
-   touch home/newuser/newmachine.nix
+   mkdir -p home/newuser/newmachine
+   touch home/newuser/newmachine/default.nix
    ```
 
    b. Add basic home configuration:
 
    ```nix
-   { config, pkgs, ... }:
-
+   { nhModules, ... }:
    {
      imports = [
-       ../modules/common.nix
-       # Add other relevant modules
+       "${nhModules}/common"
+       "${nhModules}/programs/neovim"
+       "${nhModules}/services/waybar"
      ];
-
-     # Add user-specific configurations here
    }
    ```
 
 4. **Building and Applying Configurations**:
 
-   a. Do not forget to check-in new files in git by running `git add .`
+   a. Commit new files to git:
+
+   ```sh
+   git add .
+   ```
 
    b. Build and switch to the new system configuration:
 
@@ -187,17 +187,10 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
    c. Build and switch to the new Home Manager configuration:
 
 > [!IMPORTANT]
-> On the fresh system to have home-manager in your PATH it needs to be bootstrapped first.
-
-First, get the required tools:
+> On fresh systems, bootstrap Home Manager first:
 
 ```sh
 nix-shell -p home-manager
-```
-
-Second, apply home-manager configuration:
-
-```sh
 home-manager switch --flake .#newuser@newmachine
 ```
 
@@ -211,100 +204,40 @@ To update all flake inputs to their latest versions:
 nix flake update
 ```
 
-## Custom Modules and Configurations
+## Modules and Configurations
 
-This setup includes a wide range of custom modules and configurations to enhance your NixOS and macOS experience. Here's a comprehensive list of available modules:
+### System Modules (in `modules/nixos/`)
 
-### System Modules (in `hosts/modules/`)
+- `common/`: Common system configurations
+- `programs/corectrl.nix`: CoreCtrl for AMD GPU management
+- `programs/hyprland.nix`: Hyprland window manager
+- `programs/steam.nix`: Steam gaming platform
+- `services/gnome.nix`: GNOME desktop environment
+- `services/tlp.nix`: Laptop power management
 
-- `common.nix`: Common system configurations
-- `corectrl.nix`: CoreCtrl for AMD GPU management
-- `gnome.nix`: GNOME desktop environment
-- `hyprland.nix`: Hyprland window manager
-- `laptop.nix`: Laptop-specific configurations
-- `lutris.nix`: Lutris gaming platform
-- `ollama.nix`: Ollama for running large language models locally
-- `steam.nix`: Steam gaming platform
+### Home Manager Modules (in `modules/home-manager/`)
 
-### Home Manager Modules (in `home/modules/`)
+1. **Core Utilities**:
 
-1. Terminal and Shell:
+   - `common/`: Cross-platform base configuration
+   - `programs/git.nix`: Git version control
+   - `programs/neovim.nix`: Neovim text editor
+   - `programs/zsh.nix`: Zsh shell configuration
 
-   - `alacritty.nix`: Alacritty terminal emulator
-   - `atuin.nix`: Shell history sync
-   - `zsh.nix`: Zsh shell configuration
-   - `tmux.nix`: Terminal multiplexer
+2. **Desktop Environment**:
 
-2. Development Tools:
+   - `programs/hyprland/`: Hyprland window manager setup
+   - `services/waybar/`: Custom status bar configuration
+   - `services/swaync/`: Notification center setup
 
-   - `git.nix`: Git version control
-   - `go.nix`: Go programming language
-   - `neovim.nix`: Neovim text editor
-   - `lazygit.nix`: Terminal UI for Git
+3. **Development**:
 
-3. System Utilities:
+   - `programs/go.nix`: Go development environment
+   - `programs/krew.nix`: Kubernetes plugin manager
+   - `scripts/`: Collection of development utilities
 
-   - `bat.nix`: A cat clone with syntax highlighting
-   - `bottom.nix`: System monitor
-   - `cliphist.nix`: Cliphist clipboard manager (for Hyprland/wl-roots)
-   - `fastfetch.nix`: System information tool
-   - `fzf.nix`: Fuzzy finder
-   - `gpg.nix`: GPG key management
-   - `krew.nix`: kubectl plugin manager
-
-4. Desktop Environment and UI:
-
-   - `gnome.nix`: GNOME desktop customizations
-   - `gtk.nix`: GTK theme settings
-   - `hyprland.nix`: Hyprland window manager configuration
-   - `kanshi.nix`: Automatic display configuration
-   - `pop-shell.nix`: Pop Shell for tiling windows
-   - `swaync.nix`: Notification center for Wayland
-   - `waybar.nix`: Highly customizable Wayland bar
-   - `wofi.nix`: Application launcher for Wayland
-
-5. Applications:
-
-   - `easyeffects.nix`: Audio effects for PipeWire
-   - `flameshot.nix`: Screenshot tool
-   - `normcap.nix`: OCR tool
-   - `spicetify.nix`: Spotify client customization
-   - `swappy.nix`: Wayland screenshot editing tool
-   - `ulauncher.nix`: Application launcher
-   - `zoom.nix`: Zoom video conferencing
-
-6. Cloud and DevOps:
-
-   - `saml2aws.nix`: CLI tool for SAML SSO
-
-7. macOS-specific:
-
-   - `darwin-aerospace.nix`: macOS-specific configurations
-
-8. Miscellaneous:
-   - `home.nix`: Main home configuration
-   - `scripts.nix`: Custom scripts
-   - `xdg.nix`: XDG base directory specification
-
-Each of these modules can be imported into your NixOS, nix-darwin, or Home Manager configurations to enable specific features or applications. To use a module, simply add it to the `imports` list in your configuration file.
-
-For example, to enable Alacritty and Neovim in your home configuration:
-
-```nix
-{ config, pkgs, ... }:
-
-{
-  imports = [
-    ./modules/alacritty.nix
-    ./modules/neovim.nix
-    # Other modules...
-  ];
-
-  # Additional configurations...
-}
-```
-
-Feel free to explore these modules and customize your NixOS or macOS setup according to your needs. If you need more information about a specific module, you can check its corresponding file in the `hosts/modules/` or `home/modules/` directory.
+4. **macOS Specific**:
+   - `programs/aerospace.nix`: macOS window management
 
 ## Contributing
 
