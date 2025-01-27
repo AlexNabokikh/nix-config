@@ -63,7 +63,7 @@
           userConfig = users.${username};
           nixosModules = "${self}/modules/nixos";
         };
-        modules = [./hosts/${hostname}/configuration.nix];
+        modules = [./hosts/${hostname}];
       };
 
     # Function for nix-darwin system configuration
@@ -75,7 +75,7 @@
           userConfig = users.${username};
         };
         modules = [
-          ./hosts/${hostname}/configuration.nix
+          ./hosts/${hostname}
           home-manager.darwinModules.home-manager
           nix-homebrew.darwinModules.nix-homebrew
         ];
@@ -91,7 +91,7 @@
           nhModules = "${self}/modules/home-manager";
         };
         modules = [
-          ./home/${username}/${hostname}.nix
+          ./home/${username}/${hostname}
           catppuccin.homeManagerModules.catppuccin
         ];
       };
