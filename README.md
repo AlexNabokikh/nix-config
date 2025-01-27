@@ -24,7 +24,7 @@ It is structured to easily accommodate multiple machines and user configurations
 - `hosts/`: NixOS and nix-darwin configurations for each machine
 - `home/`: Home Manager configurations for each machine
 - `files/`: Miscellaneous configuration files and scripts used across various applications and services
-- `modules/`: Reusable configuration mplatform-specific modules
+- `modules/`: Reusable platform-specific modules
   - `nixos/`: NixOS-specific modules
   - `darwin/`: macOS-specific modules
   - `home-manager/`: User-space configuration modules
@@ -56,6 +56,7 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
    users = {
      # Existing users...
      newuser = {
+       avatar = ./files/avatar/face;
        email = "newuser@example.com";
        fullName = "New User";
        gitKey = "YOUR_GIT_KEY";
@@ -178,7 +179,7 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
    sudo nixos-rebuild switch --flake .#newmachine
    ```
 
-   For nix-darwin:
+   For nix-darwin (requires Nix and nix-darwin installation first):
 
    ```sh
    darwin-rebuild switch --flake .#newmachine
