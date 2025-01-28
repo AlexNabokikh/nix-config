@@ -52,7 +52,6 @@
     [
       awscli2
       dig
-      docker
       du-dust
       eza
       fd
