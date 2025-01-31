@@ -161,7 +161,6 @@
 
   # Additional services
   services.locate.enable = true;
-  services.locate.localuser = null;
 
   # OpenSSH daemon
   services.openssh.enable = true;
