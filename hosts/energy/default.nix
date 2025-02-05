@@ -11,7 +11,7 @@
 
     ./hardware-configuration.nix
     "${nixosModules}/common"
-    "${nixosModules}/programs/hyprland"
+    "${nixosModules}/desktop/hyprland"
     "${nixosModules}/programs/steam"
   ];
 

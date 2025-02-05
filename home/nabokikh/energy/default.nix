@@ -1,7 +1,7 @@
 {nhModules, ...}: {
   imports = [
     "${nhModules}/common"
-    "${nhModules}/programs/hyprland"
+    "${nhModules}/desktop/hyprland"
     "${nhModules}/programs/zoom"
     "${nhModules}/services/easyeffects"
     "${nhModules}/services/ulauncher"
