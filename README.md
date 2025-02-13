@@ -210,10 +210,10 @@ nix flake update
 ### System Modules (in `modules/nixos/`)
 
 - `common/`: Common system configurations
+- `desktop/gnome.nix`: GNOME desktop environment
+- `desktop/hyprland.nix`: Hyprland window manager
 - `programs/corectrl.nix`: CoreCtrl for AMD GPU management
-- `programs/hyprland.nix`: Hyprland window manager
 - `programs/steam.nix`: Steam gaming platform
-- `services/gnome.nix`: GNOME desktop environment
 - `services/tlp.nix`: Laptop power management
 
 ### Home Manager Modules (in `modules/home-manager/`)
@@ -227,7 +227,8 @@ nix flake update
 
 2. **Desktop Environment**:
 
-   - `programs/hyprland/`: Hyprland window manager setup
+   - `deskotp/gnome/`: Gnome configuration
+   - `deskotp/hyprland/`: Hyprland window manager setup
    - `services/waybar/`: Custom status bar configuration
    - `services/swaync/`: Notification center setup
 
