@@ -50,6 +50,7 @@
   # Ensure common packages are installed
   home.packages = with pkgs;
     [
+      anki-bin
       awscli2
       dig
       du-dust
@@ -68,9 +69,9 @@
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
+      docker
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      anki
       pavucontrol
       pulseaudio
       tesseract
