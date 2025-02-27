@@ -24,15 +24,13 @@
   };
 
   # Nix settings
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
+  nix = {
+    settings = {
+      experimental-features = "nix-command flakes";
+    };
+    optimise.automatic = true;
+    package = pkgs.nix;
   };
-
-  nix.package = pkgs.nix;
-
-  # Enable Nix daemon
-  services.nix-daemon.enable = true;
 
   # User configuration
   users.users.${userConfig.name} = {
@@ -89,7 +87,7 @@
         show-recents = false;
         showhidden = true;
         persistent-apps = [
-          "/Applications/Brave Browser.app"
+          "${pkgs.brave}/Applications/Brave Browser.app"
           "${pkgs.alacritty}/Applications/Alacritty.app"
           "${pkgs.telegram-desktop}/Applications/Telegram.app"
         ];
@@ -107,7 +105,7 @@
     };
     keyboard = {
       enableKeyMapping = true;
-      # swapLeftCtrlAndFn = true;
+      swapLeftCtrlAndFn = true;
       # Remap §± to ~
       userKeyMapping = [
         {
@@ -132,9 +130,7 @@
     enable = true;
     casks = [
       "aerospace"
-      "anki"
-      "brave-browser"
-      "dozer"
+      "hiddenbar"
       "obs"
       "raycast"
     ];
