@@ -86,11 +86,7 @@
         expose-animation-duration = 0.15;
         show-recents = false;
         showhidden = true;
-        persistent-apps = [
-          "${pkgs.brave}/Applications/Brave Browser.app"
-          "${pkgs.alacritty}/Applications/Alacritty.app"
-          "${pkgs.telegram-desktop}/Applications/Telegram.app"
-        ];
+        persistent-apps = [];
         tilesize = 30;
         wvous-bl-corner = 1;
         wvous-br-corner = 1;
