@@ -128,7 +128,6 @@
       "aerospace"
       "brave-browser"
       "hiddenbar"
-      "obs"
       "raycast"
     ];
     taps = [
