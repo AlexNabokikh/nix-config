@@ -126,6 +126,7 @@
     enable = true;
     casks = [
       "aerospace"
+      "brave-browser"
       "hiddenbar"
       "obs"
       "raycast"
