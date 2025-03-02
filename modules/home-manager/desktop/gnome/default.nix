@@ -10,7 +10,7 @@ with lib.hm.gvariant; {
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
-    "${nhModules}/services/flameshot"
+    "${nhModules}/programs/flameshot"
   ];
 
   # Ensure Gnome extensions installed
