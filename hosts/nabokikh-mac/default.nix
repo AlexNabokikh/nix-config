@@ -44,8 +44,8 @@
   # System settings
   system = {
     defaults = {
-      ".GlobalPreferences" = {
-        "com.apple.mouse.scaling" = -1.0;
+      CustomUserPreferences = {
+        NSGlobalDomain."com.apple.mouse.linear" = true;
       };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
