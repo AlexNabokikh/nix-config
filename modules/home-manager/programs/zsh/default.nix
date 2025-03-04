@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # Zsh shell configuration
   programs.zsh = {
     enable = true;
@@ -71,6 +75,11 @@
       autoload -z edit-command-line
       zle -N edit-command-line
       bindkey "^v" edit-command-line
+
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        # Enable ALT-C fzf keybinding on Mac
+        bindkey 'ć' fzf-cd-widget
+      ''}
     '';
   };
 }
