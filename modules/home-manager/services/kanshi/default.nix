@@ -1,9 +1,4 @@
-{pkgs, ...}: {
-  # Install kanshi via home-manager module
-  home.packages = with pkgs; [
-    kanshi
-  ];
-
+{...}: {
   # Manage kanshi services via Home-manager
   services.kanshi = {
     enable = true;
