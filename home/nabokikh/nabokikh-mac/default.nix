@@ -1,7 +1,6 @@
 {nhModules, ...}: {
   imports = [
     "${nhModules}/common"
-    "${nhModules}/programs/aerospace"
   ];
 
   # Enable home-manager
