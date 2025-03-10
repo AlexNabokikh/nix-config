@@ -40,7 +40,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **catppuccin**: Provides global Catppuccin theme integration
 - **spicetify-nix**: Enhances Spotify client customization
 - **darwin**: Enables nix-darwin for macOS system configuration
-- **nix-homebrew**: Integrates Homebrew package management with nix-darwin
 
 ## Usage
 

@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ../programs/aerospace
     ../programs/alacritty
     ../programs/atuin
     ../programs/bat
@@ -70,6 +71,8 @@
     ++ lib.optionals stdenv.isDarwin [
       colima
       docker
+      hidden-bar
+      raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       pavucontrol

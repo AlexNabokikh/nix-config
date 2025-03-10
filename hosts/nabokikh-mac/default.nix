@@ -4,14 +4,6 @@
   userConfig,
   ...
 }: {
-  # Add nix-homebrew configuration
-  nix-homebrew = {
-    enable = true;
-    enableRosetta = true;
-    user = "${userConfig.name}";
-    autoMigrate = true;
-  };
-
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
@@ -113,20 +105,6 @@
   fonts.packages = with pkgs; [
     nerd-fonts.meslo-lg
   ];
-
-  homebrew = {
-    enable = true;
-    casks = [
-      "aerospace"
-      "brave-browser"
-      "hiddenbar"
-      "raycast"
-    ];
-    taps = [
-      "nikitabobko/tap"
-    ];
-    onActivation.cleanup = "zap";
-  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 5;

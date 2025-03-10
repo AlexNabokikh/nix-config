@@ -28,9 +28,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Homebrew
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
   outputs = {
@@ -38,7 +35,6 @@
     catppuccin,
     darwin,
     home-manager,
-    nix-homebrew,
     nixpkgs,
     ...
   } @ inputs: let
@@ -77,7 +73,6 @@
         modules = [
           ./hosts/${hostname}
           home-manager.darwinModules.home-manager
-          nix-homebrew.darwinModules.nix-homebrew
         ];
       };
 
