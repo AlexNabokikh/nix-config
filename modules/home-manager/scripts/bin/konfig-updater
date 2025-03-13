@@ -31,7 +31,7 @@ import os
 import shutil
 import subprocess
 
-regions = ["eu-west-1", "eu-central-1", "us-east-1", "ap-southeast-1"]
+regions = ["eu-west-1", "eu-central-1"]
 
 
 def check_dependencies():
