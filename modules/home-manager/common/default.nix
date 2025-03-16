@@ -66,7 +66,6 @@
       python3
       ripgrep
       terraform
-      terragrunt
     ]
     ++ lib.optionals stdenv.isDarwin [
       colima
