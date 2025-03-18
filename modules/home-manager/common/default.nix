@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ../misc/qt
     ../programs/aerospace
     ../programs/alacritty
     ../programs/atuin
