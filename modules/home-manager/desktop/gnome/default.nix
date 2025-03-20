@@ -406,34 +406,46 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
-      "blacklist" = ["ulauncher"];
-      "border-color" = mkTuple [0.71764707565307617 0.74117660522460938 0.97254902124404907 1.0];
-      "border-width" = 1;
+      skip-libadwaita-app = false;
+      border-width = 1;
+      border-color = mkTuple [
+        0.71764707565307617
+        0.74117660522460938
+        0.97254902124404907
+        1.0
+      ];
       global-rounded-corner-settings = [
         (mkDictionaryEntry [
           "padding"
           (mkVariant [
-            (mkDictionaryEntry ["left" (mkVariant 1)])
-            (mkDictionaryEntry ["right" (mkVariant 1)])
-            (mkDictionaryEntry ["top" (mkVariant 1)])
-            (mkDictionaryEntry ["bottom" (mkVariant 1)])
+            (mkDictionaryEntry ["left" (mkUint32 1)])
+            (mkDictionaryEntry ["right" (mkUint32 1)])
+            (mkDictionaryEntry ["top" (mkUint32 1)])
+            (mkDictionaryEntry ["bottom" (mkUint32 1)])
           ])
         ])
-
         (mkDictionaryEntry [
           "keepRoundedCorners"
           (mkVariant [
-            (mkDictionaryEntry ["maximized" (mkVariant true)])
-            (mkDictionaryEntry ["fullscreen" (mkVariant false)])
+            (mkDictionaryEntry ["maximized" false])
+            (mkDictionaryEntry ["fullscreen" false])
           ])
         ])
-
-        (mkDictionaryEntry ["borderRadius" (mkVariant 8)])
-        (mkDictionaryEntry ["smoothing" (mkVariant 0)])
+        (mkDictionaryEntry ["borderRadius" (mkVariant (mkUint32 8))])
+        (mkDictionaryEntry ["smoothing" (mkVariant 0.0)])
+        (mkDictionaryEntry [
+          "borderColor"
+          (mkVariant (mkTuple [
+            0.71764707565307617
+            0.74117660522460938
+            0.97254902124404907
+            1.0
+          ]))
+        ])
         (mkDictionaryEntry ["enabled" (mkVariant true)])
       ];
-      "settings-version" = mkUint32 6;
-      "skip-libadwaita-app" = false;
+      settings-version = mkUint32 7;
+      blacklist = ["ulauncher"];
     };
 
     "org/gnome/shell/extensions/space-bar/appearance" = {
