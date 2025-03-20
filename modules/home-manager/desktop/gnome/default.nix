@@ -506,6 +506,16 @@ with lib.hm.gvariant; {
           },
           {
             "class": "org.gnome.Calculator"
+          },
+          {
+            "class": "zoom",
+            "disabled": true
+          },
+          {
+            "class": "crx_.*"
+          },
+          {
+            "title": "crx_.*"
           }
         ],
         "skiptaskbarhidden": [],
