@@ -53,38 +53,40 @@
     sed -i "s|\\\$HOME|$HOME|g" "$shortcutsFile"
   '';
 in {
-  # Ulauncher package
-  home.packages = with pkgs; [
-    ulauncher
-  ];
+  config = lib.mkIf (!pkgs.stdenv.isDarwin) {
+    # Ulauncher package
+    home.packages = with pkgs; [
+      ulauncher
+    ];
 
-  # Ulauncher service configuration
-  systemd.user.services.ulauncher = {
-    Unit = {
-      Description = "ulauncher application launcher service";
-      Documentation = "https://ulauncher.io";
-      PartOf = ["graphical-session.target"];
+    # Ulauncher service configuration
+    systemd.user.services.ulauncher = {
+      Unit = {
+        Description = "ulauncher application launcher service";
+        Documentation = "https://ulauncher.io";
+        PartOf = ["graphical-session.target"];
+      };
+
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.bash}/bin/bash -lc '${pkgs.ulauncher}/bin/ulauncher --hide-window'";
+        Restart = "always";
+      };
+
+      Install.WantedBy = ["graphical-session.target"];
     };
 
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.bash}/bin/bash -lc '${pkgs.ulauncher}/bin/ulauncher --hide-window'";
-      Restart = "always";
+    # Source ulauncher configuration from this repository
+    xdg.configFile = {
+      "ulauncher" = {
+        recursive = true;
+        source = ./config;
+      };
     };
 
-    Install.WantedBy = ["graphical-session.target"];
+    # A bit nasty, but shortcuts file has to be writeble by the ulauncher
+    home.activation.manageShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${manageShortcutsScript}/bin/manage-ulauncher-shortcuts
+    '';
   };
-
-  # Source ulauncher configuration from this repository
-  xdg.configFile = {
-    "ulauncher" = {
-      recursive = true;
-      source = ./config;
-    };
-  };
-
-  # A bit nasty, but shortcuts file has to be writeble by the ulauncher
-  home.activation.manageShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${manageShortcutsScript}/bin/manage-ulauncher-shortcuts
-  '';
 }

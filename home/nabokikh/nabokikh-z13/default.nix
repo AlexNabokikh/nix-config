@@ -2,9 +2,6 @@
   imports = [
     "${nhModules}/common"
     "${nhModules}/desktop/hyprland"
-    "${nhModules}/programs/zoom"
-    "${nhModules}/services/easyeffects"
-    "${nhModules}/services/ulauncher"
   ];
 
   # Enable home-manager
