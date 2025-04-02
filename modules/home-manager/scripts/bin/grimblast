@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 grimblastInstanceCheck="${XDG_RUNTIME_DIR:-$XDG_CACHE_DIR:-$HOME/.cache}/grimblast.lock"
-if [ -e "$grimblastInstanceCheck" ]; then
-	exit 2
-else
-	touch "$grimblastInstanceCheck"
-fi
-trap 'rm -f "$grimblastInstanceCheck"' EXIT
+
+# Force cleanup of any existing lock file and hyprpicker instances
+rm -f "$grimblastInstanceCheck"
+touch "$grimblastInstanceCheck"
+
+# Ensure cleanup on exit
+trap 'rm -f "$grimblastInstanceCheck"; killHyprpicker' EXIT INT TERM HUP
 
 getTargetDirectory() {
 	test -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" &&
@@ -233,6 +234,9 @@ elif [ "$SUBJECT" = "area" ]; then
 	fi
 
 	if [ "$FREEZE" = "yes" ] && [ "$(command -v "hyprpicker")" ] >/dev/null 2>&1; then
+		# Kill any existing hyprpicker instances first
+		killHyprpicker
+		# Start a new hyprpicker instance
 		hyprpicker -r -z &
 	fi
 
