@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
+# Check whether another instance is running
 grimblastInstanceCheck="${XDG_RUNTIME_DIR:-$XDG_CACHE_DIR:-$HOME/.cache}/grimblast.lock"
-
-# Force cleanup of any existing lock file and hyprpicker instances
-rm -f "$grimblastInstanceCheck"
-touch "$grimblastInstanceCheck"
-
-# Ensure cleanup on exit
-trap 'rm -f "$grimblastInstanceCheck"; killHyprpicker' EXIT INT TERM HUP
+if [ -e "$grimblastInstanceCheck" ]; then
+	exit 2
+else
+	touch "$grimblastInstanceCheck"
+fi
+trap 'rm -f "$grimblastInstanceCheck"' EXIT
 
 getTargetDirectory() {
 	test -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" &&
@@ -88,7 +88,7 @@ if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "edit" ]
 	echo "  copy: Copy the screenshot data into the clipboard."
 	echo "  save: Save the screenshot to a regular file or '-' to pipe to STDOUT."
 	echo "  copysave: Combine the previous 2 options."
-	echo "  edit: Open screenshot in the image editor of your choice (default is swappy). See man page for info."
+	echo "  edit: Open screenshot in the swappy image editor."
 	echo "  check: Verify if required tools are installed and exit."
 	echo "  usage: Show this message and exit."
 	echo ""
@@ -234,9 +234,6 @@ elif [ "$SUBJECT" = "area" ]; then
 	fi
 
 	if [ "$FREEZE" = "yes" ] && [ "$(command -v "hyprpicker")" ] >/dev/null 2>&1; then
-		# Kill any existing hyprpicker instances first
-		killHyprpicker
-		# Start a new hyprpicker instance
 		hyprpicker -r -z &
 	fi
 
@@ -281,7 +278,6 @@ elif [ "$ACTION" = "edit" ]; then
 	if takeScreenshot "$FILE_EDITOR" "$GEOM" "$OUTPUT"; then
 		TITLE="Screenshot of $SUBJECT"
 		MESSAGE="Open screenshot in image editor"
-		killHyprpicker
 		notifyOk "$TITLE" "$MESSAGE" -i "$FILE_EDITOR"
 		$GRIMBLAST_EDITOR "$FILE_EDITOR"
 		echo "$FILE_EDITOR"
