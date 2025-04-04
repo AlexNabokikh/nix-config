@@ -5,9 +5,8 @@
 }: let
   krewPkgs = [
     "ctx"
-    "get-all"
+    "kyverno"
     "ns"
-    "rbac-lookup"
     "stern"
   ];
 
