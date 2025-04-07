@@ -96,11 +96,11 @@
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#ffead3'><b>{}</b></span>";
-              days = "<span color='#ecc6d9'><b>{}</b></span>";
-              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+              months = "<span color='#f5a97f'><b>{}</b></span>";
+              days = "<span color='#a5adce'><b>{}</b></span>";
+              weeks = "<span color='#8087a2'><b>W{}</b></span>";
+              weekdays = "<span color='#b7bdf8'><b>{}</b></span>";
+              today = "<span color='#ed8796'><b><u>{}</u></b></span>";
             };
           };
         };
@@ -227,7 +227,7 @@
       }
 
       tooltip {
-        background: #1e1e2e;
+        background: #24273A;
         border-radius: 8px;
       }
 
@@ -247,7 +247,7 @@
 
       #workspaces button {
         padding: 2px;
-        color: #6e6a86;
+        color: #6e738d;
         margin-right: 5px;
       }
 
