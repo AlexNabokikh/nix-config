@@ -87,7 +87,7 @@
         };
         modules = [
           ./home/${username}/${hostname}
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ];
       };
   in {
