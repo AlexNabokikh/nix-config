@@ -234,6 +234,7 @@ nix flake update
 3. **Development**:
 
    - `programs/go.nix`: Go development environment
+   - `programs/rust.nix`: Rust development environment
    - `programs/krew.nix`: Kubernetes plugin manager
    - `scripts/`: Collection of development utilities
 

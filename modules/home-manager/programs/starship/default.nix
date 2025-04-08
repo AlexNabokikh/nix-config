@@ -53,6 +53,9 @@
       python = {
         symbol = " ";
       };
+      rust = {
+        symbol = " ";
+      };
       terraform = {
         symbol = " ";
       };
