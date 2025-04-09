@@ -18,6 +18,7 @@ return {
       "dockerfile",
       "go",
       "hcl",
+      "helm",
       "json",
       "jsonc",
       "lua",
