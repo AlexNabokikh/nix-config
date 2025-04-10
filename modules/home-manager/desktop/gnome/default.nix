@@ -407,7 +407,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
       skip-libadwaita-app = false;
-      border-width = 1;
+      border-width = 0;
       border-color = mkTuple [
         0.71764707565307617
         0.74117660522460938
