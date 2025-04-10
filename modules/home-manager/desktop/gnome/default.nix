@@ -514,6 +514,9 @@ with lib.hm.gvariant; {
           },
           {
             "title": "crx_.*"
+          },
+          {
+            "title": "^(.*is sharing (your screen|a window)\\.)$"
           }
         ],
         "skiptaskbarhidden": [],
