@@ -27,8 +27,6 @@ with lib.hm.gvariant; {
     gnomeExtensions.space-bar
     gnomeExtensions.unblank
     gnomeExtensions.user-themes
-    maim
-    xclip
   ];
 
   dconf.settings = {

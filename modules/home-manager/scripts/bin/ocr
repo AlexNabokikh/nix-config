@@ -12,11 +12,6 @@ case "$XDG_SESSION_TYPE" in
 			tr -d '\f' | wl-copy
 	fi
 	;;
-"x11")
-	maim -s |
-		tesseract stdin stdout -l "eng+rus+pol" |
-		tr -d '\f' | xclip -selection clipboard
-	;;
 *)
 	echo "Unsupported session type: $XDG_SESSION_TYPE"
 	exit 1
