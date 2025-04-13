@@ -30,7 +30,6 @@ return {
       "nix",
       "python",
       "regex",
-      "rust",
       "terraform",
       "vim",
       "vimdoc",

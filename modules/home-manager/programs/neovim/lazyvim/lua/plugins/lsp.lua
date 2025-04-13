@@ -51,7 +51,6 @@ return {
           },
         },
         ruff = {},
-        rust_analyzer = {},
         terraformls = {},
         tflint = {},
         yamlls = {
