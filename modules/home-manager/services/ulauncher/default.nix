@@ -30,7 +30,7 @@
           "id": "0eb1c1b7-8e36-4a13-abd4-0b6bb1f7bdb9",
           "name": "Quit All Applications",
           "keyword": "quit",
-          "cmd": "#!/usr/bin/env bash\nif [ \"$XDG_SESSION_TYPE\" = \"wayland\" ]; then\n\tHYPRCMDS=$(hyprctl -j clients | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"')\n\thyprctl --batch \"$HYPRCMDS\" 2>&1\nelse\n\tWIN_IDs=$(wmctrl -l | grep -vwE \"Desktop$|xfce4-panel$\" | cut -f1 -d' ')\n\tfor i in $WIN_IDs; do wmctrl -ic \"$i\"; done\n\twhile test \"$WIN_IDs\"; do\n\t\tsleep 0.1\n\t\tWIN_IDs=$(wmctrl -l | grep -vwE \"Desktop$|xfce4-panel$\" | cut -f1 -d' ')\n\tdone\nfi",
+          "cmd": "#!/usr/bin/env bash\n\n[ \"$DESKTOP_SESSION\" = \"hyprland\" ] || exit 0\n\nhyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' |\n\txargs -r hyprctl --batch 2>/dev/null",
           "icon": "~/.config/ulauncher/quit.png",
           "is_default_search": false,
           "run_without_argument": true,

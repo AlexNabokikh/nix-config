@@ -80,7 +80,7 @@
   # Input settings
   services.libinput.enable = true;
 
-  # X11 settings
+  # xserver settings
   services.xserver = {
     enable = true;
     xkb.layout = "pl";
