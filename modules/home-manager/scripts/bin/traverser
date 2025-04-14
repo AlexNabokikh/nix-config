@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+
+import configparser
+import os
+import re
+import subprocess
+import sys
+
+
+def get_all_kube_contexts():
+    """Get a list of all Kubernetes context names."""
+    try:
+        result = subprocess.run(
+            ["kubectl", "config", "get-contexts", "-o", "name"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        contexts = result.stdout.strip().split("\n")
+        if not contexts or contexts == [""]:
+            return []
+        return contexts
+    except subprocess.CalledProcessError:
+        return []
+    except FileNotFoundError:
+        print("Error: 'kubectl' command not found.")
+        sys.exit(1)
+
+
+def switch_kube_context(context_name):
+    """Switch to the specified Kubernetes context."""
+    try:
+        subprocess.run(
+            ["kubectl", "config", "use-context", context_name],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
+def get_current_kube_context_info():
+    """Get the current Kubernetes context ARN and extract the account number."""
+    try:
+        current_context_name = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
+
+        match = re.search(
+            r"arn:aws:eks:([\w-]+):(\d+):cluster/([\w-]+)",
+            current_context_name,
+        )
+        if match:
+            return match.group(2)
+        return None
+    except subprocess.CalledProcessError:
+        return None
+
+
+def parse_aws_config():
+    """Parse AWS config file."""
+    aws_config_path = os.path.expanduser("~/.aws/config")
+    if not os.path.exists(aws_config_path):
+        return None
+
+    config = configparser.ConfigParser()
+    config.read(aws_config_path)
+    return config
+
+
+def find_profile_name(config, account_number):
+    """Find the profile name by matching the account number."""
+    if not config or not account_number:
+        return None
+    for section in config.sections():
+        profile_section_match = re.match(r"profile\s+(.+)", section, re.IGNORECASE)
+        if profile_section_match:
+            profile_name_in_section = profile_section_match.group(1)
+            if "role_arn" in config[section]:
+                role_arn = config[section]["role_arn"]
+                if f"::{account_number}:" in role_arn:
+                    return profile_name_in_section
+    return None
+
+
+def execute_saml2aws_command(profile_name, command, max_attempts=2):
+    """Execute the command with saml2aws credentials."""
+    attempt = 0
+
+    while attempt < max_attempts:
+        try:
+            if attempt > 0:
+                print(f"Attempting login (attempt {attempt}/{max_attempts})")
+                subprocess.run(
+                    ["saml2aws", "login", "--profile", profile_name, "--skip-prompt"], check=True, timeout=30
+                )
+
+            cmd_parts = command.split()
+            aws_cmd = ["aws", "--profile", profile_name] + cmd_parts
+
+            if cmd_parts[0] == "kubectl":
+                result = subprocess.run(
+                    cmd_parts, env=dict(os.environ, AWS_PROFILE=profile_name), capture_output=True, text=True
+                )
+            else:
+                result = subprocess.run(aws_cmd, capture_output=True, text=True)
+
+            if result.returncode == 0:
+                return result.stdout
+            else:
+                return f"Command failed: {result.stderr}"
+
+        except subprocess.CalledProcessError as e:
+            print(f"Command failed: {e}")
+        except subprocess.TimeoutExpired:
+            print("Login command timed out")
+        except Exception as e:
+            print(f"Error: {str(e)}")
+
+        attempt += 1
+
+    return "Failed to execute command after multiple attempts"
+
+
+def run_command_in_cluster(command):
+    """Run the user-provided command in the current cluster."""
+    try:
+        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout, stderr = process.communicate()
+
+        if process.returncode != 0:
+            return f"Command failed with exit code {process.returncode}:\n{stderr}"
+
+        if stdout:
+            return stdout
+        elif stderr:
+            return f"Command produced error: {stderr}"
+        else:
+            return "Command executed but produced no output."
+    except Exception as e:
+        return f"Error executing command: {str(e)}"
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: traverser 'command to execute'")
+        exit(1)
+
+    user_command = " ".join(sys.argv[1:])
+    print(f"Command to execute: {user_command}")
+
+    aws_config = parse_aws_config()
+    if aws_config is None:
+        print("Could not parse AWS config. Exiting.")
+        sys.exit(1)
+
+    contexts = get_all_kube_contexts()
+    if not contexts:
+        print("No contexts found or error retrieving contexts. Exiting.")
+        sys.exit(1)
+
+    print(f"Found {len(contexts)} contexts")
+    original_context = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
+
+    for context_name in contexts:
+        if not switch_kube_context(context_name):
+            print(f"Failed to switch to context: {context_name}")
+            continue
+
+        print(f"[CONTEXT: {context_name}]")
+
+        account_number = get_current_kube_context_info()
+        if not account_number:
+            print(f"Could not extract account number from context: {context_name}")
+            continue
+
+        profile_name = find_profile_name(aws_config, account_number)
+        if not profile_name:
+            print(f"No matching AWS profile found for account: {account_number}")
+            continue
+
+        output = execute_saml2aws_command(profile_name, user_command)
+        print("COMMAND OUTPUT:")
+        print(output)
+
+    switch_kube_context(original_context)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by the user. Exiting...")
+        sys.exit(1)
