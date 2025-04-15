@@ -16,7 +16,6 @@ with lib.hm.gvariant; {
   # Ensure Gnome extensions installed
   home.packages = with pkgs; [
     gnome-pomodoro
-    gnome-tweaks
     gnomeExtensions.auto-move-windows
     gnomeExtensions.blur-my-shell
     gnomeExtensions.clipboard-history
@@ -58,10 +57,6 @@ with lib.hm.gvariant; {
       "monospace-font-name" = "MesloLGS Nerd Font Mono 13";
       "show-battery-percentage" = true;
       "toolkit-accessibility" = false;
-    };
-
-    "org/gnome/tweaks" = {
-      "show-extensions-notice" = false;
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
