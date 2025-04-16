@@ -100,15 +100,13 @@ def execute_saml2aws_command(profile_name, command, max_attempts=2):
             result = subprocess.run(
                 cmd_parts,
                 env=process_env,
-                capture_output=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
                 text=True,
                 check=False,
             )
 
-            if result.returncode == 0:
-                return result.stdout
-            else:
-                return f"Command failed: {result.stderr}"
+            return result.stdout.strip() if result.stdout else ""
 
         except subprocess.CalledProcessError as e:
             print(f"Command failed: {e}")
