@@ -34,6 +34,16 @@
         description = "Show Ingress";
         command = "ingress";
       };
+      shift-6 = {
+        shortCut = "Shift-6";
+        description = "Show Pulses";
+        command = "pulses";
+      };
+      shift-7 = {
+        shortCut = "Shift-7";
+        description = "Show Events";
+        command = "events";
+      };
     };
   };
 
