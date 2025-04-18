@@ -123,6 +123,10 @@ with lib.hm.gvariant; {
       "idle-delay" = mkUint32 0;
     };
 
+    "org/gnome/desktop/sound" = {
+      "event-sounds" = false;
+    };
+
     "org/gnome/desktop/wm/keybindings" = {
       "close" = ["<Super>q"];
       "minimize" = ["<Super>comma"];
