@@ -28,6 +28,7 @@
         ];
 
         modules-right = [
+          "privacy"
           "custom/recorder"
           "hyprland/language"
           "tray"
@@ -130,6 +131,16 @@
           tooltip = true;
           tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
           on-click-right = "foot --title btop sh -c 'btop'";
+        };
+
+        privacy = {
+          icon-size = 14;
+          modules = [
+            {
+              type = "screenshare";
+              tooltip = true;
+            }
+          ];
         };
 
         pulseaudio = {
@@ -279,9 +290,10 @@
       #custom-recorder,
       #language,
       #memory,
-      #tray,
+      #privacy,
       #pulseaudio,
       #temperature,
+      #tray,
       #workspaces {
         color: #dfdfdf;
         padding: 0px 10px;
@@ -313,6 +325,10 @@
 
       #custom-recorder {
         color: #ff2800;
+      }
+
+      #privacy {
+        color: #f5a97f;
       }
     '';
   };
