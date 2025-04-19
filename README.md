@@ -226,8 +226,8 @@ nix flake update
 
 2. **Desktop Environment**:
 
-   - `deskotp/gnome/`: Gnome configuration
-   - `deskotp/hyprland/`: Hyprland window manager setup
+   - `desktop/gnome/`: Gnome configuration
+   - `desktop/hyprland/`: Hyprland window manager setup
    - `services/waybar/`: Custom status bar configuration
    - `services/swaync/`: Notification center setup
 
