@@ -26,7 +26,6 @@
     ../programs/starship
     ../programs/telegram
     ../programs/tmux
-    ../programs/zoom
     ../programs/zsh
     ../scripts
     ../services/easyeffects
