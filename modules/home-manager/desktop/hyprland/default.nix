@@ -59,9 +59,8 @@
       }
 
       general {
-          no_fade_in = false
           grace = 0
-          disable_loading_bar = true
+          fail_timeout = 1000
       }
 
       # DP-1 Conifg
