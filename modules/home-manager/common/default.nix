@@ -43,6 +43,9 @@
     };
   };
 
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
+
   # Home-Manager configuration for the user's home environment
   home = {
     username = "${userConfig.name}";
