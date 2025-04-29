@@ -60,6 +60,12 @@
   # Networking
   networking.networkmanager.enable = true;
 
+  # Disable systemd services that are affecting the boot time
+  systemd.services = {
+    NetworkManager-wait-online.enable = false;
+    plymouth-quit-wait.enable = false;
+  };
+
   # Timezone
   time.timeZone = "Europe/Warsaw";
 
