@@ -34,7 +34,7 @@ return {
       on_attach = function(client, bufnr)
         -- Disable diagnostics for non-file buffers (like terminals)
         if vim.bo[bufnr].buftype ~= "" then
-          vim.diagnostic.disable(bufnr)
+          vim.diagnostic.enable(false, bufnr)
         end
       end,
     }
