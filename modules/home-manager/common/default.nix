@@ -86,7 +86,6 @@
       tesseract
       unzip
       wl-clipboard
-      zoom-us
     ];
 
   # Catpuccin flavor and accent
