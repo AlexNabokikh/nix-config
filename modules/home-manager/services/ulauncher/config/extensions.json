@@ -1,31 +1,10 @@
 {
-    "com.github.ulauncher.ulauncher-kill": {
-        "id": "com.github.ulauncher.ulauncher-kill",
-        "url": "https://github.com/Ulauncher/ulauncher-kill",
-        "updated_at": "2024-06-15T06:38:38.026914",
-        "last_commit": "00ffe8266dbb6c2aea7d86a6363e51cec4b1981f",
-        "last_commit_time": "2022-11-26T16:15:05"
-    },
     "com.github.nortmas.chrome-bookmarks": {
         "id": "com.github.nortmas.chrome-bookmarks",
         "url": "https://github.com/nortmas/chrome-bookmarks",
         "updated_at": "2024-06-15T06:42:29.225060",
         "last_commit": "b4598ea1e208cd6feb49574e998721dcc771157f",
         "last_commit_time": "2021-01-09T15:04:28"
-    },
-    "com.github.ulauncher.ulauncher-emoji": {
-        "id": "com.github.ulauncher.ulauncher-emoji",
-        "url": "https://github.com/Ulauncher/ulauncher-emoji",
-        "updated_at": "2024-06-15T06:44:40.571969",
-        "last_commit": "827cfe5e1d2f89f742f811f981759787b0654fa9",
-        "last_commit_time": "2023-11-04T18:37:13"
-    },
-    "com.github.yetanothersimon.ulauncher-pulsecontrol": {
-        "id": "com.github.yetanothersimon.ulauncher-pulsecontrol",
-        "url": "https://github.com/YetAnotherSimon/ulauncher-pulsecontrol",
-        "updated_at": "2024-11-08T20:41:44.006145",
-        "last_commit": "241dae0ca39b857a0da2b8ede201ff6d33523849",
-        "last_commit_time": "2024-03-15T14:30:05"
     },
     "com.github.alexnabokikh.ulauncher-power-manager": {
         "id": "com.github.alexnabokikh.ulauncher-power-manager",
