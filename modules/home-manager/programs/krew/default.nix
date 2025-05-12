@@ -5,9 +5,7 @@
 }: let
   krewPkgs = [
     "ctx"
-    "kyverno"
     "ns"
-    "stern"
   ];
 
   # Convert the list of plugins into a space-separated string
