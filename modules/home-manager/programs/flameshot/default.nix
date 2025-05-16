@@ -4,8 +4,12 @@
   ...
 }: {
   # Ensure flameshot package installed
-  home.packages = with pkgs; [
-    flameshot
+  home.packages = [
+    (pkgs.writeShellScriptBin "flameshot" ''
+      export XDG_SESSION_TYPE= QT_QPA_PLATFORM=wayland
+      nohup ${pkgs.flameshot}/bin/flameshot >& /dev/null &
+      ${pkgs.flameshot}/bin/flameshot "$@"
+    '')
   ];
 
   xdg.configFile = {
