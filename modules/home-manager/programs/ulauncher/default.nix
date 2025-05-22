@@ -21,7 +21,7 @@
         "name": "Search",
         "keyword": "br",
         "cmd": "https://search.brave.com/search?q=%s",
-        "icon": "$HOME/.config/ulauncher/icons/brave.png",
+        "icon": "~/.config/ulauncher/icons/brave.png",
         "is_default_search": true,
         "run_without_argument": false,
         "added": 1747897791.8054328
@@ -31,7 +31,7 @@
         "name": "Quit All Applications",
         "keyword": "quit",
         "cmd": "#!/usr/bin/env bash\n\n[ \"$DESKTOP_SESSION\" = \"hyprland\" ] || exit 0\n\nhyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' |\n\txargs -r hyprctl --batch 2>/dev/null",
-        "icon": "$HOME/.config/ulauncher/icons/quit.png",
+        "icon": "~/.config/ulauncher/icons/quit.png",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747897834.2170281
@@ -41,7 +41,7 @@
         "name": "Work Tools",
         "keyword": "work",
         "cmd": "#!/usr/bin/env bash\n\n# Check if Brave is already running\nif ! pgrep \"brave\" >/dev/null; then\n\techo \"Launching Brave...\"\n\tbrave &\nelse\n\techo \"Brave is already running.\"\nfi\n\n# Check if Alacritty is already running\nif ! pgrep -x \"alacritty\" >/dev/null; then\n\techo \"Launching Alacritty...\"\n\talacritty &\nelse\n\techo \"Alacritty is already running.\"\nfi\n\n# Check if Telegram is already running\nif ! pgrep -x \"telegram-desktop\" >/dev/null; then\n\techo \"Launching Telegram...\"\n\ttelegram-desktop\nelse\n\techo \"Telegram is already running.\"\nfi",
-        "icon": "$HOME/.config/ulauncher/icons/tools.png",
+        "icon": "~/.config/ulauncher/icons/tools.png",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747897863.1040845
@@ -51,7 +51,7 @@
         "name": "Lock\u2005Screen",
         "keyword": "lock",
         "cmd": "#!/usr/bin/env bash\n\nloginctl lock-session",
-        "icon": "$HOME/.config/ulauncher/icons/icon.svg",
+        "icon": "~/.config/ulauncher/icons/icon.svg",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747898201.1167789
@@ -61,7 +61,7 @@
         "name": "Suspend / Sleep",
         "keyword": "suspend",
         "cmd": "#!/usr/bin/env bash\n\nsystemctl suspend -i",
-        "icon": "$HOME/.config/ulauncher/icons/icon.svg",
+        "icon": "~/.config/ulauncher/icons/icon.svg",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747898274.058171
@@ -71,7 +71,7 @@
         "name": "Shut\u2005Down\u2005/\u2005Power\u2005Off",
         "keyword": "shutdown",
         "cmd": "#!/usr/bin/env bash\n\nsystemctl poweroff -i",
-        "icon": "$HOME/.config/ulauncher/icons/icon.svg",
+        "icon": "~/.config/ulauncher/icons/icon.svg",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747898438.8860931
@@ -81,7 +81,7 @@
         "name": "Reboot\u2005/\u2005Restart",
         "keyword": "reboot",
         "cmd": "#!/usr/bin/env bash\n\nsystemctl reboot -i",
-        "icon": "$HOME/.config/ulauncher/icons/icon.svg",
+        "icon": "~/.config/ulauncher/icons/icon.svg",
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747898972.3437614
