@@ -32,9 +32,5 @@
   };
 
   # Enable catppuccin theming for GTK apps.
-  catppuccin = {
-    gtk = {
-      enable = true;
-    };
-  };
+  catppuccin.gtk.enable = true;
 }
