@@ -95,6 +95,15 @@
     displayManager.gdm.enable = true;
   };
 
+  # Enable Wayland support in Chromium and Electron based applications
+  # Remove decorations for QT apps
+  # Set cursor size
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    XCURSOR_SIZE = "24";
+  };
+
   # PATH configuration
   environment.localBinInPath = true;
 

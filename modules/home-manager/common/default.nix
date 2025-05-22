@@ -82,7 +82,6 @@
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       pavucontrol
-      pulseaudio
       tesseract
       unzip
       wl-clipboard

@@ -10,10 +10,6 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ![hyprland](./files/screenshots/hyprland.png)
 
-### Gnome
-
-![gnome](./files/screenshots/gnome.png)
-
 ### macOS
 
 ![macos](./files/screenshots/mac.png)
@@ -38,7 +34,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.11)
 - **hardware**: Optimizes settings for different hardware configurations
 - **catppuccin**: Provides global Catppuccin theme integration
-- **spicetify-nix**: Enhances Spotify client customization
 - **darwin**: Enables nix-darwin for macOS system configuration
 
 ## Usage
@@ -209,9 +204,7 @@ nix flake update
 ### System Modules (in `modules/nixos/`)
 
 - `common/`: Common system configurations
-- `desktop/gnome.nix`: GNOME desktop environment
 - `desktop/hyprland.nix`: Hyprland window manager
-- `programs/corectrl.nix`: CoreCtrl for AMD GPU management
 - `programs/steam.nix`: Steam gaming platform
 - `services/tlp.nix`: Laptop power management
 
@@ -226,7 +219,6 @@ nix flake update
 
 2. **Desktop Environment**:
 
-   - `desktop/gnome/`: Gnome configuration
    - `desktop/hyprland/`: Hyprland window manager setup
    - `services/waybar/`: Custom status bar configuration
    - `services/swaync/`: Notification center setup
@@ -234,7 +226,6 @@ nix flake update
 3. **Development**:
 
    - `programs/go.nix`: Go development environment
-   - `programs/rust.nix`: Rust development environment
    - `programs/krew.nix`: Kubernetes plugin manager
    - `scripts/`: Collection of development utilities
 

@@ -35,7 +35,6 @@
   catppuccin = {
     gtk = {
       enable = true;
-      gnomeShellTheme = true;
     };
   };
 }
