@@ -3,10 +3,10 @@
     "clear-previous-query": true,
     "disable-desktop-filters": true,
     "grab-mouse-pointer": true,
-    "hotkey-show-app": "<Shift><Alt>ampersand",
+    "hotkey-show-app": "<Primary>space",
     "render-on-screen": "mouse-pointer-monitor",
     "show-indicator-icon": false,
     "show-recent-apps": "0",
     "terminal-command": "",
-    "theme-name": "Catpuccin-Macchiato-Lavender"
+    "theme-name": "Catppuccin-Macchiato-Lavender"
 }
