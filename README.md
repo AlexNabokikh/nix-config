@@ -10,10 +10,6 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ![hyprland](./files/screenshots/hyprland.png)
 
-### Gnome
-
-![gnome](./files/screenshots/gnome.png)
-
 ### macOS
 
 ![macos](./files/screenshots/mac.png)
@@ -34,11 +30,10 @@ It is structured to easily accommodate multiple machines and user configurations
 ### Key Inputs
 
 - **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages
-- **nixpkgs-stable**: Points to the `nixos-24.11` channel, providing stable NixOS packages
-- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-24.11)
+- **nixpkgs-stable**: Points to the `nixos-25.05` channel, providing stable NixOS packages
+- **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-25.05)
 - **hardware**: Optimizes settings for different hardware configurations
 - **catppuccin**: Provides global Catppuccin theme integration
-- **spicetify-nix**: Enhances Spotify client customization
 - **darwin**: Enables nix-darwin for macOS system configuration
 
 ## Usage
@@ -208,38 +203,47 @@ nix flake update
 
 ### System Modules (in `modules/nixos/`)
 
-- `common/`: Common system configurations
-- `desktop/gnome.nix`: GNOME desktop environment
-- `desktop/hyprland.nix`: Hyprland window manager
-- `programs/corectrl.nix`: CoreCtrl for AMD GPU management
-- `programs/steam.nix`: Steam gaming platform
-- `services/tlp.nix`: Laptop power management
+- **`common/`**: Common system space configurations
+- **`hyprland.nix`**: Hyprland window manager
+- **`steam.nix`**: Steam gaming platform
+- **`tlp.nix`**: Laptop power management
 
 ### Home Manager Modules (in `modules/home-manager/`)
 
-1. **Core Utilities**:
-
-   - `common/`: Cross-platform base configuration
-   - `programs/git.nix`: Git version control
-   - `programs/neovim.nix`: Neovim text editor
-   - `programs/zsh.nix`: Zsh shell configuration
-
-2. **Desktop Environment**:
-
-   - `desktop/gnome/`: Gnome configuration
-   - `desktop/hyprland/`: Hyprland window manager setup
-   - `services/waybar/`: Custom status bar configuration
-   - `services/swaync/`: Notification center setup
-
-3. **Development**:
-
-   - `programs/go.nix`: Go development environment
-   - `programs/rust.nix`: Rust development environment
-   - `programs/krew.nix`: Kubernetes plugin manager
-   - `scripts/`: Collection of development utilities
-
-4. **macOS Specific**:
-   - `programs/aerospace.nix`: macOS window management
+- **`common/`**: Common user space configurations
+- **`aerospace` (Darwin):** Tiling window manager for macOS with custom keybindings and workspace rules.
+- **`alacritty`:** GPU-accelerated terminal emulator, configured for tmux integration and platform-specific font sizes/decorations.
+- **`atuin`:** Enhanced shell history with cloud sync capabilities.
+- **`bat`:** Cat clone with syntax highlighting and Git integration.
+- **`brave`:** Web browser with XDG MIME type associations (Linux).
+- **`btop`:** Resource monitor with Vim keys.
+- **`cliphist` (Linux/Hyprland):** Clipboard manager.
+- **`easyeffects` (Linux):** Audio effects processor with a custom "mic" preset for input.
+- **`fastfetch`:** Customized system information tool.
+- **`fzf`:** Command-line fuzzy finder. **Note:** The `ctrl-y` clipboard binding needs to be conditional (`pbcopy` for macOS, `wl-copy` for Wayland/Linux) for cross-platform compatibility.
+- **`git`:** Version control system, configured with user details, GPG signing, and `delta` for diffs.
+- **`go`:** Golang development environment setup.
+- **`gpg`:** GnuPG settings and GPG agent configuration (with `pinentry-gnome3` on Linux).
+- **`gtk`:** GTK3/4 theming (Tela-circle icons, Yaru cursor, Roboto font) and Catppuccin theme.
+- **`hyprland`**: Hyprland window manager setup
+- **`k9s`:** Kubernetes CLI To Manage Your Clusters In Style, with custom hotkeys.
+- **`kanshi` (Linux/Hyprland):** Dynamic display output configuration based on connected monitors.
+- **`krew`:** Kubectl plugin manager with a predefined list of plugins.
+- **`lazygit`:** Terminal UI for Git.
+- **`neovim`:** Highly customized Neovim setup based on LazyVim, with numerous LSP and development tool integrations.
+- **`obs-studio` (Linux):** Streaming and screen recording software.
+- **`qt` (Linux):** Qt theming using Kvantum and Catppuccin.
+- **`saml2aws`:** For AWS authentication via SAML.
+- **`scripts/`**: Collection of development utilities
+- **`starship`:** Cross-shell prompt with custom configuration.
+- **`swaync` (Linux/Hyprland):** Notification daemon.
+- **`telegram`:** Desktop client for Telegram.
+- **`tmux`:** Terminal multiplexer with custom keybindings and Catppuccin theme.
+- **`ulauncher` (Linux):** Application launcher with custom shortcuts for Brave search, system actions (lock, suspend, shutdown, reboot), and launching work applications.
+- **`wallpaper`:** Defines the default wallpaper path.
+- **`waybar` (Linux/Hyprland):** Highly customized Wayland status bar with modules for workspaces, system stats, clock, tray, etc.
+- **`xdg`:** Manages XDG user directories and default MIME type associations for applications like Totem, Loupe, and TextEditor.
+- **`zsh`:** Zsh shell with extensive aliases (git, kubectl), completions, and custom keybindings.
 
 ## Contributing
 

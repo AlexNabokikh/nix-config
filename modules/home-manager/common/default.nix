@@ -26,10 +26,10 @@
     ../programs/starship
     ../programs/telegram
     ../programs/tmux
+    ../programs/ulauncher
     ../programs/zsh
     ../scripts
     ../services/easyeffects
-    ../services/ulauncher
   ];
 
   # Nixpkgs configuration
@@ -82,7 +82,6 @@
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       pavucontrol
-      pulseaudio
       tesseract
       unzip
       wl-clipboard

@@ -3,7 +3,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # Home manager
     home-manager = {
@@ -16,12 +16,6 @@
 
     # Global catppuccin theme
     catppuccin.url = "github:catppuccin/nix";
-
-    # NixOS Spicetify
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Nix Darwin (for MacOS machines)
     darwin = {
