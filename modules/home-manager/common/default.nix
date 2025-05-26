@@ -81,6 +81,7 @@
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
+      (pkgs.zoom-us.override {xdgDesktopPortalSupport = false;})
       pavucontrol
       tesseract
       unzip
