@@ -17,6 +17,9 @@
     # Global catppuccin theme
     catppuccin.url = "github:catppuccin/nix";
 
+    # Declarative flatpak manager
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+
     # Nix Darwin (for MacOS machines)
     darwin = {
       url = "github:LnL7/nix-darwin";
