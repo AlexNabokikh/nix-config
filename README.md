@@ -34,6 +34,7 @@ It is structured to easily accommodate multiple machines and user configurations
 - **home-manager**: Manages user-specific configurations, following the `nixpkgs` input (release-25.05)
 - **hardware**: Optimizes settings for different hardware configurations
 - **catppuccin**: Provides global Catppuccin theme integration
+- **nix-flatpak**: Provides declarative way to manage flatpaks
 - **darwin**: Enables nix-darwin for macOS system configuration
 
 ## Usage
