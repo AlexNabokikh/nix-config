@@ -92,7 +92,7 @@
     xkb.layout = "pl";
     xkb.variant = "";
     excludePackages = with pkgs; [xterm];
-    displayManager.gdm.enable = true;
+    # displayManager.gdm.enable = true;
   };
 
   # Enable Wayland support in Chromium and Electron based applications
