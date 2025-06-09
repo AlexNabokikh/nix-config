@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   nhModules,
   pkgs,
   ...
@@ -22,6 +23,11 @@
     tela-circle-icon-theme
     yaru-theme
   ];
+
+  services.gpg-agent = {
+    pinentry.package = lib.mkForce pkgs.kwalletcli;
+    extraConfig = "pinentry-program ${pkgs.kwalletcli}/bin/pinentry-kwallet";
+  };
 
   programs.plasma = {
     enable = true;
