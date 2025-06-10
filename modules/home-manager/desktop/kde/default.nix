@@ -22,7 +22,6 @@
     kdePackages.krohnkite
     kdotool
     tela-circle-icon-theme
-    yaru-theme
   ];
 
   services.gpg-agent = {
