@@ -200,7 +200,6 @@
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.devicenotifier"
                   "plasmashell_microphone"
-                  "zoom"
                 ];
               };
             };
@@ -214,11 +213,13 @@
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
         powerButtonAction = "shutDown";
+        turnOffDisplay.idleTimeout = "never";
       };
       battery = {
         autoSuspend.action = "nothing";
         dimDisplay.enable = false;
         powerButtonAction = "shutDown";
+        turnOffDisplay.idleTimeout = "never";
       };
     };
 
