@@ -109,7 +109,23 @@
           vendorId = "1532";
         }
       ];
+      touchpads = [
+        {
+          disableWhileTyping = true;
+          enable = true;
+          leftHanded = false;
+          middleButtonEmulation = true;
+          name = "ELAN06A0:00 04F3:3231 Touchpad";
+          naturalScroll = true;
+          pointerSpeed = 0;
+          productId = "3231";
+          tapToClick = true;
+          vendorId = "04f3";
+        }
+      ];
     };
+
+    krunner.activateWhenTypingOnDesktop = false;
 
     kscreenlocker = {
       appearance.wallpaper = "${config.wallpaper}";
