@@ -30,7 +30,7 @@
         "id": "11e80e5b-3841-403c-ae08-64e53372e7df",
         "name": "Quit All Applications",
         "keyword": "quit",
-        "cmd": "#!/usr/bin/env bash\n\n[ \"$DESKTOP_SESSION\" = \"hyprland\" ] || exit 0\n\nhyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' |\n\txargs -r hyprctl --batch 2>/dev/null",
+        "cmd": "#!/usr/bin/env bash\n\ncase \"$DESKTOP_SESSION\" in\nhyprland)\n\thyprctl -j clients 2>/dev/null |\n\t\tjq -j '.[] | \"dispatch closewindow address:\\(.address); \"' |\n\t\txargs -r hyprctl --batch 2>/dev/null\n\t;;\n\nplasma)\n\tkdotool search '.*' windowclose %@\n\t;;\n\n*)\n\texit 0\n\t;;\nesac",
         "icon": "~/.config/ulauncher/icons/quit.png",
         "is_default_search": false,
         "run_without_argument": true,

@@ -20,6 +20,7 @@
     kara
     kde-rounded-corners
     kdePackages.krohnkite
+    kdotool
     tela-circle-icon-theme
     yaru-theme
   ];
