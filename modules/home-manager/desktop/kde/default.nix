@@ -143,7 +143,7 @@
       };
 
       virtualDesktops = {
-        number = 6;
+        number = 5;
         rows = 1;
       };
     };
@@ -375,20 +375,6 @@
           window-types = ["normal"];
         };
       }
-      {
-        apply = {
-          desktops = "Desktop_6";
-          desktopsrule = "3";
-        };
-        description = "Assign Steam Games to Desktop 6";
-        match = {
-          window-class = {
-            value = "^(steam_app_\d+)$";
-            type = "regex";
-          };
-          window-types = ["normal"];
-        };
-      }
     ];
 
     workspace = {
@@ -438,8 +424,7 @@
           Size = 8;
         };
         "Script-krohnkite" = {
-          floatingClass = "ulauncher";
-          floatingTitle = "Bitwarden";
+          floatingClass = "ulauncher,brave-nngceckbapebfimnlniiiahkandclblb-Default";
           screenGapBetween = 3;
           screenGapBottom = 3;
           screenGapLeft = 3;
