@@ -5,7 +5,7 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     ark
-    baloo-widgets # baloo information in Dolphin
+    baloo-widgets
     elisa
     ffmpegthumbs
     kate
@@ -13,6 +13,6 @@
     konsole
     krdp
     plasma-browser-integration
-    xwaylandvideobridge # exposes Wayland windows to X11 screen capture
+    xwaylandvideobridge
   ];
 }
