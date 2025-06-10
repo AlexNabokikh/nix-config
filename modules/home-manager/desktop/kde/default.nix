@@ -356,7 +356,7 @@
         match = {
           window-class = {
             value = "steam";
-            type = "exact";
+            type = "substring";
           };
           window-types = ["normal"];
         };
@@ -371,6 +371,20 @@
           window-class = {
             value = "zoom";
             type = "substring";
+          };
+          window-types = ["normal"];
+        };
+      }
+      {
+        apply = {
+          desktops = "Desktop_6";
+          desktopsrule = "3";
+        };
+        description = "Assign Steam Games to Desktop 6";
+        match = {
+          window-class = {
+            value = "^(steam_app_\d+)$";
+            type = "regex";
           };
           window-types = ["normal"];
         };
@@ -391,6 +405,9 @@
     configFile = {
       baloofilerc."Basic Settings"."Indexing-Enabled" = false;
       kdeglobals = {
+        General = {
+          BrowserApplication = "brave-browser.desktop";
+        };
         Icons = {
           Theme = "Tela-circle-dark";
         };
@@ -423,11 +440,11 @@
         "Script-krohnkite" = {
           floatingClass = "ulauncher";
           floatingTitle = "Bitwarden";
-          screenGapBetween = 6;
-          screenGapBottom = 6;
-          screenGapLeft = 6;
-          screenGapRight = 6;
-          screenGapTop = 6;
+          screenGapBetween = 3;
+          screenGapBottom = 3;
+          screenGapLeft = 3;
+          screenGapRight = 3;
+          screenGapTop = 3;
         };
         Windows = {
           DelayFocusInterval = 0;
@@ -444,12 +461,12 @@
       };
     };
 
-    # startup.startupScript = {
-    #   ulauncher = {
-    #     text = "ulauncher --hide-window";
-    #     priority = 8;
-    #     runAlways = true;
-    #   };
-    # };
+    startup.startupScript = {
+      ulauncher = {
+        text = "ulauncher --hide-window";
+        priority = 8;
+        runAlways = true;
+      };
+    };
   };
 }
