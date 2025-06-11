@@ -7,7 +7,6 @@
   ...
 }: {
   imports = [
-    # "${nhModules}/misc/gtk"
     inputs.plasma-manager.homeManagerModules.plasma-manager
     "${nhModules}/misc/wallpaper"
   ];
@@ -204,18 +203,26 @@
               items = {
                 showAll = false;
                 shown = [
+                  "org.kde.plasma.battery"
                   "org.kde.plasma.keyboardlayout"
                   "org.kde.plasma.networkmanagement"
-                  "org.kde.plasma.volume"
                   "org.kde.plasma.notifications"
+                  "org.kde.plasma.volume"
                 ];
                 hidden = [
-                  "org.kde.plasma.battery"
                   "org.kde.plasma.brightness"
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.devicenotifier"
                   "plasmashell_microphone"
                 ];
+                configs = {
+                  battery.showPercentage = true;
+                  "org.kde.plasma.notifications".config = {
+                    Shortcuts = {
+                      global = "Meta+V";
+                    };
+                  };
+                };
               };
             };
           }
@@ -286,6 +293,7 @@
 
     spectacle = {
       shortcuts = {
+        captureEntireDesktop = "Meta+Ctrl+S";
         captureRectangularRegion = "Meta+Shift+S";
         recordRegion = "Meta+Shift+R";
       };
@@ -419,6 +427,7 @@
         };
       };
       kwinrc = {
+        Effect-overview.BorderActivate = 9;
         Plugins = {
           krohnkiteEnabled = true;
         };
