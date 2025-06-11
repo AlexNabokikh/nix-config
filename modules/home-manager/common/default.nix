@@ -29,7 +29,6 @@
     ../programs/ulauncher
     ../programs/zsh
     ../scripts
-    ../services/easyeffects
     ../services/flatpak
   ];
 

@@ -10,6 +10,10 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ![hyprland](./files/screenshots/hyprland.png)
 
+### KDE
+
+![kde](./files/screenshots/kde.png)
+
 ### macOS
 
 ![macos](./files/screenshots/mac.png)
@@ -205,9 +209,10 @@ nix flake update
 ### System Modules (in `modules/nixos/`)
 
 - **`common/`**: Common system space configurations
-- **`hyprland.nix`**: Hyprland window manager
-- **`steam.nix`**: Steam gaming platform
-- **`tlp.nix`**: Laptop power management
+- **`hyprland`**: Hyprland window manager
+- **`kde`**: KDE Desktop environment
+- **`steam`**: Steam gaming platform
+- **`tlp`**: Laptop power management
 
 ### Home Manager Modules (in `modules/home-manager/`)
 
@@ -227,6 +232,7 @@ nix flake update
 - **`gpg`:** GnuPG settings and GPG agent configuration (with `pinentry-gnome3` on Linux).
 - **`gtk`:** GTK3/4 theming (Tela-circle icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`hyprland`**: Hyprland window manager setup
+- **`kde`**: KDE Desktop environment user level configuration
 - **`k9s`:** Kubernetes CLI To Manage Your Clusters In Style, with custom hotkeys.
 - **`kanshi` (Linux/Hyprland):** Dynamic display output configuration based on connected monitors.
 - **`krew`:** Kubectl plugin manager with a predefined list of plugins.

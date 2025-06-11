@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
-grim -t png -g "$(slurp)" - |
-	tesseract stdin stdout -l "eng+rus+pol" |
-	tr -d '\f' | wl-copy
+set -eo pipefail
+
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
+	TMPFILE=$(mktemp)
+	trap 'rm -f "$TMPFILE"' EXIT
+
+	spectacle -r -b -w -n -o "$TMPFILE" -b -n 2>/dev/null
+
+	if [ -s "$TMPFILE" ]; then
+		tesseract -l "eng+rus+pol" "$TMPFILE" - | wl-copy
+	fi
+else
+	grim -t png -g "$(slurp)" - |
+		tesseract stdin stdout -l "eng+rus+pol" |
+		tr -d '\f' | wl-copy
+fi
