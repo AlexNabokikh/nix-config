@@ -465,10 +465,12 @@
       spectaclerc = {
         Annotations.annotationToolType = 8;
         General = {
+          clipboardGroup = "PostScreenshotCopyImage";
           launchAction = "DoNotTakeScreenshot";
           showCaptureInstructions = false;
           showMagnifier = "ShowMagnifierAlways";
         };
+        ImageSave.imageCompressionQuality = 100;
       };
     };
 
