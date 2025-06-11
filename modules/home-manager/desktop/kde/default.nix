@@ -217,7 +217,6 @@
                   "plasmashell_microphone"
                 ];
                 configs = {
-                  battery.showPercentage = true;
                   "org.kde.plasma.notifications".config = {
                     Shortcuts = {
                       global = "Meta+V";
