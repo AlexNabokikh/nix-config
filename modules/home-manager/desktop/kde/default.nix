@@ -23,6 +23,7 @@
     tela-circle-icon-theme
   ];
 
+  # Set gpg agent specific to KDE/Kwallet
   services.gpg-agent = {
     pinentry.package = lib.mkForce pkgs.kwalletcli;
     extraConfig = "pinentry-program ${pkgs.kwalletcli}/bin/pinentry-kwallet";
@@ -426,6 +427,7 @@
           AnimationDurationFactor = 0;
         };
       };
+      kiorc.Confirmations.ConfirmDelete = false;
       kwinrc = {
         Effect-overview.BorderActivate = 9;
         Plugins = {
@@ -465,7 +467,6 @@
       spectaclerc = {
         Annotations.annotationToolType = 8;
         General = {
-          clipboardGroup = "PostScreenshotCopyImage";
           launchAction = "DoNotTakeScreenshot";
           showCaptureInstructions = false;
           showMagnifier = "ShowMagnifierAlways";

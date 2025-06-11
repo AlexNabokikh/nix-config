@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   wallpaper = ../../../home-manager/misc/wallpaper/wallpaper.jpg;
 in {
+  # Enable KDE
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
@@ -17,6 +18,7 @@ in {
     '')
   ];
 
+  # Excluding some KDE applications from the default install
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     ark
     baloo-widgets
@@ -29,4 +31,10 @@ in {
     plasma-browser-integration
     xwaylandvideobridge
   ];
+
+  # Disabled redundant services
+  systemd.user.services = {
+    "app-org.kde.discover.notifier@autostart".enable = false;
+    "app-org.kde.kalendarac@autostart".enable = false;
+  };
 }
