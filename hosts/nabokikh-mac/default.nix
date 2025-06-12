@@ -101,6 +101,7 @@
         }
       ];
     };
+    primaryUser = "${userConfig.name}";
   };
 
   # Zsh configuration

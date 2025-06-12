@@ -31,7 +31,7 @@ install-nix-darwin:
 
 darwin-rebuild:
 	@echo "Rebuilding darwin configuration..."
-	@darwin-rebuild switch --flake $(FLAKE)
+	@sudo darwin-rebuild switch --flake $(FLAKE)
 	@echo "Darwin rebuild complete."
 
 nixos-rebuild:
