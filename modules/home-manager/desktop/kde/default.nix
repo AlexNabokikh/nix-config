@@ -381,9 +381,25 @@
         match = {
           window-class = {
             value = "steam";
-            type = "substring";
+            type = "exact";
+            match-whole = false;
           };
           window-types = ["normal"];
+        };
+      }
+      {
+        apply = {
+          desktops = "Desktop_5";
+          desktopsrule = "3";
+        };
+        description = "Assign Steam Games to Desktop 5";
+        match = {
+          window-class = {
+            value = "steam_app_";
+            type = "substring";
+            match-whole = false;
+          };
+          # window-types = ["normal"];
         };
       }
       {
