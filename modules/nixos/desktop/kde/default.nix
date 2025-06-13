@@ -4,8 +4,9 @@ in {
   # Enable KDE
   services.displayManager.sddm = {
     enable = true;
-    wayland.enable = true;
+    enableHidpi = true;
     settings.Theme.CursorTheme = "Yaru";
+    wayland.enable = true;
   };
   services.desktopManager.plasma6.enable = true;
 

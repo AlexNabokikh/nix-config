@@ -473,6 +473,10 @@
         ImageSave.imageCompressionQuality = 100;
       };
     };
+    dataFile = {
+      "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
+      "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
+    };
 
     startup.startupScript = {
       ulauncher = {
