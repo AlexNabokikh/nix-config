@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: {
-  config = lib.mkIf (!pkgs.stdenv.isDarwin) {
-    imports = [inputs.nix-flatpak.homeManagerModules.nix-flatpak];
+  imports = [inputs.nix-flatpak.homeManagerModules.nix-flatpak];
 
+  config = lib.mkIf (!pkgs.stdenv.isDarwin) {
     services.flatpak = {
       enable = true;
       packages = ["us.zoom.Zoom"];

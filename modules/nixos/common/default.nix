@@ -41,7 +41,7 @@
     kernelPackages = pkgs.linuxKernel.packages.linux_6_14;
     consoleLogLevel = 0;
     initrd.verbose = false;
-    kernelParams = ["quiet" "splash"];
+    kernelParams = ["quiet" "splash" "rd.udev.log_level=3"];
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
     loader.timeout = 0;
@@ -99,7 +99,6 @@
   # Set cursor size
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     XCURSOR_SIZE = "24";
   };
 
