@@ -172,6 +172,7 @@
         height = 34;
         lengthMode = "fill";
         location = "top";
+        opacity = "translucent";
         widgets = [
           {
             name = "org.dhruv8sh.kara";
