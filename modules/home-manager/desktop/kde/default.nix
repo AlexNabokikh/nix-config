@@ -443,6 +443,7 @@
           AnimationDurationFactor = 0;
         };
       };
+      klipperrc.General.MaxClipItems = 1000;
       kiorc.Confirmations.ConfirmDelete = false;
       kwinrc = {
         Effect-overview.BorderActivate = 9;
