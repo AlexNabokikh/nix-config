@@ -223,6 +223,11 @@
                       global = "Meta+V";
                     };
                   };
+                  "org.kde.plasma.clipboard".config = {
+                    Shortcuts = {
+                      global = "Alt+Shift+V";
+                    };
+                  };
                 };
               };
             };
@@ -286,7 +291,7 @@
       };
 
       plasmashell = {
-        "show-on-mouse-pos" = "Alt+Shift+V";
+        "show-on-mouse-pos" = "";
       };
 
       "services/org.kde.dolphin.desktop"."_launch" = "Meta+Shift+F";
@@ -314,7 +319,6 @@
             value = ".*";
             type = "regex";
           };
-          window-types = ["normal"];
         };
       }
       {
