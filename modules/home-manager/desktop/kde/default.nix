@@ -381,6 +381,7 @@
         apply = {
           desktops = "Desktop_4";
           desktopsrule = "3";
+          minimizerule = "2";
         };
         description = "Assign Steam to Desktop 4";
         match = {
@@ -404,13 +405,13 @@
             type = "substring";
             match-whole = false;
           };
-          # window-types = ["normal"];
         };
       }
       {
         apply = {
           desktops = "Desktop_5";
           desktopsrule = "3";
+          minimizerule = "2";
         };
         description = "Assign Zoom to Desktop 5";
         match = {
