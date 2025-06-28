@@ -10,7 +10,10 @@
   config = lib.mkIf (!pkgs.stdenv.isDarwin) {
     services.flatpak = {
       enable = true;
-      packages = ["us.zoom.Zoom"];
+      packages = [
+        "com.obsproject.Studio" # https://github.com/NixOS/nixpkgs/issues/420729
+        "us.zoom.Zoom"
+      ];
       uninstallUnmanaged = true;
       update.auto.enable = false;
     };
