@@ -486,6 +486,7 @@
           FocusPolicy = "FocusFollowsMouse";
         };
       };
+      plasmarc.OSD.Enabled = false;
       spectaclerc = {
         Annotations.annotationToolType = 8;
         General = {
