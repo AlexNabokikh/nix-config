@@ -78,7 +78,7 @@
       launch-telegram = {
         name = "Launch Telegram";
         key = "Meta+Shift+T";
-        command = "telegram-desktop";
+        command = "Telegram";
       };
       launch-ulauncher = {
         name = "Launch ulauncher";

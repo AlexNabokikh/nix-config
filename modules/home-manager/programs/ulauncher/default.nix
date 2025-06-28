@@ -40,7 +40,7 @@
         "id": "b72345b1-312c-4a39-89fc-0265437c2ccf",
         "name": "Work Tools",
         "keyword": "work",
-        "cmd": "#!/usr/bin/env bash\n\n# Check if Brave is already running\nif ! pgrep \"brave\" >/dev/null; then\n\techo \"Launching Brave...\"\n\tbrave &\nelse\n\techo \"Brave is already running.\"\nfi\n\n# Check if Alacritty is already running\nif ! pgrep -x \"alacritty\" >/dev/null; then\n\techo \"Launching Alacritty...\"\n\talacritty &\nelse\n\techo \"Alacritty is already running.\"\nfi\n\n# Check if Telegram is already running\nif ! pgrep -x \"telegram-desktop\" >/dev/null; then\n\techo \"Launching Telegram...\"\n\ttelegram-desktop\nelse\n\techo \"Telegram is already running.\"\nfi",
+        "cmd": "#!/usr/bin/env bash\n\n# Check if Brave is already running\nif ! pgrep \"brave\" >/dev/null; then\n\techo \"Launching Brave...\"\n\tbrave &\nelse\n\techo \"Brave is already running.\"\nfi\n\n# Check if Alacritty is already running\nif ! pgrep -x \"alacritty\" >/dev/null; then\n\techo \"Launching Alacritty...\"\n\talacritty &\nelse\n\techo \"Alacritty is already running.\"\nfi\n\n# Check if Telegram is already running\nif ! pgrep -x \"Telegram\" >/dev/null; then\n\techo \"Launching Telegram...\"\n\tTelegram\nelse\n\techo \"Telegram is already running.\"\nfi",
         "icon": "~/.config/ulauncher/icons/tools.png",
         "is_default_search": false,
         "run_without_argument": true,
