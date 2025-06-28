@@ -448,6 +448,7 @@
           AnimationDurationFactor = 0;
         };
       };
+      klaunchrc.FeedbackStyle.BusyCursor = false;
       klipperrc.General.MaxClipItems = 1000;
       kiorc.Confirmations.ConfirmDelete = false;
       kwinrc = {
