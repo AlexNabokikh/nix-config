@@ -107,6 +107,12 @@
           productId = "00c1";
           vendorId = "1532";
         }
+        {
+          accelerationProfile = "none";
+          name = "Logitech USB Receiver";
+          productId = "c547";
+          vendorId = "046d";
+        }
       ];
       touchpads = [
         {
