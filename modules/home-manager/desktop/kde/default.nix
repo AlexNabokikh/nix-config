@@ -278,6 +278,7 @@
       };
 
       kwin = {
+        "KrohnkiteMonocleLayout" = [];
         "Overview" = "Meta+A";
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
@@ -286,8 +287,9 @@
         "Switch to Desktop 5" = "Meta+5";
         "Switch to Desktop 6" = "Meta+6";
         "Switch to Desktop 7" = "Meta+7";
-        "Window Move Center" = "Ctrl+Alt+C";
         "Window Close" = "Meta+Q";
+        "Window Fullscreen" = "Meta+M";
+        "Window Move Center" = "Ctrl+Alt+C";
         "Window to Desktop 1" = "Meta+!";
         "Window to Desktop 2" = "Meta+@";
         "Window to Desktop 3" = "Meta+#";
