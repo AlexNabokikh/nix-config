@@ -21,7 +21,7 @@
     ../programs/krew
     ../programs/lazygit
     ../programs/neovim
-    # ../programs/obs-studio # https://github.com/NixOS/nixpkgs/issues/420729
+    ../programs/obs-studio
     ../programs/saml2aws
     ../programs/starship
     ../programs/telegram
