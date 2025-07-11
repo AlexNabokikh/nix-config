@@ -462,7 +462,9 @@
       kwinrc = {
         Effect-overview.BorderActivate = 9;
         Plugins = {
+          contrastEnabled = false;
           krohnkiteEnabled = true;
+          screenedgeEnabled = false;
         };
         "Round-Corners" = {
           ActiveOutlineAlpha = 255;
