@@ -495,6 +495,7 @@
           FocusPolicy = "FocusFollowsMouse";
         };
       };
+      plasmanotifyrc.DoNotDisturb.WhenScreenSharing = false;
       plasmarc.OSD.Enabled = false;
       spectaclerc = {
         Annotations.annotationToolType = 8;
