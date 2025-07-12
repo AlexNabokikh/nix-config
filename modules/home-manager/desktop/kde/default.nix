@@ -85,6 +85,16 @@
         key = "Ctrl+Space";
         command = "ulauncher-toggle";
       };
+      screenshot-region = {
+        name = "Capture a rectangular region of the screen";
+        key = "Meta+Shift+S";
+        command = "spectacle --region --nonotify";
+      };
+      screenshot-screen = {
+        name = "Capture the entire desktop";
+        key = "Meta+Ctrl+S";
+        command = "spectacle --fullscreen --nonotify";
+      };
     };
 
     input = {
@@ -214,7 +224,6 @@
                   "org.kde.plasma.battery"
                   "org.kde.plasma.keyboardlayout"
                   "org.kde.plasma.networkmanagement"
-                  "org.kde.plasma.notifications"
                   "org.kde.plasma.volume"
                 ];
                 hidden = [
@@ -222,6 +231,7 @@
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.devicenotifier"
                   "plasmashell_microphone"
+                  "zoom"
                 ];
                 configs = {
                   "org.kde.plasma.notifications".config = {
@@ -307,8 +317,9 @@
 
     spectacle = {
       shortcuts = {
-        captureEntireDesktop = "Meta+Ctrl+S";
-        captureRectangularRegion = "Meta+Shift+S";
+        captureEntireDesktop = "";
+        captureRectangularRegion = "";
+        launch = "";
         recordRegion = "Meta+Shift+R";
       };
     };
@@ -458,11 +469,9 @@
       };
       klaunchrc.FeedbackStyle.BusyCursor = false;
       klipperrc.General.MaxClipItems = 1000;
-      kiorc.Confirmations.ConfirmDelete = false;
       kwinrc = {
         Effect-overview.BorderActivate = 9;
         Plugins = {
-          contrastEnabled = false;
           krohnkiteEnabled = true;
           screenedgeEnabled = false;
         };
@@ -497,7 +506,10 @@
           FocusPolicy = "FocusFollowsMouse";
         };
       };
-      plasmanotifyrc.DoNotDisturb.WhenScreenSharing = false;
+      plasmanotifyrc = {
+        DoNotDisturb.WhenScreenSharing = false;
+        Notifications.PopupTimeout = 7000;
+      };
       plasmarc.OSD.Enabled = false;
       spectaclerc = {
         Annotations.annotationToolType = 8;
@@ -505,6 +517,7 @@
           launchAction = "DoNotTakeScreenshot";
           showCaptureInstructions = false;
           showMagnifier = "ShowMagnifierAlways";
+          useReleaseToCapture = true;
         };
         ImageSave.imageCompressionQuality = 100;
       };
