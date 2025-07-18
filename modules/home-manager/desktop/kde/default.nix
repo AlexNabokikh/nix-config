@@ -321,6 +321,8 @@
         captureRectangularRegion = "";
         launch = "";
         recordRegion = "Meta+Shift+R";
+        recordScreen = "Meta+Ctrl+R";
+        recordWindow = "";
       };
     };
 
