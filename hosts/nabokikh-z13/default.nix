@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/services/tlp"
-    "${nixosModules}/desktop/hyprland"
+    "${nixosModules}/desktop/kde"
   ];
 
   # Set hostname
