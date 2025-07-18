@@ -18,6 +18,7 @@
     })
     kara
     kde-rounded-corners
+    kdePackages.kcalc
     kdePackages.krohnkite
     kdotool
     tela-circle-icon-theme
@@ -496,7 +497,7 @@
           Size = 8;
         };
         "Script-krohnkite" = {
-          floatingClass = "ulauncher,brave-nngceckbapebfimnlniiiahkandclblb-Default";
+          floatingClass = "ulauncher,brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc";
           screenGapBetween = 3;
           screenGapBottom = 3;
           screenGapLeft = 3;
