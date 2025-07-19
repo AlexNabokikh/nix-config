@@ -21,7 +21,6 @@ in {
 
   # Excluding some KDE applications from the default install
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    ark
     baloo-widgets
     elisa
     ffmpegthumbs
