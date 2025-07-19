@@ -16,7 +16,6 @@
       flavour = ["macchiato"];
       accents = ["lavender"];
     })
-    kara
     kde-rounded-corners
     kdePackages.kcalc
     kdePackages.krohnkite
@@ -194,6 +193,9 @@
           {
             name = "org.dhruv8sh.kara";
             config = {
+              appearance = {
+                showOnlyActive = true;
+              };
               general = {
                 animationDuration = 0;
                 spacing = 3;
@@ -210,8 +212,12 @@
             name = "org.kde.plasma.digitalclock";
             config = {
               Appearance = {
+                autoFontAndSize = false;
                 dateDisplayFormat = "BesideTime";
                 dateFormat = "custom";
+                fontSize = 11;
+                fontStyleName = "Regular";
+                fontWeight = 400;
                 use24hFormat = 2;
               };
             };
