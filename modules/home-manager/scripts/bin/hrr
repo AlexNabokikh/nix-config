@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Ensure necessary commands are available
+if ! command -v hyprctl &>/dev/null || ! command -v jq &>/dev/null; then
+	# Use notify-send to show an error
+	notify-send "Error" "'hyprctl' and 'jq' are required for this script."
+	exit 1
+fi
+
+# Find the name of the currently focused monitor that is a DisplayPort monitor.
+ACTIVE_DP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true and (.name | startswith("DP-"))) | .name' | head -n 1)
+
+# Check if an active DP monitor was found
+if [[ -z "$ACTIVE_DP_MONITOR" ]]; then
+	notify-send "Info" "No active DisplayPort monitor found."
+	exit 1
+fi
+
+# Construct and execute the command to switch to the highest refresh rate
+hyprctl keyword monitor "$ACTIVE_DP_MONITOR,highrr,auto,1"
+
+# Send a notification to confirm the change
+notify-send "Display" "Switched $ACTIVE_DP_MONITOR to high refresh rate mode."
