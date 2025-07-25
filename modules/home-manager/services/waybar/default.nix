@@ -251,7 +251,7 @@
       .modules-right,
       .modules-center,
       .modules-left {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(24, 25, 38, 0.7);
         border: 0px solid #b4befe;
         border-radius: 8px;
       }
