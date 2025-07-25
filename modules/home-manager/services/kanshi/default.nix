@@ -8,7 +8,7 @@
         profile.name = "docked";
         profile.outputs = [
           {
-            criteria = "DP-1";
+            criteria = "*";
             status = "enable";
             position = "0,0";
           }
