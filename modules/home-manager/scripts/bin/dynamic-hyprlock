@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Path for the dynamically generated config
+TMP_CONFIG="/tmp/hyprlock.conf"
+
+# Find the names of the connected monitors using hyprctl and jq
+DP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name | startswith("DP-")) | .name' | head -n 1)
+EDP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name == "eDP-1") | .name' | head -n 1)
+
+# Get the wallpaper path from the existing hyprpaper config
+WALLPAPER=$(grep 'wallpaper = ' ~/.config/hypr/hyprpaper.conf | sed 's/wallpaper = ,//' | tr -d '\n')
+
+# --- Generate the config file ---
+# Start with the base, non-monitor-specific configuration
+cat >"$TMP_CONFIG" <<EOF
+background {
+    path = $WALLPAPER
+    blur_passes = 3
+    contrast = 0.8916
+    brightness = 0.8172
+    vibrancy = 0.1696
+    vibrancy_darkness = 0.0
+}
+
+general {
+    fail_timeout = 1000
+}
+EOF
+
+# --- Append configuration for the eDP-1 monitor if it's connected ---
+if [[ -n "$EDP_MONITOR" ]]; then
+	cat >>"$TMP_CONFIG" <<EOF
+
+# Config for $EDP_MONITOR (Internal Display)
+input-field {
+    monitor = $EDP_MONITOR
+    size = 500, 120
+    outline_thickness = 2
+    dots_size = 0.2
+    dots_spacing = 0.2
+    dots_center = true
+    outer_color = rgba(0, 0, 0, 0)
+    inner_color = rgba(0, 0, 0, 0.5)
+    font_color = rgb(200, 200, 200)
+    fade_on_empty = false
+    capslock_color = -1
+    placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
+    fail_text = <i>\$FAIL <b>(\$ATTEMPTS)</b></i>
+    hide_input = false
+    position = 0, -120
+    halign = center
+    valign = center
+}
+label {
+    monitor = $EDP_MONITOR
+    text = cmd[update:1000] echo "<span>\$(date '+%A, %d %B')</span>"
+    color = rgba(255, 255, 255, 0.8)
+    font_size = 30
+    font_family = JetBrains Mono Nerd Font Mono ExtraBold
+    position = 0, -400
+    halign = center
+    valign = top
+}
+label {
+    monitor = $EDP_MONITOR
+    text = cmd[update:1000] echo "<span>\$(date '+%H:%M')</span>"
+    color = rgba(255, 255, 255, 0.8)
+    font_size = 240
+    font_family = JetBrains Mono Nerd Font Mono ExtraBold
+    position = 0, -400
+    halign = center
+    valign = top
+}
+label {
+    monitor = $EDP_MONITOR
+    text = \$LAYOUT
+    color = rgba(255, 255, 255, 0.9)
+    font_size = 20
+    font_family = JetBrains Mono Nerd Font Mono
+    position = 0, -230
+    halign = center
+    valign = center
+}
+EOF
+fi
+
+# --- Append configuration for the DP-* monitor if it's connected ---
+if [[ -n "$DP_MONITOR" ]]; then
+	cat >>"$TMP_CONFIG" <<EOF
+
+# Config for $DP_MONITOR (External Display)
+input-field {
+    monitor = $DP_MONITOR
+    size = 250, 60
+    outline_thickness = 2
+    dots_size = 0.2
+    dots_spacing = 0.2
+    dots_center = true
+    outer_color = rgba(0, 0, 0, 0)
+    inner_color = rgba(0, 0, 0, 0.5)
+    font_color = rgb(200, 200, 200)
+    fade_on_empty = false
+    capslock_color = -1
+    placeholder_text = <i><span foreground="##e6e9ef">Password</span></i>
+    fail_text = <i>\$FAIL <b>(\$ATTEMPTS)</b></i>
+    hide_input = false
+    position = 0, -120
+    halign = center
+    valign = center
+}
+label {
+    monitor = $DP_MONITOR
+    text = cmd[update:1000] echo "<span>\$(date '+%A, %d %B')</span>"
+    color = rgba(255, 255, 255, 0.8)
+    font_size = 15
+    font_family = JetBrains Mono Nerd Font Mono ExtraBold
+    position = 0, -400
+    halign = center
+    valign = top
+}
+label {
+    monitor = $DP_MONITOR
+    text = cmd[update:1000] echo "<span>\$(date '+%H:%M')</span>"
+    color = rgba(255, 255, 255, 0.8)
+    font_size = 120
+    font_family = JetBrains Mono Nerd Font Mono ExtraBold
+    position = 0, -400
+    halign = center
+    valign = top
+}
+label {
+    monitor = $DP_MONITOR
+    text = \$LAYOUT
+    color = rgba(255, 255, 255, 0.9)
+    font_size = 10
+    font_family = JetBrains Mono Nerd Font Mono
+    position = 0, -175
+    halign = center
+    valign = center
+}
+EOF
+fi
+
+# Launch hyprlock with the generated config, if a monitor was found
+if [[ -n "$DP_MONITOR" || -n "$EDP_MONITOR" ]]; then
+	# Ensure hyprlock isn't already running to avoid conflicts
+	if ! pgrep -x hyprlock >/dev/null; then
+		hyprlock --grace 0 -c "$TMP_CONFIG"
+	fi
+fi
+
+# Clean up the temporary file after unlocking
+rm -f "$TMP_CONFIG"
