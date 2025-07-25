@@ -9,11 +9,13 @@
         profile.outputs = [
           {
             criteria = "*";
-            status = "enable";
             position = "0,0";
+            scale = 1.0;
+            status = "enable";
           }
           {
             criteria = "eDP-1";
+            scale = 2.0;
             status = "disable";
           }
         ];
