@@ -20,8 +20,8 @@
         "id": "0155d149-516b-4f38-bdab-f51d245818e3",
         "name": "Search",
         "keyword": "br",
-        "cmd": "https://search.brave.com/search?q=%s",
-        "icon": "~/.config/ulauncher/icons/brave.png",
+        "cmd": "https://duckduckgo.com/?q=%s",
+        "icon": "~/.config/ulauncher/icons/search.png",
         "is_default_search": true,
         "run_without_argument": false,
         "added": 1747897791.8054328
@@ -35,16 +35,6 @@
         "is_default_search": false,
         "run_without_argument": true,
         "added": 1747897834.2170281
-      },
-      "b72345b1-312c-4a39-89fc-0265437c2ccf": {
-        "id": "b72345b1-312c-4a39-89fc-0265437c2ccf",
-        "name": "Work Tools",
-        "keyword": "work",
-        "cmd": "#!/usr/bin/env bash\n\n# Check if Brave is already running\nif ! pgrep \"brave\" >/dev/null; then\n\techo \"Launching Brave...\"\n\tbrave &\nelse\n\techo \"Brave is already running.\"\nfi\n\n# Check if Alacritty is already running\nif ! pgrep -x \"alacritty\" >/dev/null; then\n\techo \"Launching Alacritty...\"\n\talacritty &\nelse\n\techo \"Alacritty is already running.\"\nfi\n\n# Check if Telegram is already running\nif ! pgrep -x \"Telegram\" >/dev/null; then\n\techo \"Launching Telegram...\"\n\tTelegram\nelse\n\techo \"Telegram is already running.\"\nfi",
-        "icon": "~/.config/ulauncher/icons/tools.png",
-        "is_default_search": false,
-        "run_without_argument": true,
-        "added": 1747897863.1040845
       },
       "56b485f3-9561-49af-9fe4-b4144efa9fb2": {
         "id": "56b485f3-9561-49af-9fe4-b4144efa9fb2",
