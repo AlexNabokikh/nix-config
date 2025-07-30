@@ -525,7 +525,6 @@
         General = {
           launchAction = "DoNotTakeScreenshot";
           showCaptureInstructions = false;
-          showMagnifier = "ShowMagnifierAlways";
           useReleaseToCapture = true;
         };
         ImageSave.imageCompressionQuality = 100;
