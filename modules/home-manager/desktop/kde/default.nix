@@ -488,6 +488,7 @@
 
     configFile = {
       baloofilerc."Basic Settings"."Indexing-Enabled" = false;
+      gwenviewrc.AutoplayVideos = true;
       kdeglobals = {
         General = {
           BrowserApplication = "brave-browser.desktop";
