@@ -85,6 +85,31 @@
         key = "Ctrl+Space";
         command = "ulauncher-toggle";
       };
+      move-window-and-focus-to-desktop-1 = {
+        name = "Move Window and Focus to Desktop 1";
+        key = "Meta+!";
+        command = "kde_mv_window 1";
+      };
+      move-window-and-focus-to-desktop-2 = {
+        name = "Move Window and Focus to Desktop 2";
+        key = "Meta+@";
+        command = "kde_mv_window 2";
+      };
+      move-window-and-focus-to-desktop-3 = {
+        name = "Move Window and Focus to Desktop 3";
+        key = "Meta+#";
+        command = "kde_mv_window 3";
+      };
+      move-window-and-focus-to-desktop-4 = {
+        name = "Move Window and Focus to Desktop 4";
+        key = "Meta+$";
+        command = "kde_mv_window 4";
+      };
+      move-window-and-focus-to-desktop-5 = {
+        name = "Move Window and Focus to Desktop 5";
+        key = "Meta+%";
+        command = "kde_mv_window 5";
+      };
       screenshot-region = {
         name = "Capture a rectangular region of the screen";
         key = "Meta+Shift+S";
@@ -307,12 +332,6 @@
         "Window Close" = "Meta+Q";
         "Window Fullscreen" = "Meta+M";
         "Window Move Center" = "Ctrl+Alt+C";
-        "Window to Desktop 1" = "Meta+!";
-        "Window to Desktop 2" = "Meta+@";
-        "Window to Desktop 3" = "Meta+#";
-        "Window to Desktop 4" = "Meta+$";
-        "Window to Desktop 5" = "Meta+%";
-        "Window to Desktop 6" = "Meta+^";
       };
 
       plasmashell = {
