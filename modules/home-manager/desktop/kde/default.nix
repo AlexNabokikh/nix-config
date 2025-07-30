@@ -243,7 +243,7 @@
                 configs = {
                   "org.kde.plasma.notifications".config = {
                     Shortcuts = {
-                      global = "Meta+V";
+                      global = "Meta+N";
                     };
                   };
                   "org.kde.plasma.clipboard".config = {
@@ -409,6 +409,8 @@
         apply = {
           desktops = "Desktop_4";
           desktopsrule = "3";
+          fsplevel = "4";
+          fsplevelrule = "2";
           minimizerule = "2";
         };
         description = "Assign Steam to Desktop 4";
@@ -439,6 +441,8 @@
         apply = {
           desktops = "Desktop_5";
           desktopsrule = "3";
+          fsplevel = "4";
+          fsplevelrule = "2";
           minimizerule = "2";
         };
         description = "Assign Zoom to Desktop 5";
