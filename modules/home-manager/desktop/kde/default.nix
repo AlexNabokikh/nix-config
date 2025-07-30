@@ -180,7 +180,7 @@
       };
     };
 
-    overrideConfig = true;
+    overrideConfig = false;
 
     panels = [
       {
@@ -520,7 +520,6 @@
         };
       };
       plasmanotifyrc = {
-        DoNotDisturb.WhenScreenSharing = false;
         Notifications.PopupTimeout = 7000;
       };
       plasmarc.OSD.Enabled = false;
