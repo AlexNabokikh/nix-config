@@ -4,15 +4,13 @@ set -euo pipefail
 # Path for the dynamically generated config
 TMP_CONFIG="/tmp/hyprlock.conf"
 
-# Find the names of the connected monitors using hyprctl and jq
+# Find the name of the connected DP monitor, if any
 DP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name | startswith("DP-")) | .name' | head -n 1)
-EDP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name == "eDP-1") | .name' | head -n 1)
 
 # Get the wallpaper path from the existing hyprpaper config
 WALLPAPER=$(grep 'wallpaper = ' ~/.config/hypr/hyprpaper.conf | sed 's/wallpaper = ,//' | tr -d '\n')
 
 # --- Generate the config file ---
-# Start with the base, non-monitor-specific configuration
 cat >"$TMP_CONFIG" <<EOF
 background {
     path = $WALLPAPER
@@ -26,15 +24,9 @@ background {
 general {
     fail_timeout = 1000
 }
-EOF
 
-# --- Append configuration for the eDP-1 monitor if it's connected ---
-if [[ -n "$EDP_MONITOR" ]]; then
-	cat >>"$TMP_CONFIG" <<EOF
-
-# Config for $EDP_MONITOR (Internal Display)
 input-field {
-    monitor = $EDP_MONITOR
+    monitor = eDP-1
     size = 500, 120
     outline_thickness = 2
     dots_size = 0.2
@@ -53,7 +45,7 @@ input-field {
     valign = center
 }
 label {
-    monitor = $EDP_MONITOR
+    monitor = eDP-1
     text = cmd[update:1000] echo "<span>\$(date '+%A, %d %B')</span>"
     color = rgba(255, 255, 255, 0.8)
     font_size = 30
@@ -63,7 +55,7 @@ label {
     valign = top
 }
 label {
-    monitor = $EDP_MONITOR
+    monitor = eDP-1
     text = cmd[update:1000] echo "<span>\$(date '+%H:%M')</span>"
     color = rgba(255, 255, 255, 0.8)
     font_size = 240
@@ -73,7 +65,7 @@ label {
     valign = top
 }
 label {
-    monitor = $EDP_MONITOR
+    monitor = eDP-1
     text = \$LAYOUT
     color = rgba(255, 255, 255, 0.9)
     font_size = 20
@@ -83,13 +75,12 @@ label {
     valign = center
 }
 EOF
-fi
 
-# --- Append configuration for the DP-* monitor if it's connected ---
+# Append configuration for the DP-* monitor if it's
 if [[ -n "$DP_MONITOR" ]]; then
 	cat >>"$TMP_CONFIG" <<EOF
 
-# Config for $DP_MONITOR (External Display)
+# Dynamic Config for $DP_MONITOR (External Display)
 input-field {
     monitor = $DP_MONITOR
     size = 250, 60
@@ -142,12 +133,8 @@ label {
 EOF
 fi
 
-# Launch hyprlock with the generated config, if a monitor was found
-if [[ -n "$DP_MONITOR" || -n "$EDP_MONITOR" ]]; then
-	# Ensure hyprlock isn't already running to avoid conflicts
-	if ! pgrep -x hyprlock >/dev/null; then
-		hyprlock --grace 0 -c "$TMP_CONFIG"
-	fi
+if ! pgrep -x hyprlock >/dev/null; then
+	hyprlock -c "$TMP_CONFIG"
 fi
 
 # Clean up the temporary file after unlocking
