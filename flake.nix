@@ -46,6 +46,13 @@
 
     # Define user configurations
     users = {
+      "alexander.nabokikh" = {
+        avatar = ./files/avatar/face;
+        email = "alexander.nabokikh@olx.pl";
+        fullName = "Alexander Nabokikh";
+        gitKey = "C5810093";
+        name = "alexander.nabokikh";
+      };
       nabokikh = {
         avatar = ./files/avatar/face;
         email = "alexander.nabokikh@olx.pl";
@@ -101,12 +108,12 @@
     };
 
     darwinConfigurations = {
-      "nabokikh-mac" = mkDarwinConfiguration "nabokikh-mac" "nabokikh";
+      "PL-OLX-KCGXHGK3PY" = mkDarwinConfiguration "PL-OLX-KCGXHGK3PY" "alexander.nabokikh";
     };
 
     homeConfigurations = {
+      "alexander.nabokikh@PL-OLX-KCGXHGK3PY" = mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh" "PL-OLX-KCGXHGK3PY";
       "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
-      "nabokikh@nabokikh-mac" = mkHomeConfiguration "aarch64-darwin" "nabokikh" "nabokikh-mac";
       "nabokikh@nabokikh-z13" = mkHomeConfiguration "x86_64-linux" "nabokikh" "nabokikh-z13";
     };
 

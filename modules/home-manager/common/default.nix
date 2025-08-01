@@ -78,6 +78,7 @@
       colima
       docker
       hidden-bar
+      mos
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [

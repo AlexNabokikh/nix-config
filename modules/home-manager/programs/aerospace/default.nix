@@ -55,9 +55,8 @@
 
       # Window management
       alt-q = "close"
-      alt-slash = 'layout tiles horizontal vertical'
-      alt-comma = 'layout accordion horizontal vertical'
       alt-m = 'fullscreen'
+      alt-f = 'layout floating tiling'
 
       # Focus movement
       alt-h = 'focus left'
@@ -87,15 +86,15 @@
       alt-9 = 'workspace 9'
 
       # Move windows to workspaces
-      alt-shift-1 = 'move-node-to-workspace 1'
-      alt-shift-2 = 'move-node-to-workspace 2'
-      alt-shift-3 = 'move-node-to-workspace 3'
-      alt-shift-4 = 'move-node-to-workspace 4'
-      alt-shift-5 = 'move-node-to-workspace 5'
-      alt-shift-6 = 'move-node-to-workspace 6'
-      alt-shift-7 = 'move-node-to-workspace 7'
-      alt-shift-8 = 'move-node-to-workspace 8'
-      alt-shift-9 = 'move-node-to-workspace 9'
+      alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+      alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+      alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+      alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+      alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+      alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+      alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+      alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+      alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
 
       # Workspace navigation
       alt-tab = 'workspace-back-and-forth'
@@ -144,6 +143,10 @@
       [[on-window-detected]]
       if.app-id = 'us.zoom.xos'
       run = 'move-node-to-workspace 5'
+
+      [[on-window-detected]]
+      if.window-title-regex-substring = 'bitwarden'
+      run = 'layout floating'
     '';
   };
 }
