@@ -104,7 +104,6 @@
   in {
     nixosConfigurations = {
       energy = mkNixosConfiguration "energy" "nabokikh";
-      nabokikh-z13 = mkNixosConfiguration "nabokikh-z13" "nabokikh";
     };
 
     darwinConfigurations = {
@@ -114,7 +113,6 @@
     homeConfigurations = {
       "alexander.nabokikh@PL-OLX-KCGXHGK3PY" = mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh" "PL-OLX-KCGXHGK3PY";
       "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
-      "nabokikh@nabokikh-z13" = mkHomeConfiguration "x86_64-linux" "nabokikh" "nabokikh-z13";
     };
 
     overlays = import ./overlays {inherit inputs;};
