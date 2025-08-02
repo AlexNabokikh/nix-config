@@ -40,6 +40,7 @@
         NSGlobalDomain."com.apple.mouse.linear" = true;
       };
       NSGlobalDomain = {
+        "com.apple.sound.beep.volume" = 0.000;
         AppleInterfaceStyle = "Dark";
         ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
