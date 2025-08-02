@@ -42,6 +42,17 @@
         multiplier = 3;
       };
 
+      keyboard.bindings =
+        if pkgs.stdenv.isDarwin
+        then [
+          {
+            key = "Slash";
+            mods = "Control";
+            chars = ''\u001f'';
+          }
+        ]
+        else [];
+
       font = {
         size =
           if pkgs.stdenv.isDarwin
