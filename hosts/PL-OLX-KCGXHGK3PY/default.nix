@@ -37,7 +37,63 @@
   system = {
     defaults = {
       CustomUserPreferences = {
+        "com.apple.symbolichotkeys" = {
+          AppleSymbolicHotKeys = {
+            "163" = {
+              # Set 'Option + N' for Show Notification Center
+              enabled = true;
+              value = {
+                parameters = [
+                  110
+                  45
+                  524288
+                ];
+                type = "standard";
+              };
+            };
+            "184" = {
+              # Set 'Option + Shift + R' for Screenshot and recording options
+              enabled = true;
+              value = {
+                parameters = [
+                  114
+                  15
+                  655360
+                ];
+                type = "standard";
+              };
+            };
+            "60" = {
+              # Disable '^ + Space' for selecting the previous input source
+              enabled = false;
+            };
+            "61" = {
+              # Set 'Option + Space' for selecting the next input source
+              enabled = 1;
+              value = {
+                parameters = [
+                  32
+                  49
+                  524288
+                ];
+                type = "standard";
+              };
+            };
+            "64" = {
+              # Disable 'Cmd + Space' for Spotlight Search
+              enabled = false;
+            };
+            "65" = {
+              # Disable 'Cmd + Alt + Space' for Finder search window
+              enabled = false;
+            };
+          };
+        };
         NSGlobalDomain."com.apple.mouse.linear" = true;
+        NSUserKeyEquivalents = {
+          "Lock Screen" = "@^l";
+          "Paste and Match Style" = "^$v";
+        };
       };
       NSGlobalDomain = {
         "com.apple.sound.beep.volume" = 0.000;
