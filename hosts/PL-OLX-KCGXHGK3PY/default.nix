@@ -36,7 +36,24 @@
   # System settings
   system = {
     defaults = {
+      controlcenter = {
+        BatteryShowPercentage = true;
+        NowPlaying = false;
+      };
       CustomUserPreferences = {
+        "com.brave.Browser" = {
+          NSUserKeyEquivalents = {
+            "Close Tab" = "^w";
+            "Find..." = "^f";
+            "New Private Window" = "^$n";
+            "New Tab" = "^t";
+            "Reload This Page" = "^r";
+            "Reopen Closed Tab" = "^$t";
+            "Reset zoom" = "^0";
+            "Zoom In" = "^=";
+            "Zoom Out" = "^-";
+          };
+        };
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
             "163" = {
