@@ -104,6 +104,18 @@
               # Disable 'Cmd + Alt + Space' for Finder search window
               enabled = false;
             };
+            "238" = {
+              # Set 'Control + Command + C' to center focused window
+              enabled = true;
+              value = {
+                parameters = [
+                  99
+                  8
+                  1310720
+                ];
+                type = "standard";
+              };
+            };
           };
         };
         NSGlobalDomain."com.apple.mouse.linear" = true;
