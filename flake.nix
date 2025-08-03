@@ -80,6 +80,7 @@
         specialArgs = {
           inherit inputs outputs hostname;
           userConfig = users.${username};
+          darwinModules = "${self}/modules/darwin";
         };
         modules = [
           ./hosts/${hostname}
