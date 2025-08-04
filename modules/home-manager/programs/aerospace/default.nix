@@ -100,6 +100,9 @@
       alt-tab = 'workspace-back-and-forth'
       alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
+      # Enter passthrough mode for typing special characters
+      alt-p = 'mode passthrough'
+
       # Enter service mode
       alt-shift-semicolon = 'mode service'
 
@@ -122,6 +125,12 @@
       alt-shift-j = ['join-with down', 'mode main']
       alt-shift-k = ['join-with up', 'mode main']
       alt-shift-l = ['join-with right', 'mode main']
+
+      # Passthrough mode to allow typing special characters (e.g., Polish letters)
+      # Enter with 'alt-p', exit with 'alt-p' or 'esc'.
+      [mode.passthrough.binding]
+      alt-p = 'mode main'
+      esc = 'mode main'
 
       # Window detection rules
       [[on-window-detected]]
