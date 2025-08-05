@@ -10,7 +10,6 @@
     "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
     "${nhModules}/programs/swappy"
-    "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
     "${nhModules}/services/swaync"

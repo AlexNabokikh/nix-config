@@ -8,6 +8,7 @@
     ../misc/qt
     ../programs/aerospace
     ../programs/alacritty
+    ../programs/albert
     ../programs/atuin
     ../programs/bat
     ../programs/brave
@@ -26,7 +27,6 @@
     ../programs/starship
     ../programs/telegram
     ../programs/tmux
-    ../programs/ulauncher
     ../programs/zsh
     ../scripts
     ../services/flatpak

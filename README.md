@@ -232,6 +232,7 @@ nix flake update
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
 - **`programs/aerospace` (Darwin):** Tiling window manager for macOS with custom keybindings and workspace rules.
 - **`programs/alacritty`:** GPU-accelerated terminal emulator, configured for tmux integration and platform-specific settings.
+- **`programs/albert` (Linux):** Application launcher and productivity tool.
 - **`programs/atuin`:** Enhanced shell history with cloud sync capabilities.
 - **`programs/bat`:** `cat` clone with syntax highlighting and Git integration.
 - **`programs/bottom`**: A graphical process/system monitor.
@@ -252,7 +253,6 @@ nix flake update
 - **`programs/swappy` (Linux/Hyprland):** A tool for editing screenshots.
 - **`programs/telegram`:** Desktop client for Telegram.
 - **`programs/tmux`:** Terminal multiplexer with custom keybindings and Catppuccin theme.
-- **`programs/ulauncher` (Linux):** Application launcher with custom shortcuts.
 - **`programs/wofi` (Linux/Hyprland):** Application launcher for Wayland.
 - **`programs/zsh`:** Zsh shell with extensive aliases, completions, and custom keybindings.
 - **`scripts`**: Deploys a collection of custom utility scripts to `~/.local/bin`.

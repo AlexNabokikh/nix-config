@@ -80,10 +80,10 @@
         key = "Meta+Shift+T";
         command = "Telegram";
       };
-      launch-ulauncher = {
-        name = "Launch ulauncher";
+      launch-albert = {
+        name = "Launch albert";
         key = "Ctrl+Space";
-        command = "ulauncher-toggle";
+        command = "albert toggle";
       };
       move-window-and-focus-to-desktop-1 = {
         name = "Move Window and Focus to Desktop 1";
@@ -119,6 +119,16 @@
         name = "Capture the entire desktop";
         key = "Meta+Ctrl+S";
         command = "spectacle --fullscreen --nonotify";
+      };
+      show-all-applications = {
+        name = "Show all applications in Albert";
+        key = "Meta+A";
+        command = ''albert show "apps "'';
+      };
+      show-clipboard = {
+        name = "Show clipboard items in Albert";
+        key = "Alt+Shift+V";
+        command = "albert show clipboard";
       };
     };
 
@@ -205,7 +215,7 @@
       };
     };
 
-    overrideConfig = false;
+    overrideConfig = true;
 
     panels = [
       {
@@ -271,11 +281,6 @@
                       global = "Meta+N";
                     };
                   };
-                  "org.kde.plasma.clipboard".config = {
-                    Shortcuts = {
-                      global = "Alt+Shift+V";
-                    };
-                  };
                 };
               };
             };
@@ -321,7 +326,6 @@
 
       kwin = {
         "KrohnkiteMonocleLayout" = [];
-        "Overview" = "Meta+A";
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
         "Switch to Desktop 3" = "Meta+3";
@@ -488,7 +492,7 @@
 
     configFile = {
       baloofilerc."Basic Settings"."Indexing-Enabled" = false;
-      gwenviewrc.AutoplayVideos = true;
+      gwenviewrc.ThumbnailView.AutoplayVideos = true;
       kdeglobals = {
         General = {
           BrowserApplication = "brave-browser.desktop";
@@ -512,22 +516,17 @@
           ActiveOutlineAlpha = 255;
           ActiveOutlineUseCustom = false;
           ActiveOutlineUsePalette = true;
-          ActiveSecondOutlineUseCustom = false;
-          ActiveSecondOutlineUsePalette = true;
           DisableOutlineTile = false;
           DisableRoundTile = false;
           InactiveCornerRadius = 8;
           InactiveOutlineAlpha = 0;
-          InactiveOutlineUseCustom = false;
-          InactiveOutlineUsePalette = true;
-          InactiveSecondOutlineAlpha = 0;
           InactiveSecondOutlineThickness = 0;
           OutlineThickness = 1;
           SecondOutlineThickness = 0;
           Size = 8;
         };
         "Script-krohnkite" = {
-          floatingClass = "ulauncher,brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc";
+          floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc";
           screenGapBetween = 3;
           screenGapBottom = 3;
           screenGapLeft = 3;
@@ -559,8 +558,8 @@
     };
 
     startup.startupScript = {
-      ulauncher = {
-        text = "ulauncher --hide-window";
+      albert = {
+        text = "albert";
         priority = 8;
         runAlways = true;
       };
