@@ -10,7 +10,7 @@
     ];
 
     # Source albert configuration from the home-manager store
-    xdg.configFile.".config".text = ''
+    xdg.configFile."albert/config".text = ''
       [General]
       frontend=widgetsboxmodel-ng
       showTray=false
@@ -45,6 +45,7 @@
       enabled=true
       logout_enabled=true
       title_logout=Quit All Applications
+      title_poweroff=Shutdown
       trigger=sys
 
       [widgetsboxmodel-ng]
