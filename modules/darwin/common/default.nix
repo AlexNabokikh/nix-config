@@ -33,6 +33,9 @@
   # Add ability to use TouchID for sudo
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  # Passwordless sudo
+  security.sudo.extraConfig = "${userConfig.name}    ALL = (ALL) NOPASSWD: ALL";
+
   # System settings
   system = {
     defaults = {
