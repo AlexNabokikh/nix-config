@@ -125,11 +125,6 @@
         key = "Meta+A";
         command = ''albert show "apps "'';
       };
-      show-clipboard = {
-        name = "Show clipboard items in Albert";
-        key = "Alt+Shift+V";
-        command = "albert show clipboard";
-      };
     };
 
     input = {
