@@ -6,6 +6,14 @@
   # GTK theme configuration
   gtk = {
     enable = true;
+    theme = {
+      name = "Catppuccin-GTK-Dark-Compact-Macchiato";
+      package = pkgs.magnetic-catppuccin-gtk.override {
+        shade = "dark";
+        size = "compact";
+        tweaks = ["macchiato"];
+      };
+    };
     iconTheme = {
       name = "Tela-circle-dark";
       package = pkgs.tela-circle-icon-theme;
@@ -30,7 +38,4 @@
       ];
     };
   };
-
-  # Enable catppuccin theming for GTK apps.
-  catppuccin.gtk.enable = true;
 }
