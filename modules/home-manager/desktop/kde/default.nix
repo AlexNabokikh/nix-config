@@ -228,6 +228,7 @@
               };
               general = {
                 animationDuration = 0;
+                highlightType = 1;
                 spacing = 3;
                 type = 1;
               };
@@ -255,6 +256,7 @@
           "org.kde.plasma.panelspacer"
           {
             systemTray = {
+              icons.scaleToFit = true;
               items = {
                 showAll = false;
                 shown = [
@@ -522,11 +524,11 @@
         };
         "Script-krohnkite" = {
           floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc";
-          screenGapBetween = 3;
-          screenGapBottom = 3;
-          screenGapLeft = 3;
-          screenGapRight = 3;
-          screenGapTop = 3;
+          screenGapBetween = 6;
+          screenGapBottom = 6;
+          screenGapLeft = 6;
+          screenGapRight = 6;
+          screenGapTop = 6;
         };
         Windows = {
           DelayFocusInterval = 0;
