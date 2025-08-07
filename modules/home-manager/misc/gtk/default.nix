@@ -7,11 +7,11 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-GTK-Dark-Compact-Macchiato";
-      package = pkgs.magnetic-catppuccin-gtk.override {
-        shade = "dark";
+      name = "catppuccin-macchiato-lavender-compact";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["lavender"];
+        variant = "macchiato";
         size = "compact";
-        tweaks = ["macchiato"];
       };
     };
     iconTheme = {
