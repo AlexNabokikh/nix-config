@@ -261,16 +261,17 @@
               items = {
                 showAll = false;
                 shown = [
-                  "org.kde.plasma.battery"
                   "org.kde.plasma.keyboardlayout"
                   "org.kde.plasma.networkmanagement"
                   "org.kde.plasma.volume"
                 ];
                 hidden = [
+                  "org.kde.plasma.battery"
                   "org.kde.plasma.brightness"
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.devicenotifier"
                   "plasmashell_microphone"
+                  "xdg-desktop-portal-kde"
                   "zoom"
                 ];
                 configs = {
