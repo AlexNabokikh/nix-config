@@ -47,6 +47,7 @@
     libnotify
     networkmanagerapplet
     pamixer
+    pavucontrol
     slurp
     wf-recorder
     wlr-randr

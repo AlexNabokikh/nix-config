@@ -82,7 +82,6 @@
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
-      pavucontrol
       tesseract
       unzip
       wl-clipboard
