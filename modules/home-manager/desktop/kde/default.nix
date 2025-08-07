@@ -270,6 +270,7 @@
                   "org.kde.plasma.brightness"
                   "org.kde.plasma.clipboard"
                   "org.kde.plasma.devicenotifier"
+                  "org.kde.plasma.mediacontroller"
                   "plasmashell_microphone"
                   "xdg-desktop-portal-kde"
                   "zoom"
