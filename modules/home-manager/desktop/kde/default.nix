@@ -173,6 +173,7 @@
     krunner.activateWhenTypingOnDesktop = false;
 
     kscreenlocker = {
+      appearance.showMediaControls = false;
       appearance.wallpaper = "${config.wallpaper}";
       autoLock = false;
       timeout = 0;
