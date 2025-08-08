@@ -5,12 +5,6 @@
   # Call dbus-update-activation-environment on login
   services.xserver.updateDbusEnvironment = true;
 
-  # Enables support for Bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
   # Enable Bluetooth support
   services.blueman.enable = true;
 

@@ -83,6 +83,12 @@
     LC_TIME = "en_IE.UTF-8";
   };
 
+  # Enables support for Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
   # Input settings
   services.libinput.enable = true;
 
