@@ -44,14 +44,10 @@
         STOP_CHARGE_THRESH_BAT0 = 90;
       };
     };
-    power-profiles-daemon = {
-      enable = false;
-    };
+
+    power-profiles-daemon.enable = false;
   };
 
   # Disable fingerprint reader
   services.fprintd.enable = false;
-
-  # For thermal management (AMD-specific)
-  services.thermald.enable = true;
 }
