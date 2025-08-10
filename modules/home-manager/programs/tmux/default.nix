@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;

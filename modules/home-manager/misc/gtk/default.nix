@@ -2,14 +2,15 @@
   userConfig,
   pkgs,
   ...
-}: {
+}:
+{
   # GTK theme configuration
   gtk = {
     enable = true;
     theme = {
       name = "catppuccin-macchiato-lavender-compact";
       package = pkgs.catppuccin-gtk.override {
-        accents = ["lavender"];
+        accents = [ "lavender" ];
         variant = "macchiato";
         size = "compact";
       };

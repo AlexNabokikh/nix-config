@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Ensure saml2aws package installed
   home.packages = with pkgs; [
     saml2aws

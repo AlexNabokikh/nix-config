@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Ensure swappy package installed
   home.packages = with pkgs; [
     swappy

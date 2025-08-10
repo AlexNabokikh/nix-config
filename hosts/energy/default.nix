@@ -3,7 +3,8 @@
   hostname,
   nixosModules,
   ...
-}: {
+}:
+{
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-gpu-amd

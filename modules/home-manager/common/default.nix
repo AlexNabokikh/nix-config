@@ -3,7 +3,8 @@
   userConfig,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ../misc/qt
     ../programs/aerospace
@@ -50,13 +51,12 @@
   home = {
     username = "${userConfig.name}";
     homeDirectory =
-      if pkgs.stdenv.isDarwin
-      then "/Users/${userConfig.name}"
-      else "/home/${userConfig.name}";
+      if pkgs.stdenv.isDarwin then "/Users/${userConfig.name}" else "/home/${userConfig.name}";
   };
 
   # Ensure common packages are installed
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     [
       anki-bin
       awscli2

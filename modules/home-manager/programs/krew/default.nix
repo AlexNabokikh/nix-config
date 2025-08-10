@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   krewPkgs = [
     "ctx"
     "ns"
@@ -10,7 +11,8 @@
 
   # Convert the list of plugins into a space-separated string
   krewPkgStr = lib.concatStringsSep " " krewPkgs;
-in {
+in
+{
   # Ensure krew package installed
   home.packages = with pkgs; [
     krew
@@ -22,7 +24,7 @@ in {
   ];
 
   # Install krew plugins
-  home.activation.krew = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.krew = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export PATH="$HOME/.krew/bin:${pkgs.git}/bin:/usr/bin:$PATH";
 
     if [ -z "$(${pkgs.krew}/bin/krew list)" ]; then

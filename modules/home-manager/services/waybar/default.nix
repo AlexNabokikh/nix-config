@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Install and configure waybar via home-manager module
   programs.waybar = {
     enable = true;
@@ -43,7 +44,12 @@
           align = 0;
           rotate = 0;
           format = "{icon} {percent}%";
-          format-icons = ["󰃞" "󰃟" "󰃝" "󰃠"];
+          format-icons = [
+            "󰃞"
+            "󰃟"
+            "󰃝"
+            "󰃠"
+          ];
           icon-size = 10;
           on-scroll-up = "brightnessctl set +5%";
           on-scroll-down = "brightnessctl set 5%-";
@@ -159,7 +165,7 @@
           scroll-step = 5;
           on-click-right = "pamixer -t";
           smooth-scrolling-threshold = 1;
-          ignored-sinks = ["Easy Effects Sink"];
+          ignored-sinks = [ "Easy Effects Sink" ];
         };
 
         "pulseaudio#microphone" = {

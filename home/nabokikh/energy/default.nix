@@ -1,4 +1,5 @@
-{nhModules, ...}: {
+{ nhModules, ... }:
+{
   imports = [
     "${nhModules}/common"
     "${nhModules}/desktop/kde"

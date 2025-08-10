@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Manage kanshi services via Home-manager
   services.kanshi = {
     enable = true;

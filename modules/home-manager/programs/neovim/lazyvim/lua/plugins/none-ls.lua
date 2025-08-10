@@ -7,7 +7,6 @@ return {
       sources = {
         -- code actions
         -- formatters
-        nls.builtins.formatting.alejandra,
         nls.builtins.formatting.black.with({
           extra_args = { "--line-length", "120" },
         }),
@@ -23,6 +22,7 @@ return {
         nls.builtins.formatting.goimports,
         nls.builtins.formatting.isort,
         nls.builtins.formatting.markdownlint,
+        nls.builtins.formatting.nixfmt,
         nls.builtins.formatting.shfmt,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.terraform_fmt,

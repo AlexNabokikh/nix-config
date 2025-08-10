@@ -4,8 +4,9 @@
   lib,
   pkgs,
   ...
-}: {
-  imports = [inputs.nix-flatpak.homeManagerModules.nix-flatpak];
+}:
+{
+  imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
 
   config = lib.mkIf (!pkgs.stdenv.isDarwin) {
     services.flatpak = {
@@ -17,7 +18,7 @@
       update.auto.enable = false;
     };
 
-    home.packages = [pkgs.flatpak];
+    home.packages = [ pkgs.flatpak ];
 
     xdg.systemDirs.data = [
       "/var/lib/flatpak/exports/share"

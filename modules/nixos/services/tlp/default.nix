@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Set TLP power profile
   services = {
     tlp = {
@@ -24,7 +25,7 @@
         AMDGPU_ABM_LEVEL_ON_AC = 0;
         AMDGPU_ABM_LEVEL_ON_BAT = 3;
 
-        DISK_IOSCHED = ["none"];
+        DISK_IOSCHED = [ "none" ];
         DISK_APM_LEVEL_ON_BAT = "1 1";
 
         SATA_LINKPWR_ON_BAT = "min_power";

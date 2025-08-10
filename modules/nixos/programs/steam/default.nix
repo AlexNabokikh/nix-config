@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Steam gaming platform configuration
   programs.steam = {
     enable = true;

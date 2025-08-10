@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Install swaync via home-manager module
 
   # temp switch to stable swaync: https://github.com/catppuccin/swaync/issues/20

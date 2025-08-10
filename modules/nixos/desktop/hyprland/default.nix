@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Enable GDM display manager
   services.displayManager.gdm.enable = true;
 
@@ -17,7 +18,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
-    hyprlock = {};
+    hyprlock = { };
     gdm.enableGnomeKeyring = true;
   };
 

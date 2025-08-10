@@ -6,7 +6,8 @@
   userConfig,
   pkgs,
   ...
-}: {
+}:
+{
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
@@ -19,16 +20,16 @@
   };
 
   # Register flake inputs for nix commands
-  nix.registry = lib.mapAttrs (_: flake: {inherit flake;}) (lib.filterAttrs (_: lib.isType "flake") inputs);
+  nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
+    lib.filterAttrs (_: lib.isType "flake") inputs
+  );
 
   # Add inputs to legacy channels
-  nix.nixPath = ["/etc/nix/path"];
-  environment.etc =
-    lib.mapAttrs' (name: value: {
-      name = "nix/path/${name}";
-      value.source = value.flake;
-    })
-    config.nix.registry;
+  nix.nixPath = [ "/etc/nix/path" ];
+  environment.etc = lib.mapAttrs' (name: value: {
+    name = "nix/path/${name}";
+    value.source = value.flake;
+  }) config.nix.registry;
 
   # Nix settings
   nix.settings = {
@@ -41,14 +42,18 @@
     kernelPackages = pkgs.linuxKernel.packages.linux_6_16;
     consoleLogLevel = 0;
     initrd.verbose = false;
-    kernelParams = ["quiet" "splash" "rd.udev.log_level=3"];
+    kernelParams = [
+      "quiet"
+      "splash"
+      "rd.udev.log_level=3"
+    ];
     loader.efi.canTouchEfiVariables = true;
     loader.systemd-boot.enable = true;
     loader.timeout = 0;
     plymouth.enable = true;
 
     # v4l (virtual camera) module settings
-    kernelModules = ["v4l2loopback"];
+    kernelModules = [ "v4l2loopback" ];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
@@ -97,7 +102,7 @@
     enable = true;
     xkb.layout = "pl";
     xkb.variant = "";
-    excludePackages = with pkgs; [xterm];
+    excludePackages = with pkgs; [ xterm ];
   };
 
   # Enable Wayland support in Chromium and Electron based applications
@@ -134,7 +139,11 @@
   # User configuration
   users.users.${userConfig.name} = {
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     isNormalUser = true;
     shell = pkgs.zsh;
   };

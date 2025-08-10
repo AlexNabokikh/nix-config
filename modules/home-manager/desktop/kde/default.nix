@@ -5,7 +5,8 @@
   nhModules,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
     "${nhModules}/misc/wallpaper"
@@ -13,8 +14,8 @@
 
   home.packages = with pkgs; [
     (catppuccin-kde.override {
-      flavour = ["macchiato"];
-      accents = ["lavender"];
+      flavour = [ "macchiato" ];
+      accents = [ "lavender" ];
     })
     kde-rounded-corners
     kdePackages.kcalc
@@ -326,7 +327,7 @@
       };
 
       kwin = {
-        "KrohnkiteMonocleLayout" = [];
+        "KrohnkiteMonocleLayout" = [ ];
         "Switch to Desktop 1" = "Meta+1";
         "Switch to Desktop 2" = "Meta+2";
         "Switch to Desktop 3" = "Meta+3";
@@ -384,7 +385,7 @@
             value = "brave-browser";
             type = "substring";
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
       {
@@ -398,7 +399,7 @@
             value = "Alacritty";
             type = "substring";
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
       {
@@ -412,7 +413,7 @@
             value = "org.telegram.desktop";
             type = "substring";
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
       {
@@ -426,7 +427,7 @@
             value = "com.obsproject.Studio";
             type = "substring";
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
       {
@@ -444,7 +445,7 @@
             type = "exact";
             match-whole = false;
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
       {
@@ -475,7 +476,7 @@
             value = "zoom";
             type = "substring";
           };
-          window-types = ["normal"];
+          window-types = [ "normal" ];
         };
       }
     ];

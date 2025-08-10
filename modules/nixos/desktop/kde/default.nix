@@ -1,6 +1,8 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   wallpaper = ../../../home-manager/misc/wallpaper/wallpaper.jpg;
-in {
+in
+{
   # Enable KDE
   services.displayManager.sddm = {
     enable = true;

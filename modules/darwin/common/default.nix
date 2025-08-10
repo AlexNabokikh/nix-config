@@ -3,7 +3,8 @@
   outputs,
   userConfig,
   ...
-}: {
+}:
+{
   # Nixpkgs configuration
   nixpkgs = {
     overlays = [
@@ -168,7 +169,7 @@
         expose-animation-duration = 0.15;
         show-recents = false;
         showhidden = true;
-        persistent-apps = [];
+        persistent-apps = [ ];
         tilesize = 30;
         wvous-bl-corner = 1;
         wvous-br-corner = 1;

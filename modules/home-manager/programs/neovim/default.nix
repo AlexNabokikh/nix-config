@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Neovim text editor configuration
   programs.neovim = {
     enable = true;
@@ -9,7 +10,6 @@
     withRuby = true;
 
     extraPackages = with pkgs; [
-      alejandra
       black
       golangci-lint
       gopls
@@ -19,6 +19,7 @@
       lua-language-server
       markdownlint-cli
       nixd
+      nixfmt
       nodePackages.bash-language-server
       nodePackages.prettier
       pyright
