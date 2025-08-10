@@ -14,14 +14,10 @@ let
 in
 {
   # Ensure krew package installed
-  home.packages = with pkgs; [
-    krew
-  ];
+  home.packages = [ pkgs.krew ];
 
   # Ensure krew is in the PATH
-  home.sessionPath = [
-    "$HOME/.krew/bin"
-  ];
+  home.sessionPath = [ "$HOME/.krew/bin" ];
 
   # Install krew plugins
   home.activation.krew = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

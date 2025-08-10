@@ -11,9 +11,7 @@
   config = lib.mkIf (!pkgs.stdenv.isDarwin) {
     services.flatpak = {
       enable = true;
-      packages = [
-        "us.zoom.Zoom"
-      ];
+      packages = [ "us.zoom.Zoom" ];
       uninstallUnmanaged = true;
       update.auto.enable = false;
     };

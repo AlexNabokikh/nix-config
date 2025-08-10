@@ -1,9 +1,7 @@
 { pkgs, ... }:
 {
   # Ensure swappy package installed
-  home.packages = with pkgs; [
-    swappy
-  ];
+  home.packages = [ pkgs.swappy ];
 
   # Source swappy config from the home-manager store
   xdg.configFile = {

@@ -6,9 +6,7 @@
 {
   config = lib.mkIf (pkgs.stdenv.isDarwin) {
     # Ensure aerospace package installed
-    home.packages = with pkgs; [
-      aerospace
-    ];
+    home.packages = [ pkgs.aerospace ];
 
     # Source aerospace config from the home-manager store
     home.file.".aerospace.toml".text = ''

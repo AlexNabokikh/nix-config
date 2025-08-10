@@ -54,9 +54,7 @@
 
     # v4l (virtual camera) module settings
     kernelModules = [ "v4l2loopback" ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-    ];
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     extraModprobeConfig = ''
       options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
     '';
@@ -99,7 +97,6 @@
 
   # xserver settings
   services.xserver = {
-    enable = true;
     xkb.layout = "pl";
     xkb.variant = "";
     excludePackages = with pkgs; [ xterm ];
@@ -179,6 +176,9 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless.enable = true;
   virtualisation.docker.rootless.setSocketVariable = true;
+
+  # Enable xwayland
+  programs.xwayland.enable = true;
 
   # Zsh configuration
   programs.zsh.enable = true;

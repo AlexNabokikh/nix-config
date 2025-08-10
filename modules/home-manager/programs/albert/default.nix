@@ -6,9 +6,7 @@
 {
   config = lib.mkIf (!pkgs.stdenv.isDarwin) {
     # Albert package
-    home.packages = with pkgs; [
-      albert
-    ];
+    home.packages = [ pkgs.albert ];
 
     # Source albert configuration from the home-manager store
     xdg.configFile."albert/config".text = ''

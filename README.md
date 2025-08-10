@@ -235,7 +235,6 @@ nix flake update
 - **`programs/albert` (Linux):** Application launcher and productivity tool.
 - **`programs/atuin`:** Enhanced shell history with cloud sync capabilities.
 - **`programs/bat`:** `cat` clone with syntax highlighting and Git integration.
-- **`programs/bottom`**: A graphical process/system monitor.
 - **`programs/brave`:** Web browser with XDG MIME type associations (Linux).
 - **`programs/btop`:** Resource monitor with Vim keys.
 - **`programs/fastfetch`:** Customized system information tool.
