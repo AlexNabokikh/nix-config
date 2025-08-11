@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   xdg = {
     enable = true;
@@ -7,9 +12,9 @@
       enable = true;
 
       defaultApplications = lib.mkMerge [
-        (lib.xdg.mimeAssociations [ pkgs.gnome.gnome-text-editor ])
-        (lib.xdg.mimeAssociations [ pkgs.gnome.loupe ])
-        (lib.xdg.mimeAssociations [ pkgs.gnome.totem ])
+        (config.lib.xdg.mimeAssociations [ pkgs.gnome-text-editor ])
+        (config.lib.xdg.mimeAssociations [ pkgs.loupe ])
+        (config.lib.xdg.mimeAssociations [ pkgs.totem ])
       ];
     };
 
