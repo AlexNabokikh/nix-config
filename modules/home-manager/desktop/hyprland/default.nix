@@ -8,6 +8,7 @@
 {
   imports = [
     "${nhModules}/misc/gtk"
+    "${nhModules}/misc/qt"
     "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
     "${nhModules}/programs/swappy"
