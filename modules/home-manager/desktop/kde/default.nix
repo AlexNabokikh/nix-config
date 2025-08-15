@@ -216,9 +216,9 @@
 
     panels = [
       {
-        floating = false;
-        height = 34;
-        lengthMode = "fill";
+        alignment = "left";
+        height = 30;
+        lengthMode = "fit";
         location = "top";
         opacity = "translucent";
         widgets = [
@@ -240,7 +240,15 @@
               };
             };
           }
-          "org.kde.plasma.panelspacer"
+        ];
+      }
+      {
+        alignment = "center";
+        height = 30;
+        lengthMode = "fit";
+        location = "top";
+        opacity = "translucent";
+        widgets = [
           {
             name = "org.kde.plasma.digitalclock";
             config = {
@@ -256,7 +264,15 @@
               };
             };
           }
-          "org.kde.plasma.panelspacer"
+        ];
+      }
+      {
+        alignment = "right";
+        height = 30;
+        lengthMode = "fit";
+        location = "top";
+        opacity = "translucent";
+        widgets = [
           {
             systemTray = {
               icons.scaleToFit = true;
@@ -541,6 +557,7 @@
         };
       };
       plasmanotifyrc = {
+        DoNotDisturb.WhenScreenSharing = false;
         Notifications.PopupTimeout = 7000;
       };
       plasmarc.OSD.Enabled = false;
