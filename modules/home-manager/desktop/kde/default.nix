@@ -225,9 +225,6 @@
           {
             name = "org.dhruv8sh.kara";
             config = {
-              appearance = {
-                showOnlyActive = true;
-              };
               general = {
                 animationDuration = 0;
                 highlightType = 1;
