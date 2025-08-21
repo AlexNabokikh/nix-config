@@ -465,6 +465,8 @@
         apply = {
           desktops = "Desktop_5";
           desktopsrule = "3";
+          fsplevel = "4";
+          fsplevelrule = "2";
         };
         description = "Assign Steam Games to Desktop 5";
         match = {
