@@ -541,7 +541,7 @@
           Size = 8;
         };
         "Script-krohnkite" = {
-          floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc";
+          floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc,org.freedesktop.impl.portal.desktop.kde";
           screenGapBetween = 6;
           screenGapBottom = 6;
           screenGapLeft = 6;
