@@ -554,7 +554,11 @@
         };
       };
       plasmanotifyrc = {
-        DoNotDisturb.WhenScreenSharing = false;
+        DoNotDisturb = {
+          WhenFullscreen = false;
+          WhenScreenSharing = false;
+          WhenScreensMirrored = false;
+        };
         Notifications.PopupTimeout = 7000;
       };
       plasmarc.OSD.Enabled = false;
