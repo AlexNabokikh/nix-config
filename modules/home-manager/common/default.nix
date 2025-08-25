@@ -23,6 +23,7 @@
     ../programs/lazygit
     ../programs/neovim
     ../programs/obs-studio
+    ../programs/rust
     ../programs/saml2aws
     ../programs/starship
     ../programs/telegram
