@@ -561,7 +561,10 @@
           WhenScreenSharing = false;
           WhenScreensMirrored = false;
         };
-        Notifications.PopupTimeout = 7000;
+        Notifications = {
+          PopupPosition = "TopRight";
+          PopupTimeout = 7000;
+        };
       };
       plasmarc.OSD.Enabled = false;
       spectaclerc = {
