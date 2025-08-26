@@ -568,7 +568,10 @@
       };
       plasmarc.OSD.Enabled = false;
       spectaclerc = {
-        Annotations.annotationToolType = 8;
+        Annotations = {
+          annotationToolType = 8;
+          rectangleStrokeColor = "255,0,0";
+        };
         General = {
           launchAction = "DoNotTakeScreenshot";
           showCaptureInstructions = false;
