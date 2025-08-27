@@ -247,7 +247,6 @@ nix flake update
 - **`programs/lazygit`:** Terminal UI for Git.
 - **`programs/neovim`:** Highly customized Neovim setup based on LazyVim.
 - **`programs/obs-studio` (Linux):** Streaming and screen recording software.
-- **`programs/rust`:** Rust development tools setup.
 - **`programs/saml2aws`:** For AWS authentication via SAML.
 - **`programs/starship`:** Cross-shell prompt with custom configuration.
 - **`programs/swappy` (Linux/Hyprland):** A tool for editing screenshots.
