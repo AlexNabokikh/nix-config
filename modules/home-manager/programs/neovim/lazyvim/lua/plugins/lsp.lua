@@ -9,9 +9,13 @@ return {
             gopls = {
               semanticTokens = true,
               analyses = {
-                unusedparams = true,
+                fieldalignment = false,
+                nilness = false,
+                printf = false,
+                shadow = false,
+                unusedparams = false,
               },
-              staticcheck = true,
+              staticcheck = false,
               hints = {
                 assignVariableTypes = false,
                 compositeLiteralFields = false,
