@@ -251,7 +251,7 @@
             config = {
               Appearance = {
                 autoFontAndSize = false;
-                customDateFormat = "ddd, MMM d";
+                customDateFormat = "ddd MMM d";
                 dateDisplayFormat = "BesideTime";
                 dateFormat = "custom";
                 fontSize = 11;
