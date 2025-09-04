@@ -25,11 +25,6 @@
       global_handler_enabled=false
       trigger=bm
 
-      [clipboard]
-      enabled=true
-      persistent=true
-      trigger=clipboard
-
       [debug]
       enabled=false
 
