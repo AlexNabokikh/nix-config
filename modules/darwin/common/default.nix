@@ -120,10 +120,22 @@
                 type = "standard";
               };
             };
+            "98" = {
+              # Disable 'Show Help menu'
+              enabled = false;
+              value = {
+                parameters = [
+                  47
+                  44
+                  1179648
+                ];
+                type = "standard";
+              };
+            };
           };
         };
         NSGlobalDomain."com.apple.mouse.linear" = true;
-        NSUserKeyEquivalents = {
+        "-g".NSUserKeyEquivalents = {
           "Lock Screen" = "@^l";
           "Paste and Match Style" = "^$v";
         };
