@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# virtualisation.podman.dockerCompat won't work on mac
+# aliases won’t work in non-interactive shells (makefile)
+# so this wrapper script is the only solution that will work on Linux and Mac witout using podman-desktop
+exec podman "$@"

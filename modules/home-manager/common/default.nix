@@ -64,10 +64,11 @@
       fd
       jq
       kubectl
-      lazydocker
       nh
       openconnect
       pipenv
+      podman-compose
+      podman-tui
       python3
       ripgrep
       terraform
@@ -75,9 +76,9 @@
     ++ lib.optionals stdenv.isDarwin [
       anki-bin
       colima
-      docker
       hidden-bar
       mos
+      podman
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [

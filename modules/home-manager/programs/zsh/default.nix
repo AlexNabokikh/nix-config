@@ -47,8 +47,9 @@
       kdsec = "kubectl describe secret";
       kdelsec = "kubectl delete secret";
 
-      ld = "lazydocker";
       lg = "lazygit";
+
+      pt = "podman-tui";
 
       repo = "cd $HOME/Documents/repositories";
       temp = "cd $HOME/Downloads/temp";

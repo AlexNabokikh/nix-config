@@ -139,7 +139,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -172,10 +171,14 @@
     mesa
   ];
 
-  # Docker configuration
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless.enable = true;
-  virtualisation.docker.rootless.setSocketVariable = true;
+  # Common container config
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   # Enable xwayland
   programs.xwayland.enable = true;
