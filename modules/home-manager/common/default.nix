@@ -57,7 +57,6 @@
   home.packages =
     with pkgs;
     [
-      anki-bin
       awscli2
       dig
       du-dust
@@ -74,6 +73,7 @@
       terraform
     ]
     ++ lib.optionals stdenv.isDarwin [
+      anki-bin
       colima
       docker
       hidden-bar
@@ -81,6 +81,7 @@
       raycast
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
+      anki
       tesseract
       unzip
       wl-clipboard
