@@ -21,6 +21,7 @@
     kdePackages.kcalc
     kdePackages.krohnkite
     kdotool
+    libnotify
     tela-circle-icon-theme
   ];
 
@@ -61,6 +62,11 @@
     };
 
     hotkeys.commands = {
+      clear-notifications = {
+        name = "Clear all KDE Plasma notifications";
+        key = "Meta+Shift+Backspace";
+        command = "clear-kde-notifications";
+      };
       launch-alacritty = {
         name = "Launch Alacritty";
         key = "Meta+Shift+Return";
