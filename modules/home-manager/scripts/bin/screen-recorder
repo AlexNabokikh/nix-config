@@ -8,7 +8,7 @@ if ! pgrep "wf-recorder" >/dev/null; then
 		mkdir -p "$VIDEODIR"
 	fi
 	FILENAME="$VIDEODIR/$(date --utc "$DATE_FORMAT").mp4"
-	wf-recorder -f "$FILENAME" -g "$(slurp -c "#FFFFFF")" &>/dev/null &
+	wf-recorder -f "$FILENAME" -g "$(slurp)" &>/dev/null &
 else
 	killall -s SIGINT wf-recorder
 fi
