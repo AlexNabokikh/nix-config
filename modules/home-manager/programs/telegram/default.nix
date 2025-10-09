@@ -1,18 +1,12 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
+let
+  telegram = pkgs.telegram-desktop;
+in
 {
-  home.packages = [ pkgs.telegram-desktop ];
+  home.packages = [ telegram ];
 
-  xdg = lib.mkIf (!pkgs.stdenv.isDarwin) {
-    mimeApps = {
-      defaultApplications = lib.mkMerge [
-        (config.lib.xdg.mimeAssociations [ pkgs.telegram-desktop ])
-      ];
-
-    };
-  };
+  xdg.mimeApps.defaultApplicationPackages = [ telegram ];
 }

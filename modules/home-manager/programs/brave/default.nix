@@ -1,19 +1,13 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
+let
+  brave = pkgs.brave;
+in
 {
   # Ensure Brave browser package installed
-  home.packages = [ pkgs.brave ];
+  home.packages = [ brave ];
 
-  xdg = lib.mkIf (!pkgs.stdenv.isDarwin) {
-    mimeApps = {
-      defaultApplications = lib.mkMerge [
-        (config.lib.xdg.mimeAssociations [ pkgs.brave ])
-      ];
-
-    };
-  };
+  xdg.mimeApps.defaultApplicationPackages = [ brave ];
 }
