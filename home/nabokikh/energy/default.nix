@@ -2,7 +2,7 @@
 {
   imports = [
     "${nhModules}/common"
-    "${nhModules}/desktop/kde"
+    "${nhModules}/desktop/hyprland"
   ];
 
   # Enable home-manager
