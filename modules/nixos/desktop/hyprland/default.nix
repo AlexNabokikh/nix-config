@@ -12,6 +12,7 @@
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
+    withUWSM = true;
   };
 
   # Enable security services

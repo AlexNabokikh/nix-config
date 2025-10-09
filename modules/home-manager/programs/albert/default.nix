@@ -54,5 +54,20 @@
       quitOnClose=false
       showCentered=true
     '';
+
+    systemd.user.services.albert = {
+      Unit = {
+        Description = "Albert Launcher";
+        After = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.albert}/bin/albert";
+        Restart = "always";
+        RestartSec = "0s";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
   };
 }

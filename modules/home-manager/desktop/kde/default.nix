@@ -590,13 +590,5 @@
       "dolphin/view_properties/global/.directory"."Dolphin"."ViewMode" = 1;
       "dolphin/view_properties/global/.directory"."Settings"."HiddenFilesShown" = true;
     };
-
-    startup.startupScript = {
-      albert = {
-        text = "albert";
-        priority = 8;
-        runAlways = true;
-      };
-    };
   };
 }
