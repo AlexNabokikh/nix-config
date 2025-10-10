@@ -16,7 +16,7 @@
       set -g prefix C-q
       unbind C-b
 
-      # Use | and - to split a window vertically and horizontally instead of " and % respoectively
+      # Use | and - to split a window vertically and horizontally instead of " and % respectively
       unbind '"'
       unbind %
       bind v split-window -h -c "#{pane_current_path}"

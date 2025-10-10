@@ -9,7 +9,7 @@
       };
 
       terminal = {
-        shell.program = "zsh";
+        shell.program = "${pkgs.zsh}/bin/zsh";
         shell.args = [
           "-l"
           "-c"

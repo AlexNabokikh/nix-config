@@ -49,10 +49,12 @@
       # Define user configurations
       users = {
         "alexander.nabokikh" = {
-          avatar = ./files/avatar/face;
-          email = "alexander.nabokikh@olx.pl";
-          fullName = "Alexander Nabokikh";
-          gitKey = "C5810093";
+          inherit (users.nabokikh)
+            avatar
+            email
+            fullName
+            gitKey
+            ;
           name = "alexander.nabokikh";
         };
         nabokikh = {

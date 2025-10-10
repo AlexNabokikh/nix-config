@@ -2,7 +2,6 @@
   config,
   lib,
   nhModules,
-  pkgs,
   ...
 }:
 {
@@ -23,8 +22,8 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.yaru-theme;
-    name = "Yaru";
+    package = config.gtk.cursorTheme.package;
+    name = config.gtk.cursorTheme.name;
     size = 24;
   };
 
@@ -75,9 +74,6 @@
 
     "org/gnome/desktop/interface" = {
       "color-scheme" = "prefer-dark";
-      "cursor-theme" = "Yaru";
-      "font-name" = "Roboto 11";
-      "icon-theme" = "Tela-circle-dark";
     };
 
     "org/gnome/desktop/wm/preferences" = {

@@ -1,6 +1,7 @@
 {
-  pkgs,
+  config,
   outputs,
+  pkgs,
   userConfig,
   ...
 }:
@@ -199,7 +200,7 @@
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "/Users/${userConfig.name}/Downloads/temp";
+        location = "${config.home.homeDirectory}/Downloads/temp";
         type = "png";
         disable-shadow = true;
       };
