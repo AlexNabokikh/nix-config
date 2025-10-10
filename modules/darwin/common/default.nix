@@ -200,7 +200,7 @@
         wvous-tr-corner = 1;
       };
       screencapture = {
-        location = "${config.home.homeDirectory}/Downloads/temp";
+        location = "/Users/${userConfig.name}/Downloads/temp";
         type = "png";
         disable-shadow = true;
       };
