@@ -7,6 +7,7 @@
   # GTK theme configuration
   gtk = {
     enable = true;
+    colorScheme = "dark";
     theme = {
       name = "catppuccin-macchiato-lavender-compact";
       package = pkgs.catppuccin-gtk.override {
