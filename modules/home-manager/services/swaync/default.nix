@@ -3,13 +3,16 @@
   # Manage swaync service via Home-manager
   services.swaync = {
     enable = true;
-    settings = ''
-      {
-        "notification-body-image-height": 100,
-        "notification-body-image-width": 200,
-        "notification-icon-size": 32
-      }
-    '';
+    settings = {
+      control-center-height = 800;
+      control-center-width = 400;
+      fit-to-screen = false;
+      notification-body-image-height = 100;
+      notification-body-image-width = 200;
+      notification-grouping = false;
+      notification-icon-size = 32;
+      notification-window-width = 350;
+    };
     style = ''
       * {
         all: unset;
