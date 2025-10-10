@@ -182,38 +182,6 @@
         border-radius: 8px;
       }
 
-      .control-center .notification-background .notification.critical {
-        box-shadow: inset 0 0 7px 0 #ed8796;
-      }
-
-      .control-center .notification-background .notification .notification-content {
-        margin: 7px;
-      }
-
-      .control-center
-        .notification-background
-        .notification
-        .notification-content
-        .summary {
-        color: #cad3f5;
-      }
-
-      .control-center
-        .notification-background
-        .notification
-        .notification-content
-        .time {
-        color: #a5adcb;
-      }
-
-      .control-center
-        .notification-background
-        .notification
-        .notification-content
-        .body {
-        color: #cad3f5;
-      }
-
       .control-center .notification-background:hover {
         box-shadow: inset 0 0 0 1px #494d64;
         background-color: #8087a2;
@@ -446,8 +414,6 @@
       .image {
         padding-right: 0.5rem;
       }
-
-
     '';
   };
 }
