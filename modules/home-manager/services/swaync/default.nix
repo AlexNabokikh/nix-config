@@ -231,9 +231,9 @@
         color: #cad3f5;
         background-color: #181926;
         box-shadow: inset 0 0 0 1px #494d64;
-        margin: 7px;
-        padding: 0;
-        font-size: initial;
+        margin: 4px;
+        padding: 8px;
+        font-size: 0.2rem;
       }
 
       .control-center .notification .notification-action:hover {
