@@ -3,24 +3,28 @@
   # Install git via home-manager module
   programs.git = {
     enable = true;
-    userName = userConfig.fullName;
-    userEmail = userConfig.email;
+    settings = {
+      user = {
+        email = userConfig.email;
+        name = userConfig.fullName;
+      };
+      pull.rebase = "true";
+    };
     signing = {
       key = userConfig.gitKey;
       signByDefault = true;
     };
-    delta = {
-      enable = true;
-      options = {
-        keep-plus-minus-markers = true;
-        light = false;
-        line-numbers = true;
-        navigate = true;
-        width = 280;
-      };
-    };
-    extraConfig = {
-      pull.rebase = "true";
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      keep-plus-minus-markers = true;
+      light = false;
+      line-numbers = true;
+      navigate = true;
+      width = 280;
     };
   };
 
