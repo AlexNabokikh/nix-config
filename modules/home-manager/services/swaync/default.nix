@@ -33,9 +33,11 @@
       notification-window-width = 350;
       notification-icon-size = 32;
       notification-action-filter = {
-        hide-all-actions = {
-          use-regex = true;
-          id-matcher = ".*";
+        hide-brave-settings = {
+          desktop-entry = "brave-browser";
+          use-regex = false;
+          id-matcher = "settings";
+          text-matcher = "Settings";
         };
       };
       scripts = {
