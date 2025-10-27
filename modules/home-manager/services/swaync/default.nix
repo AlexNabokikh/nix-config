@@ -38,6 +38,13 @@
           id-matcher = ".*";
         };
       };
+      scripts = {
+        focus-window = {
+          exec = "bash -c 'hyprctl dispatch focuswindow class:\"$SWAYNC_DESKTOP_ENTRY\"'";
+          app-name = ".*";
+          run-on = "action";
+        };
+      };
     };
   };
 
