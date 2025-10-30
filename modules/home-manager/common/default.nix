@@ -59,7 +59,7 @@
     [
       awscli2
       dig
-      du-dust
+      dust
       eza
       fd
       jq
