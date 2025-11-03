@@ -31,7 +31,6 @@ in
     konsole
     krdp
     plasma-browser-integration
-    xwaylandvideobridge
   ];
 
   # Disabled redundant services
