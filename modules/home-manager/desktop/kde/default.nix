@@ -539,6 +539,7 @@
           ActiveOutlineAlpha = 255;
           ActiveOutlineUseCustom = false;
           ActiveOutlineUsePalette = true;
+          AnimationDuration = 0;
           DisableOutlineTile = false;
           DisableRoundTile = false;
           InactiveCornerRadius = 8;
