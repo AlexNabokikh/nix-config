@@ -7,7 +7,7 @@ appropriate AWS account and setting up the shell environment for further interac
 Key functionalities include:
 - Checking if 'saml2aws' and 'kubectl' are installed on the system.
 - Executes 'kubectl ctx' to switch to specific kubernets context.
-- Retrieving the current Kubernetes context and extracting the associated AWS account number.
+- Retrieving the current Kubernetes context and extracting the associated AWS account number and region.
 - Parsing the AWS configuration file to find the relevant profile.
 - Finding the correct profile name by matching the account number in the AWS configuration.
 - Executing the 'saml2aws' command with the identified profile to set up the shell environment.
@@ -56,16 +56,18 @@ def select_context():
 
 
 def get_kube_context():
-    """Get the current Kubernetes context and extract the account number."""
+    """Get the current Kubernetes context and extract the account number and region."""
     try:
         kube_context = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
         print(f"Current Kubernetes context: {kube_context}")
 
         match = re.search(r"arn:aws:eks:([\w-]+):(\d+):cluster/([\w-]+)", kube_context)
         if match:
+            region = match.group(1)
             account_number = match.group(2)
+            print(f"Region: {region}")
             print(f"Account Number: {account_number}")
-            return account_number
+            return account_number, region
         else:
             raise ValueError("Invalid Kubernetes context ARN")
     except subprocess.CalledProcessError as e:
@@ -93,29 +95,30 @@ def find_profile_name(config, account_number):
     return None
 
 
-def execute_saml2aws_command(profile_name):
+def execute_saml2aws_command(profile_name, region):
     """Execute the saml2aws command with the found values."""
     shell = os.getenv("SHELL", "/bin/zsh")
+    process_env = dict(os.environ, AWS_PROFILE=profile_name, AWS_REGION=region)
 
     try:
-        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], check=True)
+        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], env=process_env, check=True)
     except subprocess.CalledProcessError:
         print("Existing credentials failed, attempting new login")
         subprocess.run(["saml2aws", "login", "--skip-prompt"], check=True)
-        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], check=True)
+        subprocess.run(["saml2aws", "exec", "--exec-profile", profile_name, shell], env=process_env, check=True)
 
 
 def main():
     """Main function."""
     check_dependencies()
     select_context()
-    account_number = get_kube_context()
+    account_number, region = get_kube_context()
     aws_config = parse_aws_config()
     profile_name = find_profile_name(aws_config, account_number)
 
     if profile_name:
         print(f"Profile Name: {profile_name}")
-        execute_saml2aws_command(profile_name)
+        execute_saml2aws_command(profile_name, region)
     else:
         print("Profile not found for the account number")
         exit(-1)

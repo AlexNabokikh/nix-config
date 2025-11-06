@@ -42,7 +42,7 @@ def switch_kube_context(context_name):
 
 
 def get_current_kube_context_info():
-    """Get the current Kubernetes context ARN and extract the account number."""
+    """Get the current Kubernetes context ARN and extract the account number and region."""
     try:
         current_context_name = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
 
@@ -51,10 +51,12 @@ def get_current_kube_context_info():
             current_context_name,
         )
         if match:
-            return match.group(2)
-        return None
+            region = match.group(1)
+            account_number = match.group(2)
+            return account_number, region
+        return None, None
     except subprocess.CalledProcessError:
-        return None
+        return None, None
 
 
 def parse_aws_config():
@@ -83,7 +85,7 @@ def find_profile_name(config, account_number):
     return None
 
 
-def execute_saml2aws_command(profile_name, command, max_attempts=2):
+def execute_saml2aws_command(profile_name, region, command, max_attempts=2):
     """Execute the command with saml2aws credentials."""
     attempt = 0
 
@@ -96,7 +98,7 @@ def execute_saml2aws_command(profile_name, command, max_attempts=2):
                 )
 
             cmd_parts = command.split()
-            process_env = dict(os.environ, AWS_PROFILE=profile_name)
+            process_env = dict(os.environ, AWS_PROFILE=profile_name, AWS_REGION=region)
             result = subprocess.run(
                 cmd_parts,
                 env=process_env,
@@ -167,9 +169,9 @@ def main():
 
         print(f"[CONTEXT: {context_name}]")
 
-        account_number = get_current_kube_context_info()
-        if not account_number:
-            print(f"Could not extract account number from context: {context_name}")
+        account_number, region = get_current_kube_context_info()
+        if not account_number or not region:
+            print(f"Could not extract account number or region from context: {context_name}")
             continue
 
         profile_name = find_profile_name(aws_config, account_number)
@@ -177,7 +179,7 @@ def main():
             print(f"No matching AWS profile found for account: {account_number}")
             continue
 
-        output = execute_saml2aws_command(profile_name, user_command)
+        output = execute_saml2aws_command(profile_name, region, user_command)
         print("COMMAND OUTPUT:")
         print(output)
 
