@@ -6,7 +6,7 @@
 
     settings = {
       git = {
-        paging = {
+        pager = {
           colorArg = "always";
           pager = "delta --color-only --dark --paging=never";
         };
