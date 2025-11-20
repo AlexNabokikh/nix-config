@@ -37,6 +37,7 @@
 
     brightnessctl
     grim
+    grimblast
     hypridle
     hyprlock
     hyprpaper
