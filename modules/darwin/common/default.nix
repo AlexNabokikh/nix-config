@@ -1,5 +1,4 @@
 {
-  config,
   outputs,
   pkgs,
   userConfig,
