@@ -76,6 +76,9 @@ _: {
       #* Virtualization
       "citrix-workspace" # Client for accessing virtual desktops and applications
 
+      #* Display & Graphics
+      "displaylink" # Driver for USB display adapters
+
       #* System Enhancements
       "aerospace" # Tiling window manager for macOS
       "commander-one" # Dual-pane file manager for macOS
