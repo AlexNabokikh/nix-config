@@ -3,7 +3,7 @@
     systemPackages = with pkgs; [
       #* DevOps & Infrastructure
       ansible # IT automation and configuration management
-      awscli2 # AWS Command Line Interface for managing AWS services
+      # awscli2 # AWS Command Line Interface for managing AWS services - temporarily disabled due to hash mismatch
       cloudflared # Cloudflare Tunnel client
       hcp # HashiCorp Cloud Platform CLI for managing HashiCorp cloud resources
       kubernetes-helm # Kubernetes package manager

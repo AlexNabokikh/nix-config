@@ -134,7 +134,7 @@
   environment.systemPackages = with pkgs; [
     (python3.withPackages (ps: with ps; [pip virtualenv]))
     anki
-    awscli2
+    # awscli2 # Temporarily disabled due to hash mismatch
     brave
     coreutils-prefixed
     delta

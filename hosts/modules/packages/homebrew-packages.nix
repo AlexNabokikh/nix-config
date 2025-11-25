@@ -18,6 +18,7 @@ _: {
       "gemini-cli" # AI-powered command-line interface
 
       #* DevOps & Infrastructure
+      "awscli" # AWS Command Line Interface
       "docker-compose" # Tool for defining and running multi-container Docker applications
       "helm" # Kubernetes package manager
       "k3d" # Lightweight Kubernetes in Docker
