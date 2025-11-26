@@ -29,4 +29,7 @@
     flavor = "macchiato";
     accent = "lavender";
   };
+
+  # Disable version mismatch warning since we intentionally use unstable branches
+  home.enableNixpkgsReleaseCheck = false;
 }
