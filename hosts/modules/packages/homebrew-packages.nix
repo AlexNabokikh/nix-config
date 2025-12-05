@@ -107,6 +107,9 @@ _: {
       #* Media Players
       "iina" # Modern media player for macOS
 
+      #* Gaming
+      "steam" # Gaming platform and digital distribution service
+
       #* Fonts
       "font-hack-nerd-font" # Developer-oriented font with glyphs for programming
     ];

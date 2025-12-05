@@ -103,6 +103,7 @@ on-focus-changed = "move-mouse window-lazy-center"
 B = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 C = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 F = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
+G = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 L = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 M = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 N = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
@@ -195,6 +196,7 @@ alt-5 = 'workspace 5'
 alt-b = 'workspace B' # Browsers
 alt-c = 'workspace C' # Code editors
 alt-f = 'workspace F' # Files
+alt-g = 'workspace G' # Gaming
 alt-l = 'workspace L' # Lens (Kubernetes)
 alt-m = 'workspace M' # Messaging
 alt-n = 'workspace N' # Notes & News
@@ -213,6 +215,7 @@ alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 alt-shift-b = ['move-node-to-workspace B', 'workspace B']
 alt-shift-c = ['move-node-to-workspace C', 'workspace C']
 alt-shift-f = ['move-node-to-workspace F', 'workspace F']
+alt-shift-g = ['move-node-to-workspace G', 'workspace G']
 alt-shift-l = ['move-node-to-workspace L', 'workspace L']
 alt-shift-m = ['move-node-to-workspace M', 'workspace M']
 alt-shift-n = ['move-node-to-workspace N', 'workspace N']
@@ -323,6 +326,15 @@ run = 'move-node-to-workspace C'
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'move-node-to-workspace F'
+
+#! ---------------------------- Gaming ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam'
+run = 'move-node-to-workspace G'
+
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam.helper'
+run = 'move-node-to-workspace G'
 
 [[on-window-detected]]
 if.app-id = 'com.eltima.cmd1'
