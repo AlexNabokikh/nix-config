@@ -187,23 +187,6 @@
     };
 
     kwin = {
-      effects = {
-        blur.enable = false;
-        cube.enable = false;
-        desktopSwitching.animation = "off";
-        dimAdminMode.enable = false;
-        dimInactive.enable = false;
-        fallApart.enable = false;
-        fps.enable = false;
-        minimization.animation = "off";
-        shakeCursor.enable = false;
-        slideBack.enable = false;
-        snapHelper.enable = false;
-        translucency.enable = false;
-        windowOpenClose.animation = "off";
-        wobblyWindows.enable = false;
-      };
-
       nightLight = {
         enable = true;
         location.latitude = "52.23";
@@ -532,6 +515,8 @@
       kwinrc = {
         Effect-overview.BorderActivate = 9;
         Plugins = {
+          blurEnabled = false;
+          dimscreenEnabled = false;
           krohnkiteEnabled = true;
           screenedgeEnabled = false;
         };
@@ -548,6 +533,7 @@
           OutlineThickness = 1;
           SecondOutlineThickness = 0;
           Size = 8;
+          UseNativeDecorationShadows = false;
         };
         "Script-krohnkite" = {
           floatingClass = "brave-nngceckbapebfimnlniiiahkandclblb-Default,org.kde.kcalc,org.freedesktop.impl.portal.desktop.kde";
