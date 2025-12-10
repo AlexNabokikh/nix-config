@@ -45,7 +45,7 @@ _: {
       "1password-cli" # Command-line interface for 1Password
 
       #* 3D printing
-      "autodesk-fusion" # 3D modeling and design software
+      # "autodesk-fusion" # 3D modeling and design software
       "bambu-studio" # 3D printer
       # "openscad@snapshot" # Open-source 3D CAD software
       # "blender" # 3D design

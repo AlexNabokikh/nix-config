@@ -5,7 +5,7 @@
   imports = [
     ./atuin.nix
     ./bat.nix
-    ./boilerplates.nix
+    # ./boilerplates.nix
     ./btop.nix
     ./fastfetch.nix
     ./fzf.nix
