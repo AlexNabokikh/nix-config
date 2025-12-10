@@ -44,10 +44,17 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Boilerplates for project scaffolding
+    boilerplates = {
+      url = "github:christianlempa/boilerplates";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
+    boilerplates,
     catppuccin,
     darwin,
     home-manager,
@@ -61,7 +68,7 @@
     # Systems to support
     systems = ["x86_64-linux" "aarch64-darwin"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
-    pkgsFor = system: import nixpkgs {inherit system;};
+    pkgsFor = system: import nixpkgs {localSystem = system;};
 
     # Define user configurations by importing from separate files for modularity and privacy
     users = {
@@ -81,7 +88,6 @@
     # Function for nix-darwin system configuration
     mkDarwinConfiguration = hostname: username:
       darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
         specialArgs = {
           inherit inputs outputs hostname;
           userConfig = users.${username};
@@ -96,7 +102,7 @@
     # Function for Home Manager configuration
     mkHomeConfiguration = system: username: hostname:
       home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs {localSystem = system;};
         extraSpecialArgs = {
           inherit inputs outputs;
           userConfig = users.${username};
@@ -121,6 +127,11 @@
       "fs@macvm-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macvm-fs";
       "fs@macpro-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macpro-fs";
     };
+
+    # Packages exposed by this flake
+    packages = forAllSystems (system: {
+      boilerplates = boilerplates.packages.${system}.default;
+    });
 
     overlays = import ./overlays {inherit inputs;};
 

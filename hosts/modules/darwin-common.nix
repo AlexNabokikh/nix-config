@@ -17,6 +17,7 @@
 
   # Configure nixpkgs behavior and overlays
   nixpkgs = {
+    hostPlatform = "aarch64-darwin";
     overlays = [
       outputs.overlays.stable-packages
       outputs.overlays.fish-no-tests

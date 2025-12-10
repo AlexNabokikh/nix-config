@@ -3,18 +3,19 @@
 # Platform: All
 {outputs, ...}: {
   imports = [
-    ../modules/atuin.nix
-    ../modules/bat.nix
-    ../modules/btop.nix
-    ../modules/fastfetch.nix
-    ../modules/fzf.nix
-    ../modules/git.nix
-    ../modules/lazygit.nix
-    ../modules/neovim.nix
-    ../modules/scripts.nix
-    ../modules/starship.nix
-    ../modules/tmux.nix
-    ../modules/zsh.nix
+    ./atuin.nix
+    ./bat.nix
+    ./boilerplates.nix
+    ./btop.nix
+    ./fastfetch.nix
+    ./fzf.nix
+    ./git.nix
+    ./lazygit.nix
+    ./neovim.nix
+    ./scripts.nix
+    ./starship.nix
+    ./tmux.nix
+    ./zsh.nix
   ];
 
   nixpkgs = {
