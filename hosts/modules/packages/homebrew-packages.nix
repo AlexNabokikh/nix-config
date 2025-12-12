@@ -40,6 +40,11 @@ _: {
     ];
 
     casks = [
+      #* AI Tools
+      "kiro" #  AI editor
+      "cursor" # AI  editor
+      "lm-studio" # Local AI model runner and chat interface
+
       #* Authentication & Security
       "1password" # Secure password manager
       "1password-cli" # Command-line interface for 1Password
@@ -88,8 +93,6 @@ _: {
 
       #* Development Tools
       "gcloud-cli" # Google Cloud SDK command-line tools
-      "kiro" #  AI-powered code assistant
-      "lm-studio" # Local AI model runner and chat interface
       "obsidian" # Powerful knowledge base and note-taking tool
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal

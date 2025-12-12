@@ -44,17 +44,10 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Boilerplates for project scaffolding
-    boilerplates = {
-      url = "github:christianlempa/boilerplates";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
-    boilerplates,
     catppuccin,
     darwin,
     home-manager,
@@ -127,11 +120,6 @@
       "fs@macvm-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macvm-fs";
       "fs@macpro-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macpro-fs";
     };
-
-    # Packages exposed by this flake
-    packages = forAllSystems (system: {
-      boilerplates = boilerplates.packages.${system}.default;
-    });
 
     overlays = import ./overlays {inherit inputs;};
 
