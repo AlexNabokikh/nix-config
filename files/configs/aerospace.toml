@@ -450,7 +450,7 @@ run = 'move-node-to-workspace A'
 
 #! ---------------------------- Security ---------------------------- #
 [[on-window-detected]]
-if.app-id = 'com.agilebits.onepassword7'
+if.app-id = 'com.1password.1password'
 run = 'move-node-to-workspace S'
 
 #! ---------------------------- Video ---------------------------- #
