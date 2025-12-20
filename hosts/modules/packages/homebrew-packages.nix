@@ -42,6 +42,7 @@ _: {
     casks = [
       #* AI Tools
       "kiro" #  AI editor
+      "claude" # Claude AI client
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
@@ -52,7 +53,7 @@ _: {
       #* 3D printing
       # "autodesk-fusion" # 3D modeling and design software
       "bambu-studio" # 3D printer
-      # "openscad@snapshot" # Open-source 3D CAD software
+      "openscad@snapshot" # Open-source 3D CAD software
       # "blender" # 3D design
 
       #* Productivity & Utilities
@@ -111,7 +112,7 @@ _: {
       "iina" # Modern media player for macOS
 
       #* Gaming
-      "steam" # Gaming platform and digital distribution service
+      # "steam" # Gaming platform and digital distribution service
 
       #* Fonts
       "font-hack-nerd-font" # Developer-oriented font with glyphs for programming
