@@ -42,7 +42,7 @@ _: {
     casks = [
       #* AI Tools
       "kiro" #  AI editor
-      "claude" # Claude AI client
+      # "claude" # Claude AI client
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
@@ -73,7 +73,7 @@ _: {
       "clop" # Clipboard manager
       "disk-inventory-x" # Disk inventory tool
       "daisydisk" # Disk space analyzer
-      "transmission" # Lightweight BitTorrent client
+      # "transmission" # Lightweight BitTorrent client
 
       #* DevOps & Containers
       "lens" # Kubernetes IDE (OpenLens)

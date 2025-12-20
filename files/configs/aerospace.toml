@@ -104,7 +104,10 @@ B = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 C = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 F = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 G = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
-L = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
+K = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
+A = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
+S = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
+V = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 M = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 N = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
 O = ['main', 'built-in', '2778G5']           # RIGHT side monitor priority
@@ -174,7 +177,7 @@ alt-comma = 'layout accordion horizontal vertical'
 alt-h = 'focus left'
 alt-j = 'focus down'
 # alt-k = 'focus up'  # Disabled: conflicts with workspace K
-# alt-l = 'focus right'  # Disabled: conflicts with workspace L
+# alt-l = 'focus right'
 
 #! ---------------------------- Window Movement ---------------------------- #
 
@@ -197,14 +200,17 @@ alt-b = 'workspace B' # Browsers
 alt-c = 'workspace C' # Code editors
 alt-f = 'workspace F' # Files
 alt-g = 'workspace G' # Gaming
-alt-l = 'workspace L' # Lens (Kubernetes)
+alt-k = 'workspace K' # Kubernetes
 alt-m = 'workspace M' # Messaging
 alt-n = 'workspace N' # Notes & News
-alt-o = 'workspace O' # Orb
+alt-o = 'workspace O' # OpenSCAD
 alt-p = 'workspace P' # Parallels and VMs
 alt-t = 'workspace T' # Terminals
 alt-u = 'workspace U' # Utilities
 alt-w = 'workspace W' # Work
+alt-a = 'workspace A' # AI
+alt-s = 'workspace S' # Security
+alt-v = 'workspace V' # Video
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -216,7 +222,7 @@ alt-shift-b = ['move-node-to-workspace B', 'workspace B']
 alt-shift-c = ['move-node-to-workspace C', 'workspace C']
 alt-shift-f = ['move-node-to-workspace F', 'workspace F']
 alt-shift-g = ['move-node-to-workspace G', 'workspace G']
-alt-shift-l = ['move-node-to-workspace L', 'workspace L']
+alt-shift-k = ['move-node-to-workspace K', 'workspace K']
 alt-shift-m = ['move-node-to-workspace M', 'workspace M']
 alt-shift-n = ['move-node-to-workspace N', 'workspace N']
 alt-shift-o = ['move-node-to-workspace O', 'workspace O']
@@ -224,6 +230,9 @@ alt-shift-p = ['move-node-to-workspace P', 'workspace P']
 alt-shift-t = ['move-node-to-workspace T', 'workspace T']
 alt-shift-u = ['move-node-to-workspace U', 'workspace U']
 alt-shift-w = ['move-node-to-workspace W', 'workspace W']
+alt-shift-a = ['move-node-to-workspace A', 'workspace A']
+alt-shift-s = ['move-node-to-workspace S', 'workspace S']
+alt-shift-v = ['move-node-to-workspace V', 'workspace V']
 
 #! ---------------------------- Fullscreen ---------------------------- #
 
@@ -301,9 +310,6 @@ run = 'move-node-to-workspace B'
 if.app-id = 'com.apple.Safari'
 run = 'move-node-to-workspace B'
 
-[[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
-run = 'move-node-to-workspace B'
 
 [[on-window-detected]]
 if.app-id = 'com.vivaldi.Vivaldi'
@@ -319,7 +325,11 @@ if.app-id = 'dev.kiro.desktop'
 run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
-if.app-id = 'com.cursor.Cursor'
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.pycharm'
 run = 'move-node-to-workspace C'
 
 #! ---------------------------- Files ---------------------------- #
@@ -327,23 +337,14 @@ run = 'move-node-to-workspace C'
 if.app-id = 'com.apple.finder'
 run = 'move-node-to-workspace F'
 
-#! ---------------------------- Gaming ---------------------------- #
-[[on-window-detected]]
-if.app-id = 'com.valvesoftware.steam'
-run = 'move-node-to-workspace G'
-
-[[on-window-detected]]
-if.app-id = 'com.valvesoftware.steam.helper'
-run = 'move-node-to-workspace G'
-
 [[on-window-detected]]
 if.app-id = 'com.eltima.cmd1'
-run = ['move-node-to-workspace F']
+run = 'move-node-to-workspace F'
 
-#! ---------------------------- Lens (Kubernetes) ---------------------------- #
+#! ---------------------------- Kubernetes ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'com.electron.lensdesktop'
-run = 'move-node-to-workspace L'
+run = 'move-node-to-workspace K'
 
 #! ---------------------------- Messaging ---------------------------- #
 [[on-window-detected]]
@@ -364,18 +365,18 @@ if.app-id = 'com.apple.news'
 run = 'move-node-to-workspace N'
 
 [[on-window-detected]]
-if.app-id = 'com.capacities.main'
+if.app-id = 'io.capacities.app'
 run = 'move-node-to-workspace N'
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace N'
 
-#! ---------------------------- O-s ---------------------------- #
 [[on-window-detected]]
-if.app-id = 'dev.kdrag0n.MacVirt'
-run = 'move-node-to-workspace O'
+if.app-id = 'notion.id'
+run = 'move-node-to-workspace N'
 
+#! ---------------------------- O-s ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'org.openscad.OpenSCAD'
 run = 'move-node-to-workspace O'
@@ -397,6 +398,10 @@ run = 'move-node-to-workspace P'
 if.app-id = 'com.microsoft.rdc.macos'
 run = 'move-node-to-workspace P'
 
+[[on-window-detected]]
+if.app-id = 'com.hashicorp.vagrant'
+run = 'move-node-to-workspace P'
+
 #! ---------------------------- Terminals ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
@@ -409,6 +414,14 @@ run = 'move-node-to-workspace T'
 [[on-window-detected]]
 if.app-id = 'dev.warp.Warp-Stable'
 run = ['move-node-to-workspace T']
+
+[[on-window-detected]]
+if.app-id = 'com.orbstack.orbstack'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.powershell'
+run = 'move-node-to-workspace T'
 
 #! ---------------------------- Utilities --------------------------- #
 
@@ -430,6 +443,17 @@ run = ['layout tiling', 'move-node-to-workspace W']
 if.app-id = 'com.microsoft.rdc.macos'
 run = ['layout tiling', 'move-node-to-workspace W']
 
+#! ---------------------------- AI ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'ai.elementlabs.lmstudio'
+run = 'move-node-to-workspace A'
 
+#! ---------------------------- Security ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'com.agilebits.onepassword7'
+run = 'move-node-to-workspace S'
 
-
+#! ---------------------------- Video ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+run = 'move-node-to-workspace V'
