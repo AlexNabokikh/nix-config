@@ -8,3 +8,6 @@ files/configs/nvim/lazyvim.json
 
 # Pre-commit
 .pre-commit-config.yaml
+.gemini/settings.json.orig
+.gemini/settings.json
+.gemini/settings.json
