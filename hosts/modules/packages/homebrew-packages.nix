@@ -20,6 +20,7 @@ _: {
       #* DevOps & Infrastructure
       "awscli" # AWS Command Line Interface
       "docker-compose" # Tool for defining and running multi-container Docker applications
+      # "doppler" # Doppler CLI for secrets management
       "helm" # Kubernetes package manager
       "k3d" # Lightweight Kubernetes in Docker
       "kubectx" # Switch between Kubernetes contexts
