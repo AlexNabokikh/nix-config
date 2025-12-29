@@ -11,10 +11,12 @@ _: {
     taps = [
       "nikitabobko/tap"
       "powershell/tap"
+      "Adembc/homebrew-tap"
     ];
 
     brews = [
       #* AI Tools
+      "lazyssh"
       "gemini-cli" # AI-powered command-line interface
 
       #* DevOps & Infrastructure
@@ -38,6 +40,7 @@ _: {
 
       "bash" # Unix shell and command language
       "uv" # Extremely fast Python package installer and resolver, written in Rust
+      "lazyssh"
     ];
 
     casks = [
