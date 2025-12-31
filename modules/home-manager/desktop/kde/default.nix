@@ -277,7 +277,6 @@
                   "org.kde.plasma.mediacontroller"
                   "plasmashell_microphone"
                   "xdg-desktop-portal-kde"
-                  "zoom"
                 ];
                 configs = {
                   "org.kde.plasma.notifications".config = {
@@ -464,23 +463,6 @@
             type = "substring";
             match-whole = false;
           };
-        };
-      }
-      {
-        apply = {
-          desktops = "Desktop_5";
-          desktopsrule = "3";
-          fsplevel = "4";
-          fsplevelrule = "2";
-          minimizerule = "2";
-        };
-        description = "Assign Zoom to Desktop 5";
-        match = {
-          window-class = {
-            value = "zoom";
-            type = "substring";
-          };
-          window-types = [ "normal" ];
         };
       }
     ];

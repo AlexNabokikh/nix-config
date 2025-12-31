@@ -12,7 +12,6 @@
   # Enable Hyprland
   programs.hyprland = {
     enable = true;
-    portalPackage = pkgs.xdg-desktop-portal-wlr;
     withUWSM = true;
   };
 

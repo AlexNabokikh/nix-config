@@ -29,7 +29,6 @@
     ../programs/tmux
     ../programs/zsh
     ../scripts
-    ../services/flatpak
   ];
 
   # Nixpkgs configuration

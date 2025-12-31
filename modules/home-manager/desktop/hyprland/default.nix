@@ -46,6 +46,13 @@
         after_sleep_cmd = hyprctl dispatch dpms on
       }
     '';
+
+    "hypr/xdph.conf".text = ''
+      screencopy {
+        allow_token_by_default = true
+        max_fps = 60
+      }
+    '';
   };
 
   dconf.settings = {

@@ -39,7 +39,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **darwin**: Enables nix-darwin for macOS system configuration.
 - **hardware**: Provides NixOS modules to optimize settings for different hardware.
 - **catppuccin**: Provides global Catppuccin theme integration.
-- **nix-flatpak**: Provides a declarative way to manage Flatpaks.
 - **plasma-manager**: A declarative manager for the KDE Plasma desktop environment.
 
 ## Usage
@@ -257,7 +256,6 @@ nix flake update
 - **`scripts`**: Deploys a collection of custom utility scripts to `~/.local/bin`.
 - **`services/cliphist` (Linux/Hyprland):** Clipboard manager.
 - **`services/easyeffects` (Linux):** Audio effects processor with a custom "mic" preset.
-- **`services/flatpak` (Linux):** Declarative management of Flatpak applications.
 - **`services/kanshi` (Linux/Hyprland):** Dynamic display output configuration.
 - **`services/swaync` (Linux/Hyprland):** Notification daemon.
 - **`services/waybar` (Linux/Hyprland):** Highly customized Wayland status bar.
