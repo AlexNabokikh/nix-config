@@ -421,20 +421,6 @@
         apply = {
           desktops = "Desktop_4";
           desktopsrule = "3";
-        };
-        description = "Assign OBS to Desktop 4";
-        match = {
-          window-class = {
-            value = "com.obsproject.Studio";
-            type = "substring";
-          };
-          window-types = [ "normal" ];
-        };
-      }
-      {
-        apply = {
-          desktops = "Desktop_4";
-          desktopsrule = "3";
           fsplevel = "4";
           fsplevelrule = "2";
           minimizerule = "2";
