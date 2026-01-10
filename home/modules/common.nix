@@ -3,6 +3,7 @@
 # Platform: All
 {outputs, ...}: {
   imports = [
+    ./amp.nix
     ./atuin.nix
     ./bat.nix
     ./btop.nix

@@ -111,6 +111,7 @@ _: {
       "netdownloadhelpercoapp"
       "telegram" # Messaging application
       "whatsapp" # Secure messaging application      # "zen-browser" # Privacy-focused web browser
+      "microsoft-teams"
 
       #* Media Players
       "iina" # Modern media player for macOS
