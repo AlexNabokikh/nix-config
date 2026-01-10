@@ -8,7 +8,7 @@ TMP_CONFIG="/tmp/hyprlock.conf"
 DP_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.name | startswith("DP-")) | .name' | head -n 1)
 
 # Get the wallpaper path from the existing hyprpaper config
-WALLPAPER=$(grep 'wallpaper = ' ~/.config/hypr/hyprpaper.conf | sed 's/wallpaper = ,//' | tr -d '\n')
+WALLPAPER=$(grep 'path = ' ~/.config/hypr/hyprpaper.conf | sed 's/path = //' | tr -d '\n')
 
 # --- Generate the config file ---
 cat >"$TMP_CONFIG" <<EOF

@@ -34,9 +34,12 @@
     };
 
     "hypr/hyprpaper.conf".text = ''
+      wallpaper {
+          monitor =
+          path = ${config.wallpaper}
+          fit_mode = cover
+      }
       splash = false
-      preload = ${config.wallpaper}
-      wallpaper = , ${config.wallpaper}
     '';
 
     "hypr/hypridle.conf".text = ''

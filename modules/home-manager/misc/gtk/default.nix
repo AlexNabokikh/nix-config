@@ -8,6 +8,7 @@
   gtk = {
     enable = true;
     colorScheme = "dark";
+    gtk4.theme = config.gtk.theme;
     theme = {
       name = "catppuccin-macchiato-lavender-compact";
       package = pkgs.catppuccin-gtk.override {
