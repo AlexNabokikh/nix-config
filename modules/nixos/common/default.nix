@@ -103,7 +103,6 @@
   };
 
   # Enable Wayland support in Chromium and Electron based applications
-  # Remove decorations for QT apps
   # Set cursor size
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
