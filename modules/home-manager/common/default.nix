@@ -60,6 +60,7 @@
       dust
       eza
       fd
+      github-copilot-cli
       jq
       kubectl
       nh
