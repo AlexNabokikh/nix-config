@@ -76,7 +76,7 @@ label {
 }
 EOF
 
-# Append configuration for the DP-* monitor if it's
+# Append configuration for the DP-* monitor if it's connected
 if [[ -n "$DP_MONITOR" ]]; then
 	cat >>"$TMP_CONFIG" <<EOF
 

@@ -86,7 +86,7 @@
       wl-clipboard
     ];
 
-  # Catpuccin flavor and accent
+  # Catppuccin flavor and accent
   catppuccin = {
     flavor = "macchiato";
     accent = "lavender";

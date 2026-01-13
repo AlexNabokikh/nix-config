@@ -51,7 +51,7 @@ def select_context():
         subprocess.run(["kubectl", "ctx"])
 
     except subprocess.CalledProcessError as e:
-        print(f"Error: kubectl ctx failed with an erro: {e}")
+        print(f"Error: kubectl ctx failed with an error: {e}")
         exit(-1)
 
 
