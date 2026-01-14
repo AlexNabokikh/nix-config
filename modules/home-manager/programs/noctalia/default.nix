@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  userConfig,
   ...
 }:
 {
@@ -281,7 +282,7 @@
         allowPanelsOnScreenWithoutBar = true;
         animationDisabled = true;
         animationSpeed = 1;
-        avatarImage = "";
+        avatarImage = "${userConfig.avatar}";
         boxRadiusRatio = 1;
         compactLockScreen = true;
         dimmerOpacity = 0.2;
