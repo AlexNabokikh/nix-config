@@ -252,7 +252,7 @@
               id = "Bluetooth";
             }
             {
-              id = "WiFi";
+              id = "Notifications";
             }
           ];
           right = [
