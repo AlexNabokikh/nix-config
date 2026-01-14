@@ -17,11 +17,10 @@
     # Global catppuccin theme
     catppuccin.url = "github:catppuccin/nix";
 
-    # Declarative kde plasma manager
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
+    # Noctalia Shell
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     # Nix Darwin (for MacOS machines)
@@ -55,7 +54,8 @@
           name = "alexander.nabokikh";
         };
         nabokikh = {
-          avatar = ./files/avatar/face;
+          avatar = ./files/avatar;
+          wallpaper = ./files/wallpaper.jpg;
           email = "alexander.nabokikh@olx.pl";
           fullName = "Alexander Nabokikh";
           gitKey = "C5810093";

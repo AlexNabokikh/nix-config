@@ -8,14 +8,12 @@
   imports = [
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/qt"
-    "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
+    "${nhModules}/programs/noctalia"
     "${nhModules}/programs/swappy"
     "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
-    "${nhModules}/services/swaync"
-    "${nhModules}/services/waybar"
   ];
 
   # Consistent cursor theme across all applications.
@@ -33,19 +31,10 @@
       source = ./hyprland.conf;
     };
 
-    "hypr/hyprpaper.conf".text = ''
-      wallpaper {
-          monitor =
-          path = ${config.wallpaper}
-          fit_mode = cover
-      }
-      splash = false
-    '';
-
     "hypr/hypridle.conf".text = ''
       general {
-        lock_cmd = pidof hyprlock || $HOME/.local/bin/dynamic-hyprlock
-        before_sleep_cmd = loginctl lock-session
+        lock_cmd = noctalia-shell ipc call lockScreen lock
+        before_sleep_cmd = noctalia-shell ipc call lockScreen lock
         after_sleep_cmd = hyprctl dispatch dpms on
       }
     '';
@@ -59,14 +48,6 @@
   };
 
   dconf.settings = {
-    "org/blueman/general" = {
-      "plugin-list" = lib.mkForce [ "!StatusNotifierItem" ];
-    };
-
-    "org/blueman/plugins/powermanager" = {
-      "auto-power-on" = true;
-    };
-
     "org/gnome/calculator" = {
       "accuracy" = 9;
       "angle-units" = "degrees";
@@ -91,11 +72,6 @@
       "migrated-gtk-settings" = true;
       "search-filter-time-type" = "last_modified";
       "search-view" = "list-view";
-    };
-
-    "org/gnome/nm-applet" = {
-      "disable-connected-notifications" = true;
-      "disable-vpn-notifications" = true;
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
