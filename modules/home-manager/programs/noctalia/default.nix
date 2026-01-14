@@ -500,7 +500,7 @@
         recursiveSearch = false;
         setWallpaperOnAllMonitors = true;
         solidColor = "#1a1a2e";
-        transitionDuration = 1500;
+        transitionDuration = 0;
         transitionEdgeSmoothness = 0.05;
         transitionType = "random";
         useSolidColor = false;
