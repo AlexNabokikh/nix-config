@@ -47,6 +47,10 @@
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
+        privacy-indicator = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
       };
       version = 1;
     };
@@ -136,22 +140,6 @@
               pinned = [ ];
             }
             {
-              defaultSettings = {
-                audioCodec = "opus";
-                audioSource = "default_output";
-                colorRange = "limited";
-                copyToClipboard = false;
-                directory = "";
-                filenamePattern = "recording_yyyyMMdd_HHmmss";
-                frameRate = "60";
-                quality = "very_high";
-                showCursor = true;
-                videoCodec = "h264";
-                videoSource = "portal";
-              };
-              id = "plugin:screen-recorder";
-            }
-            {
               displayMode = "onhover";
               id = "KeyboardLayout";
               showIcon = false;
@@ -187,6 +175,9 @@
               icon = "noctalia";
               id = "ControlCenter";
               useDistroLogo = false;
+            }
+            {
+              id = "plugin:privacy-indicator";
             }
           ];
         };
