@@ -252,21 +252,31 @@
               id = "Bluetooth";
             }
             {
-              id = "DarkMode";
+              id = "WiFi";
             }
           ];
           right = [
             {
-              id = "Notifications";
-            }
-            {
               id = "PowerProfile";
             }
             {
-              id = "KeepAwake";
+              id = "NightLight";
             }
             {
-              id = "NightLight";
+              defaultSettings = {
+                audioCodec = "opus";
+                audioSource = "default_output";
+                colorRange = "limited";
+                copyToClipboard = false;
+                directory = "";
+                filenamePattern = "recording_yyyyMMdd_HHmmss";
+                frameRate = "60";
+                quality = "very_high";
+                showCursor = true;
+                videoCodec = "h264";
+                videoSource = "portal";
+              };
+              id = "plugin:screen-recorder";
             }
           ];
         };
