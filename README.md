@@ -10,10 +10,6 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ![hyprland](./files/screenshots/hyprland.png)
 
-### KDE
-
-![kde](./files/screenshots/kde.png)
-
 ### macOS
 
 ![macos](./files/screenshots/mac.png)
@@ -39,7 +35,6 @@ It is structured to easily accommodate multiple machines and user configurations
 - **darwin**: Enables nix-darwin for macOS system configuration.
 - **hardware**: Provides NixOS modules to optimize settings for different hardware.
 - **catppuccin**: Provides global Catppuccin theme integration.
-- **plasma-manager**: A declarative manager for the KDE Plasma desktop environment.
 
 ## Usage
 
@@ -212,7 +207,6 @@ nix flake update
 
 - **`common`**: Common system configurations including bootloader, networking, PipeWire, fonts, and user settings.
 - **`desktop/hyprland`**: Hyprland window manager with GDM, Bluetooth, and required system packages.
-- **`desktop/kde`**: KDE Plasma desktop environment with SDDM.
 - **`programs/steam`**: Steam gaming platform configuration.
 - **`services/tlp`**: TLP configuration for advanced power management on laptops.
 
@@ -224,7 +218,6 @@ nix flake update
 
 - **`common`**: Common user-space configurations that import most other modules.
 - **`desktop/hyprland`**: User-level settings for Hyprland, including keybindings and related services like Waybar and Swaync.
-- **`desktop/kde`**: User-level settings for KDE Plasma, managed declaratively with `plasma-manager`.
 - **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.

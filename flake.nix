@@ -17,13 +17,6 @@
     # Global catppuccin theme
     catppuccin.url = "github:catppuccin/nix";
 
-    # Declarative kde plasma manager
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     # Noctalia Shell
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
