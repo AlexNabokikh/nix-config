@@ -177,7 +177,9 @@
               useDistroLogo = false;
             }
             {
+              hideInactive = true;
               id = "plugin:privacy-indicator";
+              removeMargins = false;
             }
           ];
         };
