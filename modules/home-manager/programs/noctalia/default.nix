@@ -54,6 +54,11 @@
       };
       version = 1;
     };
+    pluginSettings = {
+      privacy-indicator = {
+        hideInactive = true;
+      };
+    };
     systemd.enable = true;
     settings = {
       appLauncher = {
@@ -175,11 +180,6 @@
               icon = "noctalia";
               id = "ControlCenter";
               useDistroLogo = false;
-            }
-            {
-              hideInactive = true;
-              id = "plugin:privacy-indicator";
-              removeMargins = false;
             }
           ];
         };
