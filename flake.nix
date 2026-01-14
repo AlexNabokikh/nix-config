@@ -24,6 +24,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nix Darwin (for MacOS machines)
     darwin = {
       url = "github:LnL7/nix-darwin";

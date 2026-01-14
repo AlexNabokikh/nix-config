@@ -7,7 +7,9 @@
   services.xserver.updateDbusEnvironment = true;
 
   # Enable Bluetooth support
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # Enable Hyprland
   programs.hyprland = {
@@ -19,7 +21,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services = {
-    hyprlock = { };
+    # hyprlock = { };
     gdm.enableGnomeKeyring = true;
   };
 
@@ -34,20 +36,22 @@
     seahorse # keyring manager
     totem # Video player
 
-    brightnessctl
+    # brightnessctl
     grim
     grimblast
-    hypridle
-    hyprlock
-    hyprpaper
+    # hypridle
+    # hyprlock
+    # hyprpaper
     hyprpicker
     libnotify
-    networkmanagerapplet
+    # networkmanagerapplet
     pamixer
-    pavucontrol
+    # pavucontrol
     slurp
-    wf-recorder
-    wlr-randr
-    wlsunset
+    # wf-recorder
+    # wlr-randr
+    # wlsunset
+    wtype # noctila paste
+    gpu-screen-recorder
   ];
 }

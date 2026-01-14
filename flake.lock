@@ -121,6 +121,26 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768346933,
+        "narHash": "sha256-JBAl0vV8trRvqZ1CQSCWsCBLYWsZ5q6TBraQbyrAlqI=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "ef99ad51a29f6dd6db5f7e866fbb87d51507e366",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -152,6 +172,7 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
+        "noctalia": "noctalia",
         "plasma-manager": "plasma-manager"
       }
     }

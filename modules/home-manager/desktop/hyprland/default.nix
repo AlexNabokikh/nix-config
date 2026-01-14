@@ -12,10 +12,11 @@
     "${nhModules}/misc/xdg"
     "${nhModules}/programs/swappy"
     "${nhModules}/programs/wofi"
+    "${nhModules}/programs/noctalia"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
-    "${nhModules}/services/swaync"
-    "${nhModules}/services/waybar"
+    # "${nhModules}/services/swaync"
+    # "${nhModules}/services/waybar"
   ];
 
   # Consistent cursor theme across all applications.
@@ -33,22 +34,22 @@
       source = ./hyprland.conf;
     };
 
-    "hypr/hyprpaper.conf".text = ''
-      wallpaper {
-          monitor =
-          path = ${config.wallpaper}
-          fit_mode = cover
-      }
-      splash = false
-    '';
+    # "hypr/hyprpaper.conf".text = ''
+    #   wallpaper {
+    #       monitor =
+    #       path = ${config.wallpaper}
+    #       fit_mode = cover
+    #   }
+    #   splash = false
+    # '';
 
-    "hypr/hypridle.conf".text = ''
-      general {
-        lock_cmd = pidof hyprlock || $HOME/.local/bin/dynamic-hyprlock
-        before_sleep_cmd = loginctl lock-session
-        after_sleep_cmd = hyprctl dispatch dpms on
-      }
-    '';
+    # "hypr/hypridle.conf".text = ''
+    #   general {
+    #     lock_cmd = pidof hyprlock || $HOME/.local/bin/dynamic-hyprlock
+    #     before_sleep_cmd = loginctl lock-session
+    #     after_sleep_cmd = hyprctl dispatch dpms on
+    #   }
+    # '';
 
     "hypr/xdph.conf".text = ''
       screencopy {
