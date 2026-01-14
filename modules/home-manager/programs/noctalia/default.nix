@@ -372,7 +372,7 @@
       osd = {
         autoHideMs = 2000;
         backgroundOpacity = 1;
-        enabled = false;
+        enabled = true;
         enabledTypes = [
           0
           1
