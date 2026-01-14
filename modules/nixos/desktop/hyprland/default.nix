@@ -51,7 +51,6 @@
     # wf-recorder
     # wlr-randr
     # wlsunset
-    wtype # noctila paste
     gpu-screen-recorder
   ];
 }
