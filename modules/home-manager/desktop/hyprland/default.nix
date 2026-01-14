@@ -8,10 +8,11 @@
   imports = [
     "${nhModules}/misc/gtk"
     "${nhModules}/misc/qt"
+    "${nhModules}/misc/wallpaper"
     "${nhModules}/misc/xdg"
+    "${nhModules}/programs/noctalia"
     "${nhModules}/programs/swappy"
     "${nhModules}/programs/wofi"
-    "${nhModules}/programs/noctalia"
     "${nhModules}/services/cliphist"
     "${nhModules}/services/kanshi"
   ];
