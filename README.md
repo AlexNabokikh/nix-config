@@ -35,6 +35,7 @@ It is structured to easily accommodate multiple machines and user configurations
 - **darwin**: Enables nix-darwin for macOS system configuration.
 - **hardware**: Provides NixOS modules to optimize settings for different hardware.
 - **catppuccin**: Provides global Catppuccin theme integration.
+- **noctalia**: Provides Noctalia Shell, a modern desktop shell for Hyprland.
 
 ## Usage
 
@@ -237,6 +238,7 @@ nix flake update
 - **`programs/krew`:** Kubectl plugin manager with a predefined list of plugins.
 - **`programs/lazygit`:** Terminal UI for Git.
 - **`programs/neovim`:** Highly customized Neovim setup based on LazyVim.
+- **`programs/noctalia` (Linux/Hyprland):** Noctalia Shell configuration with custom bar widgets, and plugins.
 - **`programs/obs-studio` (Linux):** Streaming and screen recording software.
 - **`programs/saml2aws`:** For AWS authentication via SAML.
 - **`programs/starship`:** Cross-shell prompt with custom configuration.
