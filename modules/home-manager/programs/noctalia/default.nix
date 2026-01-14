@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   userConfig,
   ...
@@ -8,6 +7,12 @@
   imports = [
     inputs.noctalia.homeModules.default
   ];
+
+  home.file.".cache/noctalia/wallpapers.json" = {
+    text = builtins.toJSON {
+      defaultWallpaper = "${userConfig.wallpaper}";
+    };
+  };
 
   programs.noctalia-shell = {
     enable = true;
@@ -486,7 +491,7 @@
         wifiDetailsViewMode = "grid";
       };
       wallpaper = {
-        directory = "${config.wallpaper}";
+        directory = "";
         enableMultiMonitorDirectories = false;
         enabled = true;
         fillColor = "#000000";

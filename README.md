@@ -227,7 +227,6 @@ nix flake update
 - **`desktop/kde`**: User-level settings for KDE Plasma, managed declaratively with `plasma-manager`.
 - **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
-- **`misc/wallpaper`**: Defines the default wallpaper path for desktops.
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
 - **`programs/aerospace` (Darwin):** Tiling window manager for macOS with custom keybindings and workspace rules.
 - **`programs/alacritty`:** GPU-accelerated terminal emulator, configured for tmux integration and platform-specific settings.

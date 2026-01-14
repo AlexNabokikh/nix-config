@@ -1,15 +1,13 @@
 {
-  config,
+  userConfig,
   inputs,
   lib,
-  nhModules,
   pkgs,
   ...
 }:
 {
   imports = [
     inputs.plasma-manager.homeManagerModules.plasma-manager
-    "${nhModules}/misc/wallpaper"
   ];
 
   home.packages = with pkgs; [
@@ -181,7 +179,7 @@
 
     kscreenlocker = {
       appearance.showMediaControls = false;
-      appearance.wallpaper = "${config.wallpaper}";
+      appearance.wallpaper = "${userConfig.wallpaper}";
       autoLock = false;
       timeout = 0;
     };
@@ -461,7 +459,7 @@
       splashScreen.engine = "none";
       splashScreen.theme = "none";
       tooltipDelay = 1;
-      wallpaper = "${config.wallpaper}";
+      wallpaper = "${userConfig.wallpaper}";
     };
 
     configFile = {
