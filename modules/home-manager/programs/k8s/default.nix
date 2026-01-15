@@ -1,5 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    kubectl
+    kubectx
+  ];
+
   # Install k9s via home-manager module
   programs.k9s = {
     enable = true;

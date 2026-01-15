@@ -21,6 +21,7 @@
 
       # kubectl
       k = "kubectl";
+      kctx = "kubectx";
       kgno = "kubectl get node";
       kdno = "kubectl describe node";
       kgp = "kubectl get pods";

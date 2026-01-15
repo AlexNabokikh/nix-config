@@ -234,8 +234,7 @@ nix flake update
 - **`programs/git`:** Version control system, configured with user details, GPG signing, and `delta` for diffs.
 - **`programs/go`:** Golang development environment setup.
 - **`programs/gpg`:** GnuPG settings and GPG agent configuration.
-- **`programs/k9s`:** Kubernetes CLI to manage clusters, with custom hotkeys.
-- **`programs/krew`:** Kubectl plugin manager with a predefined list of plugins.
+- **`programs/k8s`:** CLI tools (kubectl, k9s, kubectx) to manage Kubernetes clusters.
 - **`programs/lazygit`:** Terminal UI for Git.
 - **`programs/neovim`:** Highly customized Neovim setup based on LazyVim.
 - **`programs/noctalia` (Linux/Hyprland):** Noctalia Shell configuration with custom bar widgets, and plugins.

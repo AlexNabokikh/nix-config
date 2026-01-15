@@ -18,8 +18,7 @@
     ../programs/git
     ../programs/go
     ../programs/gpg
-    ../programs/k9s
-    ../programs/krew
+    ../programs/k8s
     ../programs/lazygit
     ../programs/neovim
     ../programs/saml2aws
@@ -57,12 +56,10 @@
     [
       awscli2
       dig
-      dust
       eza
       fd
       github-copilot-cli
       jq
-      kubectl
       nh
       openconnect
       pipenv
