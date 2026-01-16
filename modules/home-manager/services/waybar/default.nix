@@ -41,7 +41,7 @@
         ];
 
         backlight = {
-          interval = 2;
+          interval = 5;
           align = 0;
           rotate = 0;
           format = "{icon} {percent}%";
@@ -115,7 +115,7 @@
 
         cpu = {
           format = "󰍛 {usage}%";
-          interval = 1;
+          interval = 5;
         };
 
         "hyprland/language" = {
@@ -131,7 +131,7 @@
         };
 
         memory = {
-          interval = 10;
+          interval = 30;
           format = "󰾆 {used:0.1f}G";
           format-alt = "󰾆 {percentage}%";
           format-alt-click = "click";
@@ -180,7 +180,7 @@
         };
 
         temperature = {
-          interval = 10;
+          interval = 30;
           tooltip = false;
           critical-threshold = 82;
           format-critical = "{icon} {temperatureC}°C";
@@ -218,7 +218,7 @@
           return-type = "json";
           exec = "echo '{\"class\": \"recording\"}'";
           exec-if = "pgrep wf-recorder";
-          interval = 1;
+          interval = 5;
           on-click = "screen-recorder";
         };
       };
