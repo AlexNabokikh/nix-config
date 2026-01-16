@@ -230,6 +230,10 @@
             enabled = false;
             id = "weather-card";
           }
+          {
+            enabled = false;
+            id = "media-sysmon-card";
+          }
         ];
         diskPath = "/";
         position = "close_to_bar_button";
