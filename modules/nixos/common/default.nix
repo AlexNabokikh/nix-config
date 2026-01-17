@@ -89,7 +89,7 @@
   # Enables support for Bluetooth
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = true;
+    powerOnBoot = false;
   };
 
   # Input settings
