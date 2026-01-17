@@ -99,7 +99,7 @@
         monitors = [ ];
         outerCorners = false;
         position = "top";
-        showCapsule = true;
+        showCapsule = false;
         showOutline = false;
         useSeparateOpacity = false;
         widgets = {
@@ -145,22 +145,17 @@
               pinned = [ ];
             }
             {
-              displayMode = "onhover";
+              displayMode = "forceOpen";
               id = "KeyboardLayout";
-              showIcon = false;
+              showIcon = true;
             }
             {
               displayMode = "onhover";
               id = "Network";
             }
             {
-              displayMode = "alwaysShow";
+              displayMode = "onhover";
               id = "Volume";
-              middleClickCommand = "";
-            }
-            {
-              displayMode = "alwaysShow";
-              id = "Microphone";
               middleClickCommand = "";
             }
             {
@@ -435,7 +430,7 @@
         showHeader = true;
         showNumberLabels = true;
       };
-      settingsVersion = 0;
+      settingsVersion = 39;
       systemMonitor = {
         cpuCriticalThreshold = 90;
         cpuPollingInterval = 5000;
