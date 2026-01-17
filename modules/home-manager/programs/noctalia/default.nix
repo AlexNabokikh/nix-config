@@ -57,6 +57,7 @@
     pluginSettings = {
       privacy-indicator = {
         hideInactive = true;
+        removeMargins = true;
       };
     };
     systemd.enable = true;
