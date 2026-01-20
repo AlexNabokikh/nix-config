@@ -28,9 +28,11 @@
 
     # Wayland utilities
     gpu-screen-recorder
+    grim
     libnotify
     pamixer
     pavucontrol
+    slurp
     wtype
   ];
 }

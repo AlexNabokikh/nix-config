@@ -12,9 +12,7 @@
 
   # Hyprland specific packages
   environment.systemPackages = with pkgs; [
-    grim
     grimblast
     hyprpicker
-    slurp
   ];
 }
