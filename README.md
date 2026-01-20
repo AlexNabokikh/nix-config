@@ -208,6 +208,8 @@ nix flake update
 
 - **`common`**: Common system configurations including bootloader, networking, PipeWire, fonts, and user settings.
 - **`desktop/hyprland`**: Hyprland window manager with GDM, Bluetooth, and required system packages.
+- **`desktop/niri`**: Niri scrollable-tiling Wayland compositor configuration.
+- **`desktop/wayland-common`**: Common Wayland compositor settings including GDM, GNOME apps, and Wayland utilities.
 - **`programs/steam`**: Steam gaming platform configuration.
 - **`services/tlp`**: TLP configuration for advanced power management on laptops.
 
@@ -219,6 +221,8 @@ nix flake update
 
 - **`common`**: Common user-space configurations that import most other modules.
 - **`desktop/hyprland`**: User-level settings for Hyprland, including keybindings and related services like Waybar and Swaync.
+- **`desktop/niri`**: User-level settings for Niri compositor with custom configuration.
+- **`desktop/wayland-common`**: Common Wayland desktop settings including dconf configurations.
 - **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
@@ -249,6 +253,7 @@ nix flake update
 - **`scripts`**: Deploys a collection of custom utility scripts to `~/.local/bin`.
 - **`services/cliphist` (Linux/Hyprland):** Clipboard manager.
 - **`services/easyeffects` (Linux):** Audio effects processor with a custom "mic" preset.
+- **`services/hypridle` (Linux/Hyprland):** Hyprland's idle daemon for automatic screen locking and power management.
 - **`services/kanshi` (Linux/Hyprland):** Dynamic display output configuration.
 - **`services/swaync` (Linux/Hyprland):** Notification daemon.
 - **`services/waybar` (Linux/Hyprland):** Highly customized Wayland status bar.
