@@ -59,15 +59,15 @@ layout {
     focus-ring {
         width 1
         active-color "#b7bdf8"
-        inactive-color "#505050"
+        inactive-color "#494d64"
     }
 
     border {
         off
         width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        urgent-color "#9b0000"
+        active-color "#b7bdf8"
+        inactive-color "#494d64"
+        urgent-color "#ed8796"
     }
 
     shadow {
@@ -75,7 +75,7 @@ layout {
         softness 30
         spread 5
         offset x=0 y=5
-        color "#0007"
+        color "#181926aa"
     }
 }
 
