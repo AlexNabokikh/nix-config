@@ -176,7 +176,7 @@ binds {
     Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
 
     // Pick color from screen and copy to clipboard
-    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color"; }
+    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep -o '#.*' | wl-copy"; }
 
     // OCR
     Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
