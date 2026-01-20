@@ -33,7 +33,7 @@
 
       [system]
       command_lock=loginctl lock-session
-      command_logout="hyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' | xargs -r hyprctl --batch 2>/dev/null"
+      command_logout="if pgrep -x hyprland >/dev/null; then hyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' | xargs -r hyprctl --batch 2>/dev/null; elif pgrep -x niri >/dev/null; then niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}; fi"
       command_poweroff=systemctl poweroff -i
       command_reboot=systemctl reboot -i
       enabled=true
