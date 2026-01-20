@@ -152,10 +152,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"^steam_app_\d+$"#
-    exclude title="^$"
-    open-fullscreen true
     open-on-workspace "games"
-    variable-refresh-rate true
 }
 
 // Floating dialogs (sized)
@@ -186,6 +183,14 @@ window-rule {
     }
     open-floating true
     default-floating-position x=0 y=0 relative-to="bottom"
+}
+
+// Games
+window-rule {
+    match app-id=r#"^steam_app_\d+$"#
+    exclude title="^$"
+    open-fullscreen true
+    variable-refresh-rate true
 }
 
 binds {
