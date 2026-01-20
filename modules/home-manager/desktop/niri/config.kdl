@@ -34,6 +34,8 @@ input {
 
 // Windows are positioning and size settings.
 layout {
+    background-color "transparent"
+
     gaps 6
 
     center-focused-column "never"
@@ -78,6 +80,12 @@ screenshot-path "~/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Animation settings.
 animations {
     off
+}
+
+// Layer rules.
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
 }
 
 // Window rules.
