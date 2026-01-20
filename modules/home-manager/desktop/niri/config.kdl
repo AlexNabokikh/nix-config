@@ -182,10 +182,10 @@ binds {
     Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
 
     // Screenshot area
-    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "screenshot"; }
+    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grim -g "$(slurp)" - | swappy -f -"; }
 
     // Screenshot entire screen
-    Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grimblast -f save output - | swappy -f -"; }
+    Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grim - | swappy -f -"; }
 
     // Screen recording
     Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "noctalia-shell ipc call plugin:screen-recorder toggle"; }
@@ -425,10 +425,6 @@ binds {
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
-
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
 
     // Center focused window (matching Hyprland Ctrl+Alt+C)
     Ctrl+Alt+C { center-column; }
