@@ -127,7 +127,7 @@
               enableScrollWheel = true;
               followFocusedScreen = false;
               groupedBorderOpacity = 1;
-              hideUnoccupied = false;
+              hideUnoccupied = true;
               iconScale = 0.8;
               id = "Workspace";
               labelMode = "index";
