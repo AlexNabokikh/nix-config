@@ -176,9 +176,6 @@
     };
   };
 
-  # Enable xwayland
-  programs.xwayland.enable = true;
-
   # Zsh configuration
   programs.zsh.enable = true;
 
