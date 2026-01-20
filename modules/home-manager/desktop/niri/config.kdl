@@ -32,6 +32,11 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+// Monitor settings.
+output "DP-1" {
+    variable-refresh-rate
+}
+
 // Disable the hot corners.
 gestures {
     hot-corners {
@@ -82,7 +87,6 @@ hotkey-overlay {
 }
 
 prefer-no-csd
-screenshot-path "~/Pictures/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 // Animation settings.
 animations {
