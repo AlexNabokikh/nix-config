@@ -21,6 +21,10 @@ input {
             // localectl set-x11-keymap.
         }
 
+        // Keyboard repeat settings to match Hyprland
+        repeat-delay 250
+        repeat-rate 40
+
         // Enable numlock on startup, omitting this setting disables it.
         numlock
     }
@@ -356,6 +360,77 @@ window-rule {
     }
 }
 
+// Workspace assignments matching Hyprland
+window-rule {
+    match app-id=r#"^brave-browser$"#
+    open-on-workspace 1
+}
+
+window-rule {
+    match app-id=r#"^Alacritty$"#
+    open-on-workspace 2
+}
+
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"#
+    open-on-workspace 3
+}
+
+window-rule {
+    match app-id=r#"^steam$"#
+    open-on-workspace 4
+}
+
+window-rule {
+    match app-id=r#"^steam_app_\d+$"#
+    open-on-workspace 5
+}
+
+// Floating dialogs (sized)
+window-rule {
+    match app-id=r#"^\.blueman-manager-wrapped$"#
+    open-floating true
+    open-centered true
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id=r#"^nm-connection-editor$"#
+    open-floating true
+    open-centered true
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
+    open-floating true
+    open-centered true
+    default-column-width { proportion 0.5; }
+}
+
+// Floating dialogs (auto-size)
+window-rule {
+    match app-id=r#"^(gnome-calculator|org\.gnome\.Calculator)$"#
+    open-floating true
+    open-centered true
+}
+
+// Screen sharing
+window-rule {
+    match title="^Select what to share$"
+    open-floating true
+}
+
+window-rule {
+    match title=r#"^.*is sharing (your screen|a window)\.$"#
+    focus-ring {
+        off
+    }
+    border {
+        off
+    }
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -372,25 +447,64 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+Shift+B hotkey-overlay-title="Open a Brave: brave" { spawn "brave"; }
-    Ctrl+Space hotkey-overlay-title="Open a Brave: brave" { spawn "albert" "toggle"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "alacritty"; }
+    Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
+    Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
+    Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "telegram-desktop"; }
+    Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
+
+    // Application launcher
+    Mod+A hotkey-overlay-title="Open Albert Apps" { spawn "albert" "show" "apps "; }
+    Ctrl+Space hotkey-overlay-title="Toggle Albert" { spawn "albert" "toggle"; }
+
+    // Clipboard history
+    Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+
+    // Pick color from screen and copy to clipboard
+    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "hyprpicker -a"; }
+
+    // OCR
+    Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
+
+    // Screenshot area
+    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grimblast -f save area - | swappy -f -"; }
+
+    // Screenshot entire screen
+    Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grimblast -f save output - | swappy -f -"; }
+
+    // Screen recording
+    Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "noctalia-shell ipc call plugin:screen-recorder toggle"; }
+
+    // Lock screen
+    Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
+
+    // Toggle control center panel
+    Mod+C hotkey-overlay-title="Toggle Control Center" { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
+
+    // Open notifications history
+    Mod+N hotkey-overlay-title="Toggle Notifications" { spawn-sh "noctalia-shell ipc call notifications toggleHistory"; }
+
+    // Clear all notifications
+    Mod+Shift+Backspace hotkey-overlay-title="Clear Notifications" { spawn-sh "noctalia-shell ipc call notifications clear"; }
+
+    // Adjust brightness using noctalia-shell
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
+
+    // Adjust volume using noctalia-shell
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
+    XF86AudioMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteOutput"; }
+
+    // Adjust mic sensitivity
+    Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increaseInput"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decreaseInput"; }
+    XF86AudioMicMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
-
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
-    // Using spawn-sh allows to pass multiple arguments together with the command.
-    // "-l 1.0" limits the volume to 100%.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
@@ -398,12 +512,6 @@ binds {
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
-
-    // Example brightness key mappings for brightnessctl.
-    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
-    // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -535,15 +643,17 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    Mod+0 { focus-workspace 10; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
@@ -568,7 +678,7 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+M { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
@@ -595,6 +705,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
+    // Changed from Mod+V to match Hyprland's Mod+F for floating toggle
     Mod+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
@@ -615,6 +726,9 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
+    // Center focused window (matching Hyprland Ctrl+Alt+C)
+    Ctrl+Alt+C { center-column; }
+
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
     // so they may, for example, forward the key presses as-is to a remote machine.
@@ -626,8 +740,9 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
+    // Matching Hyprland's Ctrl+Alt+Q binding
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
+    Ctrl+Alt+Q { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
