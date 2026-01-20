@@ -104,6 +104,7 @@ window-rule {
 // Launcher
 window-rule {
     match title="^Albert$"
+    default-floating-position x=0 y=100 relative-to="top"
     focus-ring {
         off
     }
@@ -126,7 +127,7 @@ window-rule {
     match app-id=r#"^brave-browser$"#
     default-column-width { proportion 1.0; }
     open-on-workspace "main"
-    scroll-factor 0.4
+    scroll-factor 0.1
 }
 
 window-rule {
