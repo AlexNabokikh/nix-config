@@ -43,7 +43,7 @@ layout {
         proportion 0.66667
     }
 
-    default-column-width { proportion 1; }
+    default-column-width { proportion 0.5; }
 
     focus-ring {
         width 1
@@ -180,7 +180,7 @@ binds {
     Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "alacritty"; }
     Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
     Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
-    Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "telegram-desktop"; }
+    Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }
     Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
 
     // Application launcher
