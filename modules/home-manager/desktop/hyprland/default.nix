@@ -2,7 +2,6 @@
 {
   imports = [
     "${nhModules}/desktop/wayland-common"
-    "${nhModules}/programs/swappy"
     "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
   ];

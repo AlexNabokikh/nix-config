@@ -32,6 +32,13 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+// Disable the hot corners.
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 // Windows are positioning and size settings.
 layout {
     background-color "transparent"
@@ -190,7 +197,7 @@ binds {
     Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
 
     // Screenshot area
-    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grim -g "$(slurp)" - | swappy -f -"; }
+    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
 
     // Screenshot entire screen
     Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grim - | swappy -f -"; }
