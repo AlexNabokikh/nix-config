@@ -34,7 +34,7 @@ input {
 
 // Monitor settings.
 output "DP-1" {
-    variable-refresh-rate
+    variable-refresh-rate on-demand=true
 }
 
 // Disable the hot corners.
@@ -152,8 +152,10 @@ window-rule {
 
 window-rule {
     match app-id=r#"^steam_app_\d+$"#
-    default-column-width { proportion 1.0; }
+    exclude title="^$"
+    open-fullscreen true
     open-on-workspace "games"
+    variable-refresh-rate true
 }
 
 // Floating dialogs (sized)
