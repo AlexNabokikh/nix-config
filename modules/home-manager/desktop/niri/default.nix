@@ -22,6 +22,12 @@
     size = 24;
   };
 
+  xdg.configFile = {
+    "niri/config.kdl" = {
+      source = ./config.kdl;
+    };
+  };
+
   dconf.settings = {
     "org/gnome/calculator" = {
       "accuracy" = 9;
