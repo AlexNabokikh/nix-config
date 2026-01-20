@@ -363,48 +363,33 @@ window-rule {
 // Workspace assignments matching Hyprland
 window-rule {
     match app-id=r#"^brave-browser$"#
-    open-on-workspace 1
+    open-on-workspace "1"
 }
 
 window-rule {
     match app-id=r#"^Alacritty$"#
-    open-on-workspace 2
+    open-on-workspace "2"
 }
 
 window-rule {
     match app-id=r#"^org\.telegram\.desktop$"#
-    open-on-workspace 3
+    open-on-workspace "3"
 }
 
 window-rule {
     match app-id=r#"^steam$"#
-    open-on-workspace 4
+    open-on-workspace "4"
 }
 
 window-rule {
     match app-id=r#"^steam_app_\d+$"#
-    open-on-workspace 5
+    open-on-workspace "5"
 }
 
 // Floating dialogs (sized)
 window-rule {
-    match app-id=r#"^\.blueman-manager-wrapped$"#
-    open-floating true
-    open-centered true
-    default-column-width { proportion 0.5; }
-}
-
-window-rule {
-    match app-id=r#"^nm-connection-editor$"#
-    open-floating true
-    open-centered true
-    default-column-width { proportion 0.5; }
-}
-
-window-rule {
     match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
     open-floating true
-    open-centered true
     default-column-width { proportion 0.5; }
 }
 
@@ -412,7 +397,6 @@ window-rule {
 window-rule {
     match app-id=r#"^(gnome-calculator|org\.gnome\.Calculator)$"#
     open-floating true
-    open-centered true
 }
 
 // Screen sharing
@@ -675,7 +659,7 @@ binds {
     Mod+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
     // Mod+R { switch-preset-column-width-back; }
-    Mod+Shift+R { switch-preset-window-height; }
+    // Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+M { fullscreen-window; }
@@ -684,7 +668,7 @@ binds {
     // Makes the column "fill the rest of the space".
     Mod+Ctrl+F { expand-column-to-available-width; }
 
-    Mod+C { center-column; }
+    // Mod+C { center-column; }
 
     // Center all fully visible columns on screen.
     Mod+Ctrl+C { center-visible-columns; }

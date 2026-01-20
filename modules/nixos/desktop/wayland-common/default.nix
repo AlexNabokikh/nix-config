@@ -28,12 +28,8 @@
 
     # Wayland utilities
     gpu-screen-recorder
-    grim
-    grimblast
-    hyprpicker
     libnotify
     pamixer
     pavucontrol
-    slurp
   ];
 }
