@@ -124,26 +124,32 @@ workspace "games"
 // Workspace assignments
 window-rule {
     match app-id=r#"^brave-browser$"#
+    default-column-width { proportion 1.0; }
     open-on-workspace "main"
+    scroll-factor 0.4
 }
 
 window-rule {
     match app-id=r#"^Alacritty$"#
+    default-column-width { proportion 1.0; }
     open-on-workspace "terminal"
 }
 
 window-rule {
     match app-id=r#"^org\.telegram\.desktop$"#
+    default-column-width { proportion 1.0; }
     open-on-workspace "messages"
 }
 
 window-rule {
     match app-id=r#"^steam$"#
+    default-column-width { proportion 1.0; }
     open-on-workspace "steam"
 }
 
 window-rule {
     match app-id=r#"^steam_app_\d+$"#
+    default-column-width { proportion 1.0; }
     open-on-workspace "games"
 }
 
@@ -151,7 +157,6 @@ window-rule {
 window-rule {
     match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
     open-floating true
-    default-column-width { proportion 0.5; }
 }
 
 // Floating dialogs (auto-size)
