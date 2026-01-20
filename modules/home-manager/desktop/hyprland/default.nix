@@ -13,6 +13,7 @@
     "${nhModules}/programs/swappy"
     "${nhModules}/programs/wofi"
     "${nhModules}/services/cliphist"
+    "${nhModules}/services/hypridle"
     "${nhModules}/services/kanshi"
   ];
 
@@ -30,14 +31,6 @@
     "hypr/hyprland.conf" = {
       source = ./hyprland.conf;
     };
-
-    "hypr/hypridle.conf".text = ''
-      general {
-        lock_cmd = noctalia-shell ipc call lockScreen lock
-        before_sleep_cmd = noctalia-shell ipc call lockScreen lock
-        after_sleep_cmd = hyprctl dispatch dpms on
-      }
-    '';
 
     "hypr/xdph.conf".text = ''
       screencopy {

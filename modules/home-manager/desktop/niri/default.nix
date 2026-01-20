@@ -10,6 +10,7 @@
     "${nhModules}/misc/qt"
     "${nhModules}/misc/xdg"
     "${nhModules}/programs/noctalia"
+    "${nhModules}/services/hypridle"
     "${nhModules}/services/kanshi"
   ];
 

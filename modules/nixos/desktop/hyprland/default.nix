@@ -37,7 +37,6 @@
     gpu-screen-recorder
     grim
     grimblast
-    hypridle
     hyprpicker
     libnotify
     pamixer
