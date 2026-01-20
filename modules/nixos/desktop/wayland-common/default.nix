@@ -31,5 +31,6 @@
     libnotify
     pamixer
     pavucontrol
+    wtype
   ];
 }

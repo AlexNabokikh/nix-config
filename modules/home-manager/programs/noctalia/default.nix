@@ -63,7 +63,7 @@
     systemd.enable = true;
     settings = {
       appLauncher = {
-        autoPasteClipboard = false;
+        autoPasteClipboard = true;
         clipboardWrapText = true;
         customLaunchPrefix = "";
         customLaunchPrefixEnabled = false;
