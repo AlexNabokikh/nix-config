@@ -147,11 +147,6 @@ window-rule {
 
 // Screen sharing
 window-rule {
-    match title="^Select what to share$"
-    open-floating true
-}
-
-window-rule {
     match title=r#"^.*is sharing (your screen|a window)\.$"#
     focus-ring {
         off
@@ -159,6 +154,8 @@ window-rule {
     border {
         off
     }
+    open-floating true
+    default-floating-position x=0 y=0 relative-to="bottom"
 }
 
 binds {
