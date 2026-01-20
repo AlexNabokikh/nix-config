@@ -159,21 +159,9 @@ window-rule {
 }
 
 binds {
-    // Keys consist of modifiers separated by + signs, followed by an XKB key name
-    // in the end. To find an XKB name for a particular key, you may use a program
-    // like wev.
-    //
-    // "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
-    // when running as a winit window.
-    //
-    // Most actions that you can bind here can also be invoked programmatically with
-    // `niri msg action do-something`.
-
-    // Mod-Shift-/, which is usually the same as Mod-?,
-    // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
+    // Launch applications
     Mod+Shift+Return hotkey-overlay-title="Open Terminal" { spawn "alacritty"; }
     Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
     Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
@@ -188,13 +176,13 @@ binds {
     Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
 
     // Pick color from screen and copy to clipboard
-    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "hyprpicker -a"; }
+    Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color"; }
 
     // OCR
     Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "$HOME/.local/bin/ocr"; }
 
     // Screenshot area
-    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grimblast -f save area - | swappy -f -"; }
+    Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "screenshot"; }
 
     // Screenshot entire screen
     Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grimblast -f save output - | swappy -f -"; }
@@ -228,17 +216,6 @@ binds {
     Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decreaseInput"; }
     XF86AudioMicMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
-    // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
-    // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
-
-    // Example media keys mapping using playerctl.
-    // This will work with any MPRIS-enabled media player.
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -404,8 +381,8 @@ binds {
     // Mod+R { switch-preset-column-width-back; }
     // Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
-    Mod+M { fullscreen-window; }
+    Mod+M { maximize-column; }
+    Mod+Shift+M { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
@@ -433,7 +410,7 @@ binds {
 
     // Move the focused window between the floating and the tiling layout.
     // Changed from Mod+V to match Hyprland's Mod+F for floating toggle
-    Mod+V       { toggle-window-floating; }
+    Mod+F       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
