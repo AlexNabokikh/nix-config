@@ -8,10 +8,8 @@
   programs.hyprland = {
     enable = true;
     withUWSM = true;
+    xwayland.enable = true;
   };
-
-  # Enable xwayland
-  programs.xwayland.enable = true;
 
   # Hyprland specific packages
   environment.systemPackages = with pkgs; [
