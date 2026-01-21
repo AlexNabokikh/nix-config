@@ -169,6 +169,11 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match app-id="^anki$" title="^Study Deck$"
+    open-floating true
+}
+
 // Screen sharing
 window-rule {
     match title=r#"^.*is sharing (your screen|a window)\.$"#
