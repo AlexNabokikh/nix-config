@@ -20,6 +20,11 @@
         name = "kvantum";
         noDisplay = true;
       };
+      # FIXME: Remove when duplicate .desktop file is fixed upstream in nixpkgs
+      brave-browser = {
+        name = "Brave Web Browser";
+        noDisplay = true;
+      };
     };
 
     mimeApps = {
