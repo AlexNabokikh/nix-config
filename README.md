@@ -211,7 +211,6 @@ nix flake update
 - **`desktop/niri`**: Niri scrollable-tiling Wayland compositor configuration.
 - **`desktop/wayland-common`**: Common Wayland compositor settings including GDM, GNOME apps, and Wayland utilities.
 - **`programs/steam`**: Steam gaming platform configuration.
-- **`services/tlp`**: TLP configuration for advanced power management on laptops.
 
 ### Darwin Modules (in `modules/darwin/`)
 
