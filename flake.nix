@@ -107,7 +107,6 @@
     {
       nixosConfigurations = {
         energy = mkNixosConfiguration "energy" "nabokikh";
-        dell-xps = mkNixosConfiguration "dell-xps" "nabokikh";
       };
 
       darwinConfigurations = {
@@ -119,7 +118,6 @@
           mkHomeConfiguration "aarch64-darwin" "alexander.nabokikh"
             "PL-OLX-KCGXHGK3PY";
         "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
-        "nabokikh@dell-xps" = mkHomeConfiguration "x86_64-linux" "nabokikh" "dell-xps";
       };
 
       overlays = import ./overlays { inherit inputs; };
