@@ -33,6 +33,5 @@
     pamixer
     pavucontrol
     slurp
-    wtype
   ];
 }
