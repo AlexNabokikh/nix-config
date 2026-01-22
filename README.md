@@ -247,15 +247,11 @@ nix flake update
 - **`programs/swappy` (Linux/Hyprland):** A tool for editing screenshots.
 - **`programs/telegram`:** Desktop client for Telegram.
 - **`programs/tmux`:** Terminal multiplexer with custom keybindings and Catppuccin theme.
-- **`programs/wofi` (Linux/Hyprland):** Application launcher for Wayland.
 - **`programs/zsh`:** Zsh shell with extensive aliases, completions, and custom keybindings.
 - **`scripts`**: Deploys a collection of custom utility scripts to `~/.local/bin`.
-- **`services/cliphist` (Linux/Hyprland):** Clipboard manager.
 - **`services/easyeffects` (Linux):** Audio effects processor with a custom "mic" preset.
 - **`services/hypridle` (Linux/Hyprland):** Hyprland's idle daemon for automatic screen locking and power management.
 - **`services/kanshi` (Linux/Hyprland):** Dynamic display output configuration.
-- **`services/swaync` (Linux/Hyprland):** Notification daemon.
-- **`services/waybar` (Linux/Hyprland):** Highly customized Wayland status bar.
 
 ## Contributing
 
