@@ -6,7 +6,7 @@ It is structured to easily accommodate multiple machines and user configurations
 
 ## Showcase
 
-### Hyprland
+### Hyprland/Niri
 
 ![hyprland](./files/screenshots/hyprland.png)
 
