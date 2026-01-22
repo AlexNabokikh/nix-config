@@ -161,7 +161,6 @@
   # System packages
   environment.systemPackages = with pkgs; [
     gcc
-    glib
     gnumake
     killall
     mesa
@@ -185,9 +184,6 @@
     nerd-fonts.meslo-lg
     roboto
   ];
-
-  # Additional services
-  services.locate.enable = true;
 
   # OpenSSH daemon
   services.openssh.enable = true;
