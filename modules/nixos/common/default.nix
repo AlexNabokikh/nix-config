@@ -160,6 +160,7 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    gcc # needed for tree-sitter
     gnumake
     killall
     mesa
