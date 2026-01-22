@@ -2,12 +2,9 @@
   pkgs,
   ...
 }:
-let
-  brave = pkgs.brave;
-in
 {
   # Ensure Brave browser package installed
-  home.packages = [ brave ];
+  home.packages = [ pkgs.brave ];
 
-  xdg.mimeApps.defaultApplicationPackages = [ brave ];
+  xdg.mimeApps.defaultApplicationPackages = [ pkgs.brave ];
 }
