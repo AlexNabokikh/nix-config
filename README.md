@@ -222,7 +222,7 @@ nix flake update
 - **`common`**: Common user-space configurations that import most other modules.
 - **`desktop/hyprland`**: User-level settings for Hyprland, including keybindings and related services like Waybar and Swaync.
 - **`desktop/niri`**: User-level settings for Niri compositor with custom configuration.
-- **`desktop/wayland-common`**: Common Wayland desktop settings including dconf configurations.
+- **`desktop/wayland-common`**: Common Wayland desktop settings including dconf, gtk, qt, xdg, etc. configurations.
 - **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
 - **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
