@@ -99,6 +99,7 @@ _: {
       #* Development Tools
       "gcloud-cli" # Google Cloud SDK command-line tools
       "obsidian" # Powerful knowledge base and note-taking tool
+      "logseq" # Knowledge management and note-taking tool
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal
       "visual-studio-code" # Popular code editor
@@ -121,6 +122,9 @@ _: {
 
       #* Fonts
       "font-hack-nerd-font" # Developer-oriented font with glyphs for programming
+
+      #* Database Tools
+      "beekeeper-studio" # Modern and easy-to-use SQL client
     ];
   };
 }
