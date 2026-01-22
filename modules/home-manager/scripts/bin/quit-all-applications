@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "${XDG_CURRENT_DESKTOP:-}" in
+niri)
+	niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}
+	;;
+Hyprland)
+	hyprctl -j clients | jq -j '.[] | "dispatch closewindow address:\(.address); "' | xargs -r hyprctl --batch
+	;;
+*)
+	echo "Error: Unknown compositor" >&2
+	exit 1
+	;;
+esac

@@ -27,7 +27,7 @@
 
   # User configuration
   users.users.${userConfig.name} = {
-    name = "${userConfig.name}";
+    name = userConfig.name;
     home = "/Users/${userConfig.name}";
   };
 
@@ -214,7 +214,7 @@
         }
       ];
     };
-    primaryUser = "${userConfig.name}";
+    primaryUser = userConfig.name;
   };
 
   # Zsh configuration

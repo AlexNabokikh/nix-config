@@ -10,7 +10,7 @@
 
   home.file.".cache/noctalia/wallpapers.json" = {
     text = builtins.toJSON {
-      defaultWallpaper = "${userConfig.wallpaper}";
+      defaultWallpaper = userConfig.wallpaper;
     };
   };
 
@@ -127,7 +127,7 @@
               enableScrollWheel = true;
               followFocusedScreen = false;
               groupedBorderOpacity = 1;
-              hideUnoccupied = false;
+              hideUnoccupied = true;
               iconScale = 0.8;
               id = "Workspace";
               labelMode = "index";
@@ -296,7 +296,7 @@
         allowPanelsOnScreenWithoutBar = true;
         animationDisabled = true;
         animationSpeed = 1;
-        avatarImage = "${userConfig.avatar}";
+        avatarImage = userConfig.avatar;
         boxRadiusRatio = 1;
         compactLockScreen = true;
         dimmerOpacity = 0.2;
@@ -507,7 +507,7 @@
         fillMode = "crop";
         hideWallpaperFilenames = false;
         monitorDirectories = [ ];
-        overviewEnabled = false;
+        overviewEnabled = true;
         panelPosition = "follow_bar";
         randomEnabled = false;
         randomIntervalSec = 300;

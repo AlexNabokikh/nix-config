@@ -33,7 +33,7 @@
 
       [system]
       command_lock=loginctl lock-session
-      command_logout="hyprctl -j clients 2>/dev/null | jq -j '.[] | \"dispatch closewindow address:\\(.address); \"' | xargs -r hyprctl --batch 2>/dev/null"
+      command_logout=$HOME/.local/bin/quit-all-applications
       command_poweroff=systemctl poweroff -i
       command_reboot=systemctl reboot -i
       enabled=true

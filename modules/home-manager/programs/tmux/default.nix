@@ -46,9 +46,6 @@
       # Enable focus-events
       set -g focus-events on
 
-      # Set default escape-time
-      set-option -sg escape-time 10
-
       # Smart pane switching with awareness of Vim splits
       is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf|atuin)(diff)?$'"
       bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'

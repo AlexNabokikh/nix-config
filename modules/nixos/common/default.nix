@@ -160,8 +160,6 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    gcc
-    glib
     gnumake
     killall
     mesa
@@ -176,9 +174,6 @@
     };
   };
 
-  # Enable xwayland
-  programs.xwayland.enable = true;
-
   # Zsh configuration
   programs.zsh.enable = true;
 
@@ -188,9 +183,6 @@
     nerd-fonts.meslo-lg
     roboto
   ];
-
-  # Additional services
-  services.locate.enable = true;
 
   # OpenSSH daemon
   services.openssh.enable = true;

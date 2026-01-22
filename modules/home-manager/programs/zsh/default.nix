@@ -10,6 +10,7 @@
     enableCompletion = true;
     shellAliases = {
       ff = "fastfetch";
+      open = "xdg-open";
 
       # git
       gaa = "git add --all";

@@ -2,11 +2,8 @@
   pkgs,
   ...
 }:
-let
-  telegram = pkgs.telegram-desktop;
-in
 {
-  home.packages = [ telegram ];
+  home.packages = [ pkgs.telegram-desktop ];
 
-  xdg.mimeApps.defaultApplicationPackages = [ telegram ];
+  xdg.mimeApps.defaultApplicationPackages = [ pkgs.telegram-desktop ];
 }

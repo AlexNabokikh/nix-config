@@ -6,7 +6,7 @@ appropriate AWS account and setting up the shell environment for further interac
 
 Key functionalities include:
 - Checking if 'saml2aws' and 'kubectl' are installed on the system.
-- Executes 'kubectx' to switch to specific kubernets context.
+- Executes 'kubectx' to switch to specific kubernetes context.
 - Retrieving the current Kubernetes context and extracting the associated AWS account number and region.
 - Parsing the AWS configuration file to find the relevant profile.
 - Finding the correct profile name by matching the account number in the AWS configuration.
