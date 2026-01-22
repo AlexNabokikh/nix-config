@@ -2,8 +2,6 @@
 {
   imports = [
     "${nhModules}/desktop/wayland-common"
-    "${nhModules}/programs/wofi"
-    "${nhModules}/services/cliphist"
   ];
 
   # Source hyprland config from the home-manager store
