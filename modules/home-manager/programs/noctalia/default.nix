@@ -10,7 +10,7 @@
 
   home.file.".cache/noctalia/wallpapers.json" = {
     text = builtins.toJSON {
-      defaultWallpaper = "${userConfig.wallpaper}";
+      defaultWallpaper = userConfig.wallpaper;
     };
   };
 
@@ -296,7 +296,7 @@
         allowPanelsOnScreenWithoutBar = true;
         animationDisabled = true;
         animationSpeed = 1;
-        avatarImage = "${userConfig.avatar}";
+        avatarImage = userConfig.avatar;
         boxRadiusRatio = 1;
         compactLockScreen = true;
         dimmerOpacity = 0.2;
