@@ -47,12 +47,12 @@
       clearOnHide=true
       debug=false
       displayScrollbar=false
-      followCursor=true
+      followCursor=false
       hideOnFocusLoss=true
       historySearch=true
       itemCount=10
       quitOnClose=false
-      showCentered=true
+      showCentered=false
     '';
 
     systemd.user.services.albert = {

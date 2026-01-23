@@ -113,6 +113,8 @@ window-rule {
     shadow {
         off
     }
+    open-floating true
+    default-floating-position x=0 y=150 relative-to="top"
 }
 
 workspace "main"
