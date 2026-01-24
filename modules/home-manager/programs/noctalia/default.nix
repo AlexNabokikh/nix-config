@@ -169,6 +169,23 @@
               warningThreshold = 30;
             }
             {
+              defaultSettings = {
+                audioCodec = "opus";
+                audioSource = "default_output";
+                colorRange = "limited";
+                copyToClipboard = false;
+                directory = "";
+                filenamePattern = "recording_yyyyMMdd_HHmmss";
+                frameRate = "60";
+                hideInactive = true;
+                quality = "very_high";
+                showCursor = true;
+                videoCodec = "h264";
+                videoSource = "portal";
+              };
+              id = "plugin:screen-recorder";
+            }
+            {
               id = "plugin:privacy-indicator";
             }
           ];
@@ -261,6 +278,7 @@
                 directory = "";
                 filenamePattern = "recording_yyyyMMdd_HHmmss";
                 frameRate = "60";
+                hideInactive = true;
                 quality = "very_high";
                 showCursor = true;
                 videoCodec = "h264";
