@@ -168,7 +168,7 @@ window-rule {
       off
     }
     open-floating true
-    default-floating-position x=0 y=150 relative-to="top"
+    default-floating-position x=0 y=300 relative-to="top"
 }
 
 // Screen sharing
