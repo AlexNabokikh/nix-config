@@ -58,9 +58,9 @@
       dig
       eza
       fd
-      github-copilot-cli
       jq
       nh
+      opencode
       openconnect
       pipenv
       podman-compose
