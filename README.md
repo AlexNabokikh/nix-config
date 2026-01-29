@@ -127,7 +127,7 @@ just check-pre-commit
 
 ## Key Technologies
 
-- **Nix Flakes**: Primary build system
+- **Nix Fls**: Primary build system
 - **Home Manager**: User-level package and configuration management
 - **nix-darwin**: macOS system configuration
 - **nixpkgs**: Main package repository (nixos-unstable)
@@ -149,6 +149,8 @@ just check-pre-commit
 | `laptop.nix` | Laptop power management | NixOS |
 | `ollama.nix` | Local AI models | NixOS |
 | `steam.nix` | Gaming platform | NixOS |
+| `parallels.nix` | Parallels Desktop integration | macOS |
+| `jankyborders.nix` | Window border management | NixOS |
 
 ### Home Manager Modules (`home/modules/`)
 
@@ -207,6 +209,8 @@ just check-pre-commit
 - `spicetify.nix` - Spotify customization
 - `vscode.nix` - VS Code
 - `zoom.nix` - Video conferencing
+- `karabiner.nix` - Keyboard customization
+- `kanshi.nix` - Display configuration
 
 </details>
 
