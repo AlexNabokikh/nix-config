@@ -184,7 +184,4 @@
     nerd-fonts.meslo-lg
     roboto
   ];
-
-  # OpenSSH daemon
-  services.openssh.enable = true;
 }
