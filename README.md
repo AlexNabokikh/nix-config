@@ -24,13 +24,11 @@ It is structured to easily accommodate multiple machines and user configurations
   - `nixos/`: NixOS-specific modules for system configuration.
   - `darwin/`: macOS-specific (nix-darwin) modules.
   - `home-manager/`: User-space configuration modules for applications and services.
-- `overlays/`: Custom Nix overlays for package modifications or additions.
 - `flake.lock`: Lock file ensuring reproducible builds by pinning input versions.
 
 ### Key Inputs
 
 - **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages.
-- **nixpkgs-stable**: Points to the `nixos-25.11` channel for stable packages.
 - **home-manager**: Manages user-specific configurations.
 - **darwin**: Enables nix-darwin for macOS system configuration.
 - **hardware**: Provides NixOS modules to optimize settings for different hardware.

@@ -3,7 +3,6 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Home manager
     home-manager = {
@@ -120,6 +119,5 @@
         "nabokikh@energy" = mkHomeConfiguration "x86_64-linux" "nabokikh" "energy";
       };
 
-      overlays = import ./overlays { inherit inputs; };
     };
 }
