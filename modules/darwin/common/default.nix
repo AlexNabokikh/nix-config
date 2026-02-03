@@ -4,13 +4,6 @@
   ...
 }:
 {
-  # Nixpkgs configuration
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   # Nix settings
   nix = {
     settings = {

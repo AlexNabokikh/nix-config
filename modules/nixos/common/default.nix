@@ -7,13 +7,6 @@
   ...
 }:
 {
-  # Nixpkgs configuration
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   # Register flake inputs for nix commands
   nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
     lib.filterAttrs (_: lib.isType "flake") inputs

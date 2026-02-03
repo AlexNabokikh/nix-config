@@ -41,6 +41,11 @@
     let
       inherit (self) outputs;
 
+      # Nixpkgs configuration
+      nixpkgsConfig = {
+        allowUnfree = true;
+      };
+
       # Define user configurations
       users = {
         "alexander.nabokikh" = {
@@ -71,7 +76,10 @@
             userConfig = users.${username};
             nixosModules = "${self}/modules/nixos";
           };
-          modules = [ ./hosts/${hostname} ];
+          modules = [
+            { nixpkgs.config = nixpkgsConfig; }
+            ./hosts/${hostname}
+          ];
         };
 
       # Function for nix-darwin system configuration
@@ -84,14 +92,20 @@
             userConfig = users.${username};
             darwinModules = "${self}/modules/darwin";
           };
-          modules = [ ./hosts/${hostname} ];
+          modules = [
+            { nixpkgs.config = nixpkgsConfig; }
+            ./hosts/${hostname}
+          ];
         };
 
       # Function for Home Manager configuration
       mkHomeConfiguration =
         system: username: hostname:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+          };
           extraSpecialArgs = {
             inherit inputs outputs;
             userConfig = users.${username};
