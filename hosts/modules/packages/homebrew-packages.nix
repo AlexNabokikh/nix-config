@@ -17,7 +17,7 @@ _: {
     brews = [
       #* AI Tools
       "lazyssh"
-      "gemini-cli" # AI-powered command-line interface
+      # "gemini-cli" # AI-powered command-line interface
 
       #* DevOps & Infrastructure
       "awscli" # AWS Command Line Interface
@@ -46,7 +46,7 @@ _: {
     casks = [
       #* AI Tools
       "kiro" #  AI editor
-      # "claude" # Claude AI client
+      "claude-code" # Claude AI client
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
