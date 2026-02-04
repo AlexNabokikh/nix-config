@@ -1,8 +1,17 @@
 {
+  config,
   inputs,
+  pkgs,
   userConfig,
   ...
 }:
+let
+  paletteFile = "${inputs.catppuccin.packages.${pkgs.system}.palette}/palette.json";
+  palette = builtins.fromJSON (builtins.readFile paletteFile);
+  flavorPalette = palette.${config.catppuccin.flavor}.colors;
+  color = name: flavorPalette.${name}.hex;
+  accentColor = color config.catppuccin.accent;
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -17,22 +26,22 @@
   programs.noctalia-shell = {
     enable = true;
     colors = {
-      mPrimary = "#b7bdf8";
-      mOnPrimary = "#181926";
-      mSecondary = "#f5bde6";
-      mOnSecondary = "#181926";
-      mTertiary = "#c6a0f6";
-      mOnTertiary = "#181926";
-      mError = "#ed8796";
-      mOnError = "#181926";
-      mSurface = "#24273a";
-      mOnSurface = "#cad3f5";
-      mSurfaceVariant = "#363a4f";
-      mOnSurfaceVariant = "#b8c0e0";
-      mOutline = "#6e738d";
-      mShadow = "#181926";
-      mHover = "#c6a0f6";
-      mOnHover = "#181926";
+      mPrimary = accentColor;
+      mOnPrimary = color "crust";
+      mSecondary = color "pink";
+      mOnSecondary = color "crust";
+      mTertiary = color "mauve";
+      mOnTertiary = color "crust";
+      mError = color "red";
+      mOnError = color "crust";
+      mSurface = color "base";
+      mOnSurface = color "text";
+      mSurfaceVariant = color "surface0";
+      mOnSurfaceVariant = color "subtext0";
+      mOutline = color "overlay0";
+      mShadow = color "crust";
+      mHover = accentColor;
+      mOnHover = color "crust";
     };
     plugins = {
       sources = [
@@ -217,7 +226,6 @@
         manualSunrise = "06:30";
         manualSunset = "18:30";
         matugenSchemeType = "scheme-fruit-salad";
-        predefinedScheme = "Catppuccin Lavender";
         schedulingMode = "off";
         useWallpaperColors = false;
       };

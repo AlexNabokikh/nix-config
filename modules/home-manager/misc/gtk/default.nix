@@ -10,10 +10,10 @@
     colorScheme = "dark";
     gtk4.theme = config.gtk.theme;
     theme = {
-      name = "catppuccin-macchiato-lavender-compact";
+      name = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-compact";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ "lavender" ];
-        variant = "macchiato";
+        accents = [ config.catppuccin.accent ];
+        variant = config.catppuccin.flavor;
         size = "compact";
       };
     };
