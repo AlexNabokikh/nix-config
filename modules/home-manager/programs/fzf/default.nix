@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  copyCmd = if pkgs.stdenv.isDarwin then "pbcopy" else "wl-copy";
+  copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
 in
 {
   # Install fzf via home-manager module

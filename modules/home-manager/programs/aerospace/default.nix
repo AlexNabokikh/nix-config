@@ -4,7 +4,7 @@
   ...
 }:
 {
-  config = lib.mkIf (pkgs.stdenv.isDarwin) {
+  config = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
     # Ensure aerospace package installed
     home.packages = [ pkgs.aerospace ];
 

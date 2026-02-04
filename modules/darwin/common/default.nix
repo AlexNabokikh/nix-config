@@ -65,7 +65,7 @@
             };
             "61" = {
               # Set 'Option + Space' for selecting the next input source
-              enabled = 1;
+              enabled = true;
               value = {
                 parameters = [
                   32

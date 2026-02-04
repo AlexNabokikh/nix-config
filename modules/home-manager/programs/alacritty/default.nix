@@ -22,7 +22,7 @@
       };
 
       window = {
-        decorations = if pkgs.stdenv.isDarwin then "buttonless" else "full";
+        decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "full";
         dynamic_title = false;
         dynamic_padding = true;
         dimensions = {
@@ -41,7 +41,7 @@
       };
 
       keyboard.bindings =
-        if pkgs.stdenv.isDarwin then
+        if pkgs.stdenv.hostPlatform.isDarwin then
           [
             {
               key = "Slash";
@@ -53,7 +53,7 @@
           [ ];
 
       font = {
-        size = if pkgs.stdenv.isDarwin then 15 else 12;
+        size = if pkgs.stdenv.hostPlatform.isDarwin then 15 else 12;
         normal = {
           family = "MesloLGS Nerd Font";
           style = "Regular";
