@@ -1,14 +1,14 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  # Ensure swappy package installed
-  home.packages = [ pkgs.swappy ];
-
-  # Source swappy config from the home-manager store
-  xdg.configFile = {
-    "swappy/config".text = ''
-      [Default]
-      save_dir=$HOME/Pictures
-      save_filename_format=screenshot-%Y%m%d-%H%M%S.png
-    '';
+  # Install swappy via home-manager module
+  programs.swappy = {
+    enable = true;
+    settings = {
+      Default = {
+        paint_mode = "arrow";
+        save_dir = "$HOME/Pictures";
+        save_filename_format = "screenshot-%Y%m%d-%H%M%S.png";
+      };
+    };
   };
 }
