@@ -35,7 +35,10 @@
   home = {
     username = userConfig.name;
     homeDirectory =
-      if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${userConfig.name}" else "/home/${userConfig.name}";
+      if pkgs.stdenv.hostPlatform.isDarwin then
+        "/Users/${userConfig.name}"
+      else
+        "/home/${userConfig.name}";
   };
 
   # Ensure common packages are installed
