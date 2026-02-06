@@ -20,6 +20,8 @@ return {
       "python",
       "regex",
       "terraform",
+      "toml",
+      "typescript",
       "vim",
       "vimdoc",
       "yaml",

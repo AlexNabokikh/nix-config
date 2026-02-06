@@ -41,7 +41,18 @@ return {
             },
           },
         },
-        nixd = {},
+        nixd = {
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = "import <nixpkgs> {}",
+              },
+              formatting = {
+                command = { "nixfmt" },
+              },
+            },
+          },
+        },
         pyright = {
           settings = {
             python = {
@@ -51,6 +62,7 @@ return {
                 typeCheckingMode = "basic",
                 diagnosticMode = "openFilesOnly",
               },
+              disableOrganizeImports = true,
             },
           },
         },

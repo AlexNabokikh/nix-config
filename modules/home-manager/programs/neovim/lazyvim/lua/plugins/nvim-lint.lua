@@ -5,6 +5,7 @@ return {
       dockerfile = { "hadolint" },
       go = { "golangcilint" },
       markdown = { "markdownlint" },
+      sh = { "shellcheck" },
       terraform = { "tflint" },
       tf = { "tflint" },
     },
