@@ -6,7 +6,7 @@
   ...
 }:
 let
-  paletteFile = "${inputs.catppuccin.packages.${pkgs.system}.palette}/palette.json";
+  paletteFile = "${inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.palette}/palette.json";
   palette = builtins.fromJSON (builtins.readFile paletteFile);
   flavorPalette = palette.${config.catppuccin.flavor}.colors;
   color = name: flavorPalette.${name}.hex;
