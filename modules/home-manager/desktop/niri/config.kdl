@@ -93,7 +93,7 @@ workspace "games"
 
 // Layer rules
 layer-rule {
-    match namespace="^noctalia-overview*"
+    match namespace="^noctalia-overview.*"
     place-within-backdrop true
 }
 
@@ -140,7 +140,7 @@ window-rule {
 }
 
 window-rule {
-    match title="^_crx_nngceckbapebfimnlniiiahkandclblb$"
+    match title=r#"^_crx_.*$"#
     open-floating true
     block-out-from "screencast"
 }

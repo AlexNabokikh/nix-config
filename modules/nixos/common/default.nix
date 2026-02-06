@@ -27,7 +27,7 @@
 
   # Boot settings
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 0;
     initrd.verbose = false;
     kernelParams = [
@@ -80,15 +80,8 @@
     powerOnBoot = false;
   };
 
-  # Input settings
-  services.libinput.enable = true;
-
-  # xserver settings
-  services.xserver = {
-    xkb.layout = "pl";
-    xkb.variant = "";
-    excludePackages = with pkgs; [ xterm ];
-  };
+  # Exclude xterm from default packages
+  services.xserver.excludePackages = with pkgs; [ xterm ];
 
   # Enable Wayland support in Chromium and Electron based applications
   # Set cursor size
@@ -122,6 +115,7 @@
     description = userConfig.fullName;
     extraGroups = [
       "networkmanager"
+      "video"
       "wheel"
     ];
     isNormalUser = true;
@@ -129,7 +123,7 @@
   };
 
   # Set User's avatar
-  system.activationScripts.script.text = ''
+  system.activationScripts.setUserAvatar.text = ''
     mkdir -p /var/lib/AccountsService/{icons,users}
     cp ${userConfig.avatar} /var/lib/AccountsService/icons/${userConfig.name}
 
@@ -151,7 +145,6 @@
     gcc # needed for tree-sitter
     gnumake
     killall
-    mesa
   ];
 
   # Common container config

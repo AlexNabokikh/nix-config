@@ -3,6 +3,7 @@
 import configparser
 import os
 import re
+import shlex
 import subprocess
 import sys
 
@@ -97,7 +98,7 @@ def execute_saml2aws_command(profile_name, region, command, max_attempts=2):
                     ["saml2aws", "login", "--profile", profile_name, "--skip-prompt"], check=True, timeout=30
                 )
 
-            cmd_parts = command.split()
+            cmd_parts = shlex.split(command)
             process_env = dict(os.environ, AWS_PROFILE=profile_name, AWS_REGION=region)
             result = subprocess.run(
                 cmd_parts,
@@ -125,7 +126,7 @@ def execute_saml2aws_command(profile_name, region, command, max_attempts=2):
 def run_command_in_cluster(command):
     """Run the user-provided command in the current cluster."""
     try:
-        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         stdout, stderr = process.communicate()
 
         if process.returncode != 0:
@@ -162,28 +163,29 @@ def main():
     print(f"Found {len(contexts)} contexts")
     original_context = subprocess.check_output(["kubectl", "config", "current-context"]).decode().strip()
 
-    for context_name in contexts:
-        if not switch_kube_context(context_name):
-            print(f"Failed to switch to context: {context_name}")
-            continue
+    try:
+        for context_name in contexts:
+            if not switch_kube_context(context_name):
+                print(f"Failed to switch to context: {context_name}")
+                continue
 
-        print(f"[CONTEXT: {context_name}]")
+            print(f"[CONTEXT: {context_name}]")
 
-        account_number, region = get_current_kube_context_info()
-        if not account_number or not region:
-            print(f"Could not extract account number or region from context: {context_name}")
-            continue
+            account_number, region = get_current_kube_context_info()
+            if not account_number or not region:
+                print(f"Could not extract account number or region from context: {context_name}")
+                continue
 
-        profile_name = find_profile_name(aws_config, account_number)
-        if not profile_name:
-            print(f"No matching AWS profile found for account: {account_number}")
-            continue
+            profile_name = find_profile_name(aws_config, account_number)
+            if not profile_name:
+                print(f"No matching AWS profile found for account: {account_number}")
+                continue
 
-        output = execute_saml2aws_command(profile_name, region, user_command)
-        print("COMMAND OUTPUT:")
-        print(output)
-
-    switch_kube_context(original_context)
+            output = execute_saml2aws_command(profile_name, region, user_command)
+            print("COMMAND OUTPUT:")
+            print(output)
+    finally:
+        switch_kube_context(original_context)
 
 
 if __name__ == "__main__":

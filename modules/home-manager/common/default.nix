@@ -1,5 +1,6 @@
 {
   userConfig,
+  lib,
   pkgs,
   ...
 }:
@@ -29,7 +30,7 @@
   ];
 
   # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
 
   # Home-Manager configuration for the user's home environment
   home = {
@@ -60,7 +61,7 @@
       ripgrep
       terraform
     ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       anki-bin
       colima
       hidden-bar
@@ -68,7 +69,7 @@
       podman
       raycast
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [
+    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
       anki
       tesseract
       unzip
