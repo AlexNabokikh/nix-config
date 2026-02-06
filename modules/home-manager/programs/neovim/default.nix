@@ -11,7 +11,7 @@
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
-    withRuby = true;
+    withRuby = false;
 
     extraPackages = with pkgs; [
       black
@@ -23,7 +23,7 @@
       lua-language-server
       markdownlint-cli
       nixd
-      nixfmt
+      nixfmt-rfc-style
       nodePackages.bash-language-server
       nodePackages.prettier
       pyright

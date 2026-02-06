@@ -56,7 +56,6 @@ return {
         },
         ruff = {},
         terraformls = {},
-        tflint = {},
         yamlls = {
           settings = {
             yaml = {
