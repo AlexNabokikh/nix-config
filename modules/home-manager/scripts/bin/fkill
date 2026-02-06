@@ -2,6 +2,6 @@
 
 pid=$(ps -ef | sed 1d | fzf | awk '{print $2}')
 
-if [ "x$pid" != "x" ]; then
-	sudo kill -"${1:-9}" "$pid"
+if [ -n "$pid" ]; then
+	sudo kill -"${1:-15}" "$pid"
 fi

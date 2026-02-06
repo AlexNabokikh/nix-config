@@ -228,6 +228,9 @@ def main():
         check_dependency(cmd)
 
     AWS_DEFAULT_REGION, CLUSTER_NAME = fetch_cluster_info()
+    if not AWS_DEFAULT_REGION or not CLUSTER_NAME:
+        print("Error: Could not determine cluster region or name.")
+        sys.exit(1)
 
     asgs = get_asgs(AWS_DEFAULT_REGION, CLUSTER_NAME)
     if not asgs:
@@ -239,7 +242,11 @@ def main():
         print(f"{idx + 1}. {asg}")
 
     while True:
-        asg_number = int(get_input("Enter the number corresponding to the ASG you want to query"))
+        try:
+            asg_number = int(get_input("Enter the number corresponding to the ASG you want to query"))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
         if 1 <= asg_number <= len(asgs):
             selected_asg = asgs[asg_number - 1]
         else:

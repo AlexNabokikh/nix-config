@@ -1,21 +1,3 @@
 {
-  "diagnostics.globals": [
-    "yaml_language_server",
-    "tflint",
-    "terraform_ls",
-    "stylua",
-    "shfmt",
-    "pyright",
-    "prittier",
-    "markdownlint",
-    "lua_language_server",
-    "json_lsp",
-    "isort",
-    "hadolint",
-    "golangci_lint",
-    "goimports",
-    "black",
-    "bash_language_server",
-    "on_attach"
-  ]
+  "diagnostics.globals": []
 }

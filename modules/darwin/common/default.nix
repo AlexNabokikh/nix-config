@@ -10,7 +10,6 @@
       experimental-features = "nix-command flakes";
     };
     optimise.automatic = true;
-    package = pkgs.nix;
   };
 
   # User configuration

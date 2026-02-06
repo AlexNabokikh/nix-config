@@ -11,7 +11,7 @@
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
-    withRuby = true;
+    withRuby = false;
 
     extraPackages = with pkgs; [
       black

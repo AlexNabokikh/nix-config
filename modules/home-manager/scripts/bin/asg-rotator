@@ -258,6 +258,9 @@ def main():
         check_dependency(cmd)
 
     AWS_DEFAULT_REGION, CLUSTER_NAME = fetch_cluster_info()
+    if not AWS_DEFAULT_REGION or not CLUSTER_NAME:
+        print("Error: Could not determine cluster region or name.")
+        sys.exit(1)
 
     WAIT = 15
 
@@ -270,7 +273,11 @@ def main():
     for idx, asg in enumerate(asgs):
         print(f"{idx + 1}. {asg}")
 
-    asg_number = int(get_input("Enter the number corresponding to the ASG"))
+    try:
+        asg_number = int(get_input("Enter the number corresponding to the ASG"))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        sys.exit(1)
     if 1 <= asg_number <= len(asgs):
         selected_asg = asgs[asg_number - 1]
     else:

@@ -8,7 +8,7 @@
         email = userConfig.email;
         name = userConfig.fullName;
       };
-      pull.rebase = "true";
+      pull.rebase = true;
     };
     signing = {
       key = userConfig.gitKey;

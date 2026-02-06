@@ -9,7 +9,7 @@
     keyMode = "vi";
     mouse = true;
     sensibleOnTop = false;
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
 
     extraConfig = ''
       # Set the prefix to `ctrl + q` instead of `ctrl + b`

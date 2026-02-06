@@ -68,7 +68,7 @@
         };
         bold_italic = {
           family = "MesloLGS Nerd Font";
-          style = "Italic";
+          style = "Bold Italic";
         };
       };
 

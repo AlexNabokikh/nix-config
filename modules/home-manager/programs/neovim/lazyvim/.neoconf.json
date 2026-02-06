@@ -1,5 +1,5 @@
 {
-  "neodev": {
+  "lazydev": {
     "library": {
       "enabled": true,
       "plugins": true
