@@ -187,6 +187,21 @@ window-rule {
 }
 
 // Games
+// Hide EasyAntiCheat black setup window
+window-rule {
+    match title=r#".*EasyAntiCheat.*"#
+    focus-ring {
+      off
+    }
+    border {
+      off
+    }
+    opacity 0.0
+    open-floating true
+    open-focused false
+}
+
+// Run Steam games at fullscreen
 window-rule {
     match app-id=r#"^steam_app_\d+$"#
     exclude title="^$"
