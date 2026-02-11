@@ -27,7 +27,7 @@
       defaultApplicationPackages = [
         pkgs.gnome-text-editor
         pkgs.loupe
-        pkgs.totem
+        pkgs.showtime
       ];
     };
 

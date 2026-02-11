@@ -24,7 +24,7 @@
     loupe # image viewer
     nautilus # file manager
     seahorse # keyring manager
-    totem # Video player
+    showtime # Video player
 
     # Wayland utilities
     gpu-screen-recorder
