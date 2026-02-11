@@ -75,13 +75,19 @@ in
     settings = {
       appLauncher = {
         autoPasteClipboard = false;
+        clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
+        clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
         clipboardWrapText = true;
         customLaunchPrefix = "";
         customLaunchPrefixEnabled = false;
+        density = "default";
         enableClipPreview = true;
         enableClipboardHistory = true;
+        enableSettingsSearch = true;
+        enableWindowsSearch = false;
         iconMode = "tabler";
         ignoreMouseInput = false;
+        overviewLayer = false;
         pinnedApps = [ ];
         position = "center";
         screenshotAnnotationTool = "";
@@ -97,52 +103,70 @@ in
         mprisBlacklist = [ ];
         preferredPlayer = "";
         visualizerType = "linear";
+        volumeFeedback = false;
         volumeOverdrive = false;
         volumeStep = 5;
       };
       bar = {
+        autoHideDelay = 500;
+        autoShowDelay = 150;
         backgroundOpacity = 0.93;
+        barType = "simple";
+        capsuleColorKey = "none";
         capsuleOpacity = 1;
         density = "default";
-        exclusive = true;
+        displayMode = "always_visible";
         floating = false;
+        frameRadius = 12;
+        frameThickness = 8;
+        hideOnOverview = true;
         marginHorizontal = 4;
         marginVertical = 4;
         monitors = [ ];
         outerCorners = false;
         position = "top";
+        screenOverrides = [ ];
         showCapsule = false;
         showOutline = false;
         useSeparateOpacity = false;
         widgets = {
           center = [
             {
+              clockColor = "none";
               customFont = "";
               formatHorizontal = "HH:mm ddd, MMM dd";
               formatVertical = "HH mm - dd MM";
               id = "Clock";
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
-              usePrimaryColor = false;
             }
             {
               hideWhenZero = false;
+              hideWhenZeroUnread = false;
+              iconColor = "none";
               id = "NotificationHistory";
               showUnreadBadge = true;
+              unreadBadgeColor = "primary";
             }
           ];
           left = [
             {
               characterCount = 2;
               colorizeIcons = false;
+              emptyColor = "secondary";
               enableScrollWheel = true;
+              focusedColor = "primary";
               followFocusedScreen = false;
               groupedBorderOpacity = 1;
               hideUnoccupied = true;
               iconScale = 0.8;
               id = "Workspace";
               labelMode = "index";
+              occupiedColor = "secondary";
+              pillSize = 0.6;
+              reverseScroll = false;
               showApplications = false;
+              showBadge = true;
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
             }
@@ -150,6 +174,7 @@ in
           right = [
             {
               blacklist = [ ];
+              chevronColor = "none";
               colorizeIcons = false;
               drawerEnabled = true;
               hidePassive = false;
@@ -158,26 +183,32 @@ in
             }
             {
               displayMode = "forceOpen";
+              iconColor = "none";
               id = "KeyboardLayout";
               showIcon = true;
+              textColor = "none";
             }
             {
               displayMode = "onhover";
+              iconColor = "none";
               id = "Network";
+              textColor = "none";
             }
             {
               displayMode = "onhover";
+              iconColor = "none";
               id = "Volume";
               middleClickCommand = "";
+              textColor = "none";
             }
             {
               deviceNativePath = "";
               displayMode = "onhover";
+              hideIfIdle = false;
               hideIfNotDetected = true;
               id = "Battery";
               showNoctaliaPerformance = false;
               showPowerProfiles = false;
-              warningThreshold = 30;
             }
             {
               defaultSettings = {
@@ -197,6 +228,12 @@ in
               id = "plugin:screen-recorder";
             }
             {
+              defaultSettings = {
+                activeColor = "primary";
+                hideInactive = false;
+                inactiveColor = "none";
+                removeMargins = false;
+              };
               id = "plugin:privacy-indicator";
             }
           ];
@@ -225,9 +262,11 @@ in
       };
       colorSchemes = {
         darkMode = true;
+        generationMethod = "tonal-spot";
         manualSunrise = "06:30";
         manualSunset = "18:30";
-        matugenSchemeType = "scheme-fruit-salad";
+        monitorForColors = "";
+        predefinedScheme = "Noctalia (default)";
         schedulingMode = "off";
         useWallpaperColors = false;
       };
@@ -322,17 +361,35 @@ in
       };
       general = {
         allowPanelsOnScreenWithoutBar = true;
+        allowPasswordWithFprintd = false;
         animationDisabled = true;
         animationSpeed = 1;
+        autoStartAuth = false;
         avatarImage = userConfig.avatar;
         boxRadiusRatio = 1;
+        clockFormat = "hh\\nmm";
+        clockStyle = "custom";
         compactLockScreen = true;
         dimmerOpacity = 0.2;
+        enableLockScreenCountdown = true;
         enableShadows = false;
         forceBlackScreenCorners = false;
         iRadiusRatio = 1;
+        keybinds = {
+          keyDown = [ "Ctrl+J" ];
+          keyEnter = [ "Return" ];
+          keyEscape = [ "Esc" ];
+          keyLeft = [ "Ctrl+H" ];
+          keyRight = [ "Ctrl+L" ];
+          keyUp = [ "Ctrl+K" ];
+        };
         language = "";
         lockOnSuspend = true;
+        lockScreenAnimations = false;
+        lockScreenBlur = 0;
+        lockScreenCountdownDuration = 10000;
+        lockScreenMonitors = [ ];
+        lockScreenTint = 0;
         radiusRatio = 1;
         scaleRatio = 1;
         screenRadiusRatio = 1;
@@ -352,6 +409,8 @@ in
         performanceModeEnabled = "";
         screenLock = "";
         screenUnlock = "";
+        session = "";
+        startup = "";
         wallpaperChange = "";
       };
       location = {
@@ -374,7 +433,7 @@ in
         bluetoothRssiPollIntervalMs = 10000;
         bluetoothRssiPollingEnabled = false;
         wifiDetailsViewMode = "grid";
-        wifiEnabled = true;
+        wifiEnabled = false;
       };
       nightLight = {
         autoSchedule = true;
@@ -388,7 +447,9 @@ in
       notifications = {
         backgroundOpacity = 1;
         criticalUrgencyDuration = 15;
+        enableBatteryToast = true;
         enableKeyboardLayoutToast = false;
+        enableMediaToast = false;
         enabled = true;
         location = "top_right";
         lowUrgencyDuration = 3;
@@ -423,6 +484,9 @@ in
         location = "top_right";
         monitors = [ ];
         overlayLayer = true;
+      };
+      plugins = {
+        autoUpdate = false;
       };
       sessionMenu = {
         countdownDuration = 10000;
@@ -459,12 +523,16 @@ in
         showHeader = true;
         showNumberLabels = true;
       };
-      settingsVersion = 39;
+      settingsVersion = 51;
       systemMonitor = {
+        batteryCriticalThreshold = 5;
+        batteryWarningThreshold = 20;
         cpuCriticalThreshold = 90;
         cpuPollingInterval = 5000;
         cpuWarningThreshold = 80;
         criticalColor = "";
+        diskAvailCriticalThreshold = 10;
+        diskAvailWarningThreshold = 20;
         diskCriticalThreshold = 90;
         diskPollingInterval = 10000;
         diskWarningThreshold = 80;
@@ -477,40 +545,17 @@ in
         memCriticalThreshold = 90;
         memPollingInterval = 5000;
         memWarningThreshold = 80;
-        networkPollingInterval = 5000;
+        networkPollingInterval = 1000;
+        swapCriticalThreshold = 90;
+        swapWarningThreshold = 80;
         tempCriticalThreshold = 90;
-        tempPollingInterval = 5000;
         tempWarningThreshold = 80;
         useCustomColors = false;
         warningColor = "";
       };
       templates = {
-        gtk = false;
-        qt = false;
-        kcolorscheme = false;
-        alacritty = false;
-        kitty = false;
-        ghostty = false;
-        foot = false;
-        wezterm = false;
-        fuzzel = false;
-        discord = false;
-        pywalfox = false;
-        vicinae = false;
-        walker = false;
-        code = false;
-        spicetify = false;
-        telegram = false;
-        cava = false;
-        yazi = false;
-        emacs = false;
-        niri = false;
-        hyprland = false;
-        mango = false;
-        zed = false;
-        helix = false;
-        zenBrowser = false;
-        enableUserTemplates = false;
+        activeTemplates = [ ];
+        enableUserTheming = false;
       };
       ui = {
         bluetoothDetailsViewMode = "grid";
@@ -528,6 +573,7 @@ in
         wifiDetailsViewMode = "grid";
       };
       wallpaper = {
+        automationEnabled = false;
         directory = "";
         enableMultiMonitorDirectories = false;
         enabled = true;
@@ -535,18 +581,21 @@ in
         fillMode = "crop";
         hideWallpaperFilenames = false;
         monitorDirectories = [ ];
+        overviewBlur = 0.4;
         overviewEnabled = true;
+        overviewTint = 0.6;
         panelPosition = "follow_bar";
-        randomEnabled = false;
         randomIntervalSec = 300;
-        recursiveSearch = false;
         setWallpaperOnAllMonitors = true;
+        showHiddenFiles = false;
         solidColor = "#1a1a2e";
+        sortOrder = "name";
         transitionDuration = 0;
         transitionEdgeSmoothness = 0.05;
         transitionType = "random";
         useSolidColor = false;
         useWallhaven = false;
+        viewMode = "single";
         wallhavenApiKey = "";
         wallhavenCategories = "111";
         wallhavenOrder = "desc";
