@@ -46,7 +46,7 @@ gestures {
 
 // Layout settings
 layout {
-    background-color "transparent"
+    background-color "#000000"
     gaps 6
     center-focused-column "never"
 

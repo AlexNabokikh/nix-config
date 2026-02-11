@@ -396,7 +396,7 @@ in
         shadowDirection = "bottom_right";
         shadowOffsetX = 2;
         shadowOffsetY = 3;
-        showChangelogOnStartup = true;
+        showChangelogOnStartup = false;
         showHibernateOnLockScreen = false;
         showScreenCorners = false;
         showSessionButtonsOnLockScreen = true;
