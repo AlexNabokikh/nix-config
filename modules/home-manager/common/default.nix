@@ -52,6 +52,7 @@
       fd
       jq
       nh
+      nodejs
       opencode
       openconnect
       pipenv

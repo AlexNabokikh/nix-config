@@ -25,7 +25,9 @@
       nixd
       nixfmt
       nodePackages.bash-language-server
+      nodePackages.eslint
       nodePackages.prettier
+      nodePackages.typescript-language-server
       pyright
       ruff
       shellcheck

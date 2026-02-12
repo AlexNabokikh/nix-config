@@ -68,6 +68,7 @@ return {
         },
         ruff = {},
         terraformls = {},
+        ts_ls = {},
         yamlls = {
           settings = {
             yaml = {

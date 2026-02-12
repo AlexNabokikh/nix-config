@@ -4,6 +4,9 @@ return {
     formatters_by_ft = {
       css = { "prettier" },
       go = { "goimports", "gofmt" },
+      hcl = { "terraform_fmt" },
+      javascript = { "prettier" },
+      javascriptreact = { "prettier" },
       lua = { "stylua" },
       markdown = { "prettier" },
       nix = { "nixfmt" },
@@ -11,7 +14,8 @@ return {
       sh = { "shfmt" },
       terraform = { "terraform_fmt" },
       tf = { "terraform_fmt" },
-      hcl = { "terraform_fmt" },
+      typescript = { "prettier" },
+      typescriptreact = { "prettier" },
       yaml = { "prettier" },
     },
     formatters = {
