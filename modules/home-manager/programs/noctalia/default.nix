@@ -83,7 +83,8 @@ in
         density = "default";
         enableClipPreview = true;
         enableClipboardHistory = true;
-        enableSettingsSearch = true;
+        enableSessionSearch = false;
+        enableSettingsSearch = false;
         enableWindowsSearch = false;
         iconMode = "tabler";
         ignoreMouseInput = false;
@@ -447,6 +448,7 @@ in
       notifications = {
         backgroundOpacity = 1;
         criticalUrgencyDuration = 15;
+        density = "default";
         enableBatteryToast = true;
         enableKeyboardLayoutToast = false;
         enableMediaToast = false;
@@ -498,32 +500,37 @@ in
           {
             action = "lock";
             enabled = true;
+            keybind = "1";
           }
           {
             action = "suspend";
             enabled = true;
+            keybind = "2";
           }
           {
             action = "hibernate";
             enabled = true;
+            keybind = "3";
           }
           {
             action = "reboot";
             enabled = true;
+            keybind = "4";
           }
           {
             action = "logout";
             enabled = true;
+            keybind = "5";
           }
           {
             action = "shutdown";
             enabled = true;
+            keybind = "6";
           }
         ];
         showHeader = true;
-        showNumberLabels = true;
       };
-      settingsVersion = 51;
+      settingsVersion = 53;
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
@@ -577,6 +584,7 @@ in
         directory = "";
         enableMultiMonitorDirectories = false;
         enabled = true;
+        favorites = [ ];
         fillColor = "#000000";
         fillMode = "crop";
         hideWallpaperFilenames = false;
@@ -588,6 +596,7 @@ in
         randomIntervalSec = 300;
         setWallpaperOnAllMonitors = true;
         showHiddenFiles = false;
+        skipStartupTransition = true;
         solidColor = "#1a1a2e";
         sortOrder = "name";
         transitionDuration = 0;

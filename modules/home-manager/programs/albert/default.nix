@@ -11,7 +11,6 @@
     # Source albert configuration from the home-manager store
     xdg.configFile."albert/config".text = ''
       [General]
-      frontend=widgetsboxmodel-ng
       showTray=false
       telemetry=false
 
@@ -25,12 +24,6 @@
       global_handler_enabled=false
       trigger=bm
 
-      [debug]
-      enabled=false
-
-      [path]
-      enabled=false
-
       [system]
       command_lock=loginctl lock-session
       command_logout=$HOME/.local/bin/quit-all-applications
@@ -42,17 +35,15 @@
       title_poweroff=Shutdown
       trigger=sys
 
-      [widgetsboxmodel-ng]
+      [widgetsboxmodel]
       alwaysOnTop=true
       clearOnHide=true
-      debug=false
       displayScrollbar=false
       followCursor=false
       hideOnFocusLoss=true
       historySearch=true
       itemCount=10
-      quitOnClose=false
-      showCentered=false
+      showCentered=true
     '';
 
     systemd.user.services.albert = {
