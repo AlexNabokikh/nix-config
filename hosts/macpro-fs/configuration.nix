@@ -34,6 +34,7 @@
       "/Applications/Termius.app"
       "/Applications/Warp.app"
       "/Applications/WhatsApp.app"
+      "/Applications/Cursor.app"
       "/Applications/Visual Studio Code.app"
     ];
   };

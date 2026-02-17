@@ -17,7 +17,7 @@ _: {
     brews = [
       #* AI Tools
       "lazyssh"
-      # "gemini-cli" # AI-powered command-line interface
+      "gemini-cli" # AI-powered command-line interface
 
       #* DevOps & Infrastructure
       "awscli" # AWS Command Line Interface
@@ -45,14 +45,15 @@ _: {
 
     casks = [
       #* AI Tools
-      "kiro" #  AI editor
-      "claude-code" # Claude AI client
+      "claude" # Claude AI client
+      # "chatgpt" # ChatGPT desktop client      "kiro" #  AI editor
+      "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
       #* Authentication & Security
       "1password" # Secure password manager
-      "1password-cli" # Command-line interface for 1Password
+      "1password" # Command-line interface for 1Password
 
       #* 3D printing
       # "autodesk-fusion" # 3D modeling and design software

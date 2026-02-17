@@ -325,7 +325,7 @@ run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = 'move-node-to-workspace C'
+run = 'move-node-to-workspace A'
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.pycharm'
