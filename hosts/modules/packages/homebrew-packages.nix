@@ -18,6 +18,7 @@ _: {
       #* AI Tools
       "lazyssh"
       "gemini-cli" # AI-powered command-line interface
+      "opencode" # AI coding agent for the terminal
 
       #* DevOps & Infrastructure
       "awscli" # AWS Command Line Interface
@@ -45,9 +46,12 @@ _: {
 
     casks = [
       #* AI Tools
-      "claude" # Claude AI client
-      # "chatgpt" # ChatGPT desktop client      "kiro" #  AI editor
-      "codex"
+      # "claude" # Claude AI client
+      # "claude-code" # Claude  CLI
+      # "chatgpt" # ChatGPT desktop client
+      # "kiro" #  AI editor
+      # "ollama" # Local AI model manager and runner
+      # "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
