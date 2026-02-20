@@ -127,7 +127,7 @@ just check-pre-commit
 
 ## Key Technologies
 
-- **Nix Fls**: Primary build system
+- **Nix Flakes**: Primary build system
 - **Home Manager**: User-level package and configuration management
 - **nix-darwin**: macOS system configuration
 - **nixpkgs**: Main package repository (nixos-unstable)
