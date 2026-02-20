@@ -179,7 +179,6 @@ in
               labelMode = "index";
               occupiedColor = "secondary";
               pillSize = 0.6;
-              reverseScroll = false;
               showApplications = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = true;
@@ -218,7 +217,7 @@ in
             }
             {
               deviceNativePath = "";
-              displayMode = "onhover";
+              displayMode = "graphic-clean";
               hideIfIdle = false;
               hideIfNotDetected = true;
               id = "Battery";
@@ -334,7 +333,7 @@ in
               id = "NightLight";
             }
             {
-              id = "plugin:screen-recorder";
+              id = "AirplaneMode";
             }
           ];
         };
@@ -350,14 +349,20 @@ in
         colorizeIcons = false;
         deadOpacity = 0.6;
         displayMode = "auto_hide";
+        dockType = "floating";
         enabled = false;
         floatingRatio = 1;
+        launcherIconColor = "none";
         inactiveIndicators = false;
+        launcherPosition = "end";
         monitors = [ ];
         onlySameOutput = true;
         pinnedApps = [ ];
         pinnedStatic = false;
         position = "bottom";
+        showFrameIndicator = true;
+        showLauncherIcon = false;
+        sitOnFrame = false;
         size = 1;
       };
       general = {
@@ -381,6 +386,7 @@ in
           keyEnter = [ "Return" ];
           keyEscape = [ "Esc" ];
           keyLeft = [ "Ctrl+H" ];
+          keyRemove = [ "Del" ];
           keyRight = [ "Ctrl+L" ];
           keyUp = [ "Ctrl+K" ];
         };
@@ -391,7 +397,9 @@ in
         lockScreenCountdownDuration = 10000;
         lockScreenMonitors = [ ];
         lockScreenTint = 0;
+        passwordChars = false;
         radiusRatio = 1;
+        reverseScroll = false;
         scaleRatio = 1;
         screenRadiusRatio = 1;
         shadowDirection = "bottom_right";
@@ -429,10 +437,12 @@ in
         weatherShowEffects = false;
       };
       network = {
+        airplaneModeEnabled = false;
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
         bluetoothRssiPollIntervalMs = 10000;
         bluetoothRssiPollingEnabled = false;
+        disableDiscoverability = false;
         wifiDetailsViewMode = "grid";
         wifiEnabled = false;
       };
@@ -447,10 +457,12 @@ in
       };
       notifications = {
         backgroundOpacity = 1;
+        clearDismissed = true;
         criticalUrgencyDuration = 15;
         density = "default";
         enableBatteryToast = true;
         enableKeyboardLayoutToast = false;
+        enableMarkdown = false;
         enableMediaToast = false;
         enabled = true;
         location = "top_right";
@@ -529,30 +541,25 @@ in
           }
         ];
         showHeader = true;
+        showKeybinds = true;
       };
       settingsVersion = 53;
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
         cpuCriticalThreshold = 90;
-        cpuPollingInterval = 5000;
         cpuWarningThreshold = 80;
         criticalColor = "";
         diskAvailCriticalThreshold = 10;
         diskAvailWarningThreshold = 20;
         diskCriticalThreshold = 90;
-        diskPollingInterval = 10000;
         diskWarningThreshold = 80;
         enableDgpuMonitoring = false;
         externalMonitor = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
         gpuCriticalThreshold = 90;
-        gpuPollingInterval = 5000;
         gpuWarningThreshold = 80;
-        loadAvgPollingInterval = 5000;
         memCriticalThreshold = 90;
-        memPollingInterval = 5000;
         memWarningThreshold = 80;
-        networkPollingInterval = 1000;
         swapCriticalThreshold = 90;
         swapWarningThreshold = 80;
         tempCriticalThreshold = 90;
@@ -575,7 +582,7 @@ in
         networkPanelView = "wifi";
         panelBackgroundOpacity = 0.93;
         panelsAttachedToBar = true;
-        settingsPanelMode = "attached";
+        settingsPanelMode = "centered";
         tooltipsEnabled = true;
         wifiDetailsViewMode = "grid";
       };
