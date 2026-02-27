@@ -68,7 +68,11 @@ in
     pluginSettings = {
       privacy-indicator = {
         hideInactive = true;
+        enableToast = false;
+        iconSpacing = 4;
         removeMargins = true;
+        activeColor = "error";
+        inactiveColor = "none";
       };
       screen-recorder = {
         audioCodec = "opus";
@@ -330,7 +334,7 @@ in
               id = "PowerProfile";
             }
             {
-              id = "NightLight";
+              id = "NoctaliaPerformance";
             }
             {
               id = "AirplaneMode";
@@ -459,7 +463,7 @@ in
         backgroundOpacity = 1;
         clearDismissed = true;
         criticalUrgencyDuration = 15;
-        density = "default";
+        density = "compact";
         enableBatteryToast = true;
         enableKeyboardLayoutToast = false;
         enableMarkdown = false;
