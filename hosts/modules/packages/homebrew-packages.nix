@@ -47,11 +47,11 @@ _: {
     casks = [
       #* AI Tools
       # "claude" # Claude AI client
-      # "claude-code" # Claude  CLI
+      "claude-code" # Claude  CLI
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
       # "ollama" # Local AI model manager and runner
-      # "codex"
+      "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
