@@ -123,6 +123,7 @@ in
         preferredPlayer = "";
         visualizerType = "linear";
         volumeFeedback = false;
+        volumeFeedbackSoundFile = "";
         volumeOverdrive = false;
         volumeStep = 5;
       };
@@ -133,21 +134,28 @@ in
         barType = "simple";
         capsuleColorKey = "none";
         capsuleOpacity = 1;
+        contentPadding = 0;
         density = "default";
         displayMode = "always_visible";
         floating = false;
+        fontScale = 1;
         frameRadius = 12;
         frameThickness = 8;
         hideOnOverview = true;
         marginHorizontal = 4;
         marginVertical = 4;
         monitors = [ ];
+        mouseWheelAction = "none";
+        mouseWheelWrap = true;
         outerCorners = false;
         position = "top";
+        reverseScroll = false;
         screenOverrides = [ ];
         showCapsule = false;
+        showOnWorkspaceSwitch = true;
         showOutline = false;
         useSeparateOpacity = false;
+        widgetSpacing = 6;
         widgets = {
           center = [
             {
@@ -258,6 +266,7 @@ in
         };
       };
       brightness = {
+        backlightDeviceMappings = [ ];
         brightnessStep = 5;
         enableDdcSupport = false;
         enforceMinimum = true;
@@ -316,6 +325,7 @@ in
           }
         ];
         diskPath = "/";
+        openAtMouseOnBarRightClick = true;
         position = "close_to_bar_button";
         shortcuts = {
           left = [
@@ -346,6 +356,7 @@ in
         enabled = false;
         gridSnap = false;
         monitorWidgets = [ ];
+        overviewEnabled = true;
       };
       dock = {
         animationSpeed = 1;
@@ -356,15 +367,22 @@ in
         dockType = "floating";
         enabled = false;
         floatingRatio = 1;
-        launcherIconColor = "none";
+        groupApps = false;
+        groupClickAction = "cycle";
+        groupContextMenuMode = "extended";
+        groupIndicatorStyle = "dots";
         inactiveIndicators = false;
+        indicatorColor = "primary";
+        indicatorOpacity = 0.6;
+        indicatorThickness = 3;
+        launcherIconColor = "none";
         launcherPosition = "end";
         monitors = [ ];
         onlySameOutput = true;
         pinnedApps = [ ];
         pinnedStatic = false;
         position = "bottom";
-        showFrameIndicator = true;
+        showDockIndicator = false;
         showLauncherIcon = false;
         sitOnFrame = false;
         size = 1;
@@ -382,12 +400,16 @@ in
         compactLockScreen = true;
         dimmerOpacity = 0.2;
         enableLockScreenCountdown = true;
+        enableLockScreenMediaControls = false;
         enableShadows = false;
         forceBlackScreenCorners = false;
         iRadiusRatio = 1;
         keybinds = {
           keyDown = [ "Ctrl+J" ];
-          keyEnter = [ "Return" ];
+          keyEnter = [
+            "Return"
+            "Enter"
+          ];
           keyEscape = [ "Esc" ];
           keyLeft = [ "Ctrl+H" ];
           keyRemove = [ "Del" ];
@@ -426,6 +448,20 @@ in
         startup = "";
         wallpaperChange = "";
       };
+      idle = {
+        customCommands = "[]";
+        enabled = false;
+        fadeDuration = 5;
+        lockCommand = "";
+        lockTimeout = 660;
+        resumeLockCommand = "";
+        resumeScreenOffCommand = "";
+        resumeSuspendCommand = "";
+        screenOffCommand = "";
+        screenOffTimeout = 600;
+        suspendCommand = "";
+        suspendTimeout = 1800;
+      };
       location = {
         analogClockInCalendar = false;
         firstDayOfWeek = -1;
@@ -447,6 +483,7 @@ in
         bluetoothRssiPollIntervalMs = 10000;
         bluetoothRssiPollingEnabled = false;
         disableDiscoverability = false;
+        networkPanelView = "wifi";
         wifiDetailsViewMode = "grid";
         wifiEnabled = false;
       };
@@ -547,7 +584,7 @@ in
         showHeader = true;
         showKeybinds = true;
       };
-      settingsVersion = 53;
+      settingsVersion = 54;
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
@@ -576,19 +613,16 @@ in
         enableUserTheming = false;
       };
       ui = {
-        bluetoothDetailsViewMode = "grid";
-        bluetoothHideUnnamedDevices = false;
         boxBorderEnabled = false;
         fontDefault = "Roboto";
         fontDefaultScale = 1;
         fontFixed = "JetBrainsMono Nerd Font Mono";
         fontFixedScale = 1;
-        networkPanelView = "wifi";
         panelBackgroundOpacity = 0.93;
         panelsAttachedToBar = true;
         settingsPanelMode = "centered";
+        settingsPanelSideBarCardStyle = false;
         tooltipsEnabled = true;
-        wifiDetailsViewMode = "grid";
       };
       wallpaper = {
         automationEnabled = false;
