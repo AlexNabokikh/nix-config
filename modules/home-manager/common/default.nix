@@ -80,7 +80,7 @@
 
   # Catppuccin flavor and accent
   catppuccin = {
-    flavor = "macchiato";
+    flavor = "mocha";
     accent = "lavender";
   };
 }
