@@ -19,6 +19,7 @@
       #* Development Tools
       delta # Enhanced git diff viewer with syntax highlighting
       direnv # Environment variable manager for project-specific environments
+      glow # Markdown terminal viewer from Charmbracelet
       gnupg # GNU Privacy Guard for encryption and signing
       tree-sitter # Parser generator tool and incremental parsing library for nvim-treesitter
 
@@ -58,6 +59,9 @@
       jq # Command-line JSON processor
       just # Modern command runner alternative to make
       yq # Command-line YAML processor
+
+      #* Terminal Recording
+      vhs # Terminal GIF/video recorder with code-based scripting
 
       #* Miscellaneous
       cmatrix # Terminal based "The Matrix" like animation

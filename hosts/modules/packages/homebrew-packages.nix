@@ -34,6 +34,7 @@ _: {
       "nmap" # Network exploration and security auditing tool
 
       #* Development Tools (CLI)
+      "glow" # Markdown terminal viewer from Charmbracelet
       "hugo" # Fast static site generator
       "mise"
       "nodejs" # JavaScript runtime environment
