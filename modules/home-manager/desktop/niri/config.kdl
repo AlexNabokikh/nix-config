@@ -26,11 +26,6 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// Monitor settings
-output "DP-1" {
-    variable-refresh-rate on-demand=true
-}
-
 // General settings
 prefer-no-csd
 
@@ -191,7 +186,6 @@ window-rule {
     match app-id=r#"^steam_app_\d+$"#
     exclude title="^$"
     open-fullscreen true
-    variable-refresh-rate true
 }
 
 // Bindings

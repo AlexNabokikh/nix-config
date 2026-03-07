@@ -15,6 +15,19 @@
     "${nixosModules}/programs/gaming"
   ];
 
+  # Font rendering for QD-OLED (no standard subpixel grid)
+  fonts.fontconfig = {
+    antialias = true;
+    subpixel = {
+      rgba = "none";
+      lcdfilter = "none";
+    };
+    hinting = {
+      enable = true;
+      style = "full";
+    };
+  };
+
   # Set hostname
   networking.hostName = hostname;
 
