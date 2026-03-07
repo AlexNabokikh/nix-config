@@ -208,7 +208,7 @@ nix flake update
 - **`desktop/hyprland`**: Hyprland window manager with GDM, Bluetooth, and required system packages.
 - **`desktop/niri`**: Niri scrollable-tiling Wayland compositor configuration.
 - **`desktop/wayland-common`**: Common Wayland compositor settings including GDM, GNOME apps, and Wayland utilities.
-- **`programs/steam`**: Steam gaming platform configuration.
+- **`programs/gaming`**: Gaming optimizations including Steam, GameMode (GPU/CPU tuning, renice), and low-latency PipeWire audio.
 
 ### Darwin Modules (in `modules/darwin/`)
 

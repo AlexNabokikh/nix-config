@@ -12,7 +12,7 @@
     ./hardware-configuration.nix
     "${nixosModules}/common"
     "${nixosModules}/desktop/niri"
-    "${nixosModules}/programs/steam"
+    "${nixosModules}/programs/gaming"
   ];
 
   # Set hostname
