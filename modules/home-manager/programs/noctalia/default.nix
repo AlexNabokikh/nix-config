@@ -144,12 +144,18 @@ in
         hideOnOverview = true;
         marginHorizontal = 4;
         marginVertical = 4;
+        middleClickAction = "none";
+        middleClickCommand = "";
+        middleClickFollowMouse = false;
         monitors = [ ];
         mouseWheelAction = "none";
         mouseWheelWrap = true;
         outerCorners = false;
         position = "top";
         reverseScroll = false;
+        rightClickAction = "controlCenter";
+        rightClickCommand = "";
+        rightClickFollowMouse = true;
         screenOverrides = [ ];
         showCapsule = false;
         showOnWorkspaceSwitch = true;
@@ -325,7 +331,6 @@ in
           }
         ];
         diskPath = "/";
-        openAtMouseOnBarRightClick = true;
         position = "close_to_bar_button";
         shortcuts = {
           left = [
@@ -478,6 +483,7 @@ in
       };
       network = {
         airplaneModeEnabled = false;
+        bluetoothAutoConnect = true;
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
         bluetoothRssiPollIntervalMs = 10000;
@@ -584,7 +590,7 @@ in
         showHeader = true;
         showKeybinds = true;
       };
-      settingsVersion = 54;
+      settingsVersion = 56;
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
