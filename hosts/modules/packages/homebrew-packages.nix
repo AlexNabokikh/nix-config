@@ -29,6 +29,7 @@ _: {
       "kubectx" # Switch between Kubernetes contexts
       "kubectl" # Kubernetes command-line tool
       "opentofu" # Open-source infrastructure as code tool
+      "talosctl" # CLI tool for managing Talos Linux clusters
 
       #* Networking
       "nmap" # Network exploration and security auditing tool
@@ -47,7 +48,7 @@ _: {
 
     casks = [
       #* AI Tools
-      # "claude" # Claude AI client
+      "claude" # Claude AI client
       "claude-code" # Claude  CLI
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
