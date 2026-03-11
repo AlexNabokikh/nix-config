@@ -5,6 +5,9 @@
     enable = true;
     settings = {
       general.renice = 10;
+      cpu = {
+        governor = "performance";
+      };
       gpu = {
         apply_gpu_optimisations = "accept-responsibility";
         gpu_device = 1;
