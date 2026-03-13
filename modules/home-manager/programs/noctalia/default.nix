@@ -118,9 +118,9 @@ in
         viewMode = "list";
       };
       audio = {
-        cavaFrameRate = 30;
         mprisBlacklist = [ ];
         preferredPlayer = "";
+        spectrumFrameRate = 30;
         visualizerType = "linear";
         volumeFeedback = false;
         volumeFeedbackSoundFile = "";
@@ -137,6 +137,7 @@ in
         contentPadding = 0;
         density = "default";
         displayMode = "always_visible";
+        enableExclusionZoneInset = true;
         floating = false;
         fontScale = 1;
         frameRadius = 12;
@@ -190,6 +191,7 @@ in
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = false;
+              fontWeight = "bold";
               groupedBorderOpacity = 1;
               hideUnoccupied = true;
               iconScale = 0.8;
@@ -198,6 +200,7 @@ in
               occupiedColor = "secondary";
               pillSize = 0.6;
               showApplications = false;
+              showApplicationsHover = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = true;
               unfocusedIconsOpacity = 1;
@@ -360,6 +363,7 @@ in
       desktopWidgets = {
         enabled = false;
         gridSnap = false;
+        gridSnapScale = false;
         monitorWidgets = [ ];
         overviewEnabled = true;
       };
@@ -404,6 +408,7 @@ in
         clockStyle = "custom";
         compactLockScreen = true;
         dimmerOpacity = 0.2;
+        enableBlurBehind = true;
         enableLockScreenCountdown = true;
         enableLockScreenMediaControls = false;
         enableShadows = false;
@@ -502,6 +507,10 @@ in
         manualSunset = "18:30";
         nightTemp = "4000";
       };
+      noctaliaPerformance = {
+        disableDesktopWidgets = true;
+        disableWallpaper = true;
+      };
       notifications = {
         backgroundOpacity = 1;
         clearDismissed = true;
@@ -590,7 +599,7 @@ in
         showHeader = true;
         showKeybinds = true;
       };
-      settingsVersion = 56;
+      settingsVersion = 57;
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
@@ -626,9 +635,11 @@ in
         fontFixedScale = 1;
         panelBackgroundOpacity = 0.93;
         panelsAttachedToBar = true;
+        scrollbarAlwaysVisible = true;
         settingsPanelMode = "centered";
         settingsPanelSideBarCardStyle = false;
         tooltipsEnabled = true;
+        translucentWidgets = false;
       };
       wallpaper = {
         automationEnabled = false;
