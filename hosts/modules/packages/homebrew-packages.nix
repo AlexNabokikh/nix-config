@@ -43,7 +43,6 @@ _: {
 
       "bash" # Unix shell and command language
       "uv" # Extremely fast Python package installer and resolver, written in Rust
-      "lazyssh"
     ];
 
     casks = [
@@ -53,13 +52,14 @@ _: {
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
       # "ollama" # Local AI model manager and runner
+      "block-goose" # AI coding agent
       "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
 
       #* Authentication & Security
-      "1password" # Secure password manager
-      "1password" # Command-line interface for 1Password
+      "1password" # Secure password manager and command-line interface
+      "1password-cli" # Command-line interface for 1Password
 
       #* 3D printing
       # "autodesk-fusion" # 3D modeling and design software
@@ -110,8 +110,9 @@ _: {
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal
       "visual-studio-code" # Popular code editor
+      "zed" # High-performance code editor
       "pycharm" # IDE for Python development
-      "warp" # Modern terminal with AI featuresj
+      "warp" # Modern terminal with AI features
 
       #* Browsers & Communication
       "vivaldi" # Feature-rich web browser with customization options
