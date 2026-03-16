@@ -1,8 +1,8 @@
-{ nhModules, ... }:
+{ hmModules, ... }:
 {
   imports = [
-    "${nhModules}/common"
-    "${nhModules}/desktop/niri"
+    "${hmModules}/common"
+    "${hmModules}/desktop/niri"
   ];
 
   # Enable home-manager

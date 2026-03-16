@@ -17,10 +17,6 @@
         ];
       };
 
-      env = {
-        TERM = "xterm-256color";
-      };
-
       window = {
         decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "full";
         dynamic_title = false;

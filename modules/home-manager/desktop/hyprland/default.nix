@@ -1,7 +1,7 @@
-{ nhModules, ... }:
+{ hmModules, ... }:
 {
   imports = [
-    "${nhModules}/desktop/wayland-common"
+    "${hmModules}/desktop/wayland-common"
   ];
 
   # Source hyprland config from the home-manager store

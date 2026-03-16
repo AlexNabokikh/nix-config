@@ -1,18 +1,18 @@
 {
   config,
   lib,
-  nhModules,
+  hmModules,
   ...
 }:
 {
   imports = [
-    "${nhModules}/misc/gtk"
-    "${nhModules}/misc/qt"
-    "${nhModules}/misc/xdg"
-    "${nhModules}/programs/noctalia"
-    "${nhModules}/programs/swappy"
-    "${nhModules}/services/hypridle"
-    "${nhModules}/services/kanshi"
+    "${hmModules}/misc/gtk"
+    "${hmModules}/misc/qt"
+    "${hmModules}/misc/xdg"
+    "${hmModules}/programs/noctalia"
+    "${hmModules}/programs/swappy"
+    "${hmModules}/services/hypridle"
+    "${hmModules}/services/kanshi"
   ];
 
   # Consistent cursor theme across all applications.
@@ -21,7 +21,7 @@
     x11.enable = true;
     package = config.gtk.cursorTheme.package;
     name = config.gtk.cursorTheme.name;
-    size = 24;
+    size = config.gtk.cursorTheme.size;
   };
 
   dconf.settings = {

@@ -13,6 +13,21 @@ let
   flavorPalette = palette.${config.catppuccin.flavor}.colors;
   color = name: flavorPalette.${name}.hex;
   accentColor = color config.catppuccin.accent;
+
+  screenRecorderSettings = {
+    audioCodec = "opus";
+    audioSource = "none";
+    colorRange = "limited";
+    copyToClipboard = false;
+    directory = "";
+    filenamePattern = "recording_yyyyMMdd_HHmmss";
+    frameRate = "60";
+    hideInactive = true;
+    quality = "very_high";
+    showCursor = true;
+    videoCodec = "h264";
+    videoSource = "portal";
+  };
 in
 {
   imports = [
@@ -74,20 +89,7 @@ in
         activeColor = "error";
         inactiveColor = "none";
       };
-      screen-recorder = {
-        audioCodec = "opus";
-        audioSource = "none";
-        colorRange = "limited";
-        copyToClipboard = false;
-        directory = "";
-        filenamePattern = "recording_yyyyMMdd_HHmmss";
-        frameRate = "60";
-        hideInactive = true;
-        quality = "very_high";
-        showCursor = true;
-        videoCodec = "h264";
-        videoSource = "portal";
-      };
+      screen-recorder = screenRecorderSettings;
     };
     systemd.enable = true;
     settings = {
@@ -246,20 +248,7 @@ in
               showPowerProfiles = false;
             }
             {
-              defaultSettings = {
-                audioCodec = "opus";
-                audioSource = "none";
-                colorRange = "limited";
-                copyToClipboard = false;
-                directory = "";
-                filenamePattern = "recording_yyyyMMdd_HHmmss";
-                frameRate = "60";
-                hideInactive = true;
-                quality = "very_high";
-                showCursor = true;
-                videoCodec = "h264";
-                videoSource = "portal";
-              };
+              defaultSettings = screenRecorderSettings;
               id = "plugin:screen-recorder";
             }
             {

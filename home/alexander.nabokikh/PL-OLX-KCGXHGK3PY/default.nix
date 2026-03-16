@@ -1,7 +1,7 @@
-{ nhModules, ... }:
+{ hmModules, ... }:
 {
   imports = [
-    "${nhModules}/common"
+    "${hmModules}/common"
   ];
 
   # Enable home-manager
