@@ -629,7 +629,7 @@ in
       };
       ui = {
         boxBorderEnabled = false;
-        fontDefault = "Roboto";
+        fontDefault = config.gtk.font.name;
         fontDefaultScale = 1;
         fontFixed = "JetBrainsMono Nerd Font Mono";
         fontFixedScale = 1;
