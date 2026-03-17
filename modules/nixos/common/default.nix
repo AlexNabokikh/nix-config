@@ -80,9 +80,6 @@
     powerOnBoot = false;
   };
 
-  # Exclude xterm from default packages
-  services.xserver.excludePackages = with pkgs; [ xterm ];
-
   # Enable Wayland support in Chromium and Electron based applications
   # Set cursor size
   environment.sessionVariables = {
