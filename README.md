@@ -149,10 +149,10 @@ To add a new machine with a new user to your NixOS or nix-darwin configuration, 
    b. Add basic home configuration:
 
    ```nix
-   { nhModules, ... }:
+   { hmModules, ... }:
    {
      imports = [
-       "${nhModules}/common"
+       "${hmModules}/common"
        # Add other home-manager modules
      ];
    }
