@@ -1,0 +1,19 @@
+# Theme
+theme = tokyonight
+
+# Font
+font-size = 14
+
+# Window
+window-padding-x = 4
+window-padding-y = 4
+window-decoration = true
+
+# Keybindings - Split Panes
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+alt+left=goto_split:left
+keybind = super+alt+right=goto_split:right
+keybind = super+alt+up=goto_split:top
+keybind = super+alt+down=goto_split:bottom
+keybind = super+shift+enter=toggle_split_zoom
