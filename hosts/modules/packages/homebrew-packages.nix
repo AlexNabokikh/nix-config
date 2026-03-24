@@ -20,6 +20,9 @@ _: {
       "gemini-cli" # AI-powered command-line interface
       "opencode" # AI coding agent for the terminal
 
+      #* GitHub
+      "gh" # GitHub CLI
+
       #* DevOps & Infrastructure
       "awscli" # AWS Command Line Interface
       "docker-compose" # Tool for defining and running multi-container Docker applications
