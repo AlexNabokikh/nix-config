@@ -56,6 +56,7 @@ _: {
       "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
+      "opencode-desktop"
 
       #* Authentication & Security
       "1password" # Secure password manager and command-line interface
@@ -77,7 +78,7 @@ _: {
       "hyperkey"
       "keyclu"
       "numi" # Calculator and unit converter
-      "shottr" # Feature-rich screenshot tool
+      # "shottr" # Feature-rich screenshot tool
       "appcleaner" # Thorough app uninstaller
       # "tailscale" # Zero trust VPN #! installed from App Store
       "wifiman"
@@ -110,7 +111,7 @@ _: {
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal
       "visual-studio-code" # Popular code editor
-      "zed" # High-performance code editor
+      # "zed" # High-performance code editor
       "pycharm" # IDE for Python development
       "warp" # Modern terminal with AI features
 
