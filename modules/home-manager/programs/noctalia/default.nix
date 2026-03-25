@@ -25,7 +25,7 @@ let
     hideInactive = true;
     quality = "very_high";
     showCursor = true;
-    videoCodec = "h264";
+    videoCodec = "hevc";
     videoSource = "portal";
   };
 in
