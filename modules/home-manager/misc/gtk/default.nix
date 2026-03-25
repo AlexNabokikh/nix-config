@@ -8,6 +8,7 @@
   gtk = {
     enable = true;
     colorScheme = "dark";
+    gtk2.force = true;
     gtk4.theme = config.gtk.theme;
     theme = {
       name = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-compact";
