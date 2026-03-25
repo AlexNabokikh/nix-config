@@ -251,7 +251,7 @@ binds {
     // Adjust mic sensitivity
     Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increaseInput"; }
     Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decreaseInput"; }
-    XF86AudioMicMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    Shift+XF86AudioMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
 
     // Window management
     Mod+Q repeat=false { close-window; }
