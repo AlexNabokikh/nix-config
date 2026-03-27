@@ -1,8 +1,16 @@
-{ hmModules, ... }:
+{ hmModules, pkgs, ... }:
 {
   imports = [
     "${hmModules}/desktop/wayland-common"
   ];
+
+  xdg.desktopEntries = {
+    quit-all-applications = {
+      name = "Quit All Applications";
+      exec = ''${pkgs.bash}/bin/bash -lc "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}"'';
+      icon = "system-log-out";
+    };
+  };
 
   xdg.configFile = {
     "niri/config.kdl" = {

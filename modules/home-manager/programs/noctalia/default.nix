@@ -103,7 +103,7 @@ in
         density = "default";
         enableClipPreview = true;
         enableClipboardHistory = true;
-        enableSessionSearch = false;
+        enableSessionSearch = true;
         enableSettingsSearch = false;
         enableWindowsSearch = false;
         iconMode = "tabler";
@@ -114,7 +114,7 @@ in
         screenshotAnnotationTool = "";
         showCategories = false;
         showIconBackground = false;
-        sortByMostUsed = true;
+        sortByMostUsed = false;
         terminalCommand = "alacritty -e";
         useApp2Unit = false;
         viewMode = "list";
