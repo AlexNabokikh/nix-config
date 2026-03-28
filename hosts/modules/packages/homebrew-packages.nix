@@ -20,6 +20,7 @@ _: {
       "lazyssh"
       "gemini-cli" # AI-powered command-line interface
       "opencode" # AI coding agent for the terminal
+      "fuelcheck-cli" # AI token usage monitor
 
       #* GitHub
       "gh" # GitHub CLI
