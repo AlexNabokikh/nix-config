@@ -44,6 +44,7 @@ _: {
       "mise"
       "nodejs" # JavaScript runtime environment
       "ruff" # Extremely fast Python linter
+      "zoxide" # Smarter cd command
 
       "bash" # Unix shell and command language
       "uv" # Extremely fast Python package installer and resolver, written in Rust

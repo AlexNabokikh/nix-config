@@ -420,7 +420,7 @@ run = ['move-node-to-workspace T']
 
 [[on-window-detected]]
 if.app-id = 'com.orbstack.orbstack'
-run = 'move-node-to-workspace T'
+run = 'move-node-to-workspace U'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.powershell'
@@ -482,6 +482,10 @@ run = 'move-node-to-workspace A'
 
 [[on-window-detected]]
 if.app-id = 'ai.opencode.desktop'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.ollama'
 run = 'move-node-to-workspace A'
 
 #! ---------------------------- Security ---------------------------- #

@@ -19,7 +19,7 @@
 
   # Machine-specific dock settings
   system.defaults.dock = {
-    orientation = "right";
+    orientation = "left";
     autohide = false;
     persistent-apps = [
       # "/Applications/LM Studio.app"
