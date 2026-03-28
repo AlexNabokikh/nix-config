@@ -157,14 +157,6 @@ in
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
             }
-            {
-              hideWhenZero = false;
-              hideWhenZeroUnread = false;
-              iconColor = "none";
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-              unreadBadgeColor = "primary";
-            }
           ];
           left = [
             {
@@ -227,6 +219,14 @@ in
               id = "Battery";
               showNoctaliaPerformance = false;
               showPowerProfiles = false;
+            }
+            {
+              hideWhenZero = false;
+              hideWhenZeroUnread = false;
+              iconColor = "none";
+              id = "NotificationHistory";
+              showUnreadBadge = true;
+              unreadBadgeColor = "primary";
             }
             {
               defaultSettings = {
