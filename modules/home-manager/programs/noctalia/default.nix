@@ -14,20 +14,6 @@ let
   color = name: flavorPalette.${name}.hex;
   accentColor = color config.catppuccin.accent;
 
-  screenRecorderSettings = {
-    audioCodec = "opus";
-    audioSource = "none";
-    colorRange = "limited";
-    copyToClipboard = false;
-    directory = "";
-    filenamePattern = "recording_yyyyMMdd_HHmmss";
-    frameRate = "60";
-    hideInactive = true;
-    quality = "very_high";
-    showCursor = true;
-    videoCodec = "hevc";
-    videoSource = "portal";
-  };
 in
 {
   imports = [
@@ -69,10 +55,6 @@ in
         }
       ];
       states = {
-        screen-recorder = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
         privacy-indicator = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
@@ -89,7 +71,6 @@ in
         activeColor = "error";
         inactiveColor = "none";
       };
-      screen-recorder = screenRecorderSettings;
     };
     systemd.enable = true;
     settings = {
@@ -246,10 +227,6 @@ in
               id = "Battery";
               showNoctaliaPerformance = false;
               showPowerProfiles = false;
-            }
-            {
-              defaultSettings = screenRecorderSettings;
-              id = "plugin:screen-recorder";
             }
             {
               defaultSettings = {
