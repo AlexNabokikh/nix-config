@@ -3,6 +3,7 @@
     ../modules/home.nix
     ../modules/common.nix
     ../modules/darwin-aerospace.nix
+    ../modules/darwin-apps.nix
     ../modules/darwin-ghostty.nix
   ];
 

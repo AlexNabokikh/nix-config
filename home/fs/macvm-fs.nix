@@ -2,6 +2,7 @@
   imports = [
     ../modules/home.nix
     ../modules/common.nix
+    ../modules/darwin-apps.nix
   ];
 
   # Enable home-manager
