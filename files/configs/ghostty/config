@@ -9,6 +9,20 @@ window-padding-x = 4
 window-padding-y = 4
 window-decoration = true
 
+# Tabs
+macos-titlebar-style = tabs
+
+# Keybindings - Tabs
+keybind = super+t=new_tab
+keybind = super+w=close_surface
+keybind = super+shift+right_bracket=next_tab
+keybind = super+shift+left_bracket=previous_tab
+keybind = super+one=goto_tab:1
+keybind = super+two=goto_tab:2
+keybind = super+three=goto_tab:3
+keybind = super+four=goto_tab:4
+keybind = super+five=goto_tab:5
+
 # Keybindings - Split Panes
 keybind = super+d=new_split:right
 keybind = super+shift+d=new_split:down

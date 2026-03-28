@@ -102,14 +102,14 @@ on-focus-changed = "move-mouse window-lazy-center"
 B = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 C = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 F = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
-G = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
+D = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 K = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
-A = ['2778G5', 'built-in', 'main'] # SMALL monitor priority
+A = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 S = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 V = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 M = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 N = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
-O = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
+# O = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority (unused)
 P = ['main', 'built-in', '2778G5'] # RIGHT side monitor priority
 T = ['2778G5', 'built-in', 'main'] # SMALL monitor priority
 U = ['2778G5', 'built-in', 'main'] # LEFT side monitor priority
@@ -198,11 +198,11 @@ alt-5 = 'workspace 5'
 alt-b = 'workspace B' # Browsers
 alt-c = 'workspace C' # Code editors
 alt-f = 'workspace F' # Files
-alt-g = 'workspace G' # Gaming
+alt-d = 'workspace D' # Databases
 alt-k = 'workspace K' # Kubernetes
 alt-m = 'workspace M' # Messaging
 alt-n = 'workspace N' # Notes & News
-alt-o = 'workspace O' # OpenSCAD
+# alt-o = 'workspace O' # OpenSCAD (unused)
 alt-p = 'workspace P' # Parallels and VMs
 alt-t = 'workspace T' # Terminals
 alt-u = 'workspace U' # Utilities
@@ -220,11 +220,11 @@ alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
 alt-shift-b = ['move-node-to-workspace B', 'workspace B']
 alt-shift-c = ['move-node-to-workspace C', 'workspace C']
 alt-shift-f = ['move-node-to-workspace F', 'workspace F']
-alt-shift-g = ['move-node-to-workspace G', 'workspace G']
+alt-shift-d = ['move-node-to-workspace D', 'workspace D']
 alt-shift-k = ['move-node-to-workspace K', 'workspace K']
 alt-shift-m = ['move-node-to-workspace M', 'workspace M']
 alt-shift-n = ['move-node-to-workspace N', 'workspace N']
-alt-shift-o = ['move-node-to-workspace O', 'workspace O']
+# alt-shift-o = ['move-node-to-workspace O', 'workspace O'] # OpenSCAD (unused)
 alt-shift-p = ['move-node-to-workspace P', 'workspace P']
 alt-shift-t = ['move-node-to-workspace T', 'workspace T']
 alt-shift-u = ['move-node-to-workspace U', 'workspace U']
@@ -319,9 +319,9 @@ run = 'move-node-to-workspace B'
 if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace C'
 
-[[on-window-detected]]
-if.app-id = 'dev.kiro.desktop'
-run = 'move-node-to-workspace C'
+# [[on-window-detected]]
+# if.app-id = 'dev.kiro.desktop'
+# run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
@@ -358,6 +358,10 @@ run = 'move-node-to-workspace M'
 if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace M'
 
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace M'
+
 #! ---------------------------- Notes & News ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'com.apple.news'
@@ -375,10 +379,10 @@ run = 'move-node-to-workspace N'
 if.app-id = 'notion.id'
 run = 'move-node-to-workspace N'
 
-#! ---------------------------- O-s ---------------------------- #
-[[on-window-detected]]
-if.app-id = 'org.openscad.OpenSCAD'
-run = 'move-node-to-workspace O'
+#! ---------------------------- OpenSCAD (unused) ---------------------------- #
+# [[on-window-detected]]
+# if.app-id = 'org.openscad.OpenSCAD'
+# run = 'move-node-to-workspace O'
 
 #! ---------------------------- Parallels and VMs ---------------------------- #
 [[on-window-detected]]
@@ -422,6 +426,11 @@ run = 'move-node-to-workspace T'
 if.app-id = 'com.microsoft.powershell'
 run = 'move-node-to-workspace T'
 
+#! ---------------------------- Databases ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'io.beekeeperstudio.app'
+run = 'move-node-to-workspace D'
+
 #! ---------------------------- Utilities --------------------------- #
 
 [[on-window-detected]]
@@ -431,6 +440,22 @@ run = ['layout tiling', 'move-node-to-workspace U']
 [[on-window-detected]]
 if.app-id = 'com.bambulab.bambu-studio'
 run = ['layout tiling', 'move-node-to-workspace U']
+
+[[on-window-detected]]
+if.app-id = 'com.dmitrynikolaev.numi'
+run = 'move-node-to-workspace U'
+
+[[on-window-detected]]
+if.app-id = 'com.lowtechguys.Clop'
+run = 'move-node-to-workspace U'
+
+[[on-window-detected]]
+if.app-id = 'com.daisydiskapp.DaisyDisk'
+run = 'move-node-to-workspace U'
+
+[[on-window-detected]]
+if.app-id = 'com.derlien.DiskInventoryX'
+run = 'move-node-to-workspace U'
 
 #! ---------------------------- Windows & Work ---------------------------- #
 [[on-window-detected]]
@@ -444,7 +469,19 @@ run = ['layout tiling', 'move-node-to-workspace W']
 
 #! ---------------------------- AI ---------------------------- #
 [[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
 if.app-id = 'ai.elementlabs.lmstudio'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
+if.app-id = 'com.electron.goose'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
+if.app-id = 'ai.opencode.desktop'
 run = 'move-node-to-workspace A'
 
 #! ---------------------------- Security ---------------------------- #

@@ -12,6 +12,7 @@ _: {
       "nikitabobko/tap"
       "powershell/tap"
       "Adembc/homebrew-tap"
+      "manaflow-ai/cmux"
     ];
 
     brews = [
@@ -56,6 +57,7 @@ _: {
       # "kiro" #  AI editor
       # "ollama" # Local AI model manager and runner
       "block-goose" # AI coding agent
+      "cmux" # AI terminal multiplexer
       "codex"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
@@ -68,7 +70,7 @@ _: {
       #* 3D printing
       # "autodesk-fusion" # 3D modeling and design software
       "bambu-studio" # 3D printer
-      "openscad@snapshot" # Open-source 3D CAD software
+      # "openscad@snapshot" # Open-source 3D CAD software (unused)
       # "blender" # 3D design
 
       #* Productivity & Utilities
