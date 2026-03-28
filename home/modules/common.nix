@@ -8,6 +8,7 @@
     ./bat.nix
     ./btop.nix
     ./fastfetch.nix
+    ./fuelcheck.nix
     ./fzf.nix
     ./git.nix
     ./lazygit.nix
