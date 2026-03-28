@@ -1,7 +1,7 @@
 # Module: Raycast
 # Purpose: Configures Raycast productivity launcher
 # Platform: macOS
-_: {
+{config, ...}: {
   homebrew.casks = ["raycast"];
 
   home.sessionVariables = {
