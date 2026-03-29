@@ -92,27 +92,28 @@ on-focus-changed = "move-mouse window-lazy-center"
 [workspace-to-monitor-force-assignment]
 # main =>    Main monitor, usually the built-in one
 # built-in => Laptop's built-in monitor
-# 2778G5 =>  AOC 2778G5 monitor
+# 2778G5 =>  AOC/Vertical 2778G5 monitor
 # len => Lenovo LEN Y44w-10 monitor
-1 = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
-2 = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
-3 = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
-4 = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
-5 = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
+1 = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority (apps that are OK with portrait mode)
+2 = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority (apps that are OK with portrait mode)
+3 = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority (apps that are OK with portrait mode)
+4 = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority (apps that are OK with portrait mode)
+5 = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority (apps that are OK with portrait mode)
+A = ['main', 'built-in', '2778G5'] # MAIN screen priority
 B = ['main', 'built-in', '2778G5'] # MAIN screen priority
 C = ['main', 'built-in', '2778G5'] # MAIN screen priority
-F = ['main', 'built-in', '2778G5'] # MAIN screen priority
 D = ['main', 'built-in', '2778G5'] # MAIN screen priority
+E = ['main', 'built-in', '2778G5'] # MAIN screen priority
+F = ['main', 'built-in', '2778G5'] # MAIN screen priority
 K = ['main', 'built-in', '2778G5'] # MAIN screen priority
-A = ['main', 'built-in', '2778G5'] # MAIN screen priority
-S = ['main', 'built-in', '2778G5'] # MAIN screen priority
-V = ['2778G5', 'built-in', 'main'] # AOC monitor priority (apps that are OK with portrait mode)
 M = ['main', 'built-in', '2778G5'] # MAIN screen priority
 N = ['main', 'built-in', '2778G5'] # MAIN screen priority
 # O = ['main', 'built-in', '2778G5'] # MAIN screen priority (unused)
 P = ['main', 'built-in', '2778G5'] # MAIN screen priority
+S = ['main', 'built-in', '2778G5'] # MAIN screen priority
 T = ['built-in', 'main', '2778G5', ] # SMALL monitor priority
 U = ['built-in', 'main', '2778G5', ] # SMALL monitor priority
+V = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority
 W = ['main', 'built-in', '2778G5'] # MAIN screen priority
 
 #! -------------------------------------------------------------------------- #¨¨
@@ -195,43 +196,48 @@ alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
+alt-a = 'workspace A' # AI
 alt-b = 'workspace B' # Browsers
 alt-c = 'workspace C' # Code editors
-alt-f = 'workspace F' # Files
 alt-d = 'workspace D' # Databases
+alt-e = 'workspace E' # Entertainment
+alt-f = 'workspace F' # Files
 alt-k = 'workspace K' # Kubernetes
 alt-m = 'workspace M' # Messaging
 alt-n = 'workspace N' # Notes & News
 # alt-o = 'workspace O' # OpenSCAD (unused)
 alt-p = 'workspace P' # Parallels and VMs
+alt-s = 'workspace S' # Security
 alt-t = 'workspace T' # Terminals
 alt-u = 'workspace U' # Utilities
+alt-v = 'workspace V' # Vertical
 alt-w = 'workspace W' # Work
-alt-a = 'workspace A' # AI
-alt-s = 'workspace S' # Security
-alt-v = 'workspace V' # Video
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+# -- numberic workspaces
 alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
 alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
 alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
 alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
 alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+
+# -- alphabetic workspaces
+alt-shift-a = ['move-node-to-workspace A', 'workspace A']
 alt-shift-b = ['move-node-to-workspace B', 'workspace B']
 alt-shift-c = ['move-node-to-workspace C', 'workspace C']
-alt-shift-f = ['move-node-to-workspace F', 'workspace F']
 alt-shift-d = ['move-node-to-workspace D', 'workspace D']
+alt-shift-e = ['move-node-to-workspace E', 'workspace E']
+alt-shift-f = ['move-node-to-workspace F', 'workspace F']
 alt-shift-k = ['move-node-to-workspace K', 'workspace K']
 alt-shift-m = ['move-node-to-workspace M', 'workspace M']
 alt-shift-n = ['move-node-to-workspace N', 'workspace N']
 # alt-shift-o = ['move-node-to-workspace O', 'workspace O'] # OpenSCAD (unused)
 alt-shift-p = ['move-node-to-workspace P', 'workspace P']
+alt-shift-s = ['move-node-to-workspace S', 'workspace S']
 alt-shift-t = ['move-node-to-workspace T', 'workspace T']
 alt-shift-u = ['move-node-to-workspace U', 'workspace U']
-alt-shift-w = ['move-node-to-workspace W', 'workspace W']
-alt-shift-a = ['move-node-to-workspace A', 'workspace A']
-alt-shift-s = ['move-node-to-workspace S', 'workspace S']
 alt-shift-v = ['move-node-to-workspace V', 'workspace V']
+alt-shift-w = ['move-node-to-workspace W', 'workspace W']
 
 #! ---------------------------- Fullscreen ---------------------------- #
 
@@ -484,16 +490,17 @@ run = 'move-node-to-workspace A'
 if.app-id = 'ai.opencode.desktop'
 run = 'move-node-to-workspace A'
 
-[[on-window-detected]]
-if.app-id = 'com.electron.ollama'
-run = 'move-node-to-workspace A'
-
 #! ---------------------------- Security ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
 run = 'move-node-to-workspace S'
 
-#! ---------------------------- Video ---------------------------- #
+#! ---------------------------- Entertainment ---------------------------- #
 [[on-window-detected]]
 if.app-id = 'com.colliderli.iina'
+run = 'move-node-to-workspace E'
+
+#! ---------------------------- Vertical ---------------------------- #
+[[on-window-detected]]
+if.app-id = 'com.cmuxterm.app'
 run = 'move-node-to-workspace V'

@@ -3,6 +3,6 @@
 # Platform: macOS only
 {
   imports = [
-    ./ollama.nix
+    # ./ollama.nix
   ];
 }

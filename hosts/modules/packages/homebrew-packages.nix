@@ -56,7 +56,7 @@ _: {
       "claude-code" # Claude  CLI
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
-      "ollama-app" # Local AI model manager and runner
+      # "ollama-app" # Local AI model manager and runner
       "block-goose" # AI coding agent
       "cmux" # AI terminal multiplexer
       "codex"
