@@ -7,6 +7,7 @@
     ./atuin.nix
     ./bat.nix
     ./btop.nix
+    ./environment.nix
     ./fastfetch.nix
     ./fuelcheck.nix
     ./fzf.nix

@@ -26,21 +26,21 @@ update:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "📦 Updating flake inputs..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix flake update
+    doppler run -- nix flake update
 
 # Verify flake configuration
 verify-flake:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "✅ Verifying flake configuration..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix flake check
+    doppler run -- nix flake check
 
 # Open nix repl with current flake
 repl:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔍 Opening Nix REPL..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix repl .#
+    doppler run -- nix repl .#
 
 # ============================================================================
 # Darwin (macOS System) Management
@@ -52,7 +52,7 @@ darwin-switch:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔄 Switching Nix Darwin configuration for {{hostname}}..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    sudo nix run nix-darwin -- switch --flake .#{{hostname}}
+    doppler run -- sudo nix run nix-darwin -- switch --flake .#{{hostname}}
 
 # Switch Nix Darwin configuration for macvm-fs
 darwin-switch-macvm-fs:
@@ -60,21 +60,21 @@ darwin-switch-macvm-fs:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔄 Switching Nix Darwin configuration for macvm-fs..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    sudo nix run nix-darwin -- switch --flake .#macvm-fs
+    doppler run -- sudo nix run nix-darwin -- switch --flake .#macvm-fs
 
 # Build Darwin configuration dynamically without switching
 darwin-build:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔨 Building Nix Darwin configuration for {{hostname}}..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix run nix-darwin -- build --flake .#{{hostname}}
+    doppler run -- nix run nix-darwin -- build --flake .#{{hostname}}
 
 # Build Darwin configuration for macvm-fs without switching
 darwin-build-macvm-fs:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔨 Building Nix Darwin configuration for macvm-fs..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix run nix-darwin -- build --flake .#macvm-fs
+    doppler run -- nix run nix-darwin -- build --flake .#macvm-fs
 
 # ============================================================================
 # Home Manager (User Environment) Management
@@ -86,7 +86,7 @@ home-switch:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🏠 Switching Home Manager configuration for fs@{{hostname}}..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    home-manager switch --flake .#fs@{{hostname}}
+    doppler run -- home-manager switch --flake .#fs@{{hostname}}
 
 # Switch Home Manager configuration for macvm-fs
 home-switch-macvm-fs:
@@ -94,21 +94,21 @@ home-switch-macvm-fs:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🏠 Switching Home Manager configuration for fs@macvm-fs..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    home-manager switch --flake .#fs@macvm-fs
+    doppler run -- home-manager switch --flake .#fs@macvm-fs
 
 # Build Home Manager configuration dynamically without switching
 home-build:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔨 Building Home Manager configuration for fs@{{hostname}}..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    home-manager build --flake .#fs@{{hostname}}
+    doppler run -- home-manager build --flake .#fs@{{hostname}}
 
 # Build Home Manager configuration for macvm-fs without switching
 home-build-macvm-fs:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔨 Building Home Manager configuration for fs@macvm-fs..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    home-manager build --flake .#fs@macvm-fs
+    doppler run -- home-manager build --flake .#fs@macvm-fs
 
 # ============================================================================
 # System Information
@@ -143,8 +143,8 @@ clean:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🧹 Cleaning up Nix store and old generations..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix-collect-garbage -d
-    home-manager expire-generations "-7 days"
+    doppler run -- nix-collect-garbage -d
+    doppler run -- home-manager expire-generations "-7 days"
 
 # ============================================================================
 # Code Quality & Formatting
@@ -155,35 +155,35 @@ fmt:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "✨ Formatting Nix files..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix fmt -- .
+    doppler run -- nix fmt -- .
 
 # Run statix linter (warnings only)
 lint:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔍 Running statix linter..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command statix check .
+    doppler run -- nix develop --command statix check .
 
 # Fix statix issues automatically
 lint-fix:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔧 Fixing statix issues..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command statix fix .
+    doppler run -- nix develop --command statix fix .
 
 # Run deadnix to find unused code
 deadnix:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔍 Checking for unused Nix code..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command deadnix .
+    doppler run -- nix develop --command deadnix .
 
 # Fix deadnix issues automatically (removes unused code)
 deadnix-fix:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🔧 Removing unused Nix code..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command deadnix --edit .
+    doppler run -- nix develop --command deadnix --edit .
 
 # ============================================================================
 # Pre-commit Hooks
@@ -194,18 +194,18 @@ install-hooks:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🪝 Installing pre-commit hooks..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command pre-commit install
+    doppler run -- nix develop --command pre-commit install
 
 # Run pre-commit on all files
 run-hooks:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "🪝 Running pre-commit hooks on all files..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix develop --command pre-commit run --all-files
+    doppler run -- nix develop --command pre-commit run --all-files
 
 # Run pre-commit checks
 check-pre-commit:
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     @echo "✅ Running pre-commit checks..."
     @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    nix flake check
+    doppler run -- nix flake check
