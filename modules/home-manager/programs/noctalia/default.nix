@@ -465,12 +465,12 @@ in
         wifiEnabled = false;
       };
       nightLight = {
-        autoSchedule = true;
+        autoSchedule = false;
         dayTemp = "6500";
         enabled = true;
         forced = false;
-        manualSunrise = "06:30";
-        manualSunset = "18:30";
+        manualSunrise = "07:00";
+        manualSunset = "20:00";
         nightTemp = "4000";
       };
       noctaliaPerformance = {
