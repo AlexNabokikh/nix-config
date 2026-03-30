@@ -3,6 +3,7 @@
 # Platform: All
 {outputs, ...}: {
   imports = [
+    ./aider.nix
     ./amp.nix
     ./atuin.nix
     ./bat.nix
