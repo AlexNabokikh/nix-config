@@ -20,6 +20,7 @@
     ];
 
     shellAliases = {
+      cd = "__zoxide_z";
       ff = "fastfetch";
       ld = "lazydocker";
       lg = "lazygit";
@@ -80,6 +81,13 @@
 
       # direnv hook
       eval "$(direnv hook zsh)"
+
+      # Load cached Doppler secrets
+      if [ -f "$HOME/.config/doppler/env.sh" ]; then
+        set -a
+        source "$HOME/.config/doppler/env.sh"
+        set +a
+      fi
 
       # # 1password CLI integration - ensure 1password CLI is installed #FIXME: this should be fixed and re-integrated but currently allowing this makes the shell constantly asking for login
       # if command -v op &> /dev/null; then

@@ -11,3 +11,4 @@ files/configs/nvim/lazyvim.json
 .gemini/settings.json.orig
 .gemini/settings.json
 .gemini/settings.json
+.aider*

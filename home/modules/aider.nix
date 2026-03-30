@@ -6,10 +6,11 @@
   pkgs,
   ...
 }: {
-  # Install aider via homebrew
-  home.packages = with pkgs; [
-    aider-chat
-  ];
+  # Install aider via homebrew (nixpkgs-unstable has test failures)
+  # Use: brew install aider-chat
+  # home.packages = with pkgs; [
+  #   aider-chat
+  # ];
 
   # Configure aider with OpenRouter
   home.file.".aider.conf.yml" = {
@@ -19,7 +20,7 @@
 
       # Use OpenRouter for LLM
       model: openrouter/stepfun/step-3.5-flash:free
-      api-key-env-var: OPENROUTER_API_KEY
+      openai-api-base: https://openrouter.ai/api/v1
 
       # Recommended settings for better experience
       auto-commits: true

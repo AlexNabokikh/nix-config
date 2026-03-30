@@ -17,6 +17,7 @@ _: {
 
     brews = [
       #* AI Tools
+      "aider"
       "lazyssh"
       "gemini-cli" # AI-powered command-line interface
       "opencode" # AI coding agent for the terminal

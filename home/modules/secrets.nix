@@ -1,21 +1,21 @@
-# Module: Environment Variables Management
-# Purpose: Load environment variables and secrets from Doppler
+# Module: Doppler Secrets Management
+# Purpose: Load secrets from Doppler into user environment variables
 # Platform: All
 {
   config,
   pkgs,
   ...
 }: {
-  # Create a shell script to load environment variables and secrets from Doppler
+  # Create a shell script to load secrets from Doppler
   home.file.".doppler-secrets.sh" = {
     text = ''
-      # Source this file in your shell rc to load environment variables and secrets from Doppler
-      # It exports both secret and non-secret environment variables
+      # Source this file in your shell rc to load Doppler secrets
+      # It exports secrets as environment variables
       eval "$(doppler secrets download --no-file --format sh)"
     '';
   };
 
-  # Create helper script to refresh environment variables
+  # Create helper script to refresh secrets
   home.file.".local/bin/doppler-refresh" = {
     executable = true;
     text = ''
@@ -32,22 +32,21 @@
         exit 1
       fi
 
-      echo "🔄 Loading environment from Doppler..."
+      echo "🔄 Loading secrets from Doppler..."
       eval "$(doppler secrets download --no-file --format sh)"
 
-      echo "✅ Environment loaded successfully!"
+      echo "✅ Secrets loaded successfully!"
       echo ""
-      echo "Available environment variables:"
+      echo "Available secrets:"
       doppler secrets list --plain
     '';
   };
 
-  # Activation script to cache environment variables in shell config
+  # Activation script to load secrets on profile activation
   home.activation.loadDopplerSecrets = config.lib.dag.entryAfter ["writeBoundary"] ''
-    # Write Doppler secrets to a sourceable file
+    # Load Doppler secrets if doppler is available and .doppler.yaml exists
     if command -v doppler &> /dev/null && [ -f "$HOME/.doppler.yaml" ]; then
-      mkdir -p "$HOME/.config/doppler"
-      doppler secrets download --no-file --format env > "$HOME/.config/doppler/env.sh" 2>/dev/null || true
+      $DRY_RUN_CMD eval "$(doppler secrets download --no-file --format sh 2>/dev/null)" || true
     fi
   '';
 }
