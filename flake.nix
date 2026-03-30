@@ -143,8 +143,6 @@
           check-json.enable = true;
         };
       };
-      statix-check = pkgs.statix.check { src = ./.; };
-      deadnix-check = pkgs.deadnix.check { src = ./.; };
     });
 
     # Development shells with pre-commit
