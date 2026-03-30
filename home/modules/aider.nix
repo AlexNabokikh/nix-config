@@ -6,6 +6,11 @@
   pkgs,
   ...
 }: {
+  # Install aider via homebrew
+  home.packages = with pkgs; [
+    aider-chat
+  ];
+
   # Configure aider with OpenRouter
   home.file.".aider.conf.yml" = {
     text = ''
