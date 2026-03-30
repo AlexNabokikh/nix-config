@@ -16,7 +16,6 @@
     ./lazygit.nix
     ./neovim.nix
     ./scripts.nix
-    ./scripts.nix
     ./starship.nix
     ./tmux.nix
     ./zoxide.nix

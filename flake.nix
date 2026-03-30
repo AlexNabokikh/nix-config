@@ -124,7 +124,9 @@
     overlays = import ./overlays {inherit inputs;};
 
     # Pre-commit hooks check
-    checks = forAllSystems (system: {
+    checks = forAllSystems (system: let
+      pkgs = pkgsFor system;
+    in {
       pre-commit-check = pre-commit-hooks.lib.${system}.run {
         src = ./.;
         hooks = {
@@ -141,6 +143,8 @@
           check-json.enable = true;
         };
       };
+      statix-check = pkgs.statix.check { src = ./.; };
+      deadnix-check = pkgs.deadnix.check { src = ./.; };
     });
 
     # Development shells with pre-commit
