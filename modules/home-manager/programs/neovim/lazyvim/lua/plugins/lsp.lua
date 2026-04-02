@@ -67,7 +67,7 @@ return {
           },
         },
         ruff = {},
-        terraformls = {},
+        tofu_ls = {},
         ts_ls = {},
         yamlls = {
           settings = {

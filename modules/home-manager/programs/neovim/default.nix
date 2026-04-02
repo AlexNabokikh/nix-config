@@ -33,7 +33,7 @@
       shellcheck
       shfmt
       stylua
-      terraform-ls
+      tofu-ls
       tflint
       tree-sitter
       vscode-langservers-extracted

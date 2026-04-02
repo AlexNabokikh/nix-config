@@ -60,7 +60,7 @@
       podman-tui
       python3
       ripgrep
-      terraform
+      opentofu
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       anki-bin
