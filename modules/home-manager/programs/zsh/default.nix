@@ -20,6 +20,9 @@
       ggl = "git pull";
       ggp = "git push";
 
+      # OpenTofu/Terraform compatibility
+      terraform = "tofu";
+
       # kubectl
       k = "kubectl";
       kctx = "kubectx";

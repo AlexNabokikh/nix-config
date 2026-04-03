@@ -64,10 +64,10 @@
       alt-l = 'focus right'
 
       # Window movement
-      alt-shift-h = 'move left'
-      alt-shift-j = 'move down'
-      alt-shift-k = 'move up'
-      alt-shift-l = 'move right'
+      alt-ctrl-h = 'move left'
+      alt-ctrl-j = 'move down'
+      alt-ctrl-k = 'move up'
+      alt-ctrl-l = 'move right'
 
       # Resize windows
       alt-shift-minus = 'resize smart -50'

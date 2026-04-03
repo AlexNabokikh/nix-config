@@ -225,7 +225,6 @@ nix flake update
 - **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
 - **`programs/aerospace` (Darwin):** Tiling window manager for macOS with custom keybindings and workspace rules.
 - **`programs/alacritty`:** GPU-accelerated terminal emulator, configured for tmux integration and platform-specific settings.
-- **`programs/albert` (Linux):** Application launcher and productivity tool.
 - **`programs/atuin`:** Enhanced shell history with cloud sync capabilities.
 - **`programs/bat`:** `cat` clone with syntax highlighting and Git integration.
 - **`programs/brave`:** Web browser with XDG MIME type associations (Linux).

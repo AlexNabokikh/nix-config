@@ -14,20 +14,6 @@ let
   color = name: flavorPalette.${name}.hex;
   accentColor = color config.catppuccin.accent;
 
-  screenRecorderSettings = {
-    audioCodec = "opus";
-    audioSource = "none";
-    colorRange = "limited";
-    copyToClipboard = false;
-    directory = "";
-    filenamePattern = "recording_yyyyMMdd_HHmmss";
-    frameRate = "60";
-    hideInactive = true;
-    quality = "very_high";
-    showCursor = true;
-    videoCodec = "hevc";
-    videoSource = "portal";
-  };
 in
 {
   imports = [
@@ -69,10 +55,6 @@ in
         }
       ];
       states = {
-        screen-recorder = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
         privacy-indicator = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
@@ -89,7 +71,6 @@ in
         activeColor = "error";
         inactiveColor = "none";
       };
-      screen-recorder = screenRecorderSettings;
     };
     systemd.enable = true;
     settings = {
@@ -103,7 +84,7 @@ in
         density = "default";
         enableClipPreview = true;
         enableClipboardHistory = true;
-        enableSessionSearch = false;
+        enableSessionSearch = true;
         enableSettingsSearch = false;
         enableWindowsSearch = false;
         iconMode = "tabler";
@@ -114,7 +95,7 @@ in
         screenshotAnnotationTool = "";
         showCategories = false;
         showIconBackground = false;
-        sortByMostUsed = true;
+        sortByMostUsed = false;
         terminalCommand = "alacritty -e";
         useApp2Unit = false;
         viewMode = "list";
@@ -175,14 +156,6 @@ in
               id = "Clock";
               tooltipFormat = "HH:mm ddd, MMM dd";
               useCustomFont = false;
-            }
-            {
-              hideWhenZero = false;
-              hideWhenZeroUnread = false;
-              iconColor = "none";
-              id = "NotificationHistory";
-              showUnreadBadge = true;
-              unreadBadgeColor = "primary";
             }
           ];
           left = [
@@ -248,8 +221,12 @@ in
               showPowerProfiles = false;
             }
             {
-              defaultSettings = screenRecorderSettings;
-              id = "plugin:screen-recorder";
+              hideWhenZero = false;
+              hideWhenZeroUnread = false;
+              iconColor = "none";
+              id = "NotificationHistory";
+              showUnreadBadge = true;
+              unreadBadgeColor = "primary";
             }
             {
               defaultSettings = {
@@ -488,12 +465,12 @@ in
         wifiEnabled = false;
       };
       nightLight = {
-        autoSchedule = true;
+        autoSchedule = false;
         dayTemp = "6500";
         enabled = true;
         forced = false;
-        manualSunrise = "06:30";
-        manualSunset = "18:30";
+        manualSunrise = "07:00";
+        manualSunset = "20:00";
         nightTemp = "4000";
       };
       noctaliaPerformance = {

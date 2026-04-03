@@ -14,8 +14,9 @@
     withRuby = false;
 
     extraPackages = with pkgs; [
+      bash-language-server
       black
-      golangci-lint
+      eslint
       gopls
       gotools
       hadolint
@@ -24,19 +25,16 @@
       markdownlint-cli
       nixd
       nixfmt
-      nodePackages.bash-language-server
-      nodePackages.eslint
-      nodePackages.prettier
-      nodePackages.typescript-language-server
+      prettier
       pyright
       ruff
       shellcheck
       shfmt
       stylua
-      terraform-ls
       tflint
+      tofu-ls
       tree-sitter
-      vscode-langservers-extracted
+      typescript-language-server
       yaml-language-server
     ];
   };
