@@ -17,7 +17,8 @@ _: {
 
     brews = [
       #* AI Tools
-      "aider"
+      # "aider"
+      "ollama" # Local AI model manager and runner
       "lazyssh"
       "gemini-cli" # AI-powered command-line interface
       "opencode" # AI coding agent for the terminal
@@ -58,7 +59,7 @@ _: {
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
       # "ollama-app" # Local AI model manager and runner
-      "block-goose" # AI coding agent
+      # "block-goose" # AI coding agent
       "cmux" # AI terminal multiplexer
       "codex"
       "cursor" # AI  editor
