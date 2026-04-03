@@ -17,7 +17,6 @@
       bash-language-server
       black
       eslint
-      golangci-lint
       gopls
       gotools
       hadolint
