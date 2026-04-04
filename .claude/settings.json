@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//nix/store/**)",
+      "Bash(find ~ -maxdepth 4 -name \"*.sh\" -exec grep -l \"DOPPLER_PROJECT\\\\|DOPPLER_CONFIG\" {} \\\\;)",
+      "Read(//nix/var/nix/profiles/per-user/**)",
+      "Bash(zsh -i -c 'env')",
+      "Bash(zsh -d -f -i -c 'env 2>/dev/null')",
+      "Bash(echo \"exit: $?\")",
+      "Bash(ls ~/.zshrc*)",
+      "Bash(launchctl environ:*)",
+      "Bash(defaults read:*)",
+      "Bash(cat ~/Library/LaunchAgents/*.plist)"
+    ]
+  }
+}

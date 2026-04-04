@@ -83,11 +83,12 @@
       eval "$(direnv hook zsh)"
 
       # Load cached Doppler secrets
-      if [ -f "$HOME/.config/doppler/env.sh" ]; then
-        set -a
-        source "$HOME/.config/doppler/env.sh"
-        set +a
-      fi
+      # DISABLED: Doppler env vars no longer auto-loaded
+      # if [ -f "$HOME/.config/doppler/env.sh" ]; then
+      #   set -a
+      #   source "$HOME/.config/doppler/env.sh"
+      #   set +a
+      # fi
 
       # # 1password CLI integration - ensure 1password CLI is installed #FIXME: this should be fixed and re-integrated but currently allowing this makes the shell constantly asking for login
       # if command -v op &> /dev/null; then

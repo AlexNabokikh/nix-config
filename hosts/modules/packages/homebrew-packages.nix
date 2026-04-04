@@ -54,14 +54,14 @@ _: {
 
     casks = [
       #* AI Tools
-      "claude" # Claude AI client
+      # "claude" # Claude AI client
       "claude-code" # Claude  CLI
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
       # "ollama-app" # Local AI model manager and runner
       # "block-goose" # AI coding agent
       "cmux" # AI terminal multiplexer
-      "codex"
+      "codex" # Codex desktop client
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
       "opencode-desktop"
@@ -125,7 +125,7 @@ _: {
       "warp" # Modern terminal with AI features
 
       #* Browsers & Communication
-      "vivaldi" # Feature-rich web browser with customization options
+      # "vivaldi" # Feature-rich web browser with customization options
       "brave-browser" # Privacy-focused web browser with ad blocker
       "netdownloadhelpercoapp"
       "telegram" # Messaging application

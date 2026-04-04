@@ -29,7 +29,7 @@ in {
       gopls # Go
       lua-language-server # Lua
       nixd # Nix
-      nodePackages.bash-language-server # Bash
+      bash-language-server # Bash
       pyright # Python
       terraform-ls # Terraform
       vscode-langservers-extracted # HTML/CSS/JSON
@@ -38,7 +38,7 @@ in {
       # Tools
       gotools # Go tools
       isort # Python import sorter
-      nodePackages.prettier # Multi-language formatter
+      prettier # Multi-language formatter
       telescope # Fuzzy finder
       tflint # Terraform linter
     ];

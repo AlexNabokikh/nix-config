@@ -475,6 +475,10 @@ run = ['layout tiling', 'move-node-to-workspace W']
 
 #! ---------------------------- AI ---------------------------- #
 [[on-window-detected]]
+if.app-id = 'com.openai.chatgpt'
+run = 'move-node-to-workspace A'
+
+[[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
 run = 'move-node-to-workspace A'
 
