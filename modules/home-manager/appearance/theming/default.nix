@@ -8,6 +8,13 @@
       ...
     }:
     {
+      # Catppuccin flavor and accent
+      catppuccin = {
+        enable = true;
+        flavor = "mocha";
+        accent = "lavender";
+      };
+
       gtk = {
         enable = true;
         colorScheme = "dark";

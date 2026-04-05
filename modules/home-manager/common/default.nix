@@ -45,12 +45,5 @@
           unzip
           wl-clipboard
         ];
-
-      # Catppuccin flavor and accent
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-        accent = "lavender";
-      };
     };
 }
