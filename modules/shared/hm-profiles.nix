@@ -35,9 +35,8 @@ in
       hm.programsZsh
     ];
 
-    # Linux desktop environment modules
+    # Linux desktop environment modules (shared across compositors)
     linuxDesktop = [
-      hm.desktopHyprland
       hm.desktopWaylandCommon
       hm.appearanceTheming
       hm.appearanceXdg
@@ -46,6 +45,10 @@ in
       hm.servicesHypridle
       hm.servicesKanshi
     ];
+
+    # Compositor-specific modules
+    hyprland = [ hm.desktopHyprland ];
+    niri = [ hm.desktopNiri ];
 
     # macOS-specific modules
     darwinExtras = [

@@ -31,7 +31,7 @@ in
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${username} = {
-            imports = hmProfiles.core ++ hmProfiles.linuxDesktop;
+            imports = hmProfiles.core ++ hmProfiles.linuxDesktop ++ hmProfiles.hyprland;
 
             programs.home-manager.enable = true;
             home = {
