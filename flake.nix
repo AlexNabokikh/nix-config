@@ -21,7 +21,7 @@
 
     # Noctalia Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/?ref=v4.6.7";
+      url = "github:noctalia-dev/noctalia-shell?ref=v4.6.7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
