@@ -93,13 +93,6 @@ in
           powerOnBoot = false;
         };
 
-        # Enable Wayland support in Chromium and Electron based applications
-        # Set cursor size
-        environment.sessionVariables = {
-          NIXOS_OZONE_WL = "1";
-          XCURSOR_SIZE = "24";
-        };
-
         # PATH configuration
         environment.localBinInPath = true;
 
