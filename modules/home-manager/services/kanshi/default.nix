@@ -6,7 +6,6 @@
       # Manage kanshi service via Home-manager
       services.kanshi = {
         enable = true;
-        systemdTarget = "graphical-session.target";
         settings = [
           {
             profile.name = "docked";
