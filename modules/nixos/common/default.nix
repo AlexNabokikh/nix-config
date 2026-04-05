@@ -1,165 +1,177 @@
+{ inputs, config, ... }:
+let
+  inherit (config) userInfo;
+in
 {
-  inputs,
-  lib,
-  config,
-  userConfig,
-  pkgs,
-  ...
-}:
-{
-  # Register flake inputs for nix commands
-  nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
-    lib.filterAttrs (_: lib.isType "flake") inputs
-  );
+  flake.modules.nixos.common =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      options.primaryUser = lib.mkOption {
+        type = lib.types.str;
+        description = "Primary username for this system";
+      };
 
-  # Add inputs to legacy channels
-  nix.nixPath = [ "/etc/nix/path" ];
-  environment.etc = lib.mapAttrs' (name: value: {
-    name = "nix/path/${name}";
-    value.source = value.flake;
-  }) config.nix.registry;
+      config = {
+        # Register flake inputs for nix commands
+        nix.registry = lib.mapAttrs (_: flake: { inherit flake; }) (
+          lib.filterAttrs (_: lib.isType "flake") inputs
+        );
 
-  # Nix settings
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
-  };
+        # Add inputs to legacy channels
+        nix.nixPath = [ "/etc/nix/path" ];
+        environment.etc = lib.mapAttrs' (name: value: {
+          name = "nix/path/${name}";
+          value.source = value.flake;
+        }) config.nix.registry;
 
-  # Boot settings
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "rd.udev.log_level=3"
-    ];
-    loader.efi.canTouchEfiVariables = true;
-    loader.systemd-boot.enable = true;
-    loader.timeout = 0;
-    plymouth.enable = true;
+        # Nix settings
+        nix.settings = {
+          experimental-features = "nix-command flakes";
+          auto-optimise-store = true;
+        };
 
-    # v4l (virtual camera) module settings
-    kernelModules = [ "v4l2loopback" ];
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    extraModprobeConfig = ''
-      options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
-    '';
-  };
+        # Boot settings
+        boot = {
+          kernelPackages = pkgs.linuxPackages_latest;
+          consoleLogLevel = 0;
+          initrd.verbose = false;
+          kernelParams = [
+            "quiet"
+            "splash"
+            "rd.udev.log_level=3"
+          ];
+          loader.efi.canTouchEfiVariables = true;
+          loader.systemd-boot.enable = true;
+          loader.timeout = 0;
+          plymouth.enable = true;
 
-  # Networking
-  networking.networkmanager.enable = true;
+          # v4l (virtual camera) module settings
+          kernelModules = [ "v4l2loopback" ];
+          extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+          extraModprobeConfig = ''
+            options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+          '';
+        };
 
-  # Disable systemd services that are affecting the boot time
-  systemd.services = {
-    NetworkManager-wait-online.enable = false;
-    plymouth-quit-wait.enable = false;
-  };
+        # Networking
+        networking.networkmanager.enable = true;
 
-  # Timezone
-  time.timeZone = "Europe/Warsaw";
+        # Disable systemd services that are affecting the boot time
+        systemd.services = {
+          NetworkManager-wait-online.enable = false;
+          plymouth-quit-wait.enable = false;
+        };
 
-  # Internationalization
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IE.UTF-8";
-    LC_IDENTIFICATION = "en_IE.UTF-8";
-    LC_MEASUREMENT = "en_IE.UTF-8";
-    LC_MONETARY = "en_IE.UTF-8";
-    LC_NAME = "en_IE.UTF-8";
-    LC_NUMERIC = "en_IE.UTF-8";
-    LC_PAPER = "en_IE.UTF-8";
-    LC_TELEPHONE = "en_IE.UTF-8";
-    LC_TIME = "en_IE.UTF-8";
-  };
+        # Timezone
+        time.timeZone = "Europe/Warsaw";
 
-  # Enables support for Bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-  };
+        # Internationalization
+        i18n.defaultLocale = "en_US.UTF-8";
+        i18n.extraLocaleSettings = {
+          LC_ADDRESS = "en_IE.UTF-8";
+          LC_IDENTIFICATION = "en_IE.UTF-8";
+          LC_MEASUREMENT = "en_IE.UTF-8";
+          LC_MONETARY = "en_IE.UTF-8";
+          LC_NAME = "en_IE.UTF-8";
+          LC_NUMERIC = "en_IE.UTF-8";
+          LC_PAPER = "en_IE.UTF-8";
+          LC_TELEPHONE = "en_IE.UTF-8";
+          LC_TIME = "en_IE.UTF-8";
+        };
 
-  # Enable Wayland support in Chromium and Electron based applications
-  # Set cursor size
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    XCURSOR_SIZE = "24";
-  };
+        # Enables support for Bluetooth
+        hardware.bluetooth = {
+          enable = true;
+          powerOnBoot = false;
+        };
 
-  # PATH configuration
-  environment.localBinInPath = true;
+        # Enable Wayland support in Chromium and Electron based applications
+        # Set cursor size
+        environment.sessionVariables = {
+          NIXOS_OZONE_WL = "1";
+          XCURSOR_SIZE = "24";
+        };
 
-  # Disable CUPS printing
-  services.printing.enable = false;
+        # PATH configuration
+        environment.localBinInPath = true;
 
-  # Enable devmon for device management
-  services.devmon.enable = true;
+        # Disable CUPS printing
+        services.printing.enable = false;
 
-  # Enable PipeWire for sound
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+        # Enable devmon for device management
+        services.devmon.enable = true;
 
-  # User configuration
-  users.users.${userConfig.name} = {
-    description = userConfig.fullName;
-    extraGroups = [
-      "networkmanager"
-      "video"
-      "wheel"
-    ];
-    isNormalUser = true;
-    shell = pkgs.zsh;
-  };
+        # Enable PipeWire for sound
+        services.pulseaudio.enable = false;
+        security.rtkit.enable = true;
+        services.pipewire = {
+          enable = true;
+          alsa.enable = true;
+          alsa.support32Bit = true;
+          pulse.enable = true;
+          jack.enable = true;
+        };
 
-  # Set User's avatar
-  system.activationScripts.setUserAvatar.text = ''
-    mkdir -p /var/lib/AccountsService/{icons,users}
-    cp ${userConfig.avatar} /var/lib/AccountsService/icons/${userConfig.name}
+        # User configuration
+        users.users.${config.primaryUser} = {
+          description = userInfo.fullName;
+          extraGroups = [
+            "networkmanager"
+            "video"
+            "wheel"
+          ];
+          isNormalUser = true;
+          shell = pkgs.zsh;
+        };
 
-    touch /var/lib/AccountsService/users/${userConfig.name}
+        # Set User's avatar
+        system.activationScripts.setUserAvatar.text = ''
+          mkdir -p /var/lib/AccountsService/{icons,users}
+          cp ${userInfo.avatar} /var/lib/AccountsService/icons/${config.primaryUser}
 
-    if ! grep -q "^Icon=" /var/lib/AccountsService/users/${userConfig.name}; then
-      if ! grep -q "^\[User\]" /var/lib/AccountsService/users/${userConfig.name}; then
-        echo "[User]" >> /var/lib/AccountsService/users/${userConfig.name}
-      fi
-      echo "Icon=/var/lib/AccountsService/icons/${userConfig.name}" >> /var/lib/AccountsService/users/${userConfig.name}
-    fi
-  '';
+          touch /var/lib/AccountsService/users/${config.primaryUser}
 
-  # Passwordless sudo
-  security.sudo.wheelNeedsPassword = false;
+          if ! grep -q "^Icon=" /var/lib/AccountsService/users/${config.primaryUser}; then
+            if ! grep -q "^\[User\]" /var/lib/AccountsService/users/${config.primaryUser}; then
+              echo "[User]" >> /var/lib/AccountsService/users/${config.primaryUser}
+            fi
+            echo "Icon=/var/lib/AccountsService/icons/${config.primaryUser}" >> /var/lib/AccountsService/users/${config.primaryUser}
+          fi
+        '';
 
-  # System packages
-  environment.systemPackages = with pkgs; [
-    gcc # needed for tree-sitter
-    gnumake
-    killall
-  ];
+        # Passwordless sudo
+        security.sudo.wheelNeedsPassword = false;
 
-  # Common container config
-  virtualisation = {
-    containers.enable = true;
-    podman = {
-      enable = true;
-      defaultNetwork.settings.dns_enabled = true;
+        # System packages
+        environment.systemPackages = with pkgs; [
+          gcc # needed for tree-sitter
+          gnumake
+          killall
+        ];
+
+        # Common container config
+        virtualisation = {
+          containers.enable = true;
+          podman = {
+            enable = true;
+            defaultNetwork.settings.dns_enabled = true;
+          };
+        };
+
+        # Zsh configuration
+        programs.zsh.enable = true;
+
+        # Fonts configuration
+        fonts.packages = with pkgs; [
+          nerd-fonts.jetbrains-mono
+          nerd-fonts.meslo-lg
+          roboto
+        ];
+      };
     };
-  };
-
-  # Zsh configuration
-  programs.zsh.enable = true;
-
-  # Fonts configuration
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.meslo-lg
-    roboto
-  ];
 }

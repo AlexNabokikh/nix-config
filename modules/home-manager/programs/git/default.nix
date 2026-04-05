@@ -1,33 +1,40 @@
-{ userConfig, ... }:
+{ config, ... }:
+let
+  inherit (config) userInfo;
+in
 {
-  # Install git via home-manager module
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        email = userConfig.email;
-        name = userConfig.fullName;
+  flake.modules.homeManager.programsGit =
+    { ... }:
+    {
+      # Install git via home-manager module
+      programs.git = {
+        enable = true;
+        settings = {
+          user = {
+            email = userInfo.email;
+            name = userInfo.fullName;
+          };
+          pull.rebase = true;
+        };
+        signing = {
+          key = userInfo.gitKey;
+          signByDefault = true;
+        };
       };
-      pull.rebase = true;
-    };
-    signing = {
-      key = userConfig.gitKey;
-      signByDefault = true;
-    };
-  };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      keep-plus-minus-markers = true;
-      light = false;
-      line-numbers = true;
-      navigate = true;
-      width = 280;
-    };
-  };
+      programs.delta = {
+        enable = true;
+        enableGitIntegration = true;
+        options = {
+          keep-plus-minus-markers = true;
+          light = false;
+          line-numbers = true;
+          navigate = true;
+          width = 280;
+        };
+      };
 
-  # Enable catppuccin theming for git delta
-  catppuccin.delta.enable = true;
+      # Enable catppuccin theming for git delta
+      catppuccin.delta.enable = true;
+    };
 }

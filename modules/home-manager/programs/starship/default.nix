@@ -1,7 +1,10 @@
 { ... }:
 {
-  # Starship configuration
-  programs.starship = {
+  flake.modules.homeManager.programsStarship =
+    { ... }:
+    {
+      # Starship configuration
+      programs.starship = {
     enable = true;
     enableZshIntegration = true;
     settings = {
@@ -64,6 +67,7 @@
     };
   };
 
-  # Enable catppuccin theming for starship.
-  catppuccin.starship.enable = true;
+      # Enable catppuccin theming for starship.
+      catppuccin.starship.enable = true;
+    };
 }

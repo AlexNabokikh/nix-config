@@ -1,10 +1,13 @@
+{ ... }:
 {
-  lib,
-  pkgs,
-  ...
-}:
-{
-  config = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
+  flake.modules.homeManager.programsAerospace =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      config = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
     # Ensure aerospace package installed
     home.packages = [ pkgs.aerospace ];
 
@@ -148,5 +151,6 @@
       if.app-id = 'us.zoom.xos'
       run = 'move-node-to-workspace 5'
     '';
-  };
+      };
+    };
 }

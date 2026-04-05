@@ -1,85 +1,55 @@
+{ ... }:
 {
-  userConfig,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  imports = [
-    ../programs/aerospace
-    ../programs/alacritty
-    ../programs/atuin
-    ../programs/bat
-    ../programs/brave
-    ../programs/btop
-    ../programs/fastfetch
-    ../programs/fzf
-    ../programs/git
-    ../programs/go
-    ../programs/gpg
-    ../programs/k8s
-    ../programs/lazygit
-    ../programs/neovim
-    ../programs/saml2aws
-    ../programs/starship
-    ../programs/telegram
-    ../programs/tmux
-    ../programs/zsh
-    ../scripts
-  ];
+  flake.modules.homeManager.common =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      # Nicely reload system units when changing configs
+      systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
+      # Ensure common packages are installed
+      home.packages =
+        with pkgs;
+        [
+          awscli2
+          dig
+          eza
+          fd
+          github-copilot-cli
+          jq
+          nh
+          nodejs
+          opencode
+          openconnect
+          pipenv
+          podman-compose
+          podman-tui
+          python3
+          ripgrep
+          opentofu
+        ]
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+          anki-bin
+          colima
+          hidden-bar
+          mos
+          podman
+          raycast
+        ]
+        ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+          anki
+          tesseract
+          unzip
+          wl-clipboard
+        ];
 
-  # Home-Manager configuration for the user's home environment
-  home = {
-    username = userConfig.name;
-    homeDirectory =
-      if pkgs.stdenv.hostPlatform.isDarwin then
-        "/Users/${userConfig.name}"
-      else
-        "/home/${userConfig.name}";
-  };
-
-  # Ensure common packages are installed
-  home.packages =
-    with pkgs;
-    [
-      awscli2
-      dig
-      eza
-      fd
-      github-copilot-cli
-      jq
-      nh
-      nodejs
-      opencode
-      openconnect
-      pipenv
-      podman-compose
-      podman-tui
-      python3
-      ripgrep
-      opentofu
-    ]
-    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-      anki-bin
-      colima
-      hidden-bar
-      mos
-      podman
-      raycast
-    ]
-    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
-      anki
-      tesseract
-      unzip
-      wl-clipboard
-    ];
-
-  # Catppuccin flavor and accent
-  catppuccin = {
-    flavor = "mocha";
-    accent = "lavender";
-  };
+      # Catppuccin flavor and accent
+      catppuccin = {
+        flavor = "mocha";
+        accent = "lavender";
+      };
+    };
 }

@@ -1,36 +1,40 @@
 { ... }:
 {
-  # Manage kanshi service via Home-manager
-  services.kanshi = {
-    enable = true;
-    systemdTarget = "graphical-session.target";
-    settings = [
-      {
-        profile.name = "docked";
-        profile.outputs = [
+  flake.modules.homeManager.servicesKanshi =
+    { ... }:
+    {
+      # Manage kanshi service via Home-manager
+      services.kanshi = {
+        enable = true;
+        systemdTarget = "graphical-session.target";
+        settings = [
           {
-            criteria = "*";
-            position = "0,0";
-            scale = 1.0;
-            status = "enable";
+            profile.name = "docked";
+            profile.outputs = [
+              {
+                criteria = "*";
+                position = "0,0";
+                scale = 1.0;
+                status = "enable";
+              }
+              {
+                criteria = "eDP-1";
+                scale = 2.0;
+                status = "disable";
+              }
+            ];
           }
           {
-            criteria = "eDP-1";
-            scale = 2.0;
-            status = "disable";
+            profile.name = "undocked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                status = "enable";
+                position = "0,0";
+              }
+            ];
           }
         ];
-      }
-      {
-        profile.name = "undocked";
-        profile.outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-            position = "0,0";
-          }
-        ];
-      }
-    ];
-  };
+      };
+    };
 }

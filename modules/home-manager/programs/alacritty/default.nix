@@ -1,80 +1,84 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  # Install alacritty via home-manager module
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      general = {
-        live_config_reload = true;
+  flake.modules.homeManager.programsAlacritty =
+    { pkgs, ... }:
+    {
+      # Install alacritty via home-manager module
+      programs.alacritty = {
+        enable = true;
+        settings = {
+          general = {
+            live_config_reload = true;
+          };
+
+          terminal = {
+            shell.program = "${pkgs.zsh}/bin/zsh";
+            shell.args = [
+              "-l"
+              "-c"
+              "tmux attach || tmux"
+            ];
+          };
+
+          window = {
+            decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "full";
+            dynamic_title = false;
+            dynamic_padding = true;
+            dimensions = {
+              columns = 170;
+              lines = 45;
+            };
+            padding = {
+              x = 5;
+              y = 1;
+            };
+          };
+
+          scrolling = {
+            history = 10000;
+            multiplier = 3;
+          };
+
+          keyboard.bindings =
+            if pkgs.stdenv.hostPlatform.isDarwin then
+              [
+                {
+                  key = "Slash";
+                  mods = "Control";
+                  chars = ''\u001f'';
+                }
+              ]
+            else
+              [ ];
+
+          font = {
+            size = if pkgs.stdenv.hostPlatform.isDarwin then 15 else 12;
+            normal = {
+              family = "MesloLGS Nerd Font";
+              style = "Regular";
+            };
+            bold = {
+              family = "MesloLGS Nerd Font";
+              style = "Bold";
+            };
+            italic = {
+              family = "MesloLGS Nerd Font";
+              style = "Italic";
+            };
+            bold_italic = {
+              family = "MesloLGS Nerd Font";
+              style = "Bold Italic";
+            };
+          };
+
+          selection = {
+            semantic_escape_chars = '',│`|:"' ()[]{}<>'';
+            save_to_clipboard = true;
+          };
+        };
       };
 
-      terminal = {
-        shell.program = "${pkgs.zsh}/bin/zsh";
-        shell.args = [
-          "-l"
-          "-c"
-          "tmux attach || tmux"
-        ];
-      };
-
-      window = {
-        decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "full";
-        dynamic_title = false;
-        dynamic_padding = true;
-        dimensions = {
-          columns = 170;
-          lines = 45;
-        };
-        padding = {
-          x = 5;
-          y = 1;
-        };
-      };
-
-      scrolling = {
-        history = 10000;
-        multiplier = 3;
-      };
-
-      keyboard.bindings =
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          [
-            {
-              key = "Slash";
-              mods = "Control";
-              chars = ''\u001f'';
-            }
-          ]
-        else
-          [ ];
-
-      font = {
-        size = if pkgs.stdenv.hostPlatform.isDarwin then 15 else 12;
-        normal = {
-          family = "MesloLGS Nerd Font";
-          style = "Regular";
-        };
-        bold = {
-          family = "MesloLGS Nerd Font";
-          style = "Bold";
-        };
-        italic = {
-          family = "MesloLGS Nerd Font";
-          style = "Italic";
-        };
-        bold_italic = {
-          family = "MesloLGS Nerd Font";
-          style = "Bold Italic";
-        };
-      };
-
-      selection = {
-        semantic_escape_chars = '',│`|:"' ()[]{}<>'';
-        save_to_clipboard = true;
-      };
+      # Enable catppuccin theming for alacritty.
+      catppuccin.alacritty.enable = true;
     };
-  };
-
-  # Enable catppuccin theming for alacritty.
-  catppuccin.alacritty.enable = true;
 }
