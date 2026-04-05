@@ -34,8 +34,21 @@
 
   # Home-manager-level Hyprland configuration
   flake.modules.homeManager.desktopHyprland =
-    { pkgs, ... }:
     {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      # Hyprland reads the cursor theme from the user systemd environment under
+      # UWSM. The current compositor stack resolves Yaru only when the theme
+      # name is lowercase.
+      systemd.user.sessionVariables = {
+        XCURSOR_THEME = lib.strings.toLower config.home.pointerCursor.name;
+        XCURSOR_SIZE = toString config.home.pointerCursor.size;
+      };
+
       # Expose a launcher action that closes all compositor-managed windows.
       xdg.desktopEntries = {
         quit-all-applications = {
