@@ -64,10 +64,7 @@
       };
 
       # Enable catppuccin theming for tmux.
-      catppuccin = {
-        tmux = {
-          enable = true;
-          extraConfig = ''
+      catppuccin.tmux.extraConfig = ''
             set -g @catppuccin_flavor "${config.catppuccin.flavor}"
             set -g @catppuccin_status_background "none"
 
@@ -82,7 +79,5 @@
             set -g status-right "#{E:@catppuccin_status_host}#{E:@catppuccin_status_date_time}"
             set -g status-left ""
           '';
-        };
-      };
     };
 }

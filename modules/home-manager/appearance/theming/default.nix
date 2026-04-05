@@ -1,13 +1,13 @@
 { ... }:
 {
-  flake.modules.homeManager.miscGtk =
+  flake.modules.homeManager.appearanceTheming =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
     {
-      # GTK theme configuration
       gtk = {
         enable = true;
         colorScheme = "dark";
@@ -21,7 +21,7 @@
             size = "compact";
           };
         };
-        iconTheme = {
+        iconTheme = lib.mkForce {
           name = "Tela-circle-dark";
           package = pkgs.tela-circle-icon-theme;
         };
@@ -43,6 +43,22 @@
             "file://${config.home.homeDirectory}/Downloads/temp"
             "file://${config.home.homeDirectory}/Documents/repositories"
           ];
+        };
+      };
+
+      # Qt theme configuration
+      qt = {
+        enable = true;
+        platformTheme = {
+          name = "qtct";
+          package = pkgs.kdePackages.qt6ct;
+        };
+        style.name = "kvantum";
+
+        qt6ctSettings = {
+          Appearance = {
+            icon_theme = config.gtk.iconTheme.name;
+          };
         };
       };
     };

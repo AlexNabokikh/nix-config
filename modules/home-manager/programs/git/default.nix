@@ -33,8 +33,5 @@ in
           width = 280;
         };
       };
-
-      # Enable catppuccin theming for git delta
-      catppuccin.delta.enable = true;
     };
 }

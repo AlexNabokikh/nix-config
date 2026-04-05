@@ -16,7 +16,7 @@
     email = "alexander.nabokikh@olx.pl";
     fullName = "Alexander Nabokikh";
     gitKey = "C5810093";
-    avatar = ../files/avatar;
-    wallpaper = ../files/wallpaper.jpg;
+    avatar = ../../files/avatar;
+    wallpaper = ../../files/wallpaper.jpg;
   };
 }

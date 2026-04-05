@@ -9,6 +9,9 @@
       };
 
       config = {
+      # Allow unfree packages
+      nixpkgs.config.allowUnfree = true;
+
       # Nix settings
       nix = {
         settings = {

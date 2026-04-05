@@ -11,8 +11,5 @@
           proc_sorting = "memory";
         };
       };
-
-      # Enable catppuccin theming for btop.
-      catppuccin.btop.enable = true;
     };
 }

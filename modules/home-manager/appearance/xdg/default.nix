@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.miscXdg =
+  flake.modules.homeManager.appearanceXdg =
     {
       pkgs,
       ...

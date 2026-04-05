@@ -55,8 +55,5 @@
           };
         };
       };
-
-      # Enable catppuccin theming for k9s
-      catppuccin.k9s.enable = true;
     };
 }

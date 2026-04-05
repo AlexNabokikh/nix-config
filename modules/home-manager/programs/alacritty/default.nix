@@ -77,8 +77,5 @@
           };
         };
       };
-
-      # Enable catppuccin theming for alacritty.
-      catppuccin.alacritty.enable = true;
     };
 }
