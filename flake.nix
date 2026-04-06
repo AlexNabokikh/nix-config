@@ -31,7 +31,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    import-tree.url = "github:mightyiam/import-tree";
+    import-tree.url = "github:vic/import-tree";
   };
 
   outputs =

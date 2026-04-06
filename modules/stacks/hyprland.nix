@@ -5,12 +5,12 @@ in
 {
   flake.modules.nixos.stackHyprland = {
     imports = [
-      nixos.desktopCompositorBase
+      nixos.desktopCompositorCommon
       nixos.desktopHyprland
     ];
 
     home-manager.sharedModules = [
-      homeManager.desktopCompositorBase
+      homeManager.desktopCompositorCommon
       homeManager.desktopHyprland
     ];
   };

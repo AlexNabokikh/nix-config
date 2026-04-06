@@ -161,7 +161,10 @@ Examples:
 - `programs/noctalia/`: Noctalia Shell configuration.
 - `programs/swappy/`: Screenshot annotation tool.
 - `services/hypridle/`: Idle and lock management.
-- `desktop/compositor-common/`: Shared Home Manager settings for standalone compositor desktops.
+- `desktop/cursor.nix`: Pointer cursor theming (reusable by any desktop).
+- `desktop/gtk.nix`: GTK theming (reusable by any desktop).
+- `desktop/qt.nix`: Qt theming (reusable by any desktop).
+- `desktop/compositor-common/`: Compositor-specific settings (dconf, xdg) and the aggregate that bundles all shared modules for standalone compositors.
 - `desktop/hyprland/`: Hyprland-specific user settings.
 - `desktop/niri/`: Niri-specific user settings.
 - `desktop/aerospace/`: AeroSpace configuration for macOS.
@@ -177,18 +180,6 @@ Current stacks:
 - `hyprland.nix`: Hyprland environment stack.
 - `niri.nix`: Niri environment stack.
 - `aerospace.nix`: AeroSpace setup for macOS.
-- `compositor-base.nix`: Internal shared base for standalone compositor desktops.
-
-`compositor-base.nix` is intentionally internal.
-
-It holds the shared pieces for standalone compositors such as:
-
-- Hyprland
-- Niri
-- Sway
-- Wayfire
-
-Hosts should import `nixos.stackHyprland` or `nixos.stackNiri`, not `nixos._stackCompositorBase` directly.
 
 ## How Composition Works
 
@@ -299,24 +290,25 @@ let
   username = "your-user";
 in
 {
-  configurations.nixos.laptop.modules = [
-    ./hardware.nix
-    nixos.stackLinuxBase
-    nixos.stackHyprland
-    {
-      primaryUser = username;
-      system.stateVersion = "26.05";
+  configurations.nixos.laptop.module = {
+    imports = [
+      ./hardware.nix
+      nixos.stackLinuxBase
+      nixos.stackHyprland
+    ];
 
-      home-manager.users.${username} = {
-        programs.home-manager.enable = true;
-        home = {
-          inherit username;
-          homeDirectory = "/home/${username}";
-          stateVersion = "26.05";
-        };
+    primaryUser = username;
+    system.stateVersion = "26.05";
+
+    home-manager.users.${username} = {
+      programs.home-manager.enable = true;
+      home = {
+        inherit username;
+        homeDirectory = "/home/${username}";
+        stateVersion = "26.05";
       };
-    }
-  ];
+    };
+  };
 }
 ```
 
@@ -399,7 +391,7 @@ Use this for modules that define `services.*`.
 
 1. Add a NixOS module under `modules/nixos/desktop/`
 2. Add a Home Manager desktop module under `modules/home-manager/desktop/<wm>/`
-3. Reuse `modules/stacks/compositor-base.nix` where appropriate
+3. Reuse `nixos.desktopCompositorCommon` and `homeManager.desktopCompositorCommon` where appropriate
 4. Add a new stack under `modules/stacks/`
 5. Import that stack from a host
 

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorBase =
+  flake.modules.homeManager.desktopGtk =
     {
       config,
       lib,

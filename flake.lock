@@ -97,15 +97,15 @@
     },
     "import-tree": {
       "locked": {
-        "lastModified": 1743590248,
-        "narHash": "sha256-b6WtsoI+AzBCaonXVrkA+se1zbXoyKME8o647iPwooE=",
-        "owner": "mightyiam",
+        "lastModified": 1773693634,
+        "narHash": "sha256-BtZ2dtkBdSUnFPPFc+n0kcMbgaTxzFNPv2iaO326Ffg=",
+        "owner": "vic",
         "repo": "import-tree",
-        "rev": "599004dadb236b6ad020ca54b41f26b43693205d",
+        "rev": "c41e7d58045f9057880b0d85e1152d6a4430dbf1",
         "type": "github"
       },
       "original": {
-        "owner": "mightyiam",
+        "owner": "vic",
         "repo": "import-tree",
         "type": "github"
       }

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorCommon =
+  flake.modules.homeManager.desktopDconf =
     { lib, ... }:
     {
       dconf.settings = {

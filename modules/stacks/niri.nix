@@ -5,12 +5,12 @@ in
 {
   flake.modules.nixos.stackNiri = {
     imports = [
-      nixos.desktopCompositorBase
+      nixos.desktopCompositorCommon
       nixos.desktopNiri
     ];
 
     home-manager.sharedModules = [
-      homeManager.desktopCompositorBase
+      homeManager.desktopCompositorCommon
       homeManager.desktopNiri
     ];
   };
