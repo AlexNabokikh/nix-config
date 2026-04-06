@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorGtkQt =
+  flake.modules.homeManager.desktopAppearanceGtk =
     {
       config,
       lib,
@@ -42,16 +42,6 @@
           "file://${config.home.homeDirectory}/Downloads/temp"
           "file://${config.home.homeDirectory}/Documents/repositories"
         ];
-      };
-
-      qt = {
-        enable = true;
-        platformTheme = {
-          name = "qtct";
-          package = pkgs.kdePackages.qt6ct;
-        };
-        style.name = "kvantum";
-        qt6ctSettings.Appearance.icon_theme = config.gtk.iconTheme.name;
       };
     };
 }

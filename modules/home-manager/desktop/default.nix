@@ -13,6 +13,8 @@ in
   flake.modules.homeManager.desktopCompositorBase = {
     imports = [
       hm.desktopCompositorCommon
+      hm.desktopAppearanceGtk
+      hm.desktopAppearanceQt
       hm.programsNoctalia
       hm.programsSwappy
       hm.servicesHypridle

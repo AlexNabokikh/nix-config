@@ -19,6 +19,11 @@
         icon = "system-log-out";
       };
 
+      xdg.desktopEntries.uuctl = {
+        name = "uuctl";
+        noDisplay = true;
+      };
+
       xdg.configFile = {
         "hypr/hyprland.conf".source = ./hyprland.conf;
 

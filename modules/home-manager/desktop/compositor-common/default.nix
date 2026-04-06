@@ -6,7 +6,8 @@ in
   imports = [
     ./cursor.nix
     ./dconf.nix
-    ./gtk-qt.nix
+    ./gtk.nix
+    ./qt.nix
     ./xdg.nix
   ];
 
@@ -14,10 +15,7 @@ in
     imports = [
       hm.desktopCompositorCursor
       hm.desktopCompositorDconf
-      hm.desktopCompositorGtkQt
       hm.desktopCompositorXdg
     ];
   };
-
-  flake.modules.homeManager.appearanceGtkQt = hm.desktopCompositorGtkQt;
 }
