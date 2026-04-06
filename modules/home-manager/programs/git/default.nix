@@ -1,7 +1,4 @@
 { config, ... }:
-let
-  inherit (config) userInfo;
-in
 {
   flake.modules.homeManager.programsGit =
     { ... }:
@@ -11,13 +8,13 @@ in
         enable = true;
         settings = {
           user = {
-            email = userInfo.email;
-            name = userInfo.fullName;
+            email = config.profile.email;
+            name = config.profile.fullName;
           };
           pull.rebase = true;
         };
         signing = {
-          key = userInfo.gitKey;
+          key = config.profile.gitKey;
           signByDefault = true;
         };
       };

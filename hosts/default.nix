@@ -1,0 +1,7 @@
+{ ... }:
+{
+  imports = [
+    ./energy
+    ./work-mac
+  ];
+}

@@ -30,8 +30,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    import-tree.url = "github:vic/import-tree";
   };
 
   outputs =
@@ -39,7 +37,8 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.flake-parts.flakeModules.modules
-        (inputs.import-tree ./modules)
+        ./modules
+        ./hosts
       ];
     };
 }

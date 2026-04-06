@@ -1,0 +1,23 @@
+{ config, ... }:
+let
+  hm = config.flake.modules.homeManager;
+in
+{
+  imports = [
+    ./cursor.nix
+    ./dconf.nix
+    ./theming.nix
+    ./xdg.nix
+  ];
+
+  flake.modules.homeManager.desktopCompositorCommon = {
+    imports = [
+      hm.desktopCompositorCursor
+      hm.desktopCompositorDconf
+      hm.desktopCompositorTheming
+      hm.desktopCompositorXdg
+    ];
+  };
+
+  flake.modules.homeManager.appearanceTheming = hm.desktopCompositorTheming;
+}

@@ -1,257 +1,429 @@
 # NixOS and nix-darwin Configurations for My Machines
 
-This repository contains NixOS and nix-darwin configurations for my machines, managed through [Nix Flakes](https://nixos.wiki/wiki/Flakes).
+This repository contains my NixOS and nix-darwin configurations, managed through Nix Flakes.
 
-It is structured to easily accommodate multiple machines and user configurations, leveraging [nixpkgs](https://github.com/NixOS/nixpkgs), [home-manager](https://github.com/nix-community/home-manager), [nix-darwin](https://github.com/LnL7/nix-darwin), and various other community contributions for a seamless experience across NixOS and macOS.
+It is designed for:
+- NixOS machines
+- macOS machines through `nix-darwin`
+- user-level configuration through `home-manager`
+
+The repo follows a dendritic pattern.
+
+In practice, that means:
+- small modules do one thing
+- branch modules group related settings
+- stacks combine reusable modules into host-level choices
+- hosts stay short and easy to read
+
+If you are new to Nix, the simplest mental model is:
+- `hosts/` = real machines
+- `modules/` = reusable building blocks
+- `stacks/` = convenient bundles of those building blocks
+- `modules/profile/` = personal settings shared across hosts
 
 ## Showcase
 
-### Hyprland/Niri
+### Hyprland / Niri
 
-![hyprland](./files/screenshots/hyprland.png)
+![hyprland](./assets/screenshots/hyprland.png)
 
 ### macOS
 
-![macos](./files/screenshots/mac.png)
+![macos](./assets/screenshots/mac.png)
+
+## Repository Structure
+
+```text
+.
+├── assets/                # Generic repo assets such as screenshots
+├── hosts/                 # Concrete machine definitions
+│   ├── energy/            # NixOS desktop host
+│   └── work-mac/          # macOS host
+├── modules/               # Reusable configuration building blocks
+│   ├── profile/           # Personal cross-host profile data and assets
+│   ├── nixos/             # NixOS-only modules
+│   ├── darwin/            # nix-darwin-only modules
+│   ├── home-manager/      # Home Manager modules
+│   └── stacks/            # Host-facing composition modules
+├── flake.nix              # Flake inputs and top-level imports
+├── flake.lock             # Locked input versions for reproducibility
+├── Makefile               # Convenience rebuild/update/check commands
+└── README.md              # Project documentation
+```
 
 ## Structure
 
-- `flake.nix`: The flake itself, defining inputs and outputs for NixOS, nix-darwin, and Home Manager configurations.
-- `hosts/`: NixOS and nix-darwin configurations for each machine (`energy`, `PL-OLX-KCGXHGK3PY`).
-- `home/`: Home Manager configurations for each user on each machine.
-- `files/`: Miscellaneous configuration files, scripts, avatars, and screenshots.
-- `modules/`: Reusable platform-specific modules:
-  - `nixos/`: NixOS-specific modules for system configuration.
-  - `darwin/`: macOS-specific (nix-darwin) modules.
-  - `home-manager/`: User-space configuration modules for applications and services.
-- `flake.lock`: Lock file ensuring reproducible builds by pinning input versions.
+- `flake.nix`: Defines flake inputs and imports the module tree plus the host tree.
+- `hosts/`: Concrete machine configurations such as `energy` and `work-mac`.
+- `assets/`: Generic repository assets. Right now this mainly holds screenshots.
+- `modules/profile/`: Personal cross-host data such as name, email, git key, avatar, and wallpaper.
+- `modules/nixos/`: Reusable NixOS system modules.
+- `modules/darwin/`: Reusable nix-darwin system modules.
+- `modules/home-manager/`: Reusable user-level modules.
+- `modules/stacks/`: Composition modules that combine lower-level modules into host-facing bundles.
 
-### Key Inputs
+## Terminology
 
-- **nixpkgs**: Points to the `nixos-unstable` channel for access to the latest packages.
-- **home-manager**: Manages user-specific configurations.
-- **darwin**: Enables nix-darwin for macOS system configuration.
-- **hardware**: Provides NixOS modules to optimize settings for different hardware.
-- **catppuccin**: Provides global Catppuccin theme integration.
-- **noctalia**: Provides Noctalia Shell, a modern desktop shell for Hyprland and Niri.
+### Host
+A host is a real machine configuration.
 
-## Usage
+Examples:
+- `hosts/energy/default.nix`
+- `hosts/work-mac/default.nix`
 
-### Adding a New Machine with a New User
+A host should mostly answer:
+- what machine is this?
+- which major environment does it use?
 
-To add a new machine with a new user to your NixOS or nix-darwin configuration, follow these steps:
+### Module
+A module is a reusable piece of configuration.
 
-1. **Update `flake.nix`**:
+Examples:
+- `modules/nixos/base/networking.nix`
+- `modules/home-manager/programs/git/default.nix`
+- `modules/home-manager/services/hypridle/default.nix`
 
-   a. Add the new user to the `users` attribute set:
+Modules are the leaves and branches of the tree.
 
-   ```nix
-   users = {
-     # Existing users...
-     newuser = {
-       avatar = ./files/avatar/face;
-       email = "newuser@example.com";
-       fullName = "New User";
-       gitKey = "YOUR_GIT_KEY";
-       name = "newuser";
-     };
-   };
-   ```
+### Stack
+A stack is a higher-level composition module.
 
-   b. Add the new machine to the appropriate configuration set:
+A stack groups multiple modules into something that is meaningful at the host level.
 
-   For NixOS:
+Examples:
+- `stacks.linuxBase`
+- `stacks.hyprland`
+- `stacks.niri`
+- `stacks.darwinBase`
+- `stacks.aerospace`
 
-   ```nix
-   nixosConfigurations = {
-     # Existing configurations...
-     newmachine = mkNixosConfiguration "newmachine" "newuser";
-   };
-   ```
+You can think of a stack as:
 
-   For nix-darwin:
+"Import this environment preset for this machine"
 
-   ```nix
-   darwinConfigurations = {
-     # Existing configurations...
-     newmachine = mkDarwinConfiguration "newmachine" "newuser";
-   };
-   ```
+### Profile
+The profile is the personal data shared across hosts.
 
-   c. Add the new home configuration:
+In this repo it lives in:
+- `modules/profile/`
 
-   ```nix
-   homeConfigurations = {
-     # Existing configurations...
-     "newuser@newmachine" = mkHomeConfiguration "x86_64-linux" "newuser" "newmachine";
-   };
-   ```
+It contains things like:
+- full name
+- email
+- git signing key
+- avatar
+- wallpaper
 
-2. **Create System Configuration**:
+## Modules and Configurations
 
-   a. Create a new directory under `hosts/` for your machine:
+### NixOS Modules (`modules/nixos/`)
 
-   ```sh
-   mkdir -p hosts/newmachine
-   ```
+- `base/`: Core system building blocks such as boot, networking, locale, users, packages, fonts, and containers.
+- `desktop/`: System modules for standalone compositor environments.
+- `roles/`: Higher-level system roles such as gaming.
 
-   b. Create `default.nix` in this directory:
+Current desktop modules include:
+- `desktop/compositor-common.nix`: Shared system settings for standalone compositors.
+- `desktop/hyprland.nix`: Hyprland system integration.
+- `desktop/niri.nix`: Niri system integration.
 
-   ```sh
-   touch hosts/newmachine/default.nix
-   ```
+### Darwin Modules (`modules/darwin/`)
 
-   c. Add the basic configuration to `default.nix`:
+- `base/`: Common macOS settings such as defaults, fonts, sudo, keyboard, and user setup.
 
-   For NixOS:
+### Home Manager Modules (`modules/home-manager/`)
 
-   ```nix
-   { inputs, hostname, nixosModules, ... }:
-   {
-     imports = [
-       inputs.hardware.nixosModules.common-cpu-amd
-       ./hardware-configuration.nix
-       "${nixosModules}/common"
-       "${nixosModules}/desktop/hyprland"
-     ];
+- `base/`: Shared packages and user-level defaults.
+- `desktop/`: Desktop- or window-manager-specific modules.
+- `programs/`: Modules that configure `programs.*`.
+- `services/`: Modules that configure `services.*`.
+- `scripts/`: Custom helper scripts installed into the user environment.
 
-     networking.hostName = hostname;
-   }
-   ```
+Examples:
+- `programs/git/`: Git and delta configuration.
+- `programs/noctalia/`: Noctalia Shell configuration.
+- `programs/swappy/`: Screenshot annotation tool.
+- `services/hypridle/`: Idle and lock management.
+- `services/kanshi/`: Dynamic display configuration.
+- `desktop/compositor-common/`: Shared Home Manager settings for standalone compositor desktops.
+- `desktop/hyprland/`: Hyprland-specific user settings.
+- `desktop/niri/`: Niri-specific user settings.
+- `desktop/aerospace/`: AeroSpace configuration for macOS.
 
-   For nix-darwin:
+### Stack Modules (`modules/stacks/`)
 
-   ```nix
-   { darwinModules, ... }:
-   {
-     imports = [
-       "${darwinModules}/common"
-     ];
-     # Add machine-specific configurations here
-   }
-   ```
+Stacks connect system modules and Home Manager modules.
 
-   d. For NixOS, generate `hardware-configuration.nix`:
+Current stacks:
+- `linux-base.nix`: Shared Linux system base plus Home Manager base.
+- `darwin-base.nix`: Shared macOS system base plus Home Manager base.
+- `hyprland.nix`: Hyprland environment stack.
+- `niri.nix`: Niri environment stack.
+- `aerospace.nix`: AeroSpace setup for macOS.
+- `_compositor-base.nix`: Internal shared base for standalone compositor desktops.
 
-   ```sh
-   sudo nixos-generate-config --show-hardware-config > hosts/newmachine/hardware-configuration.nix
-   ```
+`_compositorBase` is intentionally private.
 
-3. **Create Home Manager Configuration**:
+It holds the shared pieces for standalone compositors such as:
+- Hyprland
+- Niri
+- Sway
+- Wayfire
 
-   a. Create a new directory for the user's host-specific configuration:
+Hosts should import `stacks.hyprland` or `stacks.niri`, not `stacks._compositorBase` directly.
 
-   ```sh
-   mkdir -p home/newuser/newmachine
-   touch home/newuser/newmachine/default.nix
-   ```
+## How Composition Works
 
-   b. Add basic home configuration:
+At a high level:
 
-   ```nix
-   { hmModules, ... }:
-   {
-     imports = [
-       "${hmModules}/common"
-       # Add other home-manager modules
-     ];
-   }
-   ```
+1. `flake.nix` imports `./modules` and `./hosts`
+2. `modules/` exports reusable modules
+3. `modules/stacks/` combines those modules into host-facing bundles
+4. `hosts/` uses stacks to define real machine configurations
 
-4. **Building and Applying Configurations**:
+That means the flow is roughly:
 
-   a. Commit new files to git:
-
-   ```sh
-   git add .
-   ```
-
-   b. Build and switch to the new system configuration:
-
-   For NixOS:
-
-   ```sh
-   sudo nixos-rebuild switch --flake .#newmachine
-   ```
-
-   For nix-darwin (requires Nix and nix-darwin installation first):
-
-   ```sh
-   darwin-rebuild switch --flake .#newmachine
-   ```
-
-   c. Build and switch to the new Home Manager configuration:
-
-> [!IMPORTANT]
-> On fresh systems, bootstrap Home Manager first:
-
-```sh
-nix-shell -p home-manager
-home-manager switch --flake .#newuser@newmachine
+```text
+leaf modules -> branch modules -> stacks -> hosts
 ```
 
-After this initial setup, you can rebuild configurations separately and home-manager will be available without additional steps
+This is what "dendritic" means in this repo.
 
-## Updating Flakes
+## Current Hosts
 
-To update all flake inputs to their latest versions:
+### `energy`
+- platform: NixOS
+- imports: `stacks.linuxBase`, `stacks.hyprland`
+- extra role: `nixos.gaming`
+
+### `work-mac`
+- platform: macOS / nix-darwin
+- imports: `stacks.darwinBase`, `stacks.aerospace`
+
+The Darwin configuration key remains:
+- `PL-OLX-KCGXHGK3PY`
+
+That matches the machine hostname and works well with the `Makefile` default.
+
+## How To Read This Repo
+
+If you are reading this repo for the first time, use this order:
+
+1. `flake.nix`
+2. `hosts/default.nix`
+3. one real host, for example `hosts/energy/default.nix`
+4. `modules/stacks/default.nix`
+5. the stack used by that host, for example `modules/stacks/hyprland.nix`
+6. the underlying modules pulled in by that stack
+
+That gives you the high-level picture before the details.
+
+## How To Use This Repo For Yourself
+
+If you want to fork this repo and adapt it for your own systems, this is the easiest path.
+
+### 1. Fork It
+
+Fork the repository and clone your own copy.
+
+### 2. Replace The Personal Profile
+
+Edit:
+- `modules/profile/preferences.nix`
+
+Replace:
+- full name
+- email
+- git key
+
+You can also replace:
+- `modules/profile/avatar`
+- `modules/profile/wallpaper.jpg`
+
+### 3. Remove Machines You Do Not Need
+
+Delete or ignore hosts you do not use.
+
+For example:
+- if you only want NixOS, keep `hosts/energy/` as a starting point
+- if you only want macOS, keep `hosts/work-mac/` as a starting point
+
+### 4. Create A New Host
+
+For a new NixOS host:
+
+1. Create a new directory under `hosts/`, for example `hosts/laptop/`
+2. Add `default.nix`
+3. Generate `hardware.nix`:
+
+```sh
+sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
+```
+
+4. Start from `hosts/energy/default.nix` and change:
+   - hostname
+   - username
+   - hardware imports
+   - stack choice
+
+Minimal example:
+
+```nix
+{ inputs, config, stacks, ... }:
+let
+  inherit (config.flake.modules) nixos;
+  username = "your-user";
+in
+{
+  flake.nixosConfigurations.laptop = inputs.nixpkgs.lib.nixosSystem {
+    modules = [
+      ./hardware.nix
+      inputs.home-manager.nixosModules.home-manager
+      stacks.linuxBase
+      stacks.hyprland
+      {
+        networking.hostName = "laptop";
+        primaryUser = username;
+        system.stateVersion = "26.05";
+
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.${username} = {
+            programs.home-manager.enable = true;
+            home = {
+              username = username;
+              homeDirectory = "/home/${username}";
+              stateVersion = "26.05";
+            };
+          };
+        };
+      }
+    ];
+  };
+}
+```
+
+For a new macOS host:
+
+1. Create `hosts/my-mac/default.nix`
+2. Start from `hosts/work-mac/default.nix`
+3. Change:
+   - hostname attr
+   - username
+   - stack choice
+
+### 5. Pick The Right Stack
+
+Common choices:
+- `stacks.linuxBase`: common Linux system + Home Manager base
+- `stacks.hyprland`: Hyprland desktop stack
+- `stacks.niri`: Niri desktop stack
+- `stacks.darwinBase`: common macOS base
+- `stacks.aerospace`: AeroSpace desktop setup for macOS
+
+Rule of thumb:
+- hosts import stacks
+- stacks import modules
+- leaf modules stay focused
+
+### 6. Build It
+
+For NixOS:
+
+```sh
+sudo nixos-rebuild switch --flake .#energy
+```
+
+For nix-darwin:
+
+```sh
+darwin-rebuild switch --flake .#PL-OLX-KCGXHGK3PY
+```
+
+Or use the `Makefile`:
+
+```sh
+make nixos-rebuild
+make darwin-rebuild
+make flake-check
+```
+
+The `Makefile` defaults to:
+
+```text
+.#$(hostname)
+```
+
+So it works best when the flake output name matches the machine hostname.
+
+## How To Extend It
+
+### Add a New Program Module
+
+Put it under:
+- `modules/home-manager/programs/<name>/default.nix`
+
+Use this for modules that define `programs.*`.
+
+### Add a New Service Module
+
+Put it under:
+- `modules/home-manager/services/<name>/default.nix`
+
+Use this for modules that define `services.*`.
+
+### Add a New Standalone Compositor
+
+1. Add a NixOS module under `modules/nixos/desktop/`
+2. Add a Home Manager desktop module under `modules/home-manager/desktop/<wm>/`
+3. Reuse `modules/stacks/_compositor-base.nix` where appropriate
+4. Add a new stack under `modules/stacks/`
+5. Import that stack from a host
+
+### When Not To Create A Stack
+
+Do not create a stack for every small shared detail.
+
+Create a stack only when it represents a real host-level choice.
+
+Good stack examples:
+- Linux base
+- Darwin base
+- Hyprland
+- Niri
+
+Bad stack examples:
+- one tiny package tweak
+- one small default value
+- an internal helper that no host should choose directly
+
+## Notes For People New To Nix
+
+If Nix feels confusing at first, that is normal.
+
+The simplest mental model for this repo is:
+- a host is a machine
+- a module is a reusable config fragment
+- a stack is a bundle of modules chosen at the host level
+- the profile is personal data shared across machines
+
+You do not need to understand every file before using the repo.
+
+The safest way to change it is:
+- start from one existing host
+- keep the overall shape
+- change one thing at a time
+- run `nix flake check`
+
+## Updating Flake Inputs
+
+To update all flake inputs:
 
 ```sh
 nix flake update
 ```
 
-## Modules and Configurations
-
-### System Modules (in `modules/nixos/`)
-
-- **`common`**: Common system configurations including bootloader, networking, PipeWire, fonts, and user settings.
-- **`desktop/hyprland`**: Hyprland window manager with GDM, Bluetooth, and required system packages.
-- **`desktop/niri`**: Niri scrollable-tiling Wayland compositor configuration.
-- **`desktop/wayland-common`**: Common Wayland compositor settings including GDM, GNOME apps, and Wayland utilities.
-- **`programs/gaming`**: Gaming optimizations including Steam, GameMode (GPU/CPU tuning, renice), and low-latency PipeWire audio.
-
-### Darwin Modules (in `modules/darwin/`)
-
-- **`common`**: Common macOS configurations including system defaults, keyboard remapping, and user settings.
-
-### Home Manager Modules (in `modules/home-manager/`)
-
-- **`common`**: Common user-space configurations that import most other modules.
-- **`desktop/hyprland`**: User-level settings for Hyprland.
-- **`desktop/niri`**: User-level settings for Niri.
-- **`desktop/wayland-common`**: Common Wayland desktop settings including dconf, gtk, qt, xdg, etc. configurations.
-- **`misc/gtk`**: GTK3/4 theming (Tela icons, Yaru cursor, Roboto font) and Catppuccin theme.
-- **`misc/qt`**: Qt theming using Kvantum and Catppuccin on Linux.
-- **`misc/xdg`**: Manages XDG user directories and default MIME type associations.
-- **`programs/aerospace` (Darwin):** Tiling window manager for macOS with custom keybindings and workspace rules.
-- **`programs/alacritty`:** GPU-accelerated terminal emulator, configured for tmux integration and platform-specific settings.
-- **`programs/atuin`:** Enhanced shell history with cloud sync capabilities.
-- **`programs/bat`:** `cat` clone with syntax highlighting and Git integration.
-- **`programs/brave`:** Web browser with XDG MIME type associations (Linux).
-- **`programs/btop`:** Resource monitor with Vim keys.
-- **`programs/fastfetch`:** Customized system information tool.
-- **`programs/fzf`:** Command-line fuzzy finder with preview capabilities.
-- **`programs/git`:** Version control system, configured with user details, GPG signing, and `delta` for diffs.
-- **`programs/go`:** Golang development environment setup.
-- **`programs/gpg`:** GnuPG settings and GPG agent configuration.
-- **`programs/k8s`:** CLI tools (kubectl, k9s, kubectx) to manage Kubernetes clusters.
-- **`programs/lazygit`:** Terminal UI for Git.
-- **`programs/neovim`:** Highly customized Neovim setup based on LazyVim.
-- **`programs/noctalia` (Hyprland/Niri):** Noctalia Shell configuration with custom bar widgets, and plugins.
-- **`programs/saml2aws`:** For AWS authentication via SAML.
-- **`programs/starship`:** Cross-shell prompt with custom configuration.
-- **`programs/swappy` (Hyprland/Niri):** A tool for editing screenshots.
-- **`programs/telegram`:** Desktop client for Telegram.
-- **`programs/tmux`:** Terminal multiplexer with custom keybindings and Catppuccin theme.
-- **`programs/zsh`:** Zsh shell with extensive aliases, completions, and custom keybindings.
-- **`scripts`**: Deploys a collection of custom utility scripts to `~/.local/bin`.
-- **`services/hypridle` (Hyprland/Niri):** Hyprland's idle daemon for automatic screen locking and power management.
-- **`services/kanshi` (Hyprland/Niri):** Dynamic display output configuration.
-
-## Contributing
-
-Contributions are welcome! If you have improvements or suggestions, please open an issue or submit a pull request.
-
 ## License
 
-This repository is licensed under the MIT License. Feel free to use, modify, and distribute according to the license terms.
+This repository is licensed under the MIT License.

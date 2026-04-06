@@ -1,7 +1,10 @@
-{ ... }:
+{ config, ... }:
 {
   flake.modules.homeManager.programsAlacritty =
-    { pkgs, ... }:
+    {
+      pkgs,
+      ...
+    }:
     {
       # Install alacritty via home-manager module
       programs.alacritty = {
@@ -52,21 +55,25 @@
               [ ];
 
           font = {
-            size = if pkgs.stdenv.hostPlatform.isDarwin then 15 else 12;
+            size =
+              if pkgs.stdenv.hostPlatform.isDarwin then
+                config.profile.appearance.fonts.terminal.size.darwin
+              else
+                config.profile.appearance.fonts.terminal.size.linux;
             normal = {
-              family = "MesloLGS Nerd Font";
+              family = config.profile.appearance.fonts.terminal.family;
               style = "Regular";
             };
             bold = {
-              family = "MesloLGS Nerd Font";
+              family = config.profile.appearance.fonts.terminal.family;
               style = "Bold";
             };
             italic = {
-              family = "MesloLGS Nerd Font";
+              family = config.profile.appearance.fonts.terminal.family;
               style = "Italic";
             };
             bold_italic = {
-              family = "MesloLGS Nerd Font";
+              family = config.profile.appearance.fonts.terminal.family;
               style = "Bold Italic";
             };
           };

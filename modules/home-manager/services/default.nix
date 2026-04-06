@@ -1,0 +1,7 @@
+{ ... }:
+{
+  imports = [
+    ./hypridle
+    ./kanshi
+  ];
+}
