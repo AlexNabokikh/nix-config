@@ -5,7 +5,7 @@ in
 {
   flake.modules.darwin.stackAerospace = {
     home-manager.sharedModules = [
-      homeManager.programsAerospace
+      homeManager.desktopAerospace
     ];
   };
 }

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.programsAerospace =
+  flake.modules.homeManager.desktopAerospace =
     {
       lib,
       pkgs,
