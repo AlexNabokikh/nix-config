@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  nixos = config.flake.modules.nixos;
+  inherit (config.flake.modules) generic nixos;
 in
 {
   imports = [
@@ -19,6 +19,7 @@ in
 
   flake.modules.nixos.base = {
     imports = [
+      generic.profile
       nixos.nix
       nixos.boot
       nixos.networking

@@ -1,6 +1,6 @@
-{ config, ... }:
+{ ... }:
 {
-  flake.modules.nixos.locale = {
+  flake.modules.nixos.locale = { config, ... }: {
     time.timeZone = config.profile.locale.timezone;
 
     i18n.defaultLocale = config.profile.locale.default;

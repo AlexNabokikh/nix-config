@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  darwin = config.flake.modules.darwin;
+  inherit (config.flake.modules) darwin generic;
 in
 {
   imports = [
@@ -15,6 +15,7 @@ in
 
   flake.modules.darwin.base = {
     imports = [
+      generic.profile
       darwin.nix
       darwin.users
       darwin.sudo

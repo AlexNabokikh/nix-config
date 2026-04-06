@@ -1,7 +1,8 @@
-{ inputs, config, ... }:
+{ inputs, ... }:
 {
   flake.modules.homeManager.programsNoctalia =
     {
+      config,
       pkgs,
       ...
     }:

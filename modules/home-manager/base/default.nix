@@ -1,6 +1,6 @@
 { config, inputs, ... }:
 let
-  hm = config.flake.modules.homeManager;
+  inherit (config.flake.modules) generic homeManager;
 in
 {
   imports = [
@@ -9,27 +9,28 @@ in
 
   flake.modules.homeManager.base = {
     imports = [
+      generic.profile
       inputs.catppuccin.homeModules.catppuccin
-      hm.packages
-      hm.scripts
-      hm.programsAlacritty
-      hm.programsAtuin
-      hm.programsBat
-      hm.programsBrave
-      hm.programsBtop
-      hm.programsFastfetch
-      hm.programsFzf
-      hm.programsGit
-      hm.programsGo
-      hm.programsGpg
-      hm.programsK8s
-      hm.programsLazygit
-      hm.programsNeovim
-      hm.programsSaml2aws
-      hm.programsStarship
-      hm.programsTelegram
-      hm.programsTmux
-      hm.programsZsh
+      homeManager.packages
+      homeManager.scripts
+      homeManager.programsAlacritty
+      homeManager.programsAtuin
+      homeManager.programsBat
+      homeManager.programsBrave
+      homeManager.programsBtop
+      homeManager.programsFastfetch
+      homeManager.programsFzf
+      homeManager.programsGit
+      homeManager.programsGo
+      homeManager.programsGpg
+      homeManager.programsK8s
+      homeManager.programsLazygit
+      homeManager.programsNeovim
+      homeManager.programsSaml2aws
+      homeManager.programsStarship
+      homeManager.programsTelegram
+      homeManager.programsTmux
+      homeManager.programsZsh
     ];
   };
 }

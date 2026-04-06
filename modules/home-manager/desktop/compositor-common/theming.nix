@@ -1,14 +1,12 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.homeManager.desktopCompositorTheming =
-    moduleArgs@{ lib, pkgs, ... }:
-    let
-      resolvePackage =
-        packagePath:
-        lib.attrByPath packagePath
-          (throw "Profile package path not found: ${lib.concatStringsSep "." packagePath}")
-          pkgs;
-    in
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       catppuccin = {
         enable = true;
@@ -20,22 +18,22 @@
         enable = true;
         colorScheme = "dark";
         gtk2.force = true;
-        gtk4.theme = moduleArgs.config.gtk.theme;
+        gtk4.theme = config.gtk.theme;
         theme = {
-          name = "catppuccin-${moduleArgs.config.catppuccin.flavor}-${moduleArgs.config.catppuccin.accent}-compact";
+          name = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-compact";
           package = pkgs.catppuccin-gtk.override {
-            accents = [ moduleArgs.config.catppuccin.accent ];
-            variant = moduleArgs.config.catppuccin.flavor;
+            accents = [ config.catppuccin.accent ];
+            variant = config.catppuccin.flavor;
             size = "compact";
           };
         };
         iconTheme = lib.mkForce {
           name = config.profile.appearance.iconTheme.name;
-          package = resolvePackage config.profile.appearance.iconTheme.packagePath;
+          package = config.profile.appearance.iconTheme.package;
         };
         cursorTheme = {
           name = config.profile.appearance.cursorTheme.name;
-          package = resolvePackage config.profile.appearance.cursorTheme.packagePath;
+          package = config.profile.appearance.cursorTheme.package;
           size = config.profile.appearance.cursorTheme.size;
         };
         font = {
@@ -43,12 +41,12 @@
           size = config.profile.appearance.fonts.ui.size;
         };
         gtk3.bookmarks = [
-          "file://${moduleArgs.config.home.homeDirectory}/Documents"
-          "file://${moduleArgs.config.home.homeDirectory}/Downloads"
-          "file://${moduleArgs.config.home.homeDirectory}/Pictures"
-          "file://${moduleArgs.config.home.homeDirectory}/Videos"
-          "file://${moduleArgs.config.home.homeDirectory}/Downloads/temp"
-          "file://${moduleArgs.config.home.homeDirectory}/Documents/repositories"
+          "file://${config.home.homeDirectory}/Documents"
+          "file://${config.home.homeDirectory}/Downloads"
+          "file://${config.home.homeDirectory}/Pictures"
+          "file://${config.home.homeDirectory}/Videos"
+          "file://${config.home.homeDirectory}/Downloads/temp"
+          "file://${config.home.homeDirectory}/Documents/repositories"
         ];
       };
 
@@ -59,7 +57,7 @@
           package = pkgs.kdePackages.qt6ct;
         };
         style.name = "kvantum";
-        qt6ctSettings.Appearance.icon_theme = moduleArgs.config.gtk.iconTheme.name;
+        qt6ctSettings.Appearance.icon_theme = config.gtk.iconTheme.name;
       };
     };
 }

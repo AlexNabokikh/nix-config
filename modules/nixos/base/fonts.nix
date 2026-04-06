@@ -1,24 +1,12 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.nixos.fonts =
+    { config, ... }:
     {
-      lib,
-      pkgs,
-      ...
-    }:
-    let
-      resolvePackage =
-        packagePath:
-        lib.attrByPath packagePath
-          (throw "Profile font package path not found: ${lib.concatStringsSep "." packagePath}")
-          pkgs;
-      fontPackagePaths = lib.unique [
-        config.profile.appearance.fonts.ui.packagePath
-        config.profile.appearance.fonts.monospace.packagePath
-        config.profile.appearance.fonts.terminal.packagePath
+      fonts.packages = [
+        config.profile.appearance.fonts.ui.package
+        config.profile.appearance.fonts.monospace.package
+        config.profile.appearance.fonts.terminal.package
       ];
-    in
-    {
-      fonts.packages = builtins.map resolvePackage fontPackagePaths;
     };
 }

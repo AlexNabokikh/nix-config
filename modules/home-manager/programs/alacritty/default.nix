@@ -1,7 +1,8 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.homeManager.programsAlacritty =
     {
+      config,
       pkgs,
       ...
     }:

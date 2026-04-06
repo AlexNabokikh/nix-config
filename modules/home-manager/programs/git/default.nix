@@ -1,7 +1,7 @@
-{ config, ... }:
+{ ... }:
 {
   flake.modules.homeManager.programsGit =
-    { ... }:
+    { config, ... }:
     {
       # Install git via home-manager module
       programs.git = {
