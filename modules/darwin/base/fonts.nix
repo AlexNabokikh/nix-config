@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.darwin.fonts =
+  flake.modules.darwin.base =
     { config, ... }:
     {
       fonts.packages = [

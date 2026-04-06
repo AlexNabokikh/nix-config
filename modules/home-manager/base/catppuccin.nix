@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.baseCatppuccin =
+  flake.modules.homeManager.base =
     { config, ... }:
     {
       catppuccin = {

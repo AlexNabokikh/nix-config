@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.darwin.nix = {
+  flake.modules.darwin.base = {
     nixpkgs.config.allowUnfree = true;
 
     nix = {

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.packages =
+  flake.modules.nixos.base =
     { pkgs, ... }:
     {
       environment.localBinInPath = true;

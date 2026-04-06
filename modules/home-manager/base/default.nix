@@ -3,17 +3,10 @@ let
   inherit (config.flake.modules) generic homeManager;
 in
 {
-  imports = [
-    ./catppuccin.nix
-    ./packages.nix
-  ];
-
   flake.modules.homeManager.base = {
     imports = [
       generic.profile
       inputs.catppuccin.homeModules.catppuccin
-      homeManager.baseCatppuccin
-      homeManager.packages
       homeManager.scripts
       homeManager.programsAlacritty
       homeManager.programsAtuin

@@ -7,15 +7,15 @@
       ...
     }:
     let
-      colors = import ./colors.nix {
+      colors = import ./_colors.nix {
         inherit inputs pkgs;
         catppuccin = config.profile.appearance.catppuccin;
       };
-      pluginConfig = import ./plugins.nix;
+      pluginConfig = import ./_plugins.nix;
       settings =
-        (import ./settings-desktop.nix)
-        // (import ./settings-session.nix { avatar = config.profile.avatar; })
-        // (import ./settings-ui.nix {
+        (import ./_settings-desktop.nix)
+        // (import ./_settings-session.nix { avatar = config.profile.avatar; })
+        // (import ./_settings-ui.nix {
           uiFont = config.profile.appearance.fonts.ui.family;
           monospaceFont = config.profile.appearance.fonts.monospace.family;
         });

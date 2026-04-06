@@ -95,6 +95,21 @@
         "type": "github"
       }
     },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1743590248,
+        "narHash": "sha256-b6WtsoI+AzBCaonXVrkA+se1zbXoyKME8o647iPwooE=",
+        "owner": "mightyiam",
+        "repo": "import-tree",
+        "rev": "599004dadb236b6ad020ca54b41f26b43693205d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mightyiam",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1775036866,
@@ -162,6 +177,7 @@
         "flake-parts": "flake-parts",
         "hardware": "hardware",
         "home-manager": "home-manager",
+        "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia"
       }

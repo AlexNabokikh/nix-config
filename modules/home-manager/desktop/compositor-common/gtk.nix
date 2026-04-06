@@ -1,26 +1,29 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopAppearanceGtk =
+  flake.modules.homeManager.desktopCompositorBase =
     {
       config,
       lib,
       pkgs,
       ...
     }:
+    let
+      gtkTheme = {
+        name = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-compact";
+        package = pkgs.catppuccin-gtk.override {
+          accents = [ config.catppuccin.accent ];
+          variant = config.catppuccin.flavor;
+          size = "compact";
+        };
+      };
+    in
     {
       gtk = {
         enable = true;
         colorScheme = "dark";
         gtk2.force = true;
-        gtk4.theme = config.gtk.theme;
-        theme = {
-          name = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-compact";
-          package = pkgs.catppuccin-gtk.override {
-            accents = [ config.catppuccin.accent ];
-            variant = config.catppuccin.flavor;
-            size = "compact";
-          };
-        };
+        gtk4.theme = gtkTheme;
+        theme = gtkTheme;
         iconTheme = lib.mkForce {
           name = config.profile.appearance.iconTheme.name;
           package = config.profile.appearance.iconTheme.package;

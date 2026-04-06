@@ -8,8 +8,102 @@
     }:
     {
       options.profile = lib.mkOption {
-        type = lib.types.raw;
         readOnly = true;
+        type = lib.types.submodule {
+          options = {
+            email = lib.mkOption { type = lib.types.str; };
+            fullName = lib.mkOption { type = lib.types.str; };
+            gitKey = lib.mkOption { type = lib.types.str; };
+            avatar = lib.mkOption { type = lib.types.path; };
+            wallpaper = lib.mkOption { type = lib.types.path; };
+
+            appearance = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  catppuccin = lib.mkOption {
+                    type = lib.types.submodule {
+                      options = {
+                        flavor = lib.mkOption { type = lib.types.str; };
+                        accent = lib.mkOption { type = lib.types.str; };
+                      };
+                    };
+                  };
+
+                  iconTheme = lib.mkOption {
+                    type = lib.types.submodule {
+                      options = {
+                        name = lib.mkOption { type = lib.types.str; };
+                        package = lib.mkOption { type = lib.types.package; };
+                      };
+                    };
+                  };
+
+                  cursorTheme = lib.mkOption {
+                    type = lib.types.submodule {
+                      options = {
+                        name = lib.mkOption { type = lib.types.str; };
+                        package = lib.mkOption { type = lib.types.package; };
+                        size = lib.mkOption { type = lib.types.int; };
+                      };
+                    };
+                  };
+
+                  fonts = lib.mkOption {
+                    type = lib.types.submodule {
+                      options = {
+                        ui = lib.mkOption {
+                          type = lib.types.submodule {
+                            options = {
+                              family = lib.mkOption { type = lib.types.str; };
+                              size = lib.mkOption { type = lib.types.int; };
+                              package = lib.mkOption { type = lib.types.package; };
+                            };
+                          };
+                        };
+
+                        monospace = lib.mkOption {
+                          type = lib.types.submodule {
+                            options = {
+                              family = lib.mkOption { type = lib.types.str; };
+                              package = lib.mkOption { type = lib.types.package; };
+                            };
+                          };
+                        };
+
+                        terminal = lib.mkOption {
+                          type = lib.types.submodule {
+                            options = {
+                              family = lib.mkOption { type = lib.types.str; };
+                              package = lib.mkOption { type = lib.types.package; };
+                              size = lib.mkOption {
+                                type = lib.types.submodule {
+                                  options = {
+                                    linux = lib.mkOption { type = lib.types.int; };
+                                    darwin = lib.mkOption { type = lib.types.int; };
+                                  };
+                                };
+                              };
+                            };
+                          };
+                        };
+                      };
+                    };
+                  };
+                };
+              };
+            };
+
+            locale = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  timezone = lib.mkOption { type = lib.types.str; };
+                  default = lib.mkOption { type = lib.types.str; };
+                  extra = lib.mkOption { type = lib.types.attrsOf lib.types.str; };
+                };
+              };
+            };
+          };
+        };
       };
 
       config.profile = {

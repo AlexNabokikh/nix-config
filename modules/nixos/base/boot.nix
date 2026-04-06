@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.boot =
+  flake.modules.nixos.base =
     { config, pkgs, ... }:
     {
       boot = {

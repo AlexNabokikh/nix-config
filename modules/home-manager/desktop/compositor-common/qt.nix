@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopAppearanceQt =
+  flake.modules.homeManager.desktopCompositorBase =
     {
       config,
       pkgs,

@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorCursor =
+  flake.modules.homeManager.desktopCompositorCommon =
     { config, ... }:
     {
       home.pointerCursor = {

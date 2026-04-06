@@ -1,8 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./base
-    ./desktop
-    ./roles
-  ];
-}

@@ -21,7 +21,7 @@ If you are new to Nix, the simplest mental model is:
 
 - `hosts/` = real machines
 - `modules/` = reusable building blocks
-- `stacks/` = convenient bundles of those building blocks
+- `modules/stacks/` = convenient bundles of those building blocks
 - `modules/profile/` = personal settings shared across hosts
 
 ## Showcase
@@ -43,6 +43,7 @@ If you are new to Nix, the simplest mental model is:
 │   ├── energy/            # NixOS desktop host
 │   └── work-mac/          # macOS host
 ├── modules/               # Reusable configuration building blocks
+│   ├── configurations/    # Host configuration wrappers (nixosSystem, darwinSystem)
 │   ├── profile/           # Personal cross-host profile data and assets
 │   ├── nixos/             # NixOS-only modules
 │   ├── darwin/            # nix-darwin-only modules
@@ -54,11 +55,10 @@ If you are new to Nix, the simplest mental model is:
 └── README.md              # Project documentation
 ```
 
-## Structure
-
-- `flake.nix`: Defines flake inputs and imports the module tree plus the host tree.
+- `flake.nix`: Defines flake inputs and uses `import-tree` to auto-import the module tree.
 - `hosts/`: Concrete machine configurations such as `energy` and `work-mac`.
 - `assets/`: Generic repository assets. Right now this mainly holds screenshots.
+- `modules/configurations/`: Wrappers around `nixpkgs.lib.nixosSystem` and `darwin.lib.darwinSystem` that absorb common boilerplate (home-manager integration, `useGlobalPkgs`, etc.).
 - `modules/profile/`: Personal cross-host data such as name, email, git key, avatar, and wallpaper.
 - `modules/nixos/`: Reusable NixOS system modules.
 - `modules/darwin/`: Reusable nix-darwin system modules.
@@ -93,6 +93,8 @@ Examples:
 
 Modules are the leaves and branches of the tree.
 
+Every `.nix` file under `modules/` is a flake-parts module, auto-imported by `import-tree`. Files or directories prefixed with `_` are excluded from auto-import.
+
 ### Stack
 
 A stack is a higher-level composition module.
@@ -101,11 +103,11 @@ A stack groups multiple modules into something that is meaningful at the host le
 
 Examples:
 
-- `stacks.linuxBase`
-- `stacks.hyprland`
-- `stacks.niri`
-- `stacks.darwinBase`
-- `stacks.aerospace`
+- `nixos.stackLinuxBase`
+- `nixos.stackHyprland`
+- `nixos.stackNiri`
+- `darwin.stackBase`
+- `darwin.stackAerospace`
 
 You can think of a stack as:
 
@@ -159,7 +161,6 @@ Examples:
 - `programs/noctalia/`: Noctalia Shell configuration.
 - `programs/swappy/`: Screenshot annotation tool.
 - `services/hypridle/`: Idle and lock management.
-- `services/kanshi/`: Dynamic display configuration.
 - `desktop/compositor-common/`: Shared Home Manager settings for standalone compositor desktops.
 - `desktop/hyprland/`: Hyprland-specific user settings.
 - `desktop/niri/`: Niri-specific user settings.
@@ -176,9 +177,9 @@ Current stacks:
 - `hyprland.nix`: Hyprland environment stack.
 - `niri.nix`: Niri environment stack.
 - `aerospace.nix`: AeroSpace setup for macOS.
-- `_compositor-base.nix`: Internal shared base for standalone compositor desktops.
+- `compositor-base.nix`: Internal shared base for standalone compositor desktops.
 
-`_compositorBase` is intentionally private.
+`compositor-base.nix` is intentionally internal.
 
 It holds the shared pieces for standalone compositors such as:
 
@@ -187,16 +188,16 @@ It holds the shared pieces for standalone compositors such as:
 - Sway
 - Wayfire
 
-Hosts should import `stacks.hyprland` or `stacks.niri`, not `stacks._compositorBase` directly.
+Hosts should import `nixos.stackHyprland` or `nixos.stackNiri`, not `nixos._stackCompositorBase` directly.
 
 ## How Composition Works
 
 At a high level:
 
-1. `flake.nix` imports `./modules` and `./hosts`
-2. `modules/` exports reusable modules
+1. `flake.nix` uses `import-tree` to auto-import all `.nix` files under `modules/`
+2. `modules/` exports reusable named modules via `flake.modules.<class>.<name>`
 3. `modules/stacks/` combines those modules into host-facing bundles
-4. `hosts/` uses stacks to define real machine configurations
+4. `hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
 
 That means the flow is roughly:
 
@@ -211,13 +212,13 @@ This is what "dendritic" means in this repo.
 ### `energy`
 
 - platform: NixOS
-- imports: `stacks.linuxBase`, `stacks.hyprland`
+- imports: `nixos.stackLinuxBase`, `nixos.stackHyprland`
 - extra role: `nixos.gaming`
 
 ### `work-mac`
 
 - platform: macOS / nix-darwin
-- imports: `stacks.darwinBase`, `stacks.aerospace`
+- imports: `darwin.stackBase`, `darwin.stackAerospace`
 
 The Darwin configuration key remains:
 
@@ -232,9 +233,8 @@ If you are reading this repo for the first time, use this order:
 1. `flake.nix`
 2. `hosts/default.nix`
 3. one real host, for example `hosts/energy/default.nix`
-4. `modules/stacks/default.nix`
-5. the stack used by that host, for example `modules/stacks/hyprland.nix`
-6. the underlying modules pulled in by that stack
+4. a stack used by that host, for example `modules/stacks/hyprland.nix`
+5. the underlying modules pulled in by that stack
 
 That gives you the high-level picture before the details.
 
@@ -286,46 +286,37 @@ sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
 
 Start from `hosts/energy/default.nix` and change:
 
-- hostname
-- username
 - hardware imports
+- username
 - stack choice
 
 Minimal example:
 
 ```nix
-{ inputs, config, stacks, ... }:
+{ inputs, config, ... }:
 let
   inherit (config.flake.modules) nixos;
   username = "your-user";
 in
 {
-  flake.nixosConfigurations.laptop = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      ./hardware.nix
-      inputs.home-manager.nixosModules.home-manager
-      stacks.linuxBase
-      stacks.hyprland
-      {
-        networking.hostName = "laptop";
-        primaryUser = username;
-        system.stateVersion = "26.05";
+  configurations.nixos.laptop.modules = [
+    ./hardware.nix
+    nixos.stackLinuxBase
+    nixos.stackHyprland
+    {
+      primaryUser = username;
+      system.stateVersion = "26.05";
 
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.${username} = {
-            programs.home-manager.enable = true;
-            home = {
-              username = username;
-              homeDirectory = "/home/${username}";
-              stateVersion = "26.05";
-            };
-          };
+      home-manager.users.${username} = {
+        programs.home-manager.enable = true;
+        home = {
+          inherit username;
+          homeDirectory = "/home/${username}";
+          stateVersion = "26.05";
         };
-      }
-    ];
-  };
+      };
+    }
+  ];
 }
 ```
 
@@ -342,11 +333,11 @@ For a new macOS host:
 
 Common choices:
 
-- `stacks.linuxBase`: common Linux system + Home Manager base
-- `stacks.hyprland`: Hyprland desktop stack
-- `stacks.niri`: Niri desktop stack
-- `stacks.darwinBase`: common macOS base
-- `stacks.aerospace`: AeroSpace desktop setup for macOS
+- `nixos.stackLinuxBase`: common Linux system + Home Manager base
+- `nixos.stackHyprland`: Hyprland desktop stack
+- `nixos.stackNiri`: Niri desktop stack
+- `darwin.stackBase`: common macOS base
+- `darwin.stackAerospace`: AeroSpace desktop setup for macOS
 
 Rule of thumb:
 
@@ -394,6 +385,8 @@ Put it under:
 
 Use this for modules that define `programs.*`.
 
+The file will be auto-imported by `import-tree`.
+
 ### Add a New Service Module
 
 Put it under:
@@ -406,7 +399,7 @@ Use this for modules that define `services.*`.
 
 1. Add a NixOS module under `modules/nixos/desktop/`
 2. Add a Home Manager desktop module under `modules/home-manager/desktop/<wm>/`
-3. Reuse `modules/stacks/_compositor-base.nix` where appropriate
+3. Reuse `modules/stacks/compositor-base.nix` where appropriate
 4. Add a new stack under `modules/stacks/`
 5. Import that stack from a host
 

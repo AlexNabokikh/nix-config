@@ -1,25 +1,14 @@
 { ... }:
 {
-  flake.modules.darwin.users =
+  flake.modules.darwin.base =
+    { config, ... }:
     {
-      config,
-      lib,
-      ...
-    }:
-    {
-      options.primaryUser = lib.mkOption {
-        type = lib.types.str;
-        description = "Primary username for this system";
+      users.users.${config.primaryUser} = {
+        name = config.primaryUser;
+        home = "/Users/${config.primaryUser}";
       };
 
-      config = {
-        users.users.${config.primaryUser} = {
-          name = config.primaryUser;
-          home = "/Users/${config.primaryUser}";
-        };
-
-        programs.zsh.enable = true;
-        system.primaryUser = config.primaryUser;
-      };
+      programs.zsh.enable = true;
+      system.primaryUser = config.primaryUser;
     };
 }

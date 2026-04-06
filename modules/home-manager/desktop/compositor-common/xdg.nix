@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorXdg =
+  flake.modules.homeManager.desktopCompositorCommon =
     { pkgs, ... }:
     {
       xdg = {

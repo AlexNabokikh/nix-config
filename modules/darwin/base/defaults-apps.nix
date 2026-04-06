@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.darwin.defaultsApps = {
+  flake.modules.darwin.base = {
     system.defaults.CustomUserPreferences = {
       "com.apple.symbolichotkeys" = {
         AppleSymbolicHotKeys = {

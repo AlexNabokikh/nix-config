@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.darwin.keyboard = {
+  flake.modules.darwin.base = {
     system.keyboard = {
       enableKeyMapping = true;
       userKeyMapping = [
