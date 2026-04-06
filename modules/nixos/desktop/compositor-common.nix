@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktopCompositorCommon =
+  flake.modules.nixos.desktopCompositorBase =
     { pkgs, ... }:
     {
       services.displayManager.gdm.enable = true;
