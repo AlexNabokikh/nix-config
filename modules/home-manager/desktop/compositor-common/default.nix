@@ -14,10 +14,10 @@ in
     imports = [
       hm.desktopCompositorCursor
       hm.desktopCompositorDconf
-      hm.desktopCompositorTheming
+      hm.desktopCompositorGtkQt
       hm.desktopCompositorXdg
     ];
   };
 
-  flake.modules.homeManager.appearanceTheming = hm.desktopCompositorTheming;
+  flake.modules.homeManager.appearanceGtkQt = hm.desktopCompositorGtkQt;
 }

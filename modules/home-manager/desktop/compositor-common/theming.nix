@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopCompositorTheming =
+  flake.modules.homeManager.desktopCompositorGtkQt =
     {
       config,
       lib,
@@ -8,12 +8,6 @@
       ...
     }:
     {
-      catppuccin = {
-        enable = true;
-        flavor = config.profile.appearance.catppuccin.flavor;
-        accent = config.profile.appearance.catppuccin.accent;
-      };
-
       gtk = {
         enable = true;
         colorScheme = "dark";

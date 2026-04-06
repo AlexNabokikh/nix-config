@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ./catppuccin.nix
     ./packages.nix
   ];
 
@@ -11,6 +12,7 @@ in
     imports = [
       generic.profile
       inputs.catppuccin.homeModules.catppuccin
+      homeManager.baseCatppuccin
       homeManager.packages
       homeManager.scripts
       homeManager.programsAlacritty
