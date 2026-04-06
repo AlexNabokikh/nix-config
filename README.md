@@ -3,6 +3,7 @@
 This repository contains my NixOS and nix-darwin configurations, managed through Nix Flakes.
 
 It is designed for:
+
 - NixOS machines
 - macOS machines through `nix-darwin`
 - user-level configuration through `home-manager`
@@ -10,12 +11,14 @@ It is designed for:
 The repo follows a dendritic pattern.
 
 In practice, that means:
+
 - small modules do one thing
 - branch modules group related settings
 - stacks combine reusable modules into host-level choices
 - hosts stay short and easy to read
 
 If you are new to Nix, the simplest mental model is:
+
 - `hosts/` = real machines
 - `modules/` = reusable building blocks
 - `stacks/` = convenient bundles of those building blocks
@@ -65,20 +68,25 @@ If you are new to Nix, the simplest mental model is:
 ## Terminology
 
 ### Host
+
 A host is a real machine configuration.
 
 Examples:
+
 - `hosts/energy/default.nix`
 - `hosts/work-mac/default.nix`
 
 A host should mostly answer:
+
 - what machine is this?
 - which major environment does it use?
 
 ### Module
+
 A module is a reusable piece of configuration.
 
 Examples:
+
 - `modules/nixos/base/networking.nix`
 - `modules/home-manager/programs/git/default.nix`
 - `modules/home-manager/services/hypridle/default.nix`
@@ -86,11 +94,13 @@ Examples:
 Modules are the leaves and branches of the tree.
 
 ### Stack
+
 A stack is a higher-level composition module.
 
 A stack groups multiple modules into something that is meaningful at the host level.
 
 Examples:
+
 - `stacks.linuxBase`
 - `stacks.hyprland`
 - `stacks.niri`
@@ -102,12 +112,15 @@ You can think of a stack as:
 "Import this environment preset for this machine"
 
 ### Profile
+
 The profile is the personal data shared across hosts.
 
 In this repo it lives in:
+
 - `modules/profile/`
 
 It contains things like:
+
 - full name
 - email
 - git signing key
@@ -123,6 +136,7 @@ It contains things like:
 - `roles/`: Higher-level system roles such as gaming.
 
 Current desktop modules include:
+
 - `desktop/compositor-common.nix`: Shared system settings for standalone compositors.
 - `desktop/hyprland.nix`: Hyprland system integration.
 - `desktop/niri.nix`: Niri system integration.
@@ -140,6 +154,7 @@ Current desktop modules include:
 - `scripts/`: Custom helper scripts installed into the user environment.
 
 Examples:
+
 - `programs/git/`: Git and delta configuration.
 - `programs/noctalia/`: Noctalia Shell configuration.
 - `programs/swappy/`: Screenshot annotation tool.
@@ -155,6 +170,7 @@ Examples:
 Stacks connect system modules and Home Manager modules.
 
 Current stacks:
+
 - `linux-base.nix`: Shared Linux system base plus Home Manager base.
 - `darwin-base.nix`: Shared macOS system base plus Home Manager base.
 - `hyprland.nix`: Hyprland environment stack.
@@ -165,6 +181,7 @@ Current stacks:
 `_compositorBase` is intentionally private.
 
 It holds the shared pieces for standalone compositors such as:
+
 - Hyprland
 - Niri
 - Sway
@@ -192,15 +209,18 @@ This is what "dendritic" means in this repo.
 ## Current Hosts
 
 ### `energy`
+
 - platform: NixOS
 - imports: `stacks.linuxBase`, `stacks.hyprland`
 - extra role: `nixos.gaming`
 
 ### `work-mac`
+
 - platform: macOS / nix-darwin
 - imports: `stacks.darwinBase`, `stacks.aerospace`
 
 The Darwin configuration key remains:
+
 - `PL-OLX-KCGXHGK3PY`
 
 That matches the machine hostname and works well with the `Makefile` default.
@@ -229,14 +249,17 @@ Fork the repository and clone your own copy.
 ### 2. Replace The Personal Profile
 
 Edit:
+
 - `modules/profile/preferences.nix`
 
 Replace:
+
 - full name
 - email
 - git key
 
 You can also replace:
+
 - `modules/profile/avatar`
 - `modules/profile/wallpaper.jpg`
 
@@ -245,6 +268,7 @@ You can also replace:
 Delete or ignore hosts you do not use.
 
 For example:
+
 - if you only want NixOS, keep `hosts/energy/` as a starting point
 - if you only want macOS, keep `hosts/work-mac/` as a starting point
 
@@ -260,11 +284,12 @@ For a new NixOS host:
 sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
 ```
 
-4. Start from `hosts/energy/default.nix` and change:
-   - hostname
-   - username
-   - hardware imports
-   - stack choice
+Start from `hosts/energy/default.nix` and change:
+
+- hostname
+- username
+- hardware imports
+- stack choice
 
 Minimal example:
 
@@ -316,6 +341,7 @@ For a new macOS host:
 ### 5. Pick The Right Stack
 
 Common choices:
+
 - `stacks.linuxBase`: common Linux system + Home Manager base
 - `stacks.hyprland`: Hyprland desktop stack
 - `stacks.niri`: Niri desktop stack
@@ -323,6 +349,7 @@ Common choices:
 - `stacks.aerospace`: AeroSpace desktop setup for macOS
 
 Rule of thumb:
+
 - hosts import stacks
 - stacks import modules
 - leaf modules stay focused
@@ -362,6 +389,7 @@ So it works best when the flake output name matches the machine hostname.
 ### Add a New Program Module
 
 Put it under:
+
 - `modules/home-manager/programs/<name>/default.nix`
 
 Use this for modules that define `programs.*`.
@@ -369,6 +397,7 @@ Use this for modules that define `programs.*`.
 ### Add a New Service Module
 
 Put it under:
+
 - `modules/home-manager/services/<name>/default.nix`
 
 Use this for modules that define `services.*`.
@@ -388,12 +417,14 @@ Do not create a stack for every small shared detail.
 Create a stack only when it represents a real host-level choice.
 
 Good stack examples:
+
 - Linux base
 - Darwin base
 - Hyprland
 - Niri
 
 Bad stack examples:
+
 - one tiny package tweak
 - one small default value
 - an internal helper that no host should choose directly
@@ -403,6 +434,7 @@ Bad stack examples:
 If Nix feels confusing at first, that is normal.
 
 The simplest mental model for this repo is:
+
 - a host is a machine
 - a module is a reusable config fragment
 - a stack is a bundle of modules chosen at the host level
@@ -411,6 +443,7 @@ The simplest mental model for this repo is:
 You do not need to understand every file before using the repo.
 
 The safest way to change it is:
+
 - start from one existing host
 - keep the overall shape
 - change one thing at a time
