@@ -21,7 +21,7 @@ automatically finding and resetting Git repositories in the current or specified
 """
 
 __author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
+__license__ = "MIT"
 
 
 import os

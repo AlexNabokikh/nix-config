@@ -21,7 +21,7 @@ the desired ASG and view details about its instances.
 """
 
 __author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
+__license__ = "MIT"
 
 
 import re

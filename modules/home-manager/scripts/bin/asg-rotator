@@ -25,7 +25,7 @@ specifying the target Kubernetes version, and then proceeds to update the nodes.
 """
 
 __author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
+__license__ = "MIT"
 
 
 import json

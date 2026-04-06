@@ -20,7 +20,7 @@ additional input from the user.
 """
 
 __author__ = "Assistant"
-__license__ = "GPL-2.0 license"
+__license__ = "MIT"
 
 import os
 import shutil
