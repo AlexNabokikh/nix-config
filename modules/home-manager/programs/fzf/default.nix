@@ -6,7 +6,6 @@
       copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
     in
     {
-      # Install fzf via home-manager module
       programs.fzf = {
         enable = true;
 

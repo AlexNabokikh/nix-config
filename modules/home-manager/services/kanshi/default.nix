@@ -3,7 +3,6 @@
   flake.modules.homeManager.servicesKanshi =
     { ... }:
     {
-      # Manage kanshi service via Home-manager
       services.kanshi = {
         enable = true;
         settings = [

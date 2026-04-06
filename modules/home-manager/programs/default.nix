@@ -3,7 +3,6 @@
   imports = [
     ./alacritty
     ./atuin
-    ./bat
     ./brave
     ./btop
     ./fastfetch
@@ -12,7 +11,6 @@
     ./go
     ./gpg
     ./k8s
-    ./lazygit
     ./neovim
     ./noctalia
     ./saml2aws

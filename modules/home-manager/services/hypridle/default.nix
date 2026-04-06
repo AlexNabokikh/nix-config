@@ -3,7 +3,6 @@
   flake.modules.homeManager.servicesHypridle =
     { ... }:
     {
-      # Manage Hypridle service via Home-manager
       services.hypridle = {
         enable = true;
         settings = {

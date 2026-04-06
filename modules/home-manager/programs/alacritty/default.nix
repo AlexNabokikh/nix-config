@@ -7,7 +7,6 @@
       ...
     }:
     {
-      # Install alacritty via home-manager module
       programs.alacritty = {
         enable = true;
         settings = {

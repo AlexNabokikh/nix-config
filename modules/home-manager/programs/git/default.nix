@@ -3,7 +3,6 @@
   flake.modules.homeManager.programsGit =
     { config, ... }:
     {
-      # Install git via home-manager module
       programs.git = {
         enable = true;
         settings = {
@@ -28,6 +27,19 @@
           line-numbers = true;
           navigate = true;
           width = 280;
+        };
+      };
+
+      programs.lazygit = {
+        enable = true;
+
+        settings = {
+          git = {
+            pager = {
+              colorArg = "always";
+              pager = "delta --color-only --dark --paging=never";
+            };
+          };
         };
       };
     };

@@ -3,7 +3,6 @@
   flake.modules.homeManager.programsAtuin =
     { ... }:
     {
-      # Install atuin via home-manager module
       programs.atuin = {
         enable = true;
         settings = {

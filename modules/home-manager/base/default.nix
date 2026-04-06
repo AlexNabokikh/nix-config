@@ -15,7 +15,6 @@ in
       homeManager.scripts
       homeManager.programsAlacritty
       homeManager.programsAtuin
-      homeManager.programsBat
       homeManager.programsBrave
       homeManager.programsBtop
       homeManager.programsFastfetch
@@ -24,7 +23,6 @@ in
       homeManager.programsGo
       homeManager.programsGpg
       homeManager.programsK8s
-      homeManager.programsLazygit
       homeManager.programsNeovim
       homeManager.programsSaml2aws
       homeManager.programsStarship

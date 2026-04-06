@@ -13,6 +13,7 @@
         with pkgs;
         [
           awscli2
+          bat
           dig
           eza
           fd

@@ -7,7 +7,6 @@
       ...
     }:
     {
-      # Neovim text editor configuration
       programs.neovim = {
         enable = true;
         package = pkgs.neovim-unwrapped;
@@ -42,7 +41,6 @@
         ];
       };
 
-      # source lua config from this repo
       xdg.configFile = {
         "nvim" = {
           source = ./lazyvim;
@@ -50,7 +48,6 @@
         };
       };
 
-      # Set global catppuccin theme via env var
       home.sessionVariables = {
         CATPPUCCIN_FLAVOR = config.catppuccin.flavor;
       };
