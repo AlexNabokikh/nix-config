@@ -6,7 +6,7 @@ in
   imports = [
     ./cursor.nix
     ./dconf.nix
-    ./theming.nix
+    ./gtk-qt.nix
     ./xdg.nix
   ];
 
