@@ -18,12 +18,9 @@ Dependencies:
 - Python 3 and standard libraries: configparser, os, shutil, subprocess.
 
 Usage:
-The script is executed as a standalone Python script. It automatically iterates over the predefined 
+The script is executed as a standalone Python script. It automatically iterates over the predefined
 accounts and regions, performing actions without needing additional user input.
 """
-
-__author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
 
 
 import configparser

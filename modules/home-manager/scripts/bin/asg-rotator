@@ -7,11 +7,11 @@ Features:
 - Cluster Information Retrieval: Fetches the name and default region of the current AWS Kubernetes cluster.
 - ASG and Instance Management: Lists ASGs associated with the cluster, allows the user to select an ASG,
   and fetches EC2 instance IDs within the selected ASG.
-- Node Management: For each EC2 instance, identifies the corresponding Kubernetes node, checks its 
+- Node Management: For each EC2 instance, identifies the corresponding Kubernetes node, checks its
   Kubernetes version, and performs updates if necessary.
-- Draining and Deleting Nodes: Drains Kubernetes nodes that don't match the specified version and 
+- Draining and Deleting Nodes: Drains Kubernetes nodes that don't match the specified version and
   then deletes them after a specified wait time.
-- User Interaction: Prompts the user for inputs and confirmation, handles keyboard interrupts and 
+- User Interaction: Prompts the user for inputs and confirmation, handles keyboard interrupts and
   unexpected inputs.
 
 Dependencies:
@@ -23,9 +23,6 @@ Usage:
 The script is executed as a standalone Python script. It guides the user through selecting an ASG,
 specifying the target Kubernetes version, and then proceeds to update the nodes.
 """
-
-__author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
 
 
 import json

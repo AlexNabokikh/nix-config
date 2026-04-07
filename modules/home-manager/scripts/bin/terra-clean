@@ -19,8 +19,6 @@ The script is executed as a standalone Python script. It requires no
 additional input from the user.
 """
 
-__author__ = "Assistant"
-__license__ = "GPL-2.0 license"
 
 import os
 import shutil

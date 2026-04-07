@@ -20,10 +20,6 @@ The script is executed as a standalone Python script. It guides the user through
 the desired ASG and view details about its instances.
 """
 
-__author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
-
-
 import re
 import subprocess
 import sys

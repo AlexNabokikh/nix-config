@@ -15,12 +15,9 @@ Dependencies:
 - Python 3 and standard libraries: os, subprocess.
 
 Usage:
-The script is executed as a standalone Python script. It automatically searches for Git repositories 
+The script is executed as a standalone Python script. It automatically searches for Git repositories
 in a predefined directory (default is '~/Documents/repositories') and updates them.
 """
-
-__author__ = "Alexander Nabokikh"
-__license__ = "GPL-2.0 license"
 
 
 import os
