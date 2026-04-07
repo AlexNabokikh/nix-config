@@ -9,16 +9,8 @@
         xwayland.enable = true;
       };
 
-      services.displayManager.defaultSession = "hyprland-uwsm";
-
-      programs.uwsm = {
-        enable = true;
-        waylandCompositors.hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/start-hyprland";
-        };
-      };
+      # FIXME: https://github.com/NixOS/nixpkgs/issues/484328
+      systemd.services.display-manager.path = [ pkgs.uwsm ];
 
       environment.systemPackages = with pkgs; [
         grimblast
