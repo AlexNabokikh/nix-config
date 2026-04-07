@@ -100,7 +100,8 @@ At a high level:
 1. `flake.nix` uses `import-tree` to auto-import all `.nix` files under `modules/`
 2. `modules/` exports reusable named modules via `flake.modules.<class>.<name>`
 3. `modules/stacks/` combines those modules into host-facing bundles
-4. `hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
+4. `hosts/default.nix` manually imports the real host definitions under `hosts/`
+5. `hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
 
 That means the flow is roughly:
 
@@ -159,11 +160,8 @@ For a new NixOS host:
 
 1. Create a new directory under `hosts/`, for example `hosts/laptop/`
 2. Add `default.nix`
-3. Generate `hardware.nix`:
-
-```sh
-sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
-```
+3. Generate `hardware.nix`: `sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix`
+4. Register the new host in `hosts/default.nix`
 
 Start from `hosts/energy/default.nix` and change:
 
@@ -210,6 +208,7 @@ For a new macOS host:
    - hostname attr
    - username
    - stack choice
+4. Register the new host in `hosts/default.nix`
 
 ### 5. Pick The Right Stack
 

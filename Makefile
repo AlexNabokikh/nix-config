@@ -24,7 +24,7 @@ install-nix:
 
 install-nix-darwin:
 	@echo "Installing nix-darwin..."
-	@sudo nix run nix-darwin $(EXPERIMENTAL) -- switch --flake $(FLAKE)
+	@sudo nix $(EXPERIMENTAL) run nix-darwin#darwin-rebuild -- switch --flake $(FLAKE)
 	@echo "nix-darwin installation complete."
 
 darwin-rebuild:
