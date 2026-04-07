@@ -8,7 +8,7 @@ It is designed for:
 - macOS machines through `nix-darwin`
 - user-level configuration through `home-manager`
 
-The repo follows a dendritic pattern.
+The repo follows a hybrid dendritic pattern.
 
 In practice, that means:
 
@@ -17,7 +17,7 @@ In practice, that means:
 - stacks combine reusable modules into host-level choices
 - hosts stay short and easy to read
 
-If you are new to Nix, the simplest mental model is:
+The simplest mental model is:
 
 - `hosts/` = real machines
 - `modules/` = reusable building blocks
@@ -40,8 +40,8 @@ If you are new to Nix, the simplest mental model is:
 .
 ├── assets/                # Generic repo assets such as screenshots
 ├── hosts/                 # Concrete machine definitions
-│   ├── energy/            # NixOS desktop host
-│   └── work-mac/          # macOS host
+│   ├── energy/
+│   └── work-mac/
 ├── modules/               # Reusable configuration building blocks
 │   ├── configurations/    # Host configuration wrappers (nixosSystem, darwinSystem)
 │   ├── profile/           # Personal cross-host profile data and assets
@@ -54,80 +54,6 @@ If you are new to Nix, the simplest mental model is:
 ├── Makefile               # Convenience rebuild/update/check commands
 └── README.md              # Project documentation
 ```
-
-- `flake.nix`: Defines flake inputs and uses `import-tree` to auto-import the module tree.
-- `hosts/`: Concrete machine configurations such as `energy` and `work-mac`.
-- `assets/`: Generic repository assets. Right now this mainly holds screenshots.
-- `modules/configurations/`: Wrappers around `nixpkgs.lib.nixosSystem` and `darwin.lib.darwinSystem` that absorb common boilerplate (home-manager integration, `useGlobalPkgs`, etc.).
-- `modules/profile/`: Personal cross-host data such as name, email, git key, avatar, and wallpaper.
-- `modules/nixos/`: Reusable NixOS system modules.
-- `modules/darwin/`: Reusable nix-darwin system modules.
-- `modules/home-manager/`: Reusable user-level modules.
-- `modules/stacks/`: Composition modules that combine lower-level modules into host-facing bundles.
-
-## Terminology
-
-### Host
-
-A host is a real machine configuration.
-
-Examples:
-
-- `hosts/energy/default.nix`
-- `hosts/work-mac/default.nix`
-
-A host should mostly answer:
-
-- what machine is this?
-- which major environment does it use?
-
-### Module
-
-A module is a reusable piece of configuration.
-
-Examples:
-
-- `modules/nixos/base/networking.nix`
-- `modules/home-manager/programs/git/default.nix`
-- `modules/home-manager/services/hypridle/default.nix`
-
-Modules are the leaves and branches of the tree.
-
-Every `.nix` file under `modules/` is a flake-parts module, auto-imported by `import-tree`. Files or directories prefixed with `_` are excluded from auto-import.
-
-### Stack
-
-A stack is a higher-level composition module.
-
-A stack groups multiple modules into something that is meaningful at the host level.
-
-Examples:
-
-- `nixos.stackLinuxBase`
-- `nixos.stackHyprland`
-- `nixos.stackNiri`
-- `darwin.stackBase`
-- `darwin.stackAerospace`
-
-You can think of a stack as:
-
-"Import this environment preset for this machine"
-
-### Profile
-
-The profile is the personal data shared across hosts.
-
-In this repo it lives in:
-
-- `modules/profile/`
-
-It contains things like:
-
-- full name
-- email
-- git signing key
-- avatar
-- wallpaper
 
 ## Modules and Configurations
 
@@ -154,20 +80,6 @@ Current desktop modules include:
 - `programs/`: Modules that configure `programs.*`.
 - `services/`: Modules that configure `services.*`.
 - `scripts/`: Custom helper scripts installed into the user environment.
-
-Examples:
-
-- `programs/git/`: Git and delta configuration.
-- `programs/noctalia/`: Noctalia Shell configuration.
-- `programs/swappy/`: Screenshot annotation tool.
-- `services/hypridle/`: Idle and lock management.
-- `desktop/cursor.nix`: Pointer cursor theming (reusable by any desktop).
-- `desktop/gtk.nix`: GTK theming (reusable by any desktop).
-- `desktop/qt.nix`: Qt theming (reusable by any desktop).
-- `desktop/compositor-common/`: Compositor-specific settings (dconf, xdg) and the aggregate that bundles all shared modules for standalone compositors.
-- `desktop/hyprland/`: Hyprland-specific user settings.
-- `desktop/niri/`: Niri-specific user settings.
-- `desktop/aerospace/`: AeroSpace configuration for macOS.
 
 ### Stack Modules (`modules/stacks/`)
 
@@ -197,25 +109,6 @@ leaf modules -> branch modules -> stacks -> hosts
 ```
 
 This is what "dendritic" means in this repo.
-
-## Current Hosts
-
-### `energy`
-
-- platform: NixOS
-- imports: `nixos.stackLinuxBase`, `nixos.stackHyprland`
-- extra role: `nixos.gaming`
-
-### `work-mac`
-
-- platform: macOS / nix-darwin
-- imports: `darwin.stackBase`, `darwin.stackAerospace`
-
-The Darwin configuration key remains:
-
-- `PL-OLX-KCGXHGK3PY`
-
-That matches the machine hostname and works well with the `Makefile` default.
 
 ## How To Read This Repo
 
@@ -249,10 +142,7 @@ Replace:
 - email
 - git key
 
-You can also replace:
-
-- `modules/profile/avatar`
-- `modules/profile/wallpaper.jpg`
+You can also set avatar, wallpaper, fonts, icon theme, locale and time zone of your choice.
 
 ### 3. Remove Machines You Do Not Need
 
@@ -342,13 +232,13 @@ Rule of thumb:
 For NixOS:
 
 ```sh
-sudo nixos-rebuild switch --flake .#energy
+sudo nixos-rebuild switch --flake .#your-nixos-machine-name
 ```
 
 For nix-darwin:
 
 ```sh
-darwin-rebuild switch --flake .#PL-OLX-KCGXHGK3PY
+darwin-rebuild switch --flake .#your-macos-machine-name
 ```
 
 Or use the `Makefile`:
@@ -387,60 +277,13 @@ Put it under:
 
 Use this for modules that define `services.*`.
 
-### Add a New Standalone Compositor
+### Add a New Standalone Compositor or a Desktop Environment
 
 1. Add a NixOS module under `modules/nixos/desktop/`
-2. Add a Home Manager desktop module under `modules/home-manager/desktop/<wm>/`
+2. Add a Home Manager desktop module under `modules/home-manager/desktop/<your_wm_or_de>/`
 3. Reuse `nixos.desktopCompositorCommon` and `homeManager.desktopCompositorCommon` where appropriate
 4. Add a new stack under `modules/stacks/`
 5. Import that stack from a host
-
-### When Not To Create A Stack
-
-Do not create a stack for every small shared detail.
-
-Create a stack only when it represents a real host-level choice.
-
-Good stack examples:
-
-- Linux base
-- Darwin base
-- Hyprland
-- Niri
-
-Bad stack examples:
-
-- one tiny package tweak
-- one small default value
-- an internal helper that no host should choose directly
-
-## Notes For People New To Nix
-
-If Nix feels confusing at first, that is normal.
-
-The simplest mental model for this repo is:
-
-- a host is a machine
-- a module is a reusable config fragment
-- a stack is a bundle of modules chosen at the host level
-- the profile is personal data shared across machines
-
-You do not need to understand every file before using the repo.
-
-The safest way to change it is:
-
-- start from one existing host
-- keep the overall shape
-- change one thing at a time
-- run `nix flake check`
-
-## Updating Flake Inputs
-
-To update all flake inputs:
-
-```sh
-nix flake update
-```
 
 ## License
 
