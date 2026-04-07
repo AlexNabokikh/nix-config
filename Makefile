@@ -19,7 +19,7 @@ help:
 
 install-nix:
 	@echo "Installing Nix..."
-	@sudo curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
+	@curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
 	@echo "Nix installation complete."
 
 install-nix-darwin:

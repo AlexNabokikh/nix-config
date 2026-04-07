@@ -8,7 +8,7 @@ in
     imports = [
       inputs.hardware.nixosModules.asus-rog-strix-x570e
       inputs.hardware.nixosModules.common-gpu-amd
-      ./hardware.nix
+      ./_hardware.nix
       nixos.stackLinuxBase
       nixos.stackHyprland
       nixos.gaming

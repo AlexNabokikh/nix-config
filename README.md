@@ -8,7 +8,7 @@ It is designed for:
 - macOS machines through `nix-darwin`
 - user-level configuration through `home-manager`
 
-The repo follows a hybrid dendritic pattern.
+The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic).
 
 In practice, that means:
 
@@ -19,7 +19,7 @@ In practice, that means:
 
 The simplest mental model is:
 
-- `hosts/` = real machines
+- `modules/hosts/` = real machines
 - `modules/` = reusable building blocks
 - `modules/stacks/` = convenient bundles of those building blocks
 - `modules/profile/` = personal settings shared across hosts
@@ -39,11 +39,11 @@ The simplest mental model is:
 ```text
 .
 ├── assets/                # Generic repo assets such as screenshots
-├── hosts/                 # Concrete machine definitions
-│   ├── energy/
-│   └── work-mac/
-├── modules/               # Reusable configuration building blocks
+├── modules/               # All configuration modules (auto-imported by import-tree)
 │   ├── configurations/    # Host configuration wrappers (nixosSystem, darwinSystem)
+│   ├── hosts/             # Concrete machine definitions
+│   │   ├── energy/
+│   │   └── work-mac/
 │   ├── profile/           # Personal cross-host profile data and assets
 │   ├── nixos/             # NixOS-only modules
 │   ├── darwin/            # nix-darwin-only modules
@@ -100,8 +100,7 @@ At a high level:
 1. `flake.nix` uses `import-tree` to auto-import all `.nix` files under `modules/`
 2. `modules/` exports reusable named modules via `flake.modules.<class>.<name>`
 3. `modules/stacks/` combines those modules into host-facing bundles
-4. `hosts/default.nix` manually imports the real host definitions under `hosts/`
-5. `hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
+4. `modules/hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
 
 That means the flow is roughly:
 
@@ -111,15 +110,21 @@ leaf modules -> branch modules -> stacks -> hosts
 
 This is what "dendritic" means in this repo.
 
+### The `_` Prefix Convention
+
+Files and directories starting with `_` are ignored by `import-tree`. This convention is used for non-module helper files that are imported explicitly by their parent module, such as:
+
+- `_hardware.nix` — NixOS hardware configuration (imported by the host's `default.nix`)
+- `_colors.nix`, `_plugins.nix` — helper data files (imported by their parent module)
+
 ## How To Read This Repo
 
 If you are reading this repo for the first time, use this order:
 
 1. `flake.nix`
-2. `hosts/default.nix`
-3. one real host, for example `hosts/energy/default.nix`
-4. a stack used by that host, for example `modules/stacks/hyprland.nix`
-5. the underlying modules pulled in by that stack
+2. one real host, for example `modules/hosts/energy/default.nix`
+3. a stack used by that host, for example `modules/stacks/hyprland.nix`
+4. the underlying modules pulled in by that stack
 
 That gives you the high-level picture before the details.
 
@@ -151,23 +156,24 @@ Delete or ignore hosts you do not use.
 
 For example:
 
-- if you only want NixOS, keep `hosts/energy/` as a starting point
-- if you only want macOS, keep `hosts/work-mac/` as a starting point
+- if you only want NixOS, keep `modules/hosts/energy/` as a starting point
+- if you only want macOS, keep `modules/hosts/work-mac/` as a starting point
 
 ### 4. Create A New Host
 
 For a new NixOS host:
 
-1. Create a new directory under `hosts/`, for example `hosts/laptop/`
+1. Create a new directory under `modules/hosts/`, for example `modules/hosts/laptop/`
 2. Add `default.nix`
-3. Generate `hardware.nix`: `sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix`
-4. Register the new host in `hosts/default.nix`
+3. Generate `_hardware.nix`: `sudo nixos-generate-config --show-hardware-config > modules/hosts/laptop/_hardware.nix`
 
-Start from `hosts/energy/default.nix` and change:
+Start from `modules/hosts/energy/default.nix` and change:
 
 - hardware imports
 - username
 - stack choice
+
+The new host will be auto-imported by `import-tree` — no manual registration needed.
 
 Minimal example:
 
@@ -180,7 +186,7 @@ in
 {
   configurations.nixos.laptop.module = {
     imports = [
-      ./hardware.nix
+      ./_hardware.nix
       nixos.stackLinuxBase
       nixos.stackHyprland
     ];
@@ -202,13 +208,14 @@ in
 
 For a new macOS host:
 
-1. Create `hosts/my-mac/default.nix`
-2. Start from `hosts/work-mac/default.nix`
+1. Create `modules/hosts/my-mac/default.nix`
+2. Start from `modules/hosts/work-mac/default.nix`
 3. Change:
    - hostname attr
    - username
    - stack choice
-4. Register the new host in `hosts/default.nix`
+
+The new host will be auto-imported by `import-tree` — no manual registration needed.
 
 ### 5. Pick The Right Stack
 

@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.base =
+  flake.modules.generic.nixSettings =
     {
       config,
       lib,
@@ -19,9 +19,7 @@
         value.source = value.flake;
       }) config.nix.registry;
 
-      nix.settings = {
-        experimental-features = "nix-command flakes";
-        auto-optimise-store = true;
-      };
+      nix.settings.experimental-features = "nix-command flakes";
+      nix.optimise.automatic = true;
     };
 }
