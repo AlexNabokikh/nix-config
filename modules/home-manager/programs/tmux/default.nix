@@ -1,7 +1,7 @@
 { ... }:
 {
   flake.modules.homeManager.programsTmux =
-    { config, ... }:
+    { ... }:
     {
       programs.tmux = {
         enable = true;

@@ -6,9 +6,9 @@ managed simultaneously and require frequent synchronization.
 
 Features:
 - Git Repository Reset: Resets any identified Git repository to the latest commit on its current branch.
-- Directory Traversal: Scans a specified base directory (defaulting to the current directory) to find 
+- Directory Traversal: Scans a specified base directory (defaulting to the current directory) to find
   all directories containing a Git repository.
-- Terragrunt Cache Exclusion: Skips over directories named '.terragrunt-cache', which are typically 
+- Terragrunt Cache Exclusion: Skips over directories named '.terragrunt-cache', which are typically
   used for caching in Terraform workflows.
 
 Dependencies:
@@ -19,9 +19,6 @@ Usage:
 The script is executed as a standalone Python script. It requires no additional input from the user,
 automatically finding and resetting Git repositories in the current or specified directory.
 """
-
-__author__ = "Alexander Nabokikh"
-__license__ = "MIT"
 
 
 import os
