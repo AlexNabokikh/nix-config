@@ -15,15 +15,15 @@
         gnome-calculator
         gnome-pomodoro
         gnome-text-editor
-        loupe
-        nautilus
-        seahorse
-        showtime
         gpu-screen-recorder
         grim
         libnotify
+        loupe
+        nautilus
         pamixer
         pavucontrol
+        seahorse
+        showtime
         slurp
       ];
     };
