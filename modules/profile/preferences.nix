@@ -120,8 +120,10 @@
           };
 
           iconTheme = {
-            name = "Tela-circle-dark";
-            package = pkgs.tela-circle-icon-theme;
+            name = "Colloid-Catppuccin-Dark";
+            package = pkgs.colloid-icon-theme.override {
+              schemeVariants = [ "catppuccin" ];
+            };
           };
 
           cursorTheme = {
@@ -132,9 +134,9 @@
 
           fonts = {
             ui = {
-              family = "Roboto";
+              family = "Inter";
               size = 11;
-              package = pkgs.roboto;
+              package = pkgs.inter;
             };
 
             monospace = {
