@@ -10,7 +10,6 @@ in
       homeManager.scripts
       homeManager.programsAlacritty
       homeManager.programsAtuin
-      homeManager.programsBrave
       homeManager.programsBtop
       homeManager.programsFastfetch
       homeManager.programsFzf
@@ -21,7 +20,6 @@ in
       homeManager.programsNeovim
       homeManager.programsSaml2aws
       homeManager.programsStarship
-      homeManager.programsTelegram
       homeManager.programsTmux
       homeManager.programsZsh
     ];

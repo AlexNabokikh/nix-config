@@ -14,6 +14,7 @@
         [
           awscli2
           bat
+          brave
           dig
           eza
           fd
@@ -29,6 +30,7 @@
           podman-tui
           python3
           ripgrep
+          telegram-desktop
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           anki-bin
