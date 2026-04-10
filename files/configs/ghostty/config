@@ -9,8 +9,8 @@ window-padding-x = 4
 window-padding-y = 4
 window-decoration = true
 
-# Tabs
-macos-titlebar-style = tabs
+# Tabs - disable native tabs to prevent AeroSpace window splitting
+macos-titlebar-style = native
 
 # Keybindings - Tabs
 keybind = super+t=new_tab

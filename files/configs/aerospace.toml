@@ -412,9 +412,12 @@ if.app-id = 'com.hashicorp.vagrant'
 run = 'move-node-to-workspace P'
 
 #! ---------------------------- Terminals ---------------------------- #
+# Ghostty tabs are represented as separate windows in the macOS window manager API.
+# Use tiling layout but keep workspace to single window per workspace.
+# See: https://ghostty.org/docs/help/macos-tiling-wms
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = 'move-node-to-workspace T'
+run = ['layout tiling', 'move-node-to-workspace T']
 
 [[on-window-detected]]
 if.app-id = 'com.termius-dmg.mac'

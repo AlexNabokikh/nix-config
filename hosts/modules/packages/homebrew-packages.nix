@@ -22,6 +22,7 @@ _: {
       "lazyssh"
       "gemini-cli" # AI-powered command-line interface
       "opencode" # AI coding agent for the terminal
+      "llmfit"
 
       #* GitHub
       "gh" # GitHub CLI
@@ -59,7 +60,7 @@ _: {
       # "chatgpt" # ChatGPT desktop client
       # "kiro" #  AI editor
       # "ollama-app" # Local AI model manager and runner
-      # "block-goose" # AI coding agent
+      "block-goose" # AI coding agent
       "cmux" # AI terminal multiplexer
       "codex" # Codex desktop client
       "cursor" # AI  editor
