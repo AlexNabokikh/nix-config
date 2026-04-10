@@ -14,6 +14,9 @@ in
       nixos.gaming
     ];
 
+    # FIXME: reboot=efi hangs on this AMD X570-E board
+    boot.kernelParams = [ "reboot=acpi" ];
+
     primaryUser = username;
     system.stateVersion = "26.05";
 
