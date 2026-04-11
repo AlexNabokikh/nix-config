@@ -28,11 +28,6 @@
           name = config.profile.appearance.iconTheme.name;
           package = config.profile.appearance.iconTheme.package;
         };
-        cursorTheme = {
-          name = config.profile.appearance.cursorTheme.name;
-          package = config.profile.appearance.cursorTheme.package;
-          size = config.profile.appearance.cursorTheme.size;
-        };
         font = {
           name = config.profile.appearance.fonts.ui.family;
           size = config.profile.appearance.fonts.ui.size;
