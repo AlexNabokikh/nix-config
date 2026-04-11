@@ -117,6 +117,10 @@ Files and directories starting with `_` are ignored by `import-tree`. This conve
 - `_hardware.nix` — NixOS hardware configuration (imported by the host's `default.nix`)
 - `_colors.nix`, `_plugins.nix` — helper data files (imported by their parent module)
 
+### Composition example based on Energy host
+
+![energy](./assets/composition.png)
+
 ## How To Read This Repo
 
 If you are reading this repo for the first time, use this order:
