@@ -64,12 +64,14 @@ vm-build:
     
     # Build all installer ISOs
     installers=("trinity-installer" "morpheus-installer")
+    system="{{system}}"
     
-    if [ "{{system}}" = "Darwin" ]; then
+    if [ "$system" = "Darwin" ]; then
+      docker_volume="nix-store-darwin"
       for installer in "${installers[@]}"; do
         docker run --rm --platform linux/amd64 \
           --security-opt seccomp=unconfined \
-          -v nix-store-{{system | downcase}}:/nix \
+          -v "$docker_volume":/nix \
           -v "$PWD:/work" \
           -w /work \
           nixos/nix:latest \
