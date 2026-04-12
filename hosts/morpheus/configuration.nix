@@ -10,7 +10,7 @@
     ../vm-generic/configuration.nix
   ];
 
-  # Trinity-specific networking (static IP as Proxmox management VM)
+  # Morpheus-specific networking (DHCP for now, can be changed to static later)
   systemd.network = {
     enable = lib.mkForce true;
     networks."10-lan" = {
@@ -18,10 +18,7 @@
         "en*"
         "eth*"
       ];
-      address = ["10.0.40.100/24"];
-      gateway = ["10.0.40.1"];
-      dns = ["1.1.1.1" "1.0.0.1"];
-      networkConfig.DHCP = "no";
+      networkConfig.DHCP = "yes";
     };
   };
 }

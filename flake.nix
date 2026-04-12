@@ -192,8 +192,9 @@
     nixosConfigurations = {
       "nixos" = mkNixosConfiguration "nixos" "fs";
       "trinity" = mkNixosConfiguration "trinity" "fs";
+      "morpheus" = mkNixosConfiguration "morpheus" "fs";
       "trinity-installer" = mkInstallerISO "trinity" "fs";
-      "neo-installer" = mkInstallerISO "neo" "fs";
+      "morpheus-installer" = mkInstallerISO "morpheus" "fs";
     };
 
     darwinConfigurations = {
@@ -204,6 +205,7 @@
     homeConfigurations = {
       "fs@nixos" = mkHomeConfiguration "x86_64-linux" "fs" "nixos";
       "fs@trinity" = mkHomeConfiguration "x86_64-linux" "fs" "trinity";
+      "fs@morpheus" = mkHomeConfiguration "x86_64-linux" "fs" "morpheus";
       "fs@macvm-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macvm-fs";
       "fs@neo" = mkHomeConfiguration "aarch64-darwin" "fs" "neo";
     };
