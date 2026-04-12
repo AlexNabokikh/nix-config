@@ -142,8 +142,17 @@ vm-upload node="pve-2" storage="nfs-proxmox-iso": vm-build
 vm-deploy node="pve-2" storage="nfs-proxmox-iso":
     just vm-upload {{node}} {{storage}}
     just tf apply -refresh=false -auto-approve
-    echo "⏳ Waiting for trinity to boot and SSH to be available..."
-    sleep 30
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "⏳ Waiting for trinity to fully boot..."
+    for i in {1..120}; do
+      if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null fs@10.0.40.100 "test -x /run/current-system/sw/bin/env" 2>/dev/null; then
+        echo "✅ Trinity is ready!"
+        break
+      fi
+      echo "Waiting... attempt $i/120"
+      sleep 2
+    done
     just vm-switch trinity
 
 # Manually run nixos-anywhere (for emergency re-installs)
