@@ -55,27 +55,38 @@ tf *args:
 # Management VM NixOS Bootstrap
 # ============================================================================
 
-# Build the custom Trinity NixOS installer ISO with SSH enabled
+# Build all NixOS installer ISOs (trinity, morpheus, etc.) with SSH enabled
 management-build-installer-iso:
     #!/usr/bin/env bash
     set -euo pipefail
     rm -rf result-iso
     mkdir -p result-iso
+    
+    # Build all installer ISOs
+    installers=("trinity-installer" "morpheus-installer")
+    
     if [ "{{system}}" = "Darwin" ]; then
-      docker run --rm --platform linux/amd64 \
-        --security-opt seccomp=unconfined \
-        -v trinity-nix-store:/nix \
-        -v "$PWD:/work" \
-        -w /work \
-        nixos/nix:latest \
-        sh -euc 'out=$(nix --extra-experimental-features "nix-command flakes" --option filter-syscalls false build --print-out-paths .#nixosConfigurations.trinity-installer.config.system.build.isoImage); cp -L "$out"/iso/*.iso /work/result-iso/'
+      for installer in "${installers[@]}"; do
+        docker run --rm --platform linux/amd64 \
+          --security-opt seccomp=unconfined \
+          -v nix-store-{{system | downcase}}:/nix \
+          -v "$PWD:/work" \
+          -w /work \
+          nixos/nix:latest \
+          sh -euc "out=\$(nix --extra-experimental-features 'nix-command flakes' --option filter-syscalls false build --print-out-paths .#nixosConfigurations.${installer}.config.system.build.isoImage); cp -L \"\$out\"/iso/*.iso /work/result-iso/"
+      done
     else
-      out=$(nix build --print-out-paths .#nixosConfigurations.trinity-installer.config.system.build.isoImage)
-      cp -L "$out"/iso/*.iso result-iso/
+      for installer in "${installers[@]}"; do
+        out=$(nix build --print-out-paths .#nixosConfigurations.${installer}.config.system.build.isoImage)
+        cp -L "$out"/iso/*.iso result-iso/
+      done
     fi
+    
+    echo "Built ISOs:"
+    ls -lh result-iso/
 
-# Upload the custom Trinity installer ISO to the Proxmox ISO store via the API token in infra/*.tfvars
-management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso" iso_name="trinity-nixos-installer.iso": management-build-installer-iso
+# Upload NixOS installer ISOs to Proxmox ISO store via the API token in infra/*.tfvars
+management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso": management-build-installer-iso
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -88,7 +99,6 @@ management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso" iso_name=
     insecure="$(awk '/^[[:space:]]*proxmox_insecure[[:space:]]*=/{ value=$3 } END { print value }' infra/proxmox.auto.tfvars infra/secrets.auto.tfvars)"
     token_id="$(get_tfvar proxmox_token_id)"
     token_secret="$(get_tfvar proxmox_token_secret)"
-    iso_path="$(find result-iso -maxdepth 1 -name 'trinity-nixos-installer*.iso' -print -quit)"
 
     if [ -z "$endpoint" ] || [ -z "{{node}}" ] || [ -z "$token_id" ] || [ -z "$token_secret" ]; then
       echo "Missing Proxmox endpoint, node, token ID, or token secret in infra/*.tfvars" >&2
@@ -100,28 +110,36 @@ management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso" iso_name=
       curl_args+=(--insecure)
     fi
 
-    volume="{{storage}}:iso/{{iso_name}}"
-    encoded_volume="$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$volume")"
     auth_header="Authorization: PVEAPIToken=${token_id}=${token_secret}"
 
-    curl "${curl_args[@]}" \
-      -X DELETE \
-      -H "$auth_header" \
-      "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/content/$encoded_volume" >/dev/null || true
+    # Upload all ISOs from result-iso
+    for iso_path in result-iso/*.iso; do
+      if [ -f "$iso_path" ]; then
+        iso_name=$(basename "$iso_path")
+        volume="{{storage}}:iso/${iso_name}"
+        encoded_volume="$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$volume")"
 
-    curl "${curl_args[@]}" \
-      -H "$auth_header" \
-      -F "content=iso" \
-      -F "filename=@${iso_path};filename={{iso_name}}" \
-      "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/upload" >/dev/null
+        # Delete old ISO if it exists
+        curl "${curl_args[@]}" \
+          -X DELETE \
+          -H "$auth_header" \
+          "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/content/$encoded_volume" >/dev/null || true
 
-    echo "Uploaded ${iso_path} to {{node}}/{{storage}}:iso/{{iso_name}}"
+        # Upload new ISO
+        curl "${curl_args[@]}" \
+          -H "$auth_header" \
+          -F "content=iso" \
+          -F "filename=@${iso_path};filename=${iso_name}" \
+          "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/upload" >/dev/null
 
-# Build/upload the installer ISO, create the VM, and install Trinity via nixos-anywhere
-management-bootstrap node="pve-2" storage="nfs-proxmox-iso" iso_name="trinity-nixos-installer.iso":
-    just management-upload-installer-iso {{node}} {{storage}} {{iso_name}}
+        echo "✅ Uploaded ${iso_path} to {{node}}/{{storage}}:iso/${iso_name}"
+      fi
+    done
+
+# Build/upload installer ISOs, create VMs, and install via nixos-anywhere
+management-bootstrap node="pve-2" storage="nfs-proxmox-iso":
+    just management-upload-installer-iso {{node}} {{storage}}
     just tf apply -refresh=false -auto-approve
-    just management-finalize {{node}}
 
 # Install NixOS onto Trinity with nixos-anywhere. This overwrites the VM disk.
 management-install-nixos target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
