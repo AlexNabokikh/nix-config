@@ -138,22 +138,15 @@ vm-upload node="pve-2" storage="nfs-proxmox-iso": vm-build
       fi
     done
 
-# Full deploy: build ISOs, upload, create VMs, install NixOS, and configure home-manager
+# Full deploy: build ISOs, upload, create VMs, install NixOS
 vm-deploy node="pve-2" storage="nfs-proxmox-iso":
     just vm-upload {{node}} {{storage}}
     just tf apply -refresh=false -auto-approve
-    #!/usr/bin/env bash
-    set -euo pipefail
-    echo "⏳ Waiting for trinity to fully boot..."
-    for i in {1..120}; do
-      if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null fs@10.0.40.100 "test -x /run/current-system/sw/bin/env" 2>/dev/null; then
-        echo "✅ Trinity is ready!"
-        break
-      fi
-      echo "Waiting... attempt $i/120"
-      sleep 2
-    done
-    just vm-switch trinity
+    @echo ""
+    @echo "✅ VMs created and NixOS installed via nixos-anywhere"
+    @echo "⏳ Wait ~2-3 minutes for trinity to fully boot, then run:"
+    @echo "   just vm-switch trinity"
+    @echo ""
 
 # Manually run nixos-anywhere (for emergency re-installs)
 vm-install hostname="trinity" target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
