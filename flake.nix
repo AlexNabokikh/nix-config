@@ -85,12 +85,14 @@
         modules = [./hosts/${hostname}/configuration.nix];
       };
 
-    mkTrinityInstaller = username:
+    # Generic installer function for any NixOS host
+    # Creates a minimal ISO that can bootstrap any nixos-anywhere installation
+    mkInstallerISO = hostname: username:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs outputs;
-          hostname = "trinity-installer";
+          hostname = "${hostname}-installer";
           userConfig = users.${username};
         };
         modules = [
@@ -100,16 +102,20 @@
             modulesPath,
             pkgs,
             userConfig,
+            hostname,
             ...
           }: {
             imports = [
               (modulesPath + "/profiles/qemu-guest.nix")
             ];
 
-            networking.hostName = "trinity-installer";
+            networking.hostName = hostname;
             networking.useDHCP = false;
             networking.usePredictableInterfaceNames = false;
             networking.networkmanager.enable = lib.mkForce false;
+
+            # Use DHCP if no static config exists for this host
+            # Otherwise hosts can override via imports
             systemd.network = {
               enable = true;
               networks."10-lan" = {
@@ -117,10 +123,7 @@
                   "en*"
                   "eth*"
                 ];
-                address = ["10.0.40.100/24"];
-                gateway = ["10.0.40.1"];
-                dns = ["1.1.1.1" "1.0.0.1"];
-                networkConfig.DHCP = "no";
+                networkConfig.DHCP = "yes";
               };
             };
 
@@ -150,10 +153,13 @@
               vim
             ];
 
-            image.baseName = lib.mkForce "trinity-nixos-installer";
+            image.baseName = lib.mkForce "${hostname}-nixos-installer";
           })
         ];
       };
+
+    mkTrinityInstaller = username:
+      mkInstallerISO "trinity" username;
 
     # Function for nix-darwin system configuration
     mkDarwinConfiguration = hostname: username:
@@ -186,7 +192,8 @@
     nixosConfigurations = {
       "nixos" = mkNixosConfiguration "nixos" "fs";
       "trinity" = mkNixosConfiguration "trinity" "fs";
-      "trinity-installer" = mkTrinityInstaller "fs";
+      "trinity-installer" = mkInstallerISO "trinity" "fs";
+      "neo-installer" = mkInstallerISO "neo" "fs";
     };
 
     darwinConfigurations = {
