@@ -37,7 +37,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   cdrom {
-    file_id   = "${var.iso_storage_pool}:iso/${each.key}-nixos-installer.iso"
+    file_id   = "${var.iso_storage_pool}:iso/${each.key}-installer-nixos-installer.iso"
     interface = "ide2"
   }
 
