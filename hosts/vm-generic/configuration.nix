@@ -8,9 +8,7 @@
   ...
 }: {
   imports = [
-    inputs.disko.nixosModules.disko
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./disko.nix
   ];
 
   # Core VM settings (generic for all Proxmox VMs)
@@ -22,9 +20,19 @@
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.kernelParams = ["console=tty0"];
   boot.loader = {
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = false;
     grub.enable = false;
     systemd-boot.enable = true;
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/ESP";
+    fsType = "vfat";
   };
   nixpkgs.config.allowUnfree = true;
 
@@ -32,6 +40,17 @@
   nix.optimise.automatic = true;
 
   services.qemuGuest.enable = true;
+  services.cloud-init = {
+    enable = true;
+    network.enable = true;
+    settings = {
+      datasource_list = [
+        "NoCloud"
+        "ConfigDrive"
+      ];
+      preserve_hostname = true;
+    };
+  };
   services.openssh = {
     enable = true;
     settings = {

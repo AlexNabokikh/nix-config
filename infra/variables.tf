@@ -27,7 +27,7 @@ variable "proxmox_token_secret" {
 }
 
 variable "gateway" {
-  description = "Deprecated compatibility variable. Static networking now lives in hosts/trinity/configuration.nix."
+  description = "Deprecated compatibility variable. VM networking now lives in var.vms and is applied by Proxmox cloud-init."
   type        = string
   default     = "10.0.40.1"
 }
@@ -39,7 +39,7 @@ variable "storage_pool" {
 }
 
 variable "iso_storage_pool" {
-  description = "Proxmox storage pool for NixOS installer ISOs"
+  description = "Proxmox storage pool for the uploaded NixOS cloud image"
   type        = string
   default     = "nfs-proxmox-iso"
 }

@@ -47,114 +47,114 @@ repl:
 # Terraform Infrastructure
 # ============================================================================
 
-# Run OpenTofu/Terraform config from the infra directory, for example: just tf init; just tf plan
+# Run Terraform config from the infra directory, for example: just tf init; just tf plan
 tf *args:
-    tofu -chdir=infra {{args}}
+    TMPDIR=/tmp terraform -chdir=infra {{args}}
+
+# Initialize Terraform providers
+tf-init:
+    just tf init
+
+# Upgrade Terraform providers and refresh the lockfile
+tf-upgrade:
+    just tf init -upgrade
+
+# Validate Terraform configuration
+tf-validate:
+    just tf validate
+
+# Plan VM infrastructure changes
+vm-plan: vm-build
+    just tf plan -parallelism=1
 
 # ============================================================================
-# Management VM NixOS Bootstrap
+# Proxmox NixOS VMs
 # ============================================================================
 
-# Build all NixOS installer ISOs
+# Build the NixOS cloud image used by Terraform
 vm-build:
     #!/usr/bin/env bash
     set -euo pipefail
-    rm -rf result-iso
-    mkdir -p result-iso
+    rm -rf result-cloud
+    mkdir -p result-cloud
     
-    # Build all installer ISOs
-    installers=("trinity-installer" "morpheus-installer")
     system="{{system}}"
     
     if [ "$system" = "Darwin" ]; then
       docker_volume="nix-store-darwin"
-      for installer in "${installers[@]}"; do
-        docker run --rm --platform linux/amd64 \
-          --security-opt seccomp=unconfined \
-          -v "$docker_volume":/nix \
-          -v "$PWD:/work" \
-          -w /work \
-          nixos/nix:latest \
-          sh -euc "out=\$(nix --extra-experimental-features 'nix-command flakes' --option filter-syscalls false build --print-out-paths .#nixosConfigurations.${installer}.config.system.build.isoImage); cp -L \"\$out\"/iso/*.iso /work/result-iso/"
-      done
+      docker run --rm --platform linux/amd64 \
+        --security-opt seccomp=unconfined \
+        -v "$docker_volume":/nix \
+        -v "$PWD:/work" \
+        -w /work \
+        nixos/nix:latest \
+        sh -euc "out=\$(nix --extra-experimental-features 'nix-command flakes' --option filter-syscalls false --option system-features kvm build --print-out-paths .#nixosConfigurations.vm-cloud-image.config.system.build.image); cp -L \"\$out\"/*.qcow2 /work/result-cloud/nixos-proxmox-cloud.qcow2"
     else
-      for installer in "${installers[@]}"; do
-        out=$(nix build --print-out-paths .#nixosConfigurations.${installer}.config.system.build.isoImage)
-        cp -L "$out"/iso/*.iso result-iso/
-      done
+      out=$(nix build --print-out-paths .#nixosConfigurations.vm-cloud-image.config.system.build.image)
+      cp -L "$out"/*.qcow2 result-cloud/nixos-proxmox-cloud.qcow2
     fi
     
-    echo "Built ISOs:"
-    ls -lh result-iso/
+    echo "Built cloud image:"
+    ls -lh result-cloud/nixos-proxmox-cloud.qcow2
 
-# Upload NixOS installer ISOs to Proxmox
-vm-upload node="pve-2" storage="nfs-proxmox-iso": vm-build
+# Create/update Proxmox VMs and upload the cloud image through Terraform
+vm-apply: vm-build
+    just tf apply -parallelism=1 -auto-approve
+
+# Recreate the managed VMs from the cloud image
+vm-recreate: vm-build
+    TMPDIR=/tmp terraform -chdir=infra apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]' -replace='proxmox_virtual_environment_vm.vm["morpheus"]'
+
+# Recreate VMs, then apply NixOS configs
+vm-redeploy: vm-recreate
+    just vm-wait trinity
+    just vm-wait morpheus
+    just vm-switch-all
+
+# Wait for SSH on a VM declared in Terraform
+vm-wait hostname="trinity" identity="~/.ssh/id_macbook_fs":
     #!/usr/bin/env bash
     set -euo pipefail
-
-    get_tfvar() {
-      awk -v name="$1" -F'"' '$0 ~ "^[[:space:]]*" name "[[:space:]]*=" { value=$2 } END { print value }' \
-        infra/proxmox.auto.tfvars infra/secrets.auto.tfvars
-    }
-
-    endpoint="$(get_tfvar proxmox_endpoint)"
-    insecure="$(awk '/^[[:space:]]*proxmox_insecure[[:space:]]*=/{ value=$3 } END { print value }' infra/proxmox.auto.tfvars infra/secrets.auto.tfvars)"
-    token_id="$(get_tfvar proxmox_token_id)"
-    token_secret="$(get_tfvar proxmox_token_secret)"
-
-    if [ -z "$endpoint" ] || [ -z "{{node}}" ] || [ -z "$token_id" ] || [ -z "$token_secret" ]; then
-      echo "Missing Proxmox endpoint, node, token ID, or token secret in infra/*.tfvars" >&2
+    target=$(TMPDIR=/tmp terraform -chdir=infra output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+      echo "No static SSH target found for {{hostname}} in Terraform output" >&2
       exit 1
     fi
 
-    curl_args=(--fail --silent --show-error)
-    if [ "$insecure" = "true" ]; then
-      curl_args+=(--insecure)
-    fi
-
-    auth_header="Authorization: PVEAPIToken=${token_id}=${token_secret}"
-
-    # Upload all ISOs from result-iso
-    for iso_path in result-iso/*.iso; do
-      if [ -f "$iso_path" ]; then
-        iso_name=$(basename "$iso_path")
-        volume="{{storage}}:iso/${iso_name}"
-        encoded_volume="$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$volume")"
-
-        # Delete old ISO if it exists
-        curl "${curl_args[@]}" \
-          -X DELETE \
-          -H "$auth_header" \
-          "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/content/$encoded_volume" >/dev/null || true
-
-        # Upload new ISO
-        curl "${curl_args[@]}" \
-          -H "$auth_header" \
-          -F "content=iso" \
-          -F "filename=@${iso_path};filename=${iso_name}" \
-          "$endpoint/api2/json/nodes/{{node}}/storage/{{storage}}/upload" >/dev/null
-
-        echo "✅ Uploaded ${iso_path} to {{node}}/{{storage}}:iso/${iso_name}"
+    echo "Waiting for ${target}..."
+    for i in {1..60}; do
+      if ssh -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i {{identity}} "$target" "echo ok" >/dev/null 2>&1; then
+        echo "${target} is reachable"
+        exit 0
       fi
+      echo "Waiting for SSH... attempt $i/60"
+      sleep 10
     done
+    echo "${target} did not become reachable in time" >&2
+    exit 1
 
-# Full deploy: build ISOs, upload, create VMs, install NixOS
-vm-deploy node="pve-2" storage="nfs-proxmox-iso":
-    just vm-upload {{node}} {{storage}}
-    just tf apply -refresh=false -auto-approve
-    @echo ""
-    @echo "✅ VMs created and NixOS installed via nixos-anywhere"
-    @echo "⏳ Wait ~2-3 minutes for trinity to fully boot, then run:"
-    @echo "   just vm-switch trinity"
-    @echo ""
+# Switch NixOS config on a VM
+vm-switch hostname="trinity":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    target=$(TMPDIR=/tmp terraform -chdir=infra output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+      echo "No static SSH target found for {{hostname}} in Terraform output" >&2
+      exit 1
+    fi
+    export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
 
-# Manually run nixos-anywhere (for emergency re-installs)
-vm-install hostname="trinity" target="root@10.0.40.61" identity="~/.ssh/id_macbook_fs":
-    nix run github:nix-community/nixos-anywhere -- --flake .#{{hostname}} -i {{identity}} --phases disko,install,reboot --ssh-option StrictHostKeyChecking=no --ssh-option UserKnownHostsFile=/dev/null {{target}}
+# Switch all deployed NixOS VMs
+vm-switch-all:
+    just vm-switch trinity
+    just vm-switch morpheus
 
-# Switch NixOS config on a VM (after deployment)
-vm-switch hostname="trinity" target="fs@10.0.40.61":
-    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host {{target}} --build-host {{target}} --sudo --no-reexec
+# Full VM deploy: build image, let Terraform create/update cloud-init VMs, then apply NixOS configs
+vm-deploy: vm-apply
+    just vm-wait trinity
+    just vm-wait morpheus
+    just vm-switch-all
 
 # Switch Nix Darwin configuration for neo
 darwin-switch-neo:

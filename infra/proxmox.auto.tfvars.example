@@ -13,6 +13,14 @@ proxmox_token_id = "replace-me"
 # Proxmox API token secret UUID.
 proxmox_token_secret = "00000000-0000-0000-0000-000000000000"
 
-# Custom installer ISO uploaded by:
-#   just management-upload-installer-iso
-management_vm_iso_path = "nfs-proxmox-iso:iso/trinity-nixos-installer.iso"
+# Optional: override VM IPs, sizes, nodes, or DNS from management_variables.tf.
+# vms = {
+#   trinity = {
+#     target_node   = "pve-2"
+#     vm_id         = 4061
+#     ipv4_address  = "10.0.40.61"
+#     prefix_length = 24
+#     gateway       = "10.0.40.1"
+#     dns           = ["1.1.1.1", "1.0.0.1"]
+#   }
+# }

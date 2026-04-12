@@ -4,11 +4,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = "0.89.1"
-    }
-    time = {
-      source  = "hashicorp/time"
-      version = "~> 0.9"
+      version = "0.101.1"
     }
   }
 }

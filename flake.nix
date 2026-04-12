@@ -14,7 +14,7 @@
     # NixOS profiles to optimize settings for different hardware
     hardware.url = "github:nixos/nixos-hardware";
 
-    # Declarative disk partitioning for nixos-anywhere installs
+    # Declarative disk partitioning for NixOS VM hosts
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,48 +85,54 @@
         modules = [./hosts/${hostname}/configuration.nix];
       };
 
-    # Generic installer function for any NixOS host
-    # Creates a minimal ISO that can bootstrap any nixos-anywhere installation
-    mkInstallerISO = hostname: username:
+    mkCloudImage = username:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs outputs;
-          hostname = "${hostname}-installer";
+          hostname = "vm-cloud-image";
           userConfig = users.${username};
         };
         modules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${nixpkgs}/nixos/modules/virtualisation/disk-image.nix"
+          "${nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
           ({
             lib,
-            modulesPath,
             pkgs,
             userConfig,
-            hostname,
             ...
           }: {
-            imports = [
-              (modulesPath + "/profiles/qemu-guest.nix")
-            ];
-
-            networking.hostName = hostname;
+            networking.hostName = lib.mkForce "";
             networking.useDHCP = false;
             networking.usePredictableInterfaceNames = false;
-            networking.networkmanager.enable = lib.mkForce false;
+            nixpkgs.hostPlatform = "x86_64-linux";
 
-            # Use DHCP if no static config exists for this host
-            # Otherwise hosts can override via imports
-            systemd.network = {
+            image = {
+              baseName = "nixos-proxmox-cloud";
+              efiSupport = true;
+              format = "qcow2";
+            };
+
+            virtualisation.diskSize = 8192;
+
+            boot.loader = {
+              efi.canTouchEfiVariables = false;
+              grub.enable = false;
+              systemd-boot.enable = true;
+            };
+
+            services.cloud-init = {
               enable = true;
-              networks."10-lan" = {
-                matchConfig.Name = [
-                  "en*"
-                  "eth*"
+              network.enable = true;
+              settings = {
+                datasource_list = [
+                  "NoCloud"
+                  "ConfigDrive"
                 ];
-                networkConfig.DHCP = "yes";
               };
             };
 
+            services.qemuGuest.enable = true;
             services.openssh = {
               enable = true;
               settings = {
@@ -134,7 +140,6 @@
                 PermitRootLogin = "prohibit-password";
               };
             };
-            services.qemuGuest.enable = true;
 
             users.users.root.openssh.authorizedKeys.keys = userConfig.sshKeys;
             users.users.${userConfig.name} = {
@@ -148,18 +153,19 @@
             security.sudo.wheelNeedsPassword = false;
             programs.zsh.enable = true;
             nix.settings.experimental-features = ["nix-command" "flakes"];
+
             environment.systemPackages = with pkgs; [
+              cloud-init
+              curl
               git
+              jq
               vim
             ];
 
-            image.baseName = lib.mkForce "${hostname}-nixos-installer";
+            system.stateVersion = "25.05";
           })
         ];
       };
-
-    mkTrinityInstaller = username:
-      mkInstallerISO "trinity" username;
 
     # Function for nix-darwin system configuration
     mkDarwinConfiguration = hostname: username:
@@ -193,8 +199,7 @@
       "nixos" = mkNixosConfiguration "nixos" "fs";
       "trinity" = mkNixosConfiguration "trinity" "fs";
       "morpheus" = mkNixosConfiguration "morpheus" "fs";
-      "trinity-installer" = mkInstallerISO "trinity" "fs";
-      "morpheus-installer" = mkInstallerISO "morpheus" "fs";
+      "vm-cloud-image" = mkCloudImage "fs";
     };
 
     darwinConfigurations = {
