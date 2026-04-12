@@ -138,7 +138,7 @@ Add your configurations to `flake.nix`:
 
   # OR for macOS
   darwinConfigurations = {
-    "macpro-fs" = mkDarwinConfiguration "macpro-fs" "fs";
+    "neo" = mkDarwinConfiguration "neo" "fs";
     "newhostname" = mkDarwinConfiguration "newhostname" "newuser";  # Add this
   };
 
@@ -295,8 +295,8 @@ home-manager switch --flake .#user@hostname --show-trace
 
 See existing configurations for reference:
 - NixOS: `hosts/nixos/configuration.nix`
-- macOS: `hosts/macpro-fs/configuration.nix`
-- Home: `home/fs/macpro-fs.nix`
+- macOS: `hosts/neo/configuration.nix`
+- Home: `home/fs/neo.nix`
 
 ## Next Steps
 

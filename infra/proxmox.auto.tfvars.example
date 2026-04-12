@@ -1,0 +1,18 @@
+# Proxmox API endpoint URL.
+proxmox_endpoint = "https://10.0.40.11:8006"
+
+# Set true when using the self-signed Proxmox certificate.
+proxmox_insecure = true
+
+# Default Proxmox node name used by the cluster config.
+proxmox_node = "pve-1"
+
+# Proxmox API token ID, for example: terraform@pve!terraform.
+proxmox_token_id = "replace-me"
+
+# Proxmox API token secret UUID.
+proxmox_token_secret = "00000000-0000-0000-0000-000000000000"
+
+# Custom installer ISO uploaded by:
+#   just management-upload-installer-iso
+management_vm_iso_path = "nfs-proxmox-iso:iso/trinity-nixos-installer.iso"

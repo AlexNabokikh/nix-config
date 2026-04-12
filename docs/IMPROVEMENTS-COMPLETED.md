@@ -89,7 +89,7 @@ All non-breaking improvements from IMPROVEMENTS.md have been successfully implem
 ## Files Modified
 
 ### Host Configurations
-- `hosts/macpro-fs/configuration.nix` - Reduced from 220 to 40 lines
+- `hosts/neo/configuration.nix` - Reduced from 220 to 40 lines
 - `hosts/macvm-fs/configuration.nix` - Reduced from 200 to 35 lines
 
 ### Module Configurations

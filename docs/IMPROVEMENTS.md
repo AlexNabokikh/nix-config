@@ -58,7 +58,7 @@ openssh.authorizedKeys.keys = userConfig.sshKeys;
 **Issue**: Multiple files have repeated attribute keys (statix warnings)
 
 **Examples**:
-- `hosts/macpro-fs/configuration.nix` - `nix` and `security` keys repeated
+- `hosts/neo/configuration.nix` - `nix` and `security` keys repeated
 - `hosts/modules/nixos-common.nix` - `nix`, `environment`, `services` repeated
 
 **Action**: Merge into single attribute sets:

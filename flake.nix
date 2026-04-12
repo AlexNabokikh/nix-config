@@ -14,6 +14,12 @@
     # NixOS profiles to optimize settings for different hardware
     hardware.url = "github:nixos/nixos-hardware";
 
+    # Declarative disk partitioning for nixos-anywhere installs
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Global catppuccin theme
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -50,6 +56,7 @@
     self,
     catppuccin,
     darwin,
+    disko,
     home-manager,
     nix-homebrew,
     nixpkgs,
@@ -76,6 +83,76 @@
           userConfig = users.${username};
         };
         modules = [./hosts/${hostname}/configuration.nix];
+      };
+
+    mkTrinityInstaller = username:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs outputs;
+          hostname = "trinity-installer";
+          userConfig = users.${username};
+        };
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ({
+            lib,
+            modulesPath,
+            pkgs,
+            userConfig,
+            ...
+          }: {
+            imports = [
+              (modulesPath + "/profiles/qemu-guest.nix")
+            ];
+
+            networking.hostName = "trinity-installer";
+            networking.useDHCP = false;
+            networking.usePredictableInterfaceNames = false;
+            networking.networkmanager.enable = lib.mkForce false;
+            systemd.network = {
+              enable = true;
+              networks."10-lan" = {
+                matchConfig.Name = [
+                  "en*"
+                  "eth*"
+                ];
+                address = ["10.0.40.100/24"];
+                gateway = ["10.0.40.1"];
+                dns = ["1.1.1.1" "1.0.0.1"];
+                networkConfig.DHCP = "no";
+              };
+            };
+
+            services.openssh = {
+              enable = true;
+              settings = {
+                PasswordAuthentication = false;
+                PermitRootLogin = "prohibit-password";
+              };
+            };
+            services.qemuGuest.enable = true;
+
+            users.users.root.openssh.authorizedKeys.keys = userConfig.sshKeys;
+            users.users.${userConfig.name} = {
+              description = userConfig.fullName;
+              extraGroups = ["wheel"];
+              isNormalUser = true;
+              shell = pkgs.zsh;
+              openssh.authorizedKeys.keys = userConfig.sshKeys;
+            };
+
+            security.sudo.wheelNeedsPassword = false;
+            programs.zsh.enable = true;
+            nix.settings.experimental-features = ["nix-command" "flakes"];
+            environment.systemPackages = with pkgs; [
+              git
+              vim
+            ];
+
+            image.baseName = lib.mkForce "trinity-nixos-installer";
+          })
+        ];
       };
 
     # Function for nix-darwin system configuration
@@ -108,17 +185,20 @@
   in {
     nixosConfigurations = {
       "nixos" = mkNixosConfiguration "nixos" "fs";
+      "trinity" = mkNixosConfiguration "trinity" "fs";
+      "trinity-installer" = mkTrinityInstaller "fs";
     };
 
     darwinConfigurations = {
       "macvm-fs" = mkDarwinConfiguration "macvm-fs" "fs";
-      "macpro-fs" = mkDarwinConfiguration "macpro-fs" "fs";
+      "neo" = mkDarwinConfiguration "neo" "fs";
     };
 
     homeConfigurations = {
       "fs@nixos" = mkHomeConfiguration "x86_64-linux" "fs" "nixos";
+      "fs@trinity" = mkHomeConfiguration "x86_64-linux" "fs" "trinity";
       "fs@macvm-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macvm-fs";
-      "fs@macpro-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macpro-fs";
+      "fs@neo" = mkHomeConfiguration "aarch64-darwin" "fs" "neo";
     };
 
     overlays = import ./overlays {inherit inputs;};

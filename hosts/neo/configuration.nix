@@ -1,4 +1,4 @@
-# Host Configuration: macpro-fs
+# Host Configuration: neo
 # Purpose: MacBook Pro specific settings
 # Platform: macOS (Apple Silicon)
 {userConfig, ...}: {
@@ -44,7 +44,7 @@
   system.primaryUser = "${userConfig.name}";
 
   # Set hostname
-  networking.hostName = "macpro-fs";
+  networking.hostName = "neo";
 
   # System state version
   system.stateVersion = 5;
