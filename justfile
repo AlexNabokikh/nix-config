@@ -138,10 +138,13 @@ vm-upload node="pve-2" storage="nfs-proxmox-iso": vm-build
       fi
     done
 
-# Full deploy: build ISOs, upload, create VMs, and install NixOS
+# Full deploy: build ISOs, upload, create VMs, install NixOS, and configure home-manager
 vm-deploy node="pve-2" storage="nfs-proxmox-iso":
     just vm-upload {{node}} {{storage}}
     just tf apply -refresh=false -auto-approve
+    echo "⏳ Waiting for trinity to boot and SSH to be available..."
+    sleep 30
+    just vm-switch trinity
 
 # Manually run nixos-anywhere (for emergency re-installs)
 vm-install hostname="trinity" target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
