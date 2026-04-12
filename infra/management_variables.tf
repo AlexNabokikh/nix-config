@@ -21,6 +21,7 @@ variable "vms" {
       cpu_cores    = 4
       memory_mb    = 8192
       disk_size_gb = 40
+      nixos_anywhere_enabled = false
     }
     morpheus = {
       target_node  = "pve-2"
