@@ -55,8 +55,8 @@ tf *args:
 # Management VM NixOS Bootstrap
 # ============================================================================
 
-# Build all NixOS installer ISOs (trinity, morpheus, etc.) with SSH enabled
-management-build-installer-iso:
+# Build all NixOS installer ISOs
+vm-build:
     #!/usr/bin/env bash
     set -euo pipefail
     rm -rf result-iso
@@ -85,8 +85,8 @@ management-build-installer-iso:
     echo "Built ISOs:"
     ls -lh result-iso/
 
-# Upload NixOS installer ISOs to Proxmox ISO store via the API token in infra/*.tfvars
-management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso": management-build-installer-iso
+# Upload NixOS installer ISOs to Proxmox
+vm-upload node="pve-2" storage="nfs-proxmox-iso": vm-build
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -136,68 +136,18 @@ management-upload-installer-iso node="pve-2" storage="nfs-proxmox-iso": manageme
       fi
     done
 
-# Build/upload installer ISOs, create VMs, and install via nixos-anywhere
-management-bootstrap node="pve-2" storage="nfs-proxmox-iso":
-    just management-upload-installer-iso {{node}} {{storage}}
+# Full deploy: build ISOs, upload, create VMs, and install NixOS
+vm-deploy node="pve-2" storage="nfs-proxmox-iso":
+    just vm-upload {{node}} {{storage}}
     just tf apply -refresh=false -auto-approve
 
-# Install NixOS onto Trinity with nixos-anywhere. This overwrites the VM disk.
-management-install-nixos target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
-    nix run github:nix-community/nixos-anywhere -- --flake .#trinity -i {{identity}} --phases disko,install,reboot --ssh-option StrictHostKeyChecking=no --ssh-option UserKnownHostsFile=/dev/null {{target}}
+# Manually run nixos-anywhere (for emergency re-installs)
+vm-install hostname="trinity" target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
+    nix run github:nix-community/nixos-anywhere -- --flake .#{{hostname}} -i {{identity}} --phases disko,install,reboot --ssh-option StrictHostKeyChecking=no --ssh-option UserKnownHostsFile=/dev/null {{target}}
 
-# Eject the installer ISO, switch back to disk boot, and enable the guest agent.
-management-finalize node="pve-2":
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    get_tfvar() {
-      awk -v name="$1" -F'"' '$0 ~ "^[[:space:]]*" name "[[:space:]]*=" { value=$2 } END { print value }' \
-        infra/proxmox.auto.tfvars infra/secrets.auto.tfvars
-    }
-
-    endpoint="$(get_tfvar proxmox_endpoint)"
-    insecure="$(awk '/^[[:space:]]*proxmox_insecure[[:space:]]*=/{ value=$3 } END { print value }' infra/proxmox.auto.tfvars infra/secrets.auto.tfvars)"
-    token_id="$(get_tfvar proxmox_token_id)"
-    token_secret="$(get_tfvar proxmox_token_secret)"
-    vm_id="$(awk '/^[[:space:]]*management_vm_id[[:space:]]*=/{ value=$3 } END { print value }' infra/proxmox.auto.tfvars infra/secrets.auto.tfvars)"
-
-    if [ -z "$endpoint" ] || [ -z "$token_id" ] || [ -z "$token_secret" ] || [ -z "$vm_id" ]; then
-      echo "Missing Proxmox endpoint, token, or management_vm_id in infra/*.tfvars" >&2
-      exit 1
-    fi
-
-    curl_args=(--fail --silent --show-error)
-    if [ "$insecure" = "true" ]; then
-      curl_args+=(--insecure)
-    fi
-
-    auth_header="Authorization: PVEAPIToken=${token_id}=${token_secret}"
-
-    curl "${curl_args[@]}" \
-      -X POST \
-      -H "$auth_header" \
-      --data-urlencode 'boot=order=virtio0' \
-      --data-urlencode 'ide2=none,media=cdrom' \
-      --data-urlencode 'agent=1' \
-      "$endpoint/api2/json/nodes/{{node}}/qemu/${vm_id}/config" >/dev/null
-
-    curl "${curl_args[@]}" \
-      -X POST \
-      -H "$auth_header" \
-      "$endpoint/api2/json/nodes/{{node}}/qemu/${vm_id}/status/stop" >/dev/null || true
-
-    sleep 5
-
-    curl "${curl_args[@]}" \
-      -X POST \
-      -H "$auth_header" \
-      "$endpoint/api2/json/nodes/{{node}}/qemu/${vm_id}/status/start" >/dev/null
-
-    echo "Finalized VM ${vm_id}: disk boot, ISO ejected, guest agent enabled"
-
-# Switch Trinity after it has already been installed as NixOS
-management-switch target="fs@10.0.40.100":
-    nix run nixpkgs#nixos-rebuild -- switch --flake .#trinity --target-host {{target}} --build-host {{target}} --sudo --no-reexec
+# Switch NixOS config on a VM (after deployment)
+vm-switch hostname="trinity" target="fs@10.0.40.100":
+    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host {{target}} --build-host {{target}} --sudo --no-reexec
 
 # Switch Nix Darwin configuration for neo
 darwin-switch-neo:
