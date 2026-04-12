@@ -10,3 +10,16 @@ output "vms" {
     }
   }
 }
+
+output "installer_targets" {
+  description = "SSH targets for nixos-anywhere installer (use with just vm-install)"
+  value = {
+    for name, config in var.vms : name => {
+      target  = config.ipv4_address != null ? "root@${config.ipv4_address}" : "DHCP_PENDING"
+      ssh_key = config.nixos_anywhere_identity_file
+      vm_id   = config.vm_id
+      node    = config.target_node
+    }
+  }
+  sensitive = false
+}

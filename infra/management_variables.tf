@@ -21,15 +21,17 @@ variable "vms" {
       cpu_cores    = 4
       memory_mb    = 8192
       disk_size_gb = 40
-      nixos_anywhere_enabled = false
+      nixos_anywhere_enabled = true
     }
     morpheus = {
       target_node  = "pve-2"
       vm_id        = 4101
+      ipv4_address = "10.0.40.101"
       cpu_cores    = 4
       memory_mb    = 8192
       disk_size_gb = 40
-      nixos_anywhere_enabled = false
+      nixos_anywhere_enabled = true
+      nixos_anywhere_target = "root@10.0.40.101"
     }
   }
 }
