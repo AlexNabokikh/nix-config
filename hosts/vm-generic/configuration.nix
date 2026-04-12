@@ -56,6 +56,7 @@
 
   environment.systemPackages = with pkgs; [
     curl
+    docker-compose
     git
     home-manager
     htop

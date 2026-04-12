@@ -18,7 +18,7 @@
         "en*"
         "eth*"
       ];
-      address = ["10.0.40.100/24"];
+      address = ["10.0.40.61/24"];
       gateway = ["10.0.40.1"];
       dns = ["1.1.1.1" "1.0.0.1"];
       networkConfig.DHCP = "no";

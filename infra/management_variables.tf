@@ -16,8 +16,8 @@ variable "vms" {
   default = {
     trinity = {
       target_node  = "pve-2"
-      vm_id        = 4100
-      ipv4_address = "10.0.40.100"
+      vm_id        = 4061
+      ipv4_address = "10.0.40.61"
       cpu_cores    = 4
       memory_mb    = 8192
       disk_size_gb = 40
@@ -25,13 +25,13 @@ variable "vms" {
     }
     morpheus = {
       target_node  = "pve-2"
-      vm_id        = 4101
-      ipv4_address = "10.0.40.101"
+      vm_id        = 4062
+      ipv4_address = "10.0.40.62"
       cpu_cores    = 4
       memory_mb    = 8192
       disk_size_gb = 40
       nixos_anywhere_enabled = true
-      nixos_anywhere_target = "root@10.0.40.101"
+      nixos_anywhere_target = "root@10.0.40.62"
     }
   }
 }

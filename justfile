@@ -149,11 +149,11 @@ vm-deploy node="pve-2" storage="nfs-proxmox-iso":
     @echo ""
 
 # Manually run nixos-anywhere (for emergency re-installs)
-vm-install hostname="trinity" target="root@10.0.40.100" identity="~/.ssh/id_macbook_fs":
+vm-install hostname="trinity" target="root@10.0.40.61" identity="~/.ssh/id_macbook_fs":
     nix run github:nix-community/nixos-anywhere -- --flake .#{{hostname}} -i {{identity}} --phases disko,install,reboot --ssh-option StrictHostKeyChecking=no --ssh-option UserKnownHostsFile=/dev/null {{target}}
 
 # Switch NixOS config on a VM (after deployment)
-vm-switch hostname="trinity" target="fs@10.0.40.100":
+vm-switch hostname="trinity" target="fs@10.0.40.61":
     nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host {{target}} --build-host {{target}} --sudo --no-reexec
 
 # Switch Nix Darwin configuration for neo
