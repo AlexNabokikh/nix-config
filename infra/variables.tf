@@ -33,7 +33,13 @@ variable "gateway" {
 }
 
 variable "storage_pool" {
-  description = "Proxmox storage pool for the management VM disk and cloud-init drive"
+  description = "Proxmox storage pool for VM disks"
   type        = string
   default     = "ceph-proxmox-rbd"
+}
+
+variable "iso_storage_pool" {
+  description = "Proxmox storage pool for NixOS installer ISOs"
+  type        = string
+  default     = "nfs-proxmox-iso"
 }
