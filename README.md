@@ -24,6 +24,16 @@ The simplest mental model is:
 - `modules/stacks/` = convenient bundles of those building blocks
 - `modules/profile/` = personal settings shared across hosts
 
+## Table of Contents
+
+- [Showcase](#showcase)
+- [Repository Structure](#repository-structure)
+- [Modules and Configurations](#modules-and-configurations)
+- [How Composition Works](#how-composition-works)
+- [How To Read This Repo](#how-to-read-this-repo)
+- [How To Use This Repo For Yourself](#how-to-use-this-repo-for-yourself)
+- [How To Extend It](#how-to-extend-it)
+
 ## Showcase
 
 ### Hyprland / Niri
