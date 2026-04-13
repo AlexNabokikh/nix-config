@@ -81,4 +81,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   started = true
+
+  lifecycle {
+    ignore_changes = [
+      disk[0].file_format,
+    ]
+  }
 }

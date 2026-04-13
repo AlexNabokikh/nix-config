@@ -1,9 +1,10 @@
 # Proxmox VM Infrastructure
 
-This directory manages the Proxmox NixOS VMs declared in `var.vms`.
+This directory manages the Proxmox NixOS VMs declared in `var.vms` and the
+Cloudflare DNS, tunnel, and optional Access resources for the exposed services.
 
-It intentionally does not manage the Talos Kubernetes cluster, Cloudflare
-tunnels, or Doppler resources from the original Kubernetes repository.
+It intentionally does not manage the Talos Kubernetes cluster or Doppler
+resources from the original Kubernetes repository.
 
 ## Usage
 
@@ -28,7 +29,7 @@ from it. Terraform names each VM and its `initialization` block sets DNS,
 gateway, and static IP address through Proxmox cloud-init. After SSH becomes
 reachable, the recipe runs `nixos-rebuild switch` for each host.
 
-The VM IPs live in `infra/management_variables.tf` or local `*.tfvars`
+The VM IPs live in `infra/management_variables.tf` or local `TF_VAR_`
 overrides. Use Terraform outputs to inspect the current targets:
 
 ```sh
@@ -47,8 +48,10 @@ If you only need to re-apply the NixOS configs:
 just vm-switch-all
 ```
 
-Local values live in ignored `*.tfvars` files. Use the committed examples as
-templates:
+Local secret values live in `.envrc` as `TF_VAR_...` exports. Run `direnv allow`
+after changing `.envrc`, then use the normal `just tf ...` recipes.
+
+The committed examples are only reference templates:
 
 - `proxmox.auto.tfvars.example`
 - `secrets.auto.tfvars.example`

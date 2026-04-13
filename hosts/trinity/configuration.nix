@@ -4,11 +4,23 @@
     ../modules/docker
   ];
 
-  services.nginx-web = {
+  services.arcane = {
     enable = true;
   };
 
-  services.arcane = {
+  services.cloudflared-tunnel = {
+    enable = true;
+  };
+
+  services.traefik-docker = {
+    enable = true;
+  };
+
+  services.whoami-docker = {
+    enable = true;
+  };
+
+  services.beszel = {
     enable = true;
   };
 }

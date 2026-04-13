@@ -86,3 +86,6 @@ terraform.rc
 # Nix build outputs
 result
 result-*
+infra/tunel_cred/**
+infra/tunell_cred/**
+infra/tunnel_cred/**

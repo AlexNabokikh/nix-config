@@ -23,3 +23,19 @@ output "ssh_targets" {
   }
   sensitive = false
 }
+
+output "cloudflare_app_hostnames" {
+  description = "Cloudflare app hostnames routed to the trinity tunnel"
+  value       = local.cloudflare_app_hostnames
+}
+
+output "cloudflare_tunnel_id" {
+  description = "Cloudflare Tunnel ID used by the app DNS records"
+  value       = local.cloudflare_tunnel_id
+}
+
+output "cloudflare_tunnel_token" {
+  description = "Cloudflare Tunnel run token for cloudflared"
+  value       = try(data.cloudflare_zero_trust_tunnel_cloudflared_token.trinity[0].token, null)
+  sensitive   = true
+}

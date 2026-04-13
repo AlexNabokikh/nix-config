@@ -143,6 +143,39 @@ vm-switch hostname="trinity":
       exit 1
     fi
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+    if [ -z "${CLOUDFLARED_TUNNEL_TOKEN:-}" ] && [ -f .envrc ]; then
+      set -a
+      . ./.envrc
+      set +a
+    fi
+    if [ -z "${CLOUDFLARED_TUNNEL_TOKEN:-}" ]; then
+      echo "CLOUDFLARED_TUNNEL_TOKEN is not set; load direnv or define it before running vm-switch" >&2
+      exit 1
+    fi
+    secret_file=$(mktemp)
+    config_file=$(mktemp)
+    trap 'rm -f "$secret_file" "$config_file"' EXIT
+    printf '%s\n' "$CLOUDFLARED_TUNNEL_TOKEN" > "$secret_file"
+    if jq -e 'type == "object" and has("AccountTag") and has("TunnelSecret") and has("TunnelID")' "$secret_file" >/dev/null 2>&1; then
+      tunnel_id=$(jq -r '.TunnelID' "$secret_file")
+      printf '%s\n' \
+        "tunnel: $tunnel_id" \
+        "credentials-file: /etc/cloudflared/credentials.json" \
+        "ingress:" \
+        "  - service: http://127.0.0.1:80" \
+        > "$config_file"
+      scp $NIX_SSHOPTS "$secret_file" "$target:/tmp/cloudflared-credentials.json" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$config_file" "$target:/tmp/cloudflared-config.yml" >/dev/null 2>&1
+      ssh $NIX_SSHOPTS "$target" "sudo install -d -m 0700 /run/secrets/cloudflared && sudo install -m 0600 /tmp/cloudflared-credentials.json /run/secrets/cloudflared/credentials.json && sudo install -m 0600 /tmp/cloudflared-config.yml /run/secrets/cloudflared/config.yml && sudo rm -f /run/secrets/cloudflared/token /tmp/cloudflared-credentials.json /tmp/cloudflared-config.yml"
+    else
+      printf '%s\n' \
+        "ingress:" \
+        "  - service: http://127.0.0.1:80" \
+        > "$config_file"
+      scp $NIX_SSHOPTS "$secret_file" "$target:/tmp/cloudflared-token" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$config_file" "$target:/tmp/cloudflared-config.yml" >/dev/null 2>&1
+      ssh $NIX_SSHOPTS "$target" "sudo install -d -m 0700 /run/secrets/cloudflared && sudo install -m 0600 /tmp/cloudflared-token /run/secrets/cloudflared/token && sudo install -m 0600 /tmp/cloudflared-config.yml /run/secrets/cloudflared/config.yml && sudo rm -f /run/secrets/cloudflared/credentials.json /tmp/cloudflared-token /tmp/cloudflared-config.yml"
+    fi
     nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
 
 # Switch all deployed NixOS VMs

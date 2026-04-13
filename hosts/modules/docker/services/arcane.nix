@@ -29,12 +29,18 @@ in {
         "${cfg.dataDir}:/app/data"
       ];
       environment = {
-        APP_URL = "http://10.0.40.61:3552";
+        APP_URL = "https://arcane.krapulax.dev";
         PUID = "1000";
         PGID = "1000";
         # Generate with: openssl rand -hex 32
         ENCRYPTION_KEY = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
         JWT_SECRET = "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210";
+      };
+      labels = {
+        "traefik.enable" = "true";
+        "traefik.http.routers.arcane.rule" = "Host(`arcane.krapulax.dev`)";
+        "traefik.http.routers.arcane.entrypoints" = "web";
+        "traefik.http.services.arcane.loadbalancer.server.port" = "3552";
       };
       autoStart = true;
     };
