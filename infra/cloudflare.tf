@@ -14,6 +14,12 @@ locals {
     key => app
     if var.cloudflare_access_enabled && try(app.access_enabled, true)
   }
+
+  cloudflare_access_bypass_apps = {
+    for key, app in local.cloudflare_apps :
+    key => app
+    if try(app.access_bypass, false)
+  }
 }
 
 resource "cloudflare_zero_trust_tunnel_cloudflared" "trinity" {
@@ -76,6 +82,20 @@ resource "cloudflare_zero_trust_access_policy" "allow_emails" {
   ]
 }
 
+resource "cloudflare_zero_trust_access_policy" "bypass" {
+  count = var.cloudflare_enabled && length(local.cloudflare_access_bypass_apps) > 0 ? 1 : 0
+
+  account_id = var.cloudflare_account_id
+  name       = "Bypass public service hostnames"
+  decision   = "bypass"
+
+  include = [
+    {
+      everyone = {}
+    }
+  ]
+}
+
 resource "cloudflare_zero_trust_access_application" "app" {
   for_each = local.cloudflare_access_apps
 
@@ -87,6 +107,26 @@ resource "cloudflare_zero_trust_access_application" "app" {
   policies = [
     {
       id         = cloudflare_zero_trust_access_policy.allow_emails[0].id
+      precedence = 1
+    }
+  ]
+
+  depends_on = [
+    cloudflare_dns_record.app
+  ]
+}
+
+resource "cloudflare_zero_trust_access_application" "bypass_app" {
+  for_each = local.cloudflare_access_bypass_apps
+
+  account_id = var.cloudflare_account_id
+  type       = "self_hosted"
+  name       = "${try(each.value.name, title(each.key))} Bypass"
+  domain     = local.cloudflare_app_hostnames[each.key]
+
+  policies = [
+    {
+      id         = cloudflare_zero_trust_access_policy.bypass[0].id
       precedence = 1
     }
   ]

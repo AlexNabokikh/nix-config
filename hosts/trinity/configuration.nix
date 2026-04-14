@@ -23,4 +23,8 @@
   services.beszel = {
     enable = true;
   };
+
+  services.omni-docker = {
+    enable = true;
+  };
 }

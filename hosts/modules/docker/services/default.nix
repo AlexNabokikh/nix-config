@@ -5,5 +5,6 @@
     ./traefik.nix
     ./beszel.nix
     ./whoami.nix
+    ./omni.nix
   ];
 }

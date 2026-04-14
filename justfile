@@ -143,7 +143,7 @@ vm-switch hostname="trinity":
       exit 1
     fi
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
-    if [ -z "${CLOUDFLARED_TUNNEL_TOKEN:-}" ] && [ -f .envrc ]; then
+    if [ -f .envrc ]; then
       set -a
       . ./.envrc
       set +a
@@ -176,7 +176,72 @@ vm-switch hostname="trinity":
       scp $NIX_SSHOPTS "$config_file" "$target:/tmp/cloudflared-config.yml" >/dev/null 2>&1
       ssh $NIX_SSHOPTS "$target" "sudo install -d -m 0700 /run/secrets/cloudflared && sudo install -m 0600 /tmp/cloudflared-token /run/secrets/cloudflared/token && sudo install -m 0600 /tmp/cloudflared-config.yml /run/secrets/cloudflared/config.yml && sudo rm -f /run/secrets/cloudflared/credentials.json /tmp/cloudflared-token /tmp/cloudflared-config.yml"
     fi
-    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
+    if [ "{{hostname}}" = "trinity" ]; then
+      for var in OMNI_CA_CERT_PEM OMNI_TLS_CERT_PEM OMNI_TLS_KEY_PEM OMNI_GPG_KEY_ASC OMNI_DEX_PASSWORD_HASH OMNI_DEX_CLIENT_SECRET OMNI_USER_EMAIL; do
+        if [ -z "${!var:-}" ]; then
+          echo "$var is not set; define it in .envrc before deploying Omni" >&2
+          exit 1
+        fi
+      done
+
+      omni_secret_dir=$(mktemp -d)
+      trap 'rm -f "$secret_file" "$config_file"; rm -rf "$omni_secret_dir"' EXIT
+
+      omni_host="${OMNI_ENDPOINT:-omni.krapulax.dev}"
+      omni_auth_host="${OMNI_AUTH_ENDPOINT:-auth.krapulax.dev}"
+      omni_advertised_api_url="${OMNI_ADVERTISED_API_URL:-https://${omni_host}/}"
+      omni_auth_provider_url="${OMNI_AUTH_PROVIDER_URL:-https://${omni_auth_host}}"
+      omni_dex_username="${OMNI_DEX_USERNAME:-admin}"
+
+      printf '%s\n' "$OMNI_CA_CERT_PEM" > "$omni_secret_dir/ca.pem"
+      printf '%s\n%s\n' "$OMNI_TLS_CERT_PEM" "$OMNI_CA_CERT_PEM" > "$omni_secret_dir/server-chain.pem"
+      printf '%s\n' "$OMNI_TLS_KEY_PEM" > "$omni_secret_dir/server-key.pem"
+      printf '%s\n' "$OMNI_GPG_KEY_ASC" > "$omni_secret_dir/omni.asc"
+
+      issuer_json=$(printf '%s' "$omni_auth_provider_url" | jq -Rs .)
+      redirect_json=$(printf '%s' "${omni_advertised_api_url%/}/oidc/consume" | jq -Rs .)
+      client_secret_json=$(printf '%s' "$OMNI_DEX_CLIENT_SECRET" | jq -Rs .)
+      email_json=$(printf '%s' "$OMNI_USER_EMAIL" | jq -Rs .)
+      username_json=$(printf '%s' "$omni_dex_username" | jq -Rs .)
+      password_hash_json=$(printf '%s' "$OMNI_DEX_PASSWORD_HASH" | jq -Rs .)
+
+      printf '%s\n' \
+        "issuer: ${issuer_json}" \
+        "storage:" \
+        "  type: memory" \
+        "web:" \
+        "  https: 0.0.0.0:5556" \
+        "  tlsCert: /etc/dex/tls/server-chain.pem" \
+        "  tlsKey: /etc/dex/tls/server-key.pem" \
+        "staticClients:" \
+        "  - name: Omni" \
+        "    id: omni" \
+        "    secret: ${client_secret_json}" \
+        "    redirectURIs:" \
+        "      - ${redirect_json}" \
+        "enablePasswordDB: true" \
+        "staticPasswords:" \
+        "  - email: ${email_json}" \
+        "    username: ${username_json}" \
+        "    preferredUsername: ${username_json}" \
+        "    hash: ${password_hash_json}" \
+        > "$omni_secret_dir/dex.yaml"
+
+      printf '%s\n' \
+        "auth:" \
+        "  oidc:" \
+        "    clientSecret: ${client_secret_json}" \
+        > "$omni_secret_dir/omni.yaml"
+
+      scp $NIX_SSHOPTS "$omni_secret_dir/ca.pem" "$target:/tmp/omni-ca.pem" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$omni_secret_dir/server-chain.pem" "$target:/tmp/omni-server-chain.pem" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$omni_secret_dir/server-key.pem" "$target:/tmp/omni-server-key.pem" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$omni_secret_dir/omni.asc" "$target:/tmp/omni.asc" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$omni_secret_dir/dex.yaml" "$target:/tmp/omni-dex.yaml" >/dev/null 2>&1
+      scp $NIX_SSHOPTS "$omni_secret_dir/omni.yaml" "$target:/tmp/omni.yaml" >/dev/null 2>&1
+      ssh $NIX_SSHOPTS "$target" "sudo install -d -m 0700 /run/secrets/omni && sudo install -m 0644 /tmp/omni-ca.pem /run/secrets/omni/ca.pem && sudo install -m 0644 /tmp/omni-server-chain.pem /run/secrets/omni/server-chain.pem && sudo install -m 0600 /tmp/omni-server-key.pem /run/secrets/omni/server-key.pem && sudo install -m 0600 /tmp/omni.asc /run/secrets/omni/omni.asc && sudo install -m 0600 /tmp/omni-dex.yaml /run/secrets/omni/dex.yaml && sudo install -m 0600 /tmp/omni.yaml /run/secrets/omni/omni.yaml && sudo rm -f /tmp/omni-ca.pem /tmp/omni-server-chain.pem /tmp/omni-server-key.pem /tmp/omni.asc /tmp/omni-dex.yaml /tmp/omni.yaml"
+    fi
+    nix run nixpkgs#nixos-rebuild -- switch --impure --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
 
 # Switch all deployed NixOS VMs
 vm-switch-all:

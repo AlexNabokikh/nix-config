@@ -119,6 +119,7 @@ variable "cloudflare_apps" {
     subdomain      = string
     name           = optional(string)
     access_enabled = optional(bool, true)
+    access_bypass  = optional(bool, false)
   }))
   default = {
     arcane = {
@@ -128,6 +129,18 @@ variable "cloudflare_apps" {
     beszel = {
       subdomain = "beszel"
       name      = "Beszel"
+    }
+    omni = {
+      subdomain      = "omni"
+      name           = "Omni"
+      access_enabled = false
+      access_bypass  = true
+    }
+    omni_auth = {
+      subdomain      = "auth"
+      name           = "Omni Auth"
+      access_enabled = false
+      access_bypass  = true
     }
     whoami = {
       subdomain      = "whoami"

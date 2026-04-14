@@ -89,3 +89,5 @@ result-*
 infra/tunel_cred/**
 infra/tunell_cred/**
 infra/tunnel_cred/**
+omni.asc
+.envrc.bak.**
