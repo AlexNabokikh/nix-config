@@ -15,7 +15,7 @@
       };
 
       home.sessionPath = [
-        "$HOME/go/bin"
+        GOBIN
       ];
     };
 }
