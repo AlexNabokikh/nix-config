@@ -3,6 +3,7 @@
   flake.modules.homeManager.programsAlacritty =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
@@ -43,16 +44,13 @@
           };
 
           keyboard.bindings =
-            if pkgs.stdenv.hostPlatform.isDarwin then
-              [
-                {
-                  key = "Slash";
-                  mods = "Control";
-                  chars = ''\u001f'';
-                }
-              ]
-            else
-              [ ];
+            lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+              {
+                key = "Slash";
+                mods = "Control";
+                chars = ''\u001f'';
+              }
+            ];
 
           font = {
             size =
