@@ -22,4 +22,11 @@
       nix.settings.experimental-features = "nix-command flakes";
       nix.optimise.automatic = true;
     };
+
+  flake.modules.generic.noctaliaCache = {
+    nix.settings.extra-substituters = [ "https://noctalia.cachix.org" ];
+    nix.settings.extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
 }
