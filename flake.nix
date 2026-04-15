@@ -76,11 +76,12 @@
     };
 
     # Function for NixOS system configuration
-    mkNixosConfiguration = hostname: username:
+    mkNixosConfiguration = hostname: username: let
+      userConfig = users.${username};
+    in
       nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
+          inherit inputs outputs hostname userConfig;
         };
         modules = [./hosts/${hostname}/configuration.nix];
       };

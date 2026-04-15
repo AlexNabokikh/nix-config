@@ -9,6 +9,7 @@
 }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+    ../modules/tailscale.nix
   ];
 
   # Core VM settings (generic for all Proxmox VMs)
@@ -77,6 +78,7 @@
     curl
     docker-compose
     direnv
+    doppler
     eza
     fastfetch
     fzf
@@ -91,6 +93,7 @@
     neovim
     ripgrep
     starship
+    tailscale
     tree
     vim
     zoxide
@@ -260,6 +263,11 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless.enable = true;
   virtualisation.docker.rootless.setSocketVariable = true;
+
+  # Tailscale VPN with SSH access
+  tailscale = {
+    enable = true;
+  };
 
   system.stateVersion = "25.05";
 }

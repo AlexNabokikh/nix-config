@@ -144,6 +144,9 @@ vm-switch hostname="trinity":
     fi
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
     nix run nixpkgs#nixos-rebuild -- switch --impure --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
+    # After switch, connect Tailscale
+    auth_key=$(doppler secrets get TAILSCALE_AUTH_KEY --plain)
+    ssh $NIX_SSHOPTS "$target" "sudo tailscale up --auth-key='$auth_key' --ssh" || true
 
 # Switch all deployed NixOS VMs
 vm-switch-all:
