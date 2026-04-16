@@ -9,10 +9,8 @@
         xwayland.enable = true;
       };
 
-      # FIXME: https://github.com/NixOS/nixpkgs/issues/484328
-      systemd.services.display-manager.path = [ pkgs.uwsm ];
-
-      # FIXME: Hyprland's quirk. Without it, the cursor in XWayland applications is inconsistent.
+      # Hyprland's quirk under uwsm. Without it, the cursor in XWayland applications is inconsistent.
+      # https://wiki.hypr.land/Configuring/Environment-variables/
       environment.sessionVariables = {
         XCURSOR_SIZE = config.profile.appearance.cursorTheme.size;
         XCURSOR_THEME = config.profile.appearance.cursorTheme.name;
