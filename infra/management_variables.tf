@@ -26,7 +26,7 @@ variable "vms" {
       dns           = ["1.1.1.1", "1.0.0.1"]
     }
     morpheus = {
-      target_node   = "pve-2"
+      target_node   = "pve-1"
       vm_id         = 4062
       cpu_cores     = 4
       memory_mb     = 8192
