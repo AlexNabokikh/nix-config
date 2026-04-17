@@ -103,12 +103,12 @@ vm-apply: vm-build
 
 # Recreate the managed VMs from the cloud image
 vm-recreate: vm-build
-    TMPDIR=/tmp terraform -chdir=infra apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]' -replace='proxmox_virtual_environment_vm.vm["morpheus"]'
+    TMPDIR=/tmp terraform -chdir=infra apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]'
 
 # Recreate VMs, then apply NixOS configs
 vm-redeploy: vm-recreate
     just vm-wait trinity
-    just vm-wait morpheus
+    # just vm-wait morpheus
     just vm-switch-all
 
 # Wait for SSH on a VM declared in Terraform
@@ -151,12 +151,12 @@ vm-switch hostname="trinity":
 # Switch all deployed NixOS VMs
 vm-switch-all:
     just vm-switch trinity
-    just vm-switch morpheus
+    # just vm-switch morpheus
 
 # Full VM deploy: build image, let Terraform create/update cloud-init VMs, then apply NixOS configs
 vm-deploy: vm-apply
     just vm-wait trinity
-    just vm-wait morpheus
+    # just vm-wait morpheus
     just vm-switch-all
 
 # Switch Nix Darwin configuration for neo

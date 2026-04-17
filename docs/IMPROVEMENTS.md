@@ -193,15 +193,15 @@ mkDarwinConfiguration = system: hostname: username:
 
 ---
 
-### 14. Create README Files
-**Issue**: Subdirectories lack documentation
+### 14. Keep Operational Docs Linked From Root
+**Issue**: Subdirectories need discoverable documentation without creating
+multiple README entry points.
 
-**Action**: Add README.md to:
-- `hosts/` - Explain host configuration structure
-- `home/` - Explain home-manager setup
-- `files/` - Document what goes in each subdirectory
+**Action**: Keep the single root `README.md` as the documentation map and link
+to focused pages in `docs/` for Mac deploys, Just recipes, VMs, and physical
+hosts.
 
-**Impact**: Better documentation
+**Impact**: Better documentation without competing READMEs
 
 ---
 

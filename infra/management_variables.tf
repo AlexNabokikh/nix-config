@@ -25,17 +25,17 @@ variable "vms" {
       gateway       = "10.0.40.1"
       dns           = ["1.1.1.1", "1.0.0.1"]
     }
-    morpheus = {
-      target_node   = "pve-1"
-      vm_id         = 4062
-      cpu_cores     = 4
-      memory_mb     = 8192
-      disk_size_gb  = 40
-      ipv4_address  = "10.0.40.62"
-      prefix_length = 24
-      gateway       = "10.0.40.1"
-      dns           = ["1.1.1.1", "1.0.0.1"]
-    }
+    # morpheus = {
+    #   target_node   = "pve-1"
+    #   vm_id         = 4062
+    #   cpu_cores     = 4
+    #   memory_mb     = 8192
+    #   disk_size_gb  = 40
+    #   ipv4_address  = "10.0.40.62"
+    #   prefix_length = 24
+    #   gateway       = "10.0.40.1"
+    #   dns           = ["1.1.1.1", "1.0.0.1"]
+    # }
   }
 }
 
