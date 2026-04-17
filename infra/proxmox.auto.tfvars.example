@@ -1,17 +1,15 @@
-# Proxmox API endpoint URL.
-proxmox_endpoint = "https://10.0.40.11:8006"
-
-# Set true when using the self-signed Proxmox certificate.
-proxmox_insecure = true
-
-# Default Proxmox node name used by the cluster config.
-proxmox_node = "pve-1"
-
-# Proxmox API token ID, for example: terraform@pve!terraform.
-proxmox_token_id = "replace-me"
-
-# Proxmox API token secret UUID.
-proxmox_token_secret = "00000000-0000-0000-0000-000000000000"
+# Proxmox connection values now live in Doppler for normal repo operations.
+# Keep this file as a shape reference only; do not copy it to
+# proxmox.auto.tfvars unless you intentionally want a local Terraform override.
+#
+# The `just tf` wrapper uses `doppler run --name-transformer tf-var --` to
+# expose these uppercase Doppler keys as Terraform's lowercase TF_VAR_* names:
+#
+# PROXMOX_ENDPOINT="https://10.0.40.11:8006"
+# PROXMOX_INSECURE=true
+# PROXMOX_NODE="pve-1"
+# PROXMOX_TOKEN_ID="replace-me"
+# PROXMOX_TOKEN_SECRET="00000000-0000-0000-0000-000000000000"
 
 # Optional: override VM IPs, sizes, nodes, or DNS from management_variables.tf.
 # vms = {

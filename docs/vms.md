@@ -31,14 +31,30 @@ VM definitions live in:
 infra/management_variables.tf
 ```
 
-Local secret values should come from `.envrc` or Doppler as `TF_VAR_...`
-exports. After changing `.envrc`, run:
+Terraform values should come from Doppler. The `just tf` wrapper runs
+`doppler run --name-transformer tf-var -- ...`, so uppercase Doppler keys are
+exposed to Terraform as the lowercase `TF_VAR_...` names it expects.
 
-```sh
-direnv allow
+Required Doppler keys:
+
+```text
+PROXMOX_ENDPOINT
+PROXMOX_INSECURE
+PROXMOX_NODE
+PROXMOX_TOKEN_ID
+PROXMOX_TOKEN_SECRET
+CLOUDFLARE_ENABLED
+CLOUDFLARE_API_TOKEN
+CLOUDFLARE_ACCOUNT_ID
+CLOUDFLARE_ZONE_ID
+CLOUDFLARE_ZONE_NAME
+CLOUDFLARE_CREATE_TUNNEL
+CLOUDFLARE_TUNNEL_NAME
+CLOUDFLARE_MANAGE_TUNNEL_CONFIG
+CLOUDFLARE_ACCESS_ENABLED
 ```
 
-Reference templates:
+Reference templates are kept for shape only:
 
 ```text
 infra/proxmox.auto.tfvars.example

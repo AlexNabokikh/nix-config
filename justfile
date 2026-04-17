@@ -49,7 +49,7 @@ repl:
 
 # Run Terraform config from the infra directory, for example: just tf init; just tf plan
 tf *args:
-    TMPDIR=/tmp terraform -chdir=infra {{args}}
+    @TMPDIR=/tmp doppler run --name-transformer tf-var -- terraform -chdir=infra {{args}}
 
 # Initialize Terraform providers
 tf-init:
@@ -103,7 +103,7 @@ vm-apply: vm-build
 
 # Recreate the managed VMs from the cloud image
 vm-recreate: vm-build
-    TMPDIR=/tmp terraform -chdir=infra apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]'
+    just tf apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]'
 
 # Recreate VMs, then apply NixOS configs
 vm-redeploy: vm-recreate
@@ -115,7 +115,7 @@ vm-redeploy: vm-recreate
 vm-wait hostname="trinity" identity="~/.ssh/id_macbook_fs":
     #!/usr/bin/env bash
     set -euo pipefail
-    target=$(TMPDIR=/tmp terraform -chdir=infra output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    target=$(just tf output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
     if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
       echo "No static SSH target found for {{hostname}} in Terraform output" >&2
       exit 1
@@ -137,7 +137,7 @@ vm-wait hostname="trinity" identity="~/.ssh/id_macbook_fs":
 vm-switch hostname="trinity":
     #!/usr/bin/env bash
     set -euo pipefail
-    target=$(TMPDIR=/tmp terraform -chdir=infra output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    target=$(just tf output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
     if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
       echo "No static SSH target found for {{hostname}} in Terraform output" >&2
       exit 1
@@ -145,7 +145,7 @@ vm-switch hostname="trinity":
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
     nix run nixpkgs#nixos-rebuild -- switch --impure --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
     # After switch, connect Tailscale
-    auth_key=$(doppler secrets get TAILSCALE_AUTH_KEY --plain)
+    auth_key=$(doppler run -- printenv TAILSCALE_AUTH_KEY)
     ssh $NIX_SSHOPTS "$target" "sudo tailscale up --auth-key='$auth_key' --ssh" || true
 
 # Switch all deployed NixOS VMs

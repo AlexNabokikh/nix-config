@@ -73,6 +73,10 @@ just tf-upgrade
 just tf-validate
 ```
 
+`just tf` runs Terraform through `doppler run --name-transformer tf-var --`, so
+uppercase Doppler keys such as `PROXMOX_TOKEN_SECRET` and `CLOUDFLARE_API_TOKEN`
+are exposed as Terraform's expected `TF_VAR_...` environment variables.
+
 ## VM Deployment
 
 `vm-build`
