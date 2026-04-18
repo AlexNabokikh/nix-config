@@ -7,6 +7,7 @@ in
     imports = [
       generic.profile
       generic.primaryUser
+      generic.primaryUserHome
       generic.nixSettings
     ];
   };

@@ -1,7 +1,6 @@
 { inputs, config, ... }:
 let
   inherit (config.flake.modules) nixos;
-  username = "nabokikh";
 in
 {
   configurations.nixos.energy.module = {
@@ -14,16 +13,7 @@ in
       nixos.gaming
     ];
 
-    primaryUser = username;
+    primaryUser = "nabokikh";
     system.stateVersion = "26.05";
-
-    home-manager.users.${username} = {
-      programs.home-manager.enable = true;
-      home = {
-        inherit username;
-        homeDirectory = "/home/${username}";
-        stateVersion = "26.05";
-      };
-    };
   };
 }
