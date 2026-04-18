@@ -1,20 +1,27 @@
-{ inputs, lib, config, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
 {
   options.configurations.darwin = lib.mkOption {
-    type = lib.types.lazyAttrsOf (lib.types.submodule {
-      options = {
-        system = lib.mkOption {
-          type = lib.types.str;
-          default = "aarch64-darwin";
-          description = "System architecture";
+    type = lib.types.lazyAttrsOf (
+      lib.types.submodule {
+        options = {
+          system = lib.mkOption {
+            type = lib.types.str;
+            default = "aarch64-darwin";
+            description = "System architecture";
+          };
+          module = lib.mkOption {
+            type = lib.types.deferredModule;
+            default = { };
+            description = "nix-darwin module for this configuration";
+          };
         };
-        module = lib.mkOption {
-          type = lib.types.deferredModule;
-          default = { };
-          description = "nix-darwin module for this configuration";
-        };
-      };
-    });
+      }
+    );
     default = { };
     description = "nix-darwin system configurations";
   };

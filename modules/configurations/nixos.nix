@@ -1,13 +1,20 @@
-{ inputs, lib, config, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
 {
   options.configurations.nixos = lib.mkOption {
-    type = lib.types.lazyAttrsOf (lib.types.submodule {
-      options.module = lib.mkOption {
-        type = lib.types.deferredModule;
-        default = { };
-        description = "NixOS module for this configuration";
-      };
-    });
+    type = lib.types.lazyAttrsOf (
+      lib.types.submodule {
+        options.module = lib.mkOption {
+          type = lib.types.deferredModule;
+          default = { };
+          description = "NixOS module for this configuration";
+        };
+      }
+    );
     default = { };
     description = "NixOS system configurations";
   };
