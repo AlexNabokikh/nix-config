@@ -12,7 +12,6 @@
         enableCompletion = true;
         shellAliases = {
           ff = "fastfetch";
-          open = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "xdg-open";
 
           # git
           gaa = "git add --all";
@@ -69,6 +68,9 @@
           ll = "eza -bhl --icons --group-directories-first"; # long list
           la = "eza -abhl --icons --group-directories-first"; # all list
           lt = "eza --tree --level=2 --icons"; # tree
+        }
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+          open = "xdg-open";
         };
         initContent = ''
           # kubectl auto-complete
