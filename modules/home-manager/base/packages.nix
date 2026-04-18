@@ -13,7 +13,6 @@
         with pkgs;
         [
           awscli2
-          bat
           brave
           dig
           eza
