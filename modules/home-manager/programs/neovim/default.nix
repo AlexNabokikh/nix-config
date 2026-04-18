@@ -17,7 +17,6 @@
         extraPackages = with pkgs; [
           bash-language-server
           black
-          eslint
           gopls
           gotools
           hadolint
