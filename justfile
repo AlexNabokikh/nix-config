@@ -3,20 +3,50 @@
 # Determine the hostname dynamically
 hostname := `hostname`
 system := `uname -s`
+enabled_darwin_hosts := "neo"
+enabled_vm_hosts := "trinity"
+enabled_nixos_hosts := "morpheus"
 
 # Default recipe: Shows available commands
 default:
     @just --list
 
+# Print a colored section banner for long-running recipes.
+_banner color lane target action:
+    @printf '\n\033[1;{{color}}m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m\n'
+    @printf '\033[1;{{color}}m%s :: %s\033[0m\n' "{{lane}}" "{{target}}"
+    @printf '\033[{{color}}m%s\033[0m\n' "{{action}}"
+    @printf '\033[1;{{color}}m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m\n'
+
 # ============================================================================
 # Quick Update Commands
 # ============================================================================
 
-# Quick system and home update dynamically (update + darwin + home)
-quick-update: update darwin-switch home-switch
+# Update flake inputs, then switch every enabled deployment lane.
+quick-update: update darwin-switch nixos-switch vm-switch
 
-# Quick system and home update for macvm-fs
-quick-update-macvm-fs: update darwin-switch-macvm-fs home-switch-macvm-fs
+# Update flake inputs, then switch one enabled deployment lane.
+quick-update-lane lane:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{lane}}" in
+      darwin)
+        just update
+        just darwin-switch
+        ;;
+      nixos)
+        just update
+        just nixos-switch
+        ;;
+      vm)
+        just update
+        just vm-switch
+        ;;
+      *)
+        echo "Unknown lane '{{lane}}'. Expected one of: darwin, nixos, vm" >&2
+        exit 1
+        ;;
+    esac
 
 # ============================================================================
 # Flake Management
@@ -24,23 +54,17 @@ quick-update-macvm-fs: update darwin-switch-macvm-fs home-switch-macvm-fs
 
 # Update flake inputs
 update:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "📦 Updating flake inputs..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    @just _banner 33 flake inputs "Updating flake inputs"
     doppler run -- nix flake update
 
 # Verify flake configuration
 verify-flake:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "✅ Verifying flake configuration..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    @just _banner 33 flake check "Verifying flake configuration"
     doppler run -- nix flake check
 
 # Open nix repl with current flake
 repl:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔍 Opening Nix REPL..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    @just _banner 33 flake repl "Opening Nix REPL"
     doppler run -- nix repl .#
 
 # ============================================================================
@@ -63,13 +87,13 @@ tf-upgrade:
 tf-validate:
     just tf validate
 
-# Plan VM infrastructure changes
-vm-plan: vm-build
-    just tf plan -parallelism=1
-
 # ============================================================================
 # Proxmox NixOS VMs
 # ============================================================================
+
+# Plan VM infrastructure changes after building the shared cloud image.
+vm-plan: vm-build
+    just tf plan -parallelism=1
 
 # Build the NixOS cloud image used by Terraform
 vm-build:
@@ -101,15 +125,14 @@ vm-build:
 vm-apply: vm-build
     just tf apply -parallelism=1 -auto-approve
 
-# Recreate the managed VMs from the cloud image
-vm-recreate: vm-build
-    just tf apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["trinity"]'
+# Recreate one Terraform-managed VM from the cloud image.
+vm-recreate hostname="trinity": vm-build
+    just tf apply -parallelism=1 -auto-approve -replace='proxmox_virtual_environment_vm.vm["{{hostname}}"]'
 
 # Recreate VMs, then apply NixOS configs
 vm-redeploy: vm-recreate
     just vm-wait trinity
-    # just vm-wait morpheus
-    just vm-switch-all
+    just vm-switch
 
 # Wait for SSH on a VM declared in Terraform
 vm-wait hostname="trinity" identity="~/.ssh/id_macbook_fs":
@@ -133,115 +156,230 @@ vm-wait hostname="trinity" identity="~/.ssh/id_macbook_fs":
     echo "${target} did not become reachable in time" >&2
     exit 1
 
-# Switch NixOS config on a VM
-vm-switch hostname="trinity":
+# Switch NixOS config on all enabled VMs, or pass a hostname to switch one VM.
+vm-switch hostname="all":
     #!/usr/bin/env bash
     set -euo pipefail
+    if [ "{{hostname}}" = "all" ]; then
+      for host in {{enabled_vm_hosts}}; do
+        just vm-switch "$host"
+      done
+      exit 0
+    fi
     target=$(just tf output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
     if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
       echo "No static SSH target found for {{hostname}} in Terraform output" >&2
       exit 1
     fi
+    just _banner 35 vm "{{hostname}}" "Switching NixOS VM on ${target}"
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
     nix run nixpkgs#nixos-rebuild -- switch --impure --flake .#{{hostname}} --target-host "$target" --build-host "$target" --sudo --no-reexec
     # After switch, connect Tailscale
     auth_key=$(doppler run -- printenv TAILSCALE_AUTH_KEY)
     ssh $NIX_SSHOPTS "$target" "sudo tailscale up --auth-key='$auth_key' --ssh" || true
 
-# Switch all deployed NixOS VMs
+# Switch all enabled VM hosts.
 vm-switch-all:
-    just vm-switch trinity
-    # just vm-switch morpheus
+    just vm-switch
 
 # Full VM deploy: build image, let Terraform create/update cloud-init VMs, then apply NixOS configs
 vm-deploy: vm-apply
     just vm-wait trinity
-    # just vm-wait morpheus
-    just vm-switch-all
-
-# Switch Nix Darwin configuration for neo
-darwin-switch-neo:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔄 Switching Nix Darwin configuration for neo..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- sudo nix run nix-darwin -- switch --flake .#neo
-
-# Switch Home Manager configuration for neo
-home-switch-neo:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🏠 Switching Home Manager configuration for fs@neo..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- home-manager switch --flake .#fs@neo
+    just vm-switch
 
 # ============================================================================
 # Darwin (macOS System) Management
 # ============================================================================
 
-# Switch Nix Darwin configuration dynamically
-darwin-switch:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔄 Switching Nix Darwin configuration for {{hostname}}..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- sudo nix run nix-darwin -- switch --flake .#{{hostname}}
+# Switch nix-darwin and Home Manager on all enabled Macs, or pass a hostname to switch one Mac.
+darwin-switch host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_darwin_hosts}}; do
+        just darwin-switch "$h"
+      done
+      exit 0
+    fi
 
-# Switch Nix Darwin configuration for macvm-fs
+    just _banner 36 darwin "{{host}}" "Switching nix-darwin configuration"
+    doppler run -- sudo nix run nix-darwin -- switch --flake .#{{host}}
+
+    just darwin-home-switch "{{host}}"
+
+# Switch Home Manager on all enabled Macs, or pass a hostname to switch one Mac.
+darwin-home-switch host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_darwin_hosts}}; do
+        just darwin-home-switch "$h"
+      done
+      exit 0
+    fi
+
+    just _banner 34 home "fs@{{host}}" "Switching Home Manager configuration"
+    doppler run -- home-manager switch --flake .#fs@{{host}}
+
+# Build nix-darwin and Home Manager on all enabled Macs, or pass a hostname to build one Mac.
+darwin-build host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_darwin_hosts}}; do
+        just darwin-build "$h"
+      done
+      exit 0
+    fi
+
+    just _banner 36 darwin "{{host}}" "Building nix-darwin configuration"
+    doppler run -- nix run nix-darwin -- build --flake .#{{host}}
+
+    just darwin-home-build "{{host}}"
+
+# Build Home Manager on all enabled Macs, or pass a hostname to build one Mac.
+darwin-home-build host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_darwin_hosts}}; do
+        just darwin-home-build "$h"
+      done
+      exit 0
+    fi
+
+    just _banner 34 home "fs@{{host}}" "Building Home Manager configuration"
+    doppler run -- home-manager build --flake .#fs@{{host}}
+
+# Compatibility alias for the old explicit neo command.
+darwin-switch-neo:
+    just darwin-switch neo
+
+# Compatibility alias for the old explicit neo home command.
+home-switch-neo:
+    just darwin-home-switch neo
+
+# Compatibility alias for the old explicit macvm-fs command.
 darwin-switch-macvm-fs:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔄 Switching Nix Darwin configuration for macvm-fs..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- sudo nix run nix-darwin -- switch --flake .#macvm-fs
+    just darwin-switch macvm-fs
 
-# Build Darwin configuration dynamically without switching
-darwin-build:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔨 Building Nix Darwin configuration for {{hostname}}..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- nix run nix-darwin -- build --flake .#{{hostname}}
+# Compatibility alias for the old explicit macvm-fs home command.
+home-switch-macvm-fs:
+    just darwin-home-switch macvm-fs
 
-# Build Darwin configuration for macvm-fs without switching
+# Compatibility alias for the old explicit macvm-fs build command.
 darwin-build-macvm-fs:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔨 Building Nix Darwin configuration for macvm-fs..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- nix run nix-darwin -- build --flake .#macvm-fs
+    just darwin-build macvm-fs
+
+# ============================================================================
+# Physical NixOS Host Management
+# ============================================================================
+
+# Resolve SSH target for a physical NixOS host.
+_nixos-target host:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{host}}" in
+      morpheus)
+        echo "root@10.0.40.19"
+        ;;
+      *)
+        echo "No physical NixOS target configured for '{{host}}'" >&2
+        exit 1
+        ;;
+    esac
+
+# Verify a physical NixOS host is reachable before starting a remote build or switch.
+_nixos-check-ssh host target:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no "{{target}}" true >/dev/null 2>&1; then
+      exit 0
+    fi
+
+    cat >&2 <<'EOF'
+    Cannot reach physical NixOS host {{host}} at {{target}} over SSH.
+
+    Check that this machine is on the same LAN/VPN as the server, or that the
+    server is already reachable through Tailscale. For morpheus, the direct LAN
+    target is 10.0.40.19.
+    EOF
+    exit 1
+
+# Build NixOS on all enabled physical hosts, or pass a hostname to build one host.
+nixos-build host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_nixos_hosts}}; do
+        just nixos-build "$h"
+      done
+      exit 0
+    fi
+
+    target=$(just _nixos-target "{{host}}")
+    just _nixos-check-ssh "{{host}}" "$target"
+    just _banner 32 nixos "{{host}}" "Building physical host on ${target}"
+    export NIX_SSHOPTS="-o StrictHostKeyChecking=no"
+    nix run nixpkgs#nixos-rebuild -- build --flake .#{{host}} --target-host "$target" --build-host "$target" --no-reexec
+
+# Switch NixOS on all enabled physical hosts, or pass a hostname to switch one host.
+nixos-switch host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_nixos_hosts}}; do
+        just nixos-switch "$h"
+      done
+      exit 0
+    fi
+
+    target=$(just _nixos-target "{{host}}")
+    just _nixos-check-ssh "{{host}}" "$target"
+    just _banner 32 nixos "{{host}}" "Switching physical host on ${target}"
+    export NIX_SSHOPTS="-o StrictHostKeyChecking=no"
+    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{host}} --target-host "$target" --build-host "$target" --no-reexec
+
+    auth_key=$(doppler run -- printenv TAILSCALE_AUTH_KEY 2>/dev/null || true)
+    if [ -n "$auth_key" ]; then
+      ssh $NIX_SSHOPTS "$target" "tailscale up --auth-key='$auth_key' --ssh" || true
+    fi
+
+# Compatibility alias for switching all enabled physical NixOS hosts.
+nixos-switch-all:
+    just nixos-switch
+
+# Compatibility alias for building all enabled physical NixOS hosts.
+nixos-build-all:
+    just nixos-build
 
 # ============================================================================
 # Home Manager (User Environment) Management
 # ============================================================================
 
-# Switch Home Manager configuration dynamically
-home-switch:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🏠 Switching Home Manager configuration for fs@{{hostname}}..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- home-manager switch --flake .#fs@{{hostname}}
+# Switch Home Manager for the current local host, or pass a host explicitly.
+home-switch host="current":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    target="{{host}}"
+    if [ "$target" = "current" ]; then
+      target="{{hostname}}"
+    fi
+    just darwin-home-switch "$target"
 
-# Switch Home Manager configuration for macvm-fs
-home-switch-macvm-fs:
-    @echo ""
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🏠 Switching Home Manager configuration for fs@macvm-fs..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- home-manager switch --flake .#fs@macvm-fs
+# Build Home Manager for the current local host, or pass a host explicitly.
+home-build host="current":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    target="{{host}}"
+    if [ "$target" = "current" ]; then
+      target="{{hostname}}"
+    fi
+    just darwin-home-build "$target"
 
-# Build Home Manager configuration dynamically without switching
-home-build:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔨 Building Home Manager configuration for fs@{{hostname}}..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- home-manager build --flake .#fs@{{hostname}}
-
-# Build Home Manager configuration for macvm-fs without switching
+# Compatibility alias for the old explicit macvm-fs home build command.
 home-build-macvm-fs:
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    @echo "🔨 Building Home Manager configuration for fs@macvm-fs..."
-    @echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    doppler run -- home-manager build --flake .#fs@macvm-fs
+    just darwin-home-build macvm-fs
 
 # ============================================================================
 # System Information

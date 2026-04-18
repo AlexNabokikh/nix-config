@@ -199,7 +199,7 @@
     nixosConfigurations = {
       "nixos" = mkNixosConfiguration "nixos" "fs";
       "trinity" = mkNixosConfiguration "trinity" "fs";
-      # "morpheus" = mkNixosConfiguration "morpheus" "fs"; #! temporary removal
+      "morpheus" = mkNixosConfiguration "morpheus" "fs";
       "vm-cloud-image" = mkCloudImage "fs";
     };
 

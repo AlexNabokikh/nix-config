@@ -11,28 +11,58 @@ just --list
 Most recipes wrap their command with `doppler run --` so secrets and local
 environment values are available consistently.
 
-## Daily Mac Commands
+## Daily Commands
 
 `quick-update`
-: Updates the flake lock, switches nix-darwin for the current hostname, then
-switches Home Manager for `fs@<hostname>`.
+: Updates the flake lock, then switches every enabled deployment lane:
+`darwin-switch`, `nixos-switch`, and `vm-switch`.
 
-`quick-update-macvm-fs`
-: Same flow, pinned to `macvm-fs`.
+Long-running recipes print colored section banners so the `quick-update` output
+is easier to scan. Flake/update steps are yellow, Darwin is cyan, Home Manager
+is blue, physical NixOS hosts are green, and VMs are magenta.
 
-`darwin-switch`
-: Applies the nix-darwin configuration matching the current hostname.
+Current enabled targets:
+
+| Lane | Default Targets | What It Switches |
+|------|-----------------|------------------|
+| `darwin-*` | `neo` | nix-darwin plus `fs@neo` Home Manager |
+| `nixos-*` | `morpheus` | Physical NixOS host config over SSH |
+| `vm-*` | `trinity` | Terraform-managed NixOS VM config over SSH |
 
 `home-switch`
-: Applies the Home Manager configuration matching `fs@<hostname>`.
+: Keeps the old local muscle memory. It switches Home Manager for the current
+hostname, or for an explicit host with `just home-switch <hostname>`.
 
-`darwin-build` and `home-build`
-: Build the current hostname's Darwin or Home Manager output without switching.
+`quick-update-lane <lane>`
+: Updates the flake lock, then switches one lane. Valid lanes are `darwin`,
+`nixos`, and `vm`.
 
-## Explicit Host Commands
+## Darwin Hosts
 
-Use these when the machine hostname does not match the flake output, or when
-working from another host:
+Darwin recipes target all enabled Macs by default. Pass a hostname to target one
+Mac.
+
+```sh
+just darwin-switch
+just darwin-switch neo
+just darwin-build
+just darwin-build neo
+just darwin-home-switch
+just darwin-home-switch neo
+just darwin-home-build
+just darwin-home-build neo
+```
+
+`darwin-switch`
+: Applies nix-darwin, then applies the matching Home Manager output.
+
+`darwin-build`
+: Builds nix-darwin, then builds the matching Home Manager output.
+
+`darwin-home-switch` and `darwin-home-build`
+: Run only the Home Manager half of the Darwin lane.
+
+Compatibility aliases remain for older habits:
 
 ```sh
 just darwin-switch-neo
@@ -42,6 +72,33 @@ just home-switch-macvm-fs
 just darwin-build-macvm-fs
 just home-build-macvm-fs
 ```
+
+## Physical NixOS Hosts
+
+Physical NixOS recipes target all enabled physical hosts by default. Pass a
+hostname to target one host.
+
+```sh
+just nixos-build
+just nixos-build morpheus
+just nixos-switch
+just nixos-switch morpheus
+```
+
+`nixos-build`
+: Builds the physical host remotely with `nixos-rebuild build`.
+
+`nixos-switch`
+: Switches the physical host remotely with `nixos-rebuild switch`, then tries
+to authenticate Tailscale with `TAILSCALE_AUTH_KEY` if that secret is available.
+
+Both physical NixOS recipes check SSH reachability before starting the remote
+build or switch. If `10.0.40.19` is unreachable, run them from the same LAN/VPN
+as Morpheus, or use a reachable Tailscale target once the host has joined
+Tailscale.
+
+Physical host SSH targets are resolved in the private `_nixos-target` recipe in
+the `justfile`. At the moment, `morpheus` resolves to `root@10.0.40.19`.
 
 ## Flake Management
 
@@ -90,21 +147,23 @@ runs the Linux build inside Docker.
 : Builds the cloud image, uploads/imports it through Terraform, and applies VM
 infrastructure changes.
 
-`vm-recreate`
-: Rebuilds the image and recreates selected managed VMs from it. At the moment
-this only replaces `trinity`; `morpheus` is intentionally commented out.
+`vm-recreate <hostname>`
+: Rebuilds the image and recreates one Terraform-managed VM from it. The
+default host is `trinity`.
 
 `vm-wait <hostname>`
 : Reads the host's SSH target from Terraform output and waits until SSH is
 reachable.
 
+`vm-switch`
+: Switches all enabled VM hosts. At the moment this switches `trinity`.
+
 `vm-switch <hostname>`
-: Runs `nixos-rebuild switch` remotely against a Terraform-managed VM, then
+: Runs `nixos-rebuild switch` remotely against one Terraform-managed VM, then
 attempts to bring up Tailscale SSH.
 
 `vm-switch-all`
-: Switches all currently enabled VM hosts. At the moment this switches
-`trinity`; `morpheus` is intentionally commented out.
+: Compatibility alias for `vm-switch`.
 
 `vm-deploy`
 : Full VM path: build image, apply Terraform, wait for SSH, and switch the VM
