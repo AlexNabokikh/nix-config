@@ -1,11 +1,10 @@
 { config, ... }:
 let
-  inherit (config.flake.modules) generic homeManager nixos;
+  inherit (config.flake.modules) homeManager nixos;
 in
 {
   flake.modules.nixos.stackNiri = {
     imports = [
-      generic.noctaliaCache
       nixos.desktopCompositorCommon
       nixos.desktopNiri
     ];
