@@ -1,12 +1,10 @@
 { ... }:
 {
-  flake.modules.homeManager.desktopAerospace =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      home.packages = [ pkgs.aerospace ];
-      home.file.".aerospace.toml".source = ./aerospace.toml;
+  flake.modules.homeManager.desktopAerospace = {
+    programs.aerospace = {
+      enable = true;
+      launchd.enable = true;
+      settings = builtins.fromTOML (builtins.readFile ./aerospace.toml);
     };
+  };
 }
