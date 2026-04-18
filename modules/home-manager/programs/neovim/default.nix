@@ -36,6 +36,7 @@
           tofu-ls
           tree-sitter
           typescript-language-server
+          vscode-langservers-extracted
           yaml-language-server
         ];
       };
