@@ -152,17 +152,20 @@ Fork the repository and clone your own copy.
 
 ### 2. Replace The Personal Profile
 
-Edit:
-
-- `modules/profile/preferences.nix`
-
-Replace:
+Edit `modules/profile/preferences.nix` and replace:
 
 - full name
 - email
 - git key
 
-You can also set avatar, wallpaper, fonts, icon theme, locale and time zone of your choice.
+You can also adjust fonts, icon theme, cursor theme, Catppuccin flavor/accent, locale and time zone in the same file.
+
+Replace the asset files in `modules/profile/` to match your identity:
+
+- `modules/profile/avatar` — user avatar image
+- `modules/profile/wallpaper.jpg` — desktop wallpaper
+
+The other files in `modules/profile/` (`primary-user.nix`, `primary-user-home.nix`) are infrastructure — they define the `primaryUser` option and wire Home Manager from it. You generally do not need to edit them.
 
 ### 3. Remove Machines You Do Not Need
 
@@ -195,7 +198,6 @@ Minimal example:
 { inputs, config, ... }:
 let
   inherit (config.flake.modules) nixos;
-  username = "your-user";
 in
 {
   configurations.nixos.laptop.module = {
@@ -205,17 +207,8 @@ in
       nixos.stackHyprland
     ];
 
-    primaryUser = username;
+    primaryUser = "your-user";
     system.stateVersion = "26.05";
-
-    home-manager.users.${username} = {
-      programs.home-manager.enable = true;
-      home = {
-        inherit username;
-        homeDirectory = "/home/${username}";
-        stateVersion = "26.05";
-      };
-    };
   };
 }
 ```
@@ -225,8 +218,8 @@ For a new macOS host:
 1. Create `modules/hosts/my-mac/default.nix`
 2. Start from `modules/hosts/work-mac/default.nix`
 3. Change:
-   - hostname attr
-   - username
+   - the configuration attribute name (e.g. `configurations.darwin."my-mac".module`) — this becomes the flake output name and should match the machine's hostname so the `Makefile` defaults work
+   - `primaryUser`
    - stack choice
 
 The new host will be auto-imported by `import-tree` — no manual registration needed.
@@ -268,6 +261,8 @@ make nixos-rebuild
 make darwin-rebuild
 make flake-check
 ```
+
+Run `make help` for the full target list.
 
 The `Makefile` defaults to:
 
