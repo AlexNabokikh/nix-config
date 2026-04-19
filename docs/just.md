@@ -26,7 +26,7 @@ Current enabled targets:
 | Lane | Default Targets | What It Switches |
 |------|-----------------|------------------|
 | `darwin-*` | `neo` | nix-darwin plus `fs@neo` Home Manager |
-| `nixos-*` | `morpheus` | Physical NixOS host config over SSH |
+| `nixos-*` | `morpheus` | Physical NixOS host plus `fs@morpheus` Home Manager over SSH |
 | `vm-*` | `trinity` | Terraform-managed NixOS VM config over SSH |
 
 `home-switch`
@@ -83,22 +83,38 @@ just nixos-build
 just nixos-build morpheus
 just nixos-switch
 just nixos-switch morpheus
+just nixos-home-build
+just nixos-home-build morpheus
+just nixos-home-switch
+just nixos-home-switch morpheus
 ```
 
 `nixos-build`
-: Builds the physical host remotely with `nixos-rebuild build`.
+: Builds the physical host remotely with `nixos-rebuild build`, then builds the
+matching Home Manager activation package.
 
 `nixos-switch`
-: Switches the physical host remotely with `nixos-rebuild switch`, then tries
-to authenticate Tailscale with `TAILSCALE_AUTH_KEY` if that secret is available.
+: Switches the physical host remotely with `nixos-rebuild switch`, tries to
+authenticate Tailscale with `TAILSCALE_AUTH_KEY` if that secret is available,
+then switches the matching Home Manager profile.
+
+`nixos-home-build`
+: Builds only the physical host's Home Manager activation package. Linux Home
+Manager outputs are built on the physical host itself, so this works when
+driven from an Apple Silicon Mac.
+
+`nixos-home-switch`
+: Archives the current flake to the physical host, builds the Home Manager
+activation package there, then runs the activation script as `fs`.
 
 Both physical NixOS recipes check SSH reachability before starting the remote
 build or switch. If `10.0.40.19` is unreachable, run them from the same LAN/VPN
 as Morpheus, or use a reachable Tailscale target once the host has joined
 Tailscale.
 
-Physical host SSH targets are resolved in the private `_nixos-target` recipe in
-the `justfile`. At the moment, `morpheus` resolves to `root@10.0.40.19`.
+Physical host SSH targets are resolved in private recipes in the `justfile`. At
+the moment, `morpheus` resolves to `root@10.0.40.19` for system operations and
+`fs@10.0.40.19` for Home Manager activation.
 
 ## Flake Management
 

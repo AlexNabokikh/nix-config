@@ -289,6 +289,20 @@ _nixos-target host:
         ;;
     esac
 
+# Resolve user SSH target for a physical NixOS host.
+_nixos-home-target host:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{host}}" in
+      morpheus)
+        echo "fs@10.0.40.19"
+        ;;
+      *)
+        echo "No physical NixOS Home Manager target configured for '{{host}}'" >&2
+        exit 1
+        ;;
+    esac
+
 # Verify a physical NixOS host is reachable before starting a remote build or switch.
 _nixos-check-ssh host target:
     #!/usr/bin/env bash
@@ -322,6 +336,7 @@ nixos-build host="all":
     just _banner 32 nixos "{{host}}" "Building physical host on ${target}"
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no"
     nix run nixpkgs#nixos-rebuild -- build --flake .#{{host}} --target-host "$target" --build-host "$target" --no-reexec
+    just nixos-home-build "{{host}}"
 
 # Switch NixOS on all enabled physical hosts, or pass a hostname to switch one host.
 nixos-switch host="all":
@@ -345,6 +360,47 @@ nixos-switch host="all":
       ssh $NIX_SSHOPTS "$target" "tailscale up --auth-key='$auth_key' --ssh" || true
     fi
 
+    just nixos-home-switch "{{host}}"
+
+# Build Home Manager on all enabled physical NixOS hosts, or pass a hostname to build one host.
+nixos-home-build host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_nixos_hosts}}; do
+        just nixos-home-build "$h"
+      done
+      exit 0
+    fi
+
+    root_target=$(just _nixos-target "{{host}}")
+    just _nixos-check-ssh "{{host}}" "$root_target"
+    just _banner 34 home "fs@{{host}}" "Building Home Manager activation package on ${root_target}"
+    flake_path=$(nix flake archive --to "ssh://${root_target}" --json | jq -r .path)
+    ssh -o StrictHostKeyChecking=no "$root_target" \
+      "nix build --extra-experimental-features 'nix-command flakes' --print-out-paths --no-link '${flake_path}#homeConfigurations.\"fs@{{host}}\".activationPackage'"
+
+# Switch Home Manager on all enabled physical NixOS hosts, or pass a hostname to switch one host.
+nixos-home-switch host="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{host}}" = "all" ]; then
+      for h in {{enabled_nixos_hosts}}; do
+        just nixos-home-switch "$h"
+      done
+      exit 0
+    fi
+
+    root_target=$(just _nixos-target "{{host}}")
+    user_target=$(just _nixos-home-target "{{host}}")
+    just _nixos-check-ssh "{{host}}" "$root_target"
+    just _nixos-check-ssh "{{host}}" "$user_target"
+    just _banner 34 home "fs@{{host}}" "Switching Home Manager on ${user_target}"
+    flake_path=$(nix flake archive --to "ssh://${root_target}" --json | jq -r .path)
+    out=$(ssh -o StrictHostKeyChecking=no "$root_target" \
+      "nix build --extra-experimental-features 'nix-command flakes' --print-out-paths --no-link '${flake_path}#homeConfigurations.\"fs@{{host}}\".activationPackage'")
+    ssh -o StrictHostKeyChecking=no "$user_target" "$out/activate"
+
 # Compatibility alias for switching all enabled physical NixOS hosts.
 nixos-switch-all:
     just nixos-switch
@@ -352,6 +408,14 @@ nixos-switch-all:
 # Compatibility alias for building all enabled physical NixOS hosts.
 nixos-build-all:
     just nixos-build
+
+# Compatibility alias for switching Home Manager on all enabled physical NixOS hosts.
+nixos-home-switch-all:
+    just nixos-home-switch
+
+# Compatibility alias for building Home Manager on all enabled physical NixOS hosts.
+nixos-home-build-all:
+    just nixos-home-build
 
 # ============================================================================
 # Home Manager (User Environment) Management
