@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.programsSaml2aws =
     { pkgs, ... }:

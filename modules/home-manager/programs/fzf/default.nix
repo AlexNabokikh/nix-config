@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.programsFzf =
     { pkgs, ... }:

@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.nixos.base =
     { pkgs, ... }:
@@ -12,9 +11,11 @@
           "splash"
           "rd.udev.log_level=3"
         ];
-        loader.efi.canTouchEfiVariables = true;
-        loader.systemd-boot.enable = true;
-        loader.timeout = 0;
+        loader = {
+          efi.canTouchEfiVariables = true;
+          systemd-boot.enable = true;
+          timeout = 0;
+        };
         plymouth.enable = true;
       };
     };

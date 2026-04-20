@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.programsK8s =
     { pkgs, ... }:

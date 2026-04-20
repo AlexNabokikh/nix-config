@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.generic.primaryUser =
     { lib, ... }:

@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.darwin.base = {
     system.defaults.CustomUserPreferences = {

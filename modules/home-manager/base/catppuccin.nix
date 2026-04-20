@@ -1,12 +1,11 @@
-{ ... }:
 {
   flake.modules.homeManager.base =
     { config, ... }:
     {
       catppuccin = {
         enable = true;
-        flavor = config.profile.appearance.catppuccin.flavor;
-        accent = config.profile.appearance.catppuccin.accent;
+        inherit (config.profile.appearance.catppuccin) flavor;
+        inherit (config.profile.appearance.catppuccin) accent;
       };
     };
 }

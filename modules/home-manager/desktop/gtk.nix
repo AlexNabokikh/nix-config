@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.desktopGtk =
     {
@@ -25,12 +24,12 @@
         gtk4.theme = gtkTheme;
         theme = gtkTheme;
         iconTheme = lib.mkForce {
-          name = config.profile.appearance.iconTheme.name;
-          package = config.profile.appearance.iconTheme.package;
+          inherit (config.profile.appearance.iconTheme) name;
+          inherit (config.profile.appearance.iconTheme) package;
         };
         font = {
           name = config.profile.appearance.fonts.ui.family;
-          size = config.profile.appearance.fonts.ui.size;
+          inherit (config.profile.appearance.fonts.ui) size;
         };
         gtk3.bookmarks = [
           "file://${config.home.homeDirectory}/Documents"

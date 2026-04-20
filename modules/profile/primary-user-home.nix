@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.generic.primaryUserHome =
     {

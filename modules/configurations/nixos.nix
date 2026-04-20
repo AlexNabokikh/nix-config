@@ -41,7 +41,7 @@
       name: cfg:
       let
         nixos = config.flake.nixosConfigurations.${name};
-        system = nixos.config.nixpkgs.hostPlatform.system;
+        inherit (nixos.config.nixpkgs.hostPlatform) system;
       in
       {
         ${system} = {

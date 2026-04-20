@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.homeManager.programsAlacritty =
     {
@@ -58,19 +57,19 @@
               else
                 config.profile.appearance.fonts.terminal.size.linux;
             normal = {
-              family = config.profile.appearance.fonts.terminal.family;
+              inherit (config.profile.appearance.fonts.terminal) family;
               style = "Regular";
             };
             bold = {
-              family = config.profile.appearance.fonts.terminal.family;
+              inherit (config.profile.appearance.fonts.terminal) family;
               style = "Bold";
             };
             italic = {
-              family = config.profile.appearance.fonts.terminal.family;
+              inherit (config.profile.appearance.fonts.terminal) family;
               style = "Italic";
             };
             bold_italic = {
-              family = config.profile.appearance.fonts.terminal.family;
+              inherit (config.profile.appearance.fonts.terminal) family;
               style = "Bold Italic";
             };
           };

@@ -7,7 +7,7 @@
       ...
     }:
     let
-      catppuccin = config.profile.appearance.catppuccin;
+      inherit (config.profile.appearance) catppuccin;
       uiFont = config.profile.appearance.fonts.ui.family;
       monospaceFont = config.profile.appearance.fonts.monospace.family;
 

@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.nixos.desktopNiri =
     { pkgs, ... }:
