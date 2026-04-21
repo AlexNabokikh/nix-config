@@ -16,9 +16,9 @@ in
       homeManager.programsGit
       homeManager.programsGo
       homeManager.programsGpg
+      homeManager.programsGranted
       homeManager.programsK8s
       homeManager.programsNeovim
-      homeManager.programsSaml2aws
       homeManager.programsStarship
       homeManager.programsTmux
       homeManager.programsZsh
