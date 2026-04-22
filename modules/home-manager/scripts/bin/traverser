@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""iterate kube contexts and run a command with AWS env set."""
+
+import configparser
+import os
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+AWS_CONFIG = Path.home() / ".aws" / "config"
+ACCOUNT_RE = re.compile(r"^(\d{12})\.")
+
+
+def check_tools() -> None:
+    if shutil.which("kubectl") is None:
+        print("traverser: kubectl not found on PATH", file=sys.stderr)
+        sys.exit(1)
+
+
+def list_contexts() -> list[str]:
+    r = subprocess.run(
+        ["kubectl", "config", "get-contexts", "-o", "name"],
+        capture_output=True,
+        text=True,
+    )
+    if r.returncode != 0:
+        print(
+            f"traverser: failed to list contexts: {r.stderr.strip()}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    return [line for line in r.stdout.splitlines() if line.strip()]
+
+
+def get_current_context() -> str | None:
+    r = subprocess.run(
+        ["kubectl", "config", "current-context"],
+        capture_output=True,
+        text=True,
+    )
+    if r.returncode != 0:
+        return None
+    name = r.stdout.strip()
+
+    return name or None
+
+
+def set_current_context(ctx: str) -> None:
+    subprocess.run(
+        ["kubectl", "config", "use-context", ctx],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+
+def account_from_context(ctx: str) -> str | None:
+    m = ACCOUNT_RE.match(ctx)
+
+    return m.group(1) if m else None
+
+
+def load_aws_profiles() -> configparser.ConfigParser:
+    if not AWS_CONFIG.is_file():
+        print(f"traverser: {AWS_CONFIG} not found", file=sys.stderr)
+        sys.exit(1)
+    cp = configparser.ConfigParser()
+    cp.read(AWS_CONFIG)
+
+    return cp
+
+
+def profile_for_account(account_id: str, cp: configparser.ConfigParser) -> tuple[str, str | None] | None:
+    def region_of(section: str) -> str | None:
+        return cp[section].get("region", "").strip() or cp[section].get("granted_sso_region", "").strip() or None
+
+    for section in cp.sections():
+        if not section.startswith("profile "):
+            continue
+        if cp[section].get("granted_sso_account_id", "").strip() == account_id:
+            name = section[len("profile ") :].strip()
+
+            return name, region_of(section)
+
+    for section in cp.sections():
+        if not section.startswith("profile "):
+            continue
+
+        name = section[len("profile ") :].strip()
+        if name.startswith(f"{account_id}."):
+            return name, region_of(section)
+
+    return None
+
+
+def run_user_command(argv: list[str], env: dict) -> int:
+    try:
+        return subprocess.run(argv, env=env).returncode
+    except FileNotFoundError:
+        print(f"traverser: command not found: {argv[0]}", file=sys.stderr)
+        return 127
+
+
+def main() -> None:
+    if len(sys.argv) < 2:
+        print("usage: traverser <command> [args...]", file=sys.stderr)
+        sys.exit(2)
+    user_cmd = sys.argv[1:]
+
+    check_tools()
+    profiles = load_aws_profiles()
+    contexts = list_contexts()
+
+    if not contexts:
+        print("traverser: no contexts found", file=sys.stderr)
+        sys.exit(1)
+
+    original = get_current_context()
+    ran = skipped = failed = 0
+
+    try:
+        for ctx in contexts:
+            print(f"=== {ctx} ===")
+            account = account_from_context(ctx)
+
+            if account is None:
+                print("WARN no account ID in context (skipping)", file=sys.stderr)
+                skipped += 1
+                continue
+            match = profile_for_account(account, profiles)
+
+            if match is None:
+                print(
+                    f"WARN no AWS profile for account {account} (skipping)",
+                    file=sys.stderr,
+                )
+                skipped += 1
+                continue
+
+            profile, region = match
+            if not region:
+                print(
+                    f"WARN profile {profile} has no region (skipping)",
+                    file=sys.stderr,
+                )
+                skipped += 1
+                continue
+
+            set_current_context(ctx)
+            env = {
+                **os.environ,
+                "AWS_PROFILE": profile,
+                "AWS_REGION": region,
+                "AWS_DEFAULT_REGION": region,
+            }
+            rc = run_user_command(user_cmd, env)
+            if rc == 0:
+                ran += 1
+            else:
+                failed += 1
+    finally:
+        if original:
+            set_current_context(original)
+            print(f"restored context: {original}")
+
+    print(f"---\n{len(contexts)} contexts: {ran} ok, {skipped} skipped, {failed} failed")
+    sys.exit(0 if failed == 0 and ran > 0 else 1)
+
+
+if __name__ == "__main__":
+    main()
