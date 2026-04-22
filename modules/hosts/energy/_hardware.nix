@@ -17,6 +17,9 @@
     "usbhid"
     "sd_mod"
   ];
+  boot.kernelModules = [ "kvm-amd" ];
+
+  hardware.enableRedistributableFirmware = true;
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "ext4";
