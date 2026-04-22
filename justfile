@@ -18,6 +18,11 @@ _banner color lane target action:
     @printf '\033[{{color}}m%s\033[0m\n' "{{action}}"
     @printf '\033[1;{{color}}m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m\n'
 
+# Print a non-fatal skip message for aggregate recipes.
+_skip color lane target reason:
+    @printf '\n\033[1;{{color}}m%s :: %s\033[0m\n' "{{lane}}" "{{target}}"
+    @printf '\033[{{color}}mSkipping: %s\033[0m\n' "{{reason}}"
+
 # ============================================================================
 # Quick Update Commands
 # ============================================================================
@@ -162,7 +167,18 @@ vm-switch hostname="all":
     set -euo pipefail
     if [ "{{hostname}}" = "all" ]; then
       for host in {{enabled_vm_hosts}}; do
-        just vm-switch "$host"
+        target=$(just tf output -json ssh_targets | jq -r --arg hostname "$host" '.[$hostname].target // empty')
+        if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+          just _skip 35 vm "$host" "no static SSH target found"
+          continue
+        fi
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 35 vm "$host" "host is offline"
+          continue
+        fi
+        if ! just vm-switch "$host"; then
+          just _skip 35 vm "$host" "switch failed"
+        fi
       done
       exit 0
     fi
@@ -177,10 +193,86 @@ vm-switch hostname="all":
     # After switch, connect Tailscale
     auth_key=$(doppler run -- printenv TAILSCALE_AUTH_KEY)
     ssh $NIX_SSHOPTS "$target" "sudo tailscale up --auth-key='$auth_key' --ssh" || true
+    just vm-home-switch "{{hostname}}"
+
+# Build Home Manager on all enabled VM hosts, or pass a hostname to build one VM host.
+vm-home-build hostname="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{hostname}}" = "all" ]; then
+      for host in {{enabled_vm_hosts}}; do
+        target=$(just tf output -json ssh_targets | jq -r --arg hostname "$host" '.[$hostname].target // empty')
+        if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+          just _skip 34 home "fs@$host" "no static SSH target found"
+          continue
+        fi
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 34 home "fs@$host" "host is offline"
+          continue
+        fi
+        if ! just vm-home-build "$host"; then
+          just _skip 34 home "fs@$host" "Home Manager build failed"
+        fi
+      done
+      exit 0
+    fi
+
+    target=$(just tf output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+      echo "No static SSH target found for {{hostname}} in Terraform output" >&2
+      exit 1
+    fi
+    just _banner 34 home "fs@{{hostname}}" "Building Home Manager activation package on ${target}"
+    export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+    flake_path=$(nix flake archive --to "ssh://${target}" --json | jq -r .path)
+    ssh $NIX_SSHOPTS "$target" \
+      "nix build --extra-experimental-features 'nix-command flakes' --print-out-paths --no-link '${flake_path}#homeConfigurations.\"fs@{{hostname}}\".activationPackage'"
+
+# Switch Home Manager on all enabled VM hosts, or pass a hostname to switch one VM host.
+vm-home-switch hostname="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "{{hostname}}" = "all" ]; then
+      for host in {{enabled_vm_hosts}}; do
+        target=$(just tf output -json ssh_targets | jq -r --arg hostname "$host" '.[$hostname].target // empty')
+        if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+          just _skip 34 home "fs@$host" "no static SSH target found"
+          continue
+        fi
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 34 home "fs@$host" "host is offline"
+          continue
+        fi
+        if ! just vm-home-switch "$host"; then
+          just _skip 34 home "fs@$host" "Home Manager switch failed"
+        fi
+      done
+      exit 0
+    fi
+
+    target=$(just tf output -json ssh_targets | jq -r --arg hostname "{{hostname}}" '.[$hostname].target // empty')
+    if [ -z "$target" ] || [ "$target" = "DHCP_PENDING" ]; then
+      echo "No static SSH target found for {{hostname}} in Terraform output" >&2
+      exit 1
+    fi
+    just _banner 34 home "fs@{{hostname}}" "Switching Home Manager on ${target}"
+    export NIX_SSHOPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+    flake_path=$(nix flake archive --to "ssh://${target}" --json | jq -r .path)
+    out=$(ssh $NIX_SSHOPTS "$target" \
+      "nix build --extra-experimental-features 'nix-command flakes' --print-out-paths --no-link '${flake_path}#homeConfigurations.\"fs@{{hostname}}\".activationPackage'")
+    ssh $NIX_SSHOPTS "$target" "HOME_MANAGER_BACKUP_EXT=hm-backup HOME_MANAGER_BACKUP_OVERWRITE=1 '$out/activate'"
 
 # Switch all enabled VM hosts.
 vm-switch-all:
     just vm-switch
+
+# Switch Home Manager on all enabled VM hosts.
+vm-home-switch-all:
+    just vm-home-switch
+
+# Build Home Manager on all enabled VM hosts.
+vm-home-build-all:
+    just vm-home-build
 
 # Full VM deploy: build image, let Terraform create/update cloud-init VMs, then apply NixOS configs
 vm-deploy: vm-apply
@@ -326,7 +418,14 @@ nixos-build host="all":
     set -euo pipefail
     if [ "{{host}}" = "all" ]; then
       for h in {{enabled_nixos_hosts}}; do
-        just nixos-build "$h"
+        target=$(just _nixos-target "$h")
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 32 nixos "$h" "host is offline"
+          continue
+        fi
+        if ! just nixos-build "$h"; then
+          just _skip 32 nixos "$h" "build failed"
+        fi
       done
       exit 0
     fi
@@ -344,7 +443,14 @@ nixos-switch host="all":
     set -euo pipefail
     if [ "{{host}}" = "all" ]; then
       for h in {{enabled_nixos_hosts}}; do
-        just nixos-switch "$h"
+        target=$(just _nixos-target "$h")
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 32 nixos "$h" "host is offline"
+          continue
+        fi
+        if ! just nixos-switch "$h"; then
+          just _skip 32 nixos "$h" "switch failed"
+        fi
       done
       exit 0
     fi
@@ -368,7 +474,14 @@ nixos-home-build host="all":
     set -euo pipefail
     if [ "{{host}}" = "all" ]; then
       for h in {{enabled_nixos_hosts}}; do
-        just nixos-home-build "$h"
+        target=$(just _nixos-target "$h")
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$target" true >/dev/null 2>&1; then
+          just _skip 34 home "fs@$h" "host is offline"
+          continue
+        fi
+        if ! just nixos-home-build "$h"; then
+          just _skip 34 home "fs@$h" "Home Manager build failed"
+        fi
       done
       exit 0
     fi
@@ -386,7 +499,19 @@ nixos-home-switch host="all":
     set -euo pipefail
     if [ "{{host}}" = "all" ]; then
       for h in {{enabled_nixos_hosts}}; do
-        just nixos-home-switch "$h"
+        root_target=$(just _nixos-target "$h")
+        user_target=$(just _nixos-home-target "$h")
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$root_target" true >/dev/null 2>&1; then
+          just _skip 34 home "fs@$h" "host is offline"
+          continue
+        fi
+        if ! ssh -o BatchMode=yes -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$user_target" true >/dev/null 2>&1; then
+          just _skip 34 home "fs@$h" "user SSH is unreachable"
+          continue
+        fi
+        if ! just nixos-home-switch "$h"; then
+          just _skip 34 home "fs@$h" "Home Manager switch failed"
+        fi
       done
       exit 0
     fi

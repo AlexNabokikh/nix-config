@@ -37,7 +37,10 @@
   };
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    trusted-users = ["root" "@wheel"];
+  };
   nix.optimise.automatic = true;
 
   services.qemuGuest.enable = true;
@@ -251,13 +254,6 @@
     [palettes.catppuccin_macchiato]
     lavender = "#b7bdf8"
     pink = "#f5bde6"
-  '';
-
-  system.activationScripts.vm-shell-config.text = ''
-    install -d -m 0755 -o ${userConfig.name} -g users /home/${userConfig.name}
-    install -d -m 0755 -o ${userConfig.name} -g users /home/${userConfig.name}/.config
-    install -m 0644 -o ${userConfig.name} -g users /etc/zsh/vm-zshrc /home/${userConfig.name}/.zshrc
-    install -m 0644 -o ${userConfig.name} -g users /etc/starship-vm.toml /home/${userConfig.name}/.config/starship.toml
   '';
 
   virtualisation.docker.enable = true;

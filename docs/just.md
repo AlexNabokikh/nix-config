@@ -17,6 +17,11 @@ environment values are available consistently.
 : Updates the flake lock, then switches every enabled deployment lane:
 `darwin-switch`, `nixos-switch`, and `vm-switch`.
 
+Aggregate recipes are best-effort per host. If a physical host or VM is
+offline, the aggregate command prints a skip message for that host and continues
+with the remaining lanes. Explicit host commands such as
+`just nixos-switch morpheus` still fail when that host cannot be reached.
+
 Long-running recipes print colored section banners so the `quick-update` output
 is easier to scan. Flake/update steps are yellow, Darwin is cyan, Home Manager
 is blue, physical NixOS hosts are green, and VMs are magenta.
@@ -27,7 +32,7 @@ Current enabled targets:
 |------|-----------------|------------------|
 | `darwin-*` | `neo` | nix-darwin plus `fs@neo` Home Manager |
 | `nixos-*` | `morpheus` | Physical NixOS host plus `fs@morpheus` Home Manager over SSH |
-| `vm-*` | `trinity` | Terraform-managed NixOS VM config over SSH |
+| `vm-*` | `trinity` | Terraform-managed NixOS VM plus `fs@trinity` Home Manager over SSH |
 
 `home-switch`
 : Keeps the old local muscle memory. It switches Home Manager for the current
@@ -176,10 +181,28 @@ reachable.
 
 `vm-switch <hostname>`
 : Runs `nixos-rebuild switch` remotely against one Terraform-managed VM, then
-attempts to bring up Tailscale SSH.
+attempts to bring up Tailscale SSH, then switches the matching Home Manager
+profile.
+
+`vm-home-build`
+: Builds Home Manager activation packages for all enabled VM hosts.
+
+`vm-home-build <hostname>`
+: Archives the current flake to one VM and builds its Home Manager activation
+package there.
+
+`vm-home-switch`
+: Switches Home Manager on all enabled VM hosts.
+
+`vm-home-switch <hostname>`
+: Archives the current flake to one VM, builds the Home Manager activation
+package there, then runs the activation script as `fs`.
 
 `vm-switch-all`
 : Compatibility alias for `vm-switch`.
+
+`vm-home-switch-all` and `vm-home-build-all`
+: Compatibility aliases for the all-host VM Home Manager recipes.
 
 `vm-deploy`
 : Full VM path: build image, apply Terraform, wait for SSH, and switch the VM
