@@ -8,7 +8,6 @@
     {
       programs.zsh = {
         enable = true;
-        enableCompletion = true;
         shellAliases = {
           ff = "fastfetch";
 
