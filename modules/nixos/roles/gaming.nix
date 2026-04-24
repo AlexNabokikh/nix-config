@@ -1,20 +1,7 @@
 {
   flake.modules.nixos.gaming =
-    { config, pkgs, ... }:
+    { pkgs, ... }:
     {
-      programs.gamemode = {
-        enable = true;
-        settings = {
-          general.renice = 10;
-          cpu.governor = "performance";
-          gpu = {
-            apply_gpu_optimisations = "accept-responsibility";
-            gpu_device = 1;
-            amd_performance_level = "high";
-          };
-        };
-      };
-
       programs.steam = {
         enable = true;
         remotePlay.openFirewall = true;
@@ -33,7 +20,5 @@
           "default.clock.min-quantum" = 256;
         };
       };
-
-      users.users.${config.primaryUser}.extraGroups = [ "gamemode" ];
     };
 }
