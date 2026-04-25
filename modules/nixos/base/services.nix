@@ -5,7 +5,6 @@
       plymouth-quit-wait.enable = false;
     };
 
-    services.printing.enable = false;
     services.devmon.enable = true;
   };
 }
