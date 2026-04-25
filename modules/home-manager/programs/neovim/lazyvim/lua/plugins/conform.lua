@@ -10,7 +10,7 @@ return {
       lua = { "stylua" },
       markdown = { "prettier" },
       nix = { "nixfmt" },
-      python = { "isort", "black" },
+      python = { "ruff_organize_imports", "ruff_format" },
       sh = { "shfmt" },
       terraform = { "tofu_fmt" },
       tf = { "tofu_fmt" },
@@ -19,7 +19,7 @@ return {
       yaml = { "prettier" },
     },
     formatters = {
-      black = {
+      ruff_format = {
         prepend_args = { "--line-length", "120" },
       },
     },

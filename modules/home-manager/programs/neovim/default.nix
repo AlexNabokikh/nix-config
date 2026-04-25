@@ -15,11 +15,9 @@
 
         extraPackages = with pkgs; [
           bash-language-server
-          black
           gopls
           gotools
           hadolint
-          isort
           lua-language-server
           markdownlint-cli
           nixd
