@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-pid=$(ps -ef | sed 1d | fzf | awk '{print $2}')
+set -euo pipefail
 
-if [ -n "$pid" ]; then
-	sudo kill -"${1:-15}" "$pid"
-fi
+ps -eo pid,comm --no-headers | fzf --multi --delimiter=' ' --nth=2.. | awk '{print $1}' | xargs -r sudo kill -"${1:-9}"
