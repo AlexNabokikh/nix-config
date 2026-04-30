@@ -1,9 +1,8 @@
 {
   flake.modules.nixos.base =
-    { pkgs, ... }:
+    { ... }:
     {
       boot = {
-        kernelPackages = pkgs.linuxPackages_latest;
         consoleLogLevel = 0;
         initrd.verbose = false;
         kernelParams = [
