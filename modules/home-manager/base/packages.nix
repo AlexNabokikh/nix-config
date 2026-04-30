@@ -16,7 +16,6 @@
           dig
           eza
           fd
-          github-copilot-cli
           jq
           nh
           nodejs
