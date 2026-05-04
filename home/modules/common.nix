@@ -10,6 +10,7 @@
     ./btop.nix
     ./environment.nix
     ./fastfetch.nix
+    ./fish.nix
     ./fuelcheck.nix
     ./fzf.nix
     ./git.nix
@@ -26,6 +27,7 @@
     overlays = [
       outputs.overlays.stable-packages
       outputs.overlays.fish-no-tests
+      outputs.overlays.direnv-no-tests
     ];
     config.allowUnfree = true;
   };

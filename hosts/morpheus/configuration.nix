@@ -33,5 +33,7 @@
 
   tailscale.enable = true;
 
+  services.dbus.implementation = "dbus";
+
   system.stateVersion = "25.11";
 }

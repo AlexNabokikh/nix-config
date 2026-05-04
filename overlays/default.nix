@@ -27,6 +27,13 @@ in {
     });
   };
 
+  # Fix direnv build issues by disabling tests (often hangs on macOS)
+  direnv-no-tests = final: prev: {
+    direnv = prev.direnv.overrideAttrs (old: {
+      doCheck = false;
+    });
+  };
+
   # Add fuelcheck-cli from source
   fuelcheck-cli = fuelcheck-cli;
 }

@@ -459,7 +459,7 @@ nixos-switch host="all":
     just _nixos-check-ssh "{{host}}" "$target"
     just _banner 32 nixos "{{host}}" "Switching physical host on ${target}"
     export NIX_SSHOPTS="-o StrictHostKeyChecking=no"
-    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{host}} --target-host "$target" --build-host "$target" --no-reexec
+    nix run nixpkgs#nixos-rebuild -- switch --flake .#{{host}} --target-host "$target" --build-host "$target" --no-reexec --fast
 
     auth_key=$(doppler run -- printenv TAILSCALE_AUTH_KEY 2>/dev/null || true)
     if [ -n "$auth_key" ]; then
