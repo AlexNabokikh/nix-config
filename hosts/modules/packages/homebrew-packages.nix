@@ -80,7 +80,7 @@ _: {
 
       #* Productivity & Utilities
       # "rectangle" # Window management for macOS
-      "notion" # All-in-one workspace for notes, tasks, and collaboration
+      "tolaria" # AI-native workspace and knowledge tool
       "capacities" # Connected knowledge management tool
       "fliqlo" # Digital clock screensaver
       "hiddenbar" # Menu bar icon organization tool
