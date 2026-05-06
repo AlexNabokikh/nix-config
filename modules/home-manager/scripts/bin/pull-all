@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path.home() / "Documents" / "repositories"
@@ -39,6 +40,11 @@ def pull(repo: Path):
     return r.returncode, r.stdout
 
 
+def pull_with_repo(repo: Path):
+    rc, out = pull(repo)
+    return repo, rc, out
+
+
 def short_msg(out: str) -> str:
     for line in out.splitlines():
         line = line.strip()
@@ -61,17 +67,24 @@ def main() -> None:
         return
 
     rel_width = max(len(str(r.relative_to(ROOT))) for r in repos)
-    branch_width = 0
-    rows = []
 
-    for repo in repos:
-        branch = current_branch(repo)
-        rc, out = pull(repo)
+    with ThreadPoolExecutor() as ex:
+        branches = list(ex.map(current_branch, repos))
+
+    with ThreadPoolExecutor() as ex:
+        pull_results = list(ex.map(pull_with_repo, repos))
+
+    rows = []
+    for repo, branch, result in zip(repos, branches, pull_results):
+        _, rc, out = result
         status = "OK  " if rc == 0 else "FAIL"
         rows.append((status, repo, branch, short_msg(out)))
-        branch_width = max(branch_width, len(branch))
+
+    branch_width = max(len(b) for _, _, b, _ in rows)
+
+    for status, repo, branch, msg in rows:
         rel = str(repo.relative_to(ROOT))
-        print(f"{status}  {rel:<{rel_width}}  {branch:<{branch_width}}  {short_msg(out)}")
+        print(f"{status}  {rel:<{rel_width}}  {branch:<{branch_width}}  {msg}")
 
     failed = sum(1 for s, *_ in rows if s.strip() == "FAIL")
     ok = len(rows) - failed
