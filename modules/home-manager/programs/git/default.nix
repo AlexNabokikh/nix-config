@@ -23,7 +23,6 @@
           enableGitIntegration = true;
           options = {
             keep-plus-minus-markers = true;
-            light = false;
             line-numbers = true;
             navigate = true;
             width = 280;
@@ -35,10 +34,12 @@
 
           settings = {
             git = {
-              pager = {
-                colorArg = "always";
-                pager = "delta --color-only --dark --paging=never";
-              };
+              pagers = [
+                {
+                  colorArg = "always";
+                  pager = "delta --paging=never";
+                }
+              ];
             };
           };
         };
