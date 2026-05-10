@@ -15,8 +15,7 @@ input {
 
     mouse {
         accel-profile "flat"
-        // DPI 1600
-        accel-speed -0.5
+        accel-speed 0
     }
 
     trackpoint {
