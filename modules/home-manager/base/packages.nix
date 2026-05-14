@@ -6,8 +6,6 @@
       ...
     }:
     {
-      systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
-
       home.packages =
         with pkgs;
         [
