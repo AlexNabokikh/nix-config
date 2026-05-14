@@ -375,7 +375,7 @@
             clockStyle = "custom";
             compactLockScreen = true;
             dimmerOpacity = 0.2;
-            enableBlurBehind = true;
+            enableBlurBehind = false;
             enableLockScreenCountdown = true;
             enableLockScreenMediaControls = false;
             enableShadows = false;
