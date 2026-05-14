@@ -13,6 +13,7 @@
         [
           awscli2
           brave
+          claude-code
           dig
           eza
           fd
