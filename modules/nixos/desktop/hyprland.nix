@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.desktopHyprland =
-    { config, pkgs, ... }:
+    { config, ... }:
     {
       programs.hyprland = {
         enable = true;
@@ -14,10 +14,5 @@
         XCURSOR_SIZE = config.profile.appearance.cursorTheme.size;
         XCURSOR_THEME = config.profile.appearance.cursorTheme.name;
       };
-
-      environment.systemPackages = with pkgs; [
-        grimblast
-        hyprpicker
-      ];
     };
 }

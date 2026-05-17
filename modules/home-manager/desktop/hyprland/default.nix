@@ -5,6 +5,11 @@
       ...
     }:
     {
+      home.packages = with pkgs; [
+        grimblast
+        hyprpicker
+      ];
+
       xdg = {
         desktopEntries = {
           quit-all-applications = {
