@@ -2,6 +2,8 @@
   flake.modules.homeManager.desktopNiri =
     { pkgs, ... }:
     {
+      home.packages = [ pkgs.xwayland-satellite ];
+
       xdg.desktopEntries.quit-all-applications = {
         name = "Quit All Applications";
         exec = ''${pkgs.bash}/bin/bash -lc "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}"'';

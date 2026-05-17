@@ -38,6 +38,9 @@
         ]
         ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
           anki
+          gcc
+          gnumake
+          killall
           tesseract
           unzip
           wl-clipboard
