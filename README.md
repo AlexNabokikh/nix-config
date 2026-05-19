@@ -1,8 +1,8 @@
 # NixOS & nix-darwin Configurations
 
-A single Nix flake covering my NixOS hosts, macOS hosts (via [nix-darwin](https://github.com/LnL7/nix-darwin)), and user environment (via [Home Manager](https://github.com/nix-community/home-manager)).
+A single Nix flake covering my NixOS hosts and macOS hosts.
 
-The layout follows the [dendritic pattern](https://github.com/mightyiam/dendritic), with files auto-imported by [`import-tree`](https://github.com/vic/import-tree).
+The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic).
 
 ## Showcase
 
@@ -23,8 +23,8 @@ The layout follows the [dendritic pattern](https://github.com/mightyiam/dendriti
 └── modules/
     ├── base.nix      # Composes features into nixos.base, darwin.base, homeManager.base
     ├── profile/      # Identity and shared appearance settings
-    ├── hosts/        # One file or folder per machine
-    ├── nixos/        # Linux-only system features
+    ├── hosts/        # Hosts definitions
+    ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
     ├── desktop/      # Compositors and DEs (hyprland, niri, aerospace)
     ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
