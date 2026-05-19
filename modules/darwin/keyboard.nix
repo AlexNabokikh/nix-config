@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.base = {
+  flake.modules.darwin.keyboard = {
     system.keyboard = {
       enableKeyMapping = true;
       nonUS.remapTilde = true;

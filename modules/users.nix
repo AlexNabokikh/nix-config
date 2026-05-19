@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base =
+  flake.modules.nixos.users =
     { config, ... }:
     {
       users.users.${config.primaryUser} = {
@@ -29,7 +29,7 @@
       security.sudo.wheelNeedsPassword = false;
     };
 
-  flake.modules.darwin.base =
+  flake.modules.darwin.users =
     { config, ... }:
     {
       users.users.${config.primaryUser} = {

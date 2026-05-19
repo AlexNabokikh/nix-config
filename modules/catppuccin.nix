@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.base =
+  flake.modules.nixos.catppuccin =
     { config, ... }:
     {
       imports = [
@@ -13,7 +13,7 @@
       };
     };
 
-  flake.modules.homeManager.base =
+  flake.modules.homeManager.catppuccin =
     { config, ... }:
     {
       imports = [

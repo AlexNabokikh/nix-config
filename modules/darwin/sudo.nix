@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.base =
+  flake.modules.darwin.sudo =
     { config, ... }:
     {
       security.pam.services.sudo_local.touchIdAuth = true;

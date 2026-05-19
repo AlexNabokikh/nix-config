@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base =
+  flake.modules.nixos.locale =
     { config, ... }:
     {
       time.timeZone = config.profile.locale.timezone;

@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.base =
+  flake.modules.darwin.systemPreferences =
     { config, ... }:
     {
       system.defaults = {

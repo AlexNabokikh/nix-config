@@ -1,12 +1,12 @@
 {
-  flake.modules.nixos.base =
+  flake.modules.nixos.zsh =
     { config, pkgs, ... }:
     {
       programs.zsh.enable = true;
       users.users.${config.primaryUser}.shell = pkgs.zsh;
     };
 
-  flake.modules.darwin.base = {
+  flake.modules.darwin.zsh = {
     programs.zsh.enable = true;
   };
 
