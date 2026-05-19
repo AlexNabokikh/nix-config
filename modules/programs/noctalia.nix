@@ -98,7 +98,9 @@
             customLaunchPrefixEnabled = false;
             density = "default";
             enableClipPreview = true;
+            enableClipboardChips = false;
             enableClipboardHistory = true;
+            enableClipboardSmartIcons = false;
             enableSessionSearch = true;
             enableSettingsSearch = false;
             enableWindowsSearch = false;
@@ -112,7 +114,6 @@
             showIconBackground = false;
             sortByMostUsed = false;
             terminalCommand = "alacritty -e";
-            useApp2Unit = false;
             viewMode = "list";
           };
 
@@ -120,6 +121,7 @@
             mprisBlacklist = [ ];
             preferredPlayer = "";
             spectrumFrameRate = 30;
+            spectrumMirrored = true;
             visualizerType = "linear";
             volumeFeedback = false;
             volumeFeedbackSoundFile = "";
@@ -138,7 +140,6 @@
             density = "default";
             displayMode = "always_visible";
             enableExclusionZoneInset = true;
-            floating = false;
             fontScale = 1;
             frameRadius = 12;
             frameThickness = 8;
@@ -288,6 +289,7 @@
             monitorForColors = "";
             predefinedScheme = "Noctalia (default)";
             schedulingMode = "off";
+            syncGsettings = false;
             useWallpaperColors = false;
           };
 
@@ -359,8 +361,10 @@
             indicatorColor = "primary";
             indicatorOpacity = 0.6;
             indicatorThickness = 3;
+            launcherIcon = "";
             launcherIconColor = "none";
             launcherPosition = "end";
+            launcherUseDistroLogo = false;
             monitors = [ ];
             onlySameOutput = true;
             pinnedApps = [ ];
@@ -421,10 +425,12 @@
             showHibernateOnLockScreen = false;
             showScreenCorners = false;
             showSessionButtonsOnLockScreen = true;
+            smoothScrollEnabled = true;
             telemetryEnabled = false;
           };
 
           hooks = {
+            colorGeneration = "";
             darkModeChange = "";
             enabled = false;
             performanceModeDisabled = "";
@@ -453,6 +459,7 @@
 
           location = {
             analogClockInCalendar = false;
+            autoLocate = false;
             firstDayOfWeek = -1;
             hideWeatherCityName = false;
             hideWeatherTimezone = false;
@@ -464,10 +471,10 @@
             useFahrenheit = false;
             weatherEnabled = false;
             weatherShowEffects = false;
+            weatherTaliaMascotAlways = false;
           };
 
           network = {
-            airplaneModeEnabled = false;
             bluetoothAutoConnect = true;
             bluetoothDetailsViewMode = "grid";
             bluetoothHideUnnamedDevices = false;
@@ -476,7 +483,6 @@
             disableDiscoverability = false;
             networkPanelView = "wifi";
             wifiDetailsViewMode = "grid";
-            wifiEnabled = false;
           };
 
           nightLight = {
@@ -536,7 +542,7 @@
             showKeybinds = true;
           };
 
-          settingsVersion = 57;
+          settingsVersion = 59;
 
           notifications = {
             backgroundOpacity = 1;
@@ -584,7 +590,10 @@
             overlayLayer = true;
           };
 
-          plugins.autoUpdate = false;
+          plugins = {
+            autoUpdate = false;
+            notifyUpdates = true;
+          };
 
           systemMonitor = {
             batteryCriticalThreshold = 5;
@@ -639,6 +648,7 @@
             fillColor = "#000000";
             fillMode = "crop";
             hideWallpaperFilenames = false;
+            linkLightAndDarkWallpapers = true;
             monitorDirectories = [ ];
             overviewBlur = 0.4;
             overviewEnabled = true;
@@ -652,7 +662,15 @@
             sortOrder = "name";
             transitionDuration = 0;
             transitionEdgeSmoothness = 0.05;
-            transitionType = "random";
+            transitionType = [
+              "fade"
+              "disc"
+              "stripes"
+              "wipe"
+              "pixelate"
+              "honeycomb"
+            ];
+            useOriginalImages = false;
             useSolidColor = false;
             useWallhaven = false;
             viewMode = "single";
