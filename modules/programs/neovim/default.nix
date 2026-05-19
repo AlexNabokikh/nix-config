@@ -44,6 +44,8 @@
         };
       };
 
+      catppuccin.nvim.enable = false;
+
       home.sessionVariables = {
         CATPPUCCIN_FLAVOR = config.catppuccin.flavor;
       };

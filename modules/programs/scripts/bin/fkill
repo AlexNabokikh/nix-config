@@ -2,4 +2,9 @@
 
 set -euo pipefail
 
-ps -eo pid,comm --no-headers | fzf --multi --delimiter=' ' --nth=2.. | awk '{print $1}' | xargs -r sudo kill -"${1:-9}"
+signal="${1:-9}"
+pids=$(ps -A -o pid= -o comm= | fzf --multi --delimiter=' ' --nth=2.. | awk '{print $1}')
+
+if [ -n "$pids" ]; then
+	printf '%s\n' "$pids" | xargs sudo kill -"$signal"
+fi

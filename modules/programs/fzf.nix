@@ -14,7 +14,6 @@
           "--bind 'ctrl-a:select-all'"
           "--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'"
           "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCmd})'"
-          "--color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'"
           "--height=40%"
           "--info=inline"
           "--layout=reverse"

@@ -55,15 +55,15 @@ def short_msg(out: str) -> str:
 
 def main() -> None:
     if not ROOT.is_dir():
-        print(f"gpa: root not found: {ROOT}", file=sys.stderr)
+        print(f"pull-all: root not found: {ROOT}", file=sys.stderr)
         sys.exit(1)
     if shutil.which("git") is None:
-        print("gpa: git not found on PATH", file=sys.stderr)
+        print("pull-all: git not found on PATH", file=sys.stderr)
         sys.exit(1)
 
     repos = sorted(find_repos(ROOT))
     if not repos:
-        print(f"gpa: no git repos found under {ROOT}")
+        print(f"pull-all: no git repos found under {ROOT}")
         return
 
     rel_width = max(len(str(r.relative_to(ROOT))) for r in repos)
