@@ -26,7 +26,8 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Compositors and DEs (hyprland, niri, aerospace)
+    ├── desktop/      # Shared compositor config (gtk, qt, cursor, idle, …)
+    │   └── wm/       # Window manager choices (hyprland, niri, aerospace)
     ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
     └── *.nix         # Cross-class features (fonts, users, catppuccin, …)
 ```
