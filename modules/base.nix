@@ -25,6 +25,7 @@ in
       homeManager.scripts
       homeManager.alacritty
       homeManager.atuin
+      homeManager.bat
       homeManager.btop
       homeManager.fastfetch
       homeManager.fzf
@@ -34,6 +35,7 @@ in
       homeManager.granted
       homeManager.k8s
       homeManager.neovim
+      homeManager.packages
       homeManager.starship
       homeManager.tmux
       homeManager.zsh

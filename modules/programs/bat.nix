@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.base = {
+  flake.modules.homeManager.bat = {
     programs.bat.enable = true;
   };
 }

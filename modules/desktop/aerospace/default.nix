@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   inherit (config.flake.modules) homeManager;
 in
@@ -13,7 +13,7 @@ in
     programs.aerospace = {
       enable = true;
       launchd.enable = true;
-      settings = fromTOML (builtins.readFile ./aerospace.toml);
+      settings = lib.importTOML ./aerospace.toml;
     };
   };
 }
