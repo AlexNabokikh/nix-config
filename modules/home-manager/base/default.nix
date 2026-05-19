@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, ... }:
 let
   inherit (config.flake.modules) generic homeManager;
 in
@@ -6,7 +6,6 @@ in
   flake.modules.homeManager.base = {
     imports = [
       generic.profile
-      inputs.catppuccin.homeModules.catppuccin
       homeManager.scripts
       homeManager.programsAlacritty
       homeManager.programsAtuin

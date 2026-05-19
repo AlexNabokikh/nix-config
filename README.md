@@ -58,6 +58,7 @@ The simplest mental model is:
 │   ├── nixos/             # NixOS-only modules
 │   ├── darwin/            # nix-darwin-only modules
 │   ├── home-manager/      # Home Manager modules
+│   ├── theme/             # Cross-cutting theme integrations
 │   └── stacks/            # Host-facing composition modules
 ├── flake.nix              # Flake inputs and top-level imports
 ├── flake.lock             # Locked input versions for reproducibility
