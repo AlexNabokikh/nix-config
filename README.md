@@ -12,16 +12,16 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 In practice, that means:
 
-- small modules do one thing
-- branch modules group related settings
-- stacks combine reusable modules into host-level choices
-- hosts stay short and easy to read
+- every `.nix` file under `modules/` is a top-level module of the flake-parts configuration, auto-imported by [`import-tree`](https://github.com/vic/import-tree)
+- each file represents a single feature
+- a feature that applies to multiple configuration classes lives in **one file at the root of `modules/`** and declares all the classes it touches in that one file (e.g. `fonts.nix` declares both `darwin.base` and `homeManager.base` contributions)
+- a feature that applies to only one class lives in that class's subdirectory: `modules/nixos/`, `modules/darwin/`, or `modules/programs/` (home-manager)
+- hosts compose features by importing them directly — no intermediate layer
 
 The simplest mental model is:
 
 - `modules/hosts/` = real machines
-- `modules/` = reusable building blocks
-- `modules/stacks/` = convenient bundles of those building blocks
+- `modules/*.nix` and `modules/<group>/*.nix` = reusable feature modules
 - `modules/profile/` = personal settings shared across hosts
 
 ## Table of Contents
@@ -48,98 +48,98 @@ The simplest mental model is:
 
 ```text
 .
-├── assets/                # Generic repo assets such as screenshots
-├── modules/               # All configuration modules (auto-imported by import-tree)
-│   ├── configurations/    # Host configuration wrappers (nixosSystem, darwinSystem)
-│   ├── hosts/             # Concrete machine definitions
-│   │   ├── energy/
-│   │   └── work-mac/
-│   ├── profile/           # Personal cross-host profile data and assets
-│   ├── nixos/             # NixOS-only modules
-│   ├── darwin/            # nix-darwin-only modules
-│   ├── home-manager/      # Home Manager modules
-│   ├── theme/             # Cross-cutting theme integrations
-│   └── stacks/            # Host-facing composition modules
-├── flake.nix              # Flake inputs and top-level imports
-├── flake.lock             # Locked input versions for reproducibility
-├── Makefile               # Convenience rebuild/update/check commands
-└── README.md              # Project documentation
+├── assets/                       # Repo assets such as screenshots
+├── modules/                      # All configuration modules (auto-imported by import-tree)
+│   ├── flake-parts.nix           # Enables flake-parts.flakeModules.modules
+│   ├── systems.nix               # System list
+│   ├── formatter.nix             # `nix fmt` configuration
+│   ├── nix-settings.nix          # Shared nix settings (generic / cross-class)
+│   │
+│   ├── base.nix                  # Wires generic.* into nixos.base, darwin.base, homeManager.base
+│   ├── catppuccin.nix            # Catppuccin theming (nixos + homeManager)
+│   ├── fonts.nix                 # Fonts (darwin + homeManager)
+│   ├── users.nix                 # User accounts (nixos + darwin)
+│   │
+│   ├── configurations/           # `configurations.nixos` / `configurations.darwin` option machinery
+│   ├── profile/                  # Personal identity, options, assets shared across hosts
+│   ├── hosts/                    # Concrete machine definitions
+│   │   ├── energy/               # Linux box (has adjacent _hardware.nix)
+│   │   └── work-mac.nix          # macOS box
+│   │
+│   ├── nixos/                    # NixOS-only system features
+│   │   ├── audio.nix, bluetooth.nix, boot.nix, containers.nix
+│   │   ├── gaming.nix, locale.nix, networking.nix, services.nix
+│   │
+│   ├── darwin/                   # Darwin-only system features
+│   │   ├── keyboard.nix          # Key remapping + system-wide keyboard shortcuts
+│   │   ├── system-preferences.nix # macOS UX prefs (dock, finder, trackpad, NSGlobalDomain …)
+│   │   └── sudo.nix              # TouchID sudo
+│   │
+│   ├── desktop/                  # Desktop / compositor features (cross-class)
+│   │   ├── compositor-common.nix # Shared compositor system + HM bits
+│   │   ├── idle.nix              # Idle handling (hypridle: lock, dpms)
+│   │   ├── hyprland/             # Hyprland (system + HM in one file, plus adjacent hyprland.conf)
+│   │   ├── niri/                 # Niri (system + HM, plus adjacent config.kdl)
+│   │   └── aerospace/            # AeroSpace (darwin + HM, plus adjacent aerospace.toml)
+│   │
+│   └── programs/                 # Home-manager programs (one file per feature)
+├── flake.nix                     # Flake inputs and top-level imports
+├── flake.lock                    # Locked input versions for reproducibility
+├── Makefile                      # Convenience rebuild/update/check commands
+└── README.md                     # Project documentation
 ```
+
+**Reading the tree at a glance:**
+
+- Files **at the root of `modules/`** are either infrastructure (`flake-parts.nix`, `systems.nix`, …) or **cross-class features** that touch more than one class.
+- Files inside **`nixos/`**, **`darwin/`**, or **`programs/`** are **class-specific** — they only apply to that one target.
+- **`desktop/`** is a cross-class feature group: each desktop feature declares both system and HM bits in one file.
 
 ## Modules and Configurations
 
-### NixOS Modules (`modules/nixos/`)
+The module naming convention is `flake.modules.<class>.<feature>`:
 
-- `base/`: Core system building blocks such as boot, networking, locale, users, packages, fonts, and containers.
-- `desktop/`: System modules for standalone compositor environments.
-- `roles/`: Higher-level system roles such as gaming.
+- `class` is `nixos`, `darwin`, `homeManager`, or `generic`
+- `feature` is the short name matching the file path
 
-Current desktop modules include:
+Notable composite modules:
 
-- `desktop/compositor-common.nix`: Shared system settings for standalone compositors.
-- `desktop/hyprland.nix`: Hyprland system integration.
-- `desktop/niri.nix`: Niri system integration.
-
-### Darwin Modules (`modules/darwin/`)
-
-- `base/`: Common macOS settings such as defaults, fonts, sudo, keyboard, and user setup.
-
-### Home Manager Modules (`modules/home-manager/`)
-
-- `base/`: Shared packages and user-level defaults.
-- `desktop/`: Desktop- or window-manager-specific modules.
-- `programs/`: Modules that configure `programs.*`.
-- `services/`: Modules that configure `services.*`.
-- `scripts/`: Custom helper scripts installed into the user environment.
-
-### Stack Modules (`modules/stacks/`)
-
-Stacks connect system modules and Home Manager modules.
-
-Current stacks:
-
-- `linux-base.nix`: Shared Linux system base plus Home Manager base.
-- `darwin-base.nix`: Shared macOS system base plus Home Manager base.
-- `hyprland.nix`: Hyprland environment stack.
-- `niri.nix`: Niri environment stack.
-- `aerospace.nix`: AeroSpace setup for macOS.
+- `nixos.base` and `darwin.base` — system base, composed in `base.nix`. Each pulls in the
+  `generic.*` modules (profile, primaryUser, primaryUserHome, nixSettings) and wires
+  `home-manager.sharedModules = [ homeManager.base ]` so HM is available on every host.
+- `homeManager.base` — bundles every program in `modules/programs/`.
+- `nixos.hyprland`, `nixos.niri` — pull in `nixos.compositorCommon` and wire their HM
+  counterparts via `home-manager.sharedModules`.
+- `darwin.aerospace` — wires `homeManager.aerospace` for the macOS host.
 
 ## How Composition Works
 
-At a high level:
+1. `flake.nix` uses `import-tree` to auto-import every `.nix` file under `modules/`.
+2. Each module declares contributions to one or more `flake.modules.<class>.<feature>`
+   attributes. Multiple files can contribute to the same composite (e.g. `boot.nix`,
+   `users.nix`, `audio.nix` all add to `nixos.base`).
+3. Hosts under `modules/hosts/` import composite modules directly via
+   `imports = [ nixos.base nixos.hyprland nixos.gaming ]`.
 
-1. `flake.nix` uses `import-tree` to auto-import all `.nix` files under `modules/`
-2. `modules/` exports reusable named modules via `flake.modules.<class>.<name>`
-3. `modules/stacks/` combines those modules into host-facing bundles
-4. `modules/hosts/` uses `configurations.nixos` or `configurations.darwin` plus stacks to define real machines
-
-That means the flow is roughly:
-
-```text
-leaf modules -> branch modules -> stacks -> hosts
-```
-
-This is what "dendritic" means in this repo.
+That is the entire flow — there is no separate "stacks" layer. Each feature file owns
+its own cross-class wiring.
 
 ### The `_` Prefix Convention
 
-Files and directories starting with `_` are ignored by `import-tree`. This convention is used for non-module helper files that are imported explicitly by their parent module, such as:
+Files and directories starting with `_` are ignored by `import-tree`. This is used for
+non-module helper files that are imported explicitly by their parent module:
 
 - `_hardware.nix` — NixOS hardware configuration (imported by the host's `default.nix`)
-- `_colors.nix`, `_plugins.nix` — helper data files (imported by their parent module)
-
-### Composition example based on Energy host
-
-![energy](./assets/composition.png)
 
 ## How To Read This Repo
 
 If you are reading this repo for the first time, use this order:
 
 1. `flake.nix`
-2. one real host, for example `modules/hosts/energy/default.nix`
-3. a stack used by that host, for example `modules/stacks/hyprland.nix`
-4. the underlying modules pulled in by that stack
+2. `modules/hosts/energy/default.nix` — a real host, ~10 lines
+3. `modules/base.nix` — the cross-class base composition
+4. one feature file, e.g. `modules/desktop/hyprland/default.nix` — to see how a single
+   file declares both NixOS and home-manager parts of a feature
 
 That gives you the high-level picture before the details.
 
@@ -175,7 +175,7 @@ Delete or ignore hosts you do not use.
 For example:
 
 - if you only want NixOS, keep `modules/hosts/energy/` as a starting point
-- if you only want macOS, keep `modules/hosts/work-mac/` as a starting point
+- if you only want macOS, keep `modules/hosts/work-mac.nix` as a starting point
 
 ### 4. Create A New Host
 
@@ -189,7 +189,7 @@ Start from `modules/hosts/energy/default.nix` and change:
 
 - hardware imports
 - username
-- stack choice
+- feature choice (which `nixos.*` modules to import)
 
 The new host will be auto-imported by `import-tree` — no manual registration needed.
 
@@ -204,8 +204,8 @@ in
   configurations.nixos.laptop.module = {
     imports = [
       ./_hardware.nix
-      nixos.stackLinuxBase
-      nixos.stackHyprland
+      nixos.base
+      nixos.hyprland
     ];
 
     primaryUser = "your-user";
@@ -216,30 +216,32 @@ in
 
 For a new macOS host:
 
-1. Create `modules/hosts/my-mac/default.nix`
-2. Start from `modules/hosts/work-mac/default.nix`
+1. Create `modules/hosts/my-mac.nix` (or `modules/hosts/my-mac/default.nix` if you need
+   adjacent files)
+2. Start from `modules/hosts/work-mac.nix`
 3. Change:
    - the configuration attribute name (e.g. `configurations.darwin."my-mac".module`) — this becomes the flake output name and should match the machine's hostname so the `Makefile` defaults work
    - `primaryUser`
-   - stack choice
+   - feature choice
 
 The new host will be auto-imported by `import-tree` — no manual registration needed.
 
-### 5. Pick The Right Stack
+### 5. Pick The Right Modules
 
 Common choices:
 
-- `nixos.stackLinuxBase`: common Linux system + Home Manager base
-- `nixos.stackHyprland`: Hyprland desktop stack
-- `nixos.stackNiri`: Niri desktop stack
-- `darwin.stackBase`: common macOS base
-- `darwin.stackAerospace`: AeroSpace desktop setup for macOS
+- `nixos.base` — common Linux system + Home Manager base
+- `nixos.hyprland` — Hyprland desktop (pulls in compositor-common and HM hyprland)
+- `nixos.niri` — Niri desktop (same shape as hyprland)
+- `nixos.gaming` — Steam, gaming kernel parameters, pipewire tweaks
+- `darwin.base` — common macOS base + Home Manager
+- `darwin.aerospace` — AeroSpace tiling window manager for macOS
 
 Rule of thumb:
 
-- hosts import stacks
-- stacks import modules
-- leaf modules stay focused
+- hosts import composite features (`nixos.base`, `nixos.hyprland`, …)
+- leaf modules under `modules/programs/` etc. stay focused on a single feature
+- cross-class wiring lives in the feature file itself
 
 ### 6. Build It
 
@@ -279,27 +281,36 @@ So it works best when the flake output name matches the machine hostname.
 
 Put it under:
 
-- `modules/home-manager/programs/<name>/default.nix`
+- `modules/programs/<name>.nix` (or `modules/programs/<name>/default.nix` if you need
+  adjacent config files like `lazyvim/` for neovim)
 
-Use this for modules that define `programs.*`.
+Use this for modules that define `programs.*` on home-manager.
+
+To have it included by default on every host, add `homeManager.<name>` to the
+`flake.modules.homeManager.base.imports` list in `modules/base.nix`.
 
 The file will be auto-imported by `import-tree`.
 
 ### Add a New Service Module
 
-Put it under:
+Home-manager `services.*` modules go into whichever feature group they belong to:
 
-- `modules/home-manager/services/<name>/default.nix`
+- A service tied to the desktop (e.g. idle daemon, notification daemon) — `modules/desktop/<name>.nix`
+- A service tied to a specific program — drop it into that program's file under `modules/programs/<name>.nix`
 
-Use this for modules that define `services.*`.
+If you accumulate enough orphan HM services that none of those fit, create a
+`modules/services/` directory at the top level (it will be picked up automatically
+by `import-tree`).
 
-### Add a New Standalone Compositor or a Desktop Environment
+### Add a New Standalone Compositor or Desktop Environment
 
-1. Add a NixOS module under `modules/nixos/desktop/`
-2. Add a Home Manager desktop module under `modules/home-manager/desktop/<your_wm_or_de>/`
-3. Reuse `nixos.desktopCompositorCommon` and `homeManager.desktopCompositorCommon` where appropriate
-4. Add a new stack under `modules/stacks/`
-5. Import that stack from a host
+1. Create `modules/desktop/<name>/default.nix` declaring both
+   `flake.modules.nixos.<name>` (system bits) and `flake.modules.homeManager.<name>`
+   (user bits).
+2. Have the NixOS half `imports = [ nixos.compositorCommon ]` and wire
+   `home-manager.sharedModules = [ homeManager.compositorCommon homeManager.<name> ]`
+   so hosts only need to import `nixos.<name>` to get the full stack.
+3. Import the feature from a host.
 
 ## License
 
