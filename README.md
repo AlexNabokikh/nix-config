@@ -13,10 +13,11 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 In practice, that means:
 
 - every `.nix` file under `modules/` is a top-level module of the flake-parts configuration, auto-imported by [`import-tree`](https://github.com/vic/import-tree)
-- each file represents a single feature
-- a feature that applies to multiple configuration classes lives in **one file at the root of `modules/`** and declares all the classes it touches in that one file (e.g. `fonts.nix` declares both `darwin.base` and `homeManager.base` contributions)
+- each file represents a single feature and declares its own named composite `flake.modules.<class>.<feature>`
+- a feature that applies to multiple configuration classes lives in **one file at the root of `modules/`** and declares one composite per class it touches (e.g. `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`)
 - a feature that applies to only one class lives in that class's subdirectory: `modules/nixos/`, `modules/darwin/`, or `modules/programs/` (home-manager)
-- hosts compose features by importing them directly — no intermediate layer
+- `modules/base.nix` is the single composition point: it imports every feature composite into `nixos.base`, `darwin.base`, and `homeManager.base`
+- hosts compose features by importing the base modules plus any opt-in extras (e.g. `nixos.hyprland`, `nixos.gaming`) — no intermediate layer
 
 The simplest mental model is:
 
@@ -105,9 +106,11 @@ The module naming convention is `flake.modules.<class>.<feature>`:
 Notable composite modules:
 
 - `nixos.base` and `darwin.base` — system base, composed in `base.nix`. Each pulls in the
-  `generic.*` modules (profile, primaryUser, primaryUserHome, nixSettings) and wires
-  `home-manager.sharedModules = [ homeManager.base ]` so HM is available on every host.
-- `homeManager.base` — bundles every program in `modules/programs/`.
+  `generic.*` modules (profile, primaryUser, primaryUserHome, nixSettings), every
+  class-specific feature composite (`nixos.audio`, `nixos.boot`, `darwin.keyboard`, …),
+  and wires `home-manager.sharedModules = [ homeManager.base ]` so HM is available on every host.
+- `homeManager.base` — bundles every HM feature composite (`homeManager.alacritty`,
+  `homeManager.git`, `homeManager.catppuccin`, `homeManager.fonts`, …).
 - `nixos.hyprland`, `nixos.niri` — pull in `nixos.compositorCommon` and wire their HM
   counterparts via `home-manager.sharedModules`.
 - `darwin.aerospace` — wires `homeManager.aerospace` for the macOS host.
@@ -115,14 +118,15 @@ Notable composite modules:
 ## How Composition Works
 
 1. `flake.nix` uses `import-tree` to auto-import every `.nix` file under `modules/`.
-2. Each module declares contributions to one or more `flake.modules.<class>.<feature>`
-   attributes. Multiple files can contribute to the same composite (e.g. `boot.nix`,
-   `users.nix`, `audio.nix` all add to `nixos.base`).
-3. Hosts under `modules/hosts/` import composite modules directly via
+2. Each feature file declares one or more named composites under `flake.modules.<class>.<feature>`
+   (e.g. `audio.nix` declares `nixos.audio`, `fonts.nix` declares both `darwin.fonts` and
+   `homeManager.fonts`).
+3. `modules/base.nix` imports every feature composite into the corresponding `<class>.base`,
+   so registering a new feature is a one-line addition there.
+4. Hosts under `modules/hosts/` import composite modules directly via
    `imports = [ nixos.base nixos.hyprland nixos.gaming ]`.
 
-That is the entire flow — there is no separate "stacks" layer. Each feature file owns
-its own cross-class wiring.
+That is the entire flow — there is no separate "stacks" layer.
 
 ### The `_` Prefix Convention
 
@@ -284,12 +288,22 @@ Put it under:
 - `modules/programs/<name>.nix` (or `modules/programs/<name>/default.nix` if you need
   adjacent config files like `lazyvim/` for neovim)
 
-Use this for modules that define `programs.*` on home-manager.
-
-To have it included by default on every host, add `homeManager.<name>` to the
+Use this for modules that define `programs.*` on home-manager. Declare it as
+`flake.modules.homeManager.<name> = { ... };` and add `homeManager.<name>` to the
 `flake.modules.homeManager.base.imports` list in `modules/base.nix`.
 
 The file will be auto-imported by `import-tree`.
+
+### Add a New NixOS or Darwin Feature Module
+
+System-only features live under `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix`.
+Declare them as `flake.modules.nixos.<name> = { ... };` (or `darwin.<name>`) and register
+them in the matching imports list inside `modules/base.nix`.
+
+Cross-class features that touch more than one class (system + HM, or NixOS + darwin)
+live at the root of `modules/` and declare one composite per class — e.g. `fonts.nix`
+declares both `darwin.fonts` and `homeManager.fonts`, each registered in their respective
+`base.imports`.
 
 ### Add a New Service Module
 
