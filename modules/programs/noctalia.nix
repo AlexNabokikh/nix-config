@@ -469,7 +469,7 @@
           dayTemp = "6500";
           enabled = true;
           forced = false;
-          manualSunrise = "07:00";
+          manualSunrise = "06:00";
           manualSunset = "20:00";
           nightTemp = "4000";
         };
