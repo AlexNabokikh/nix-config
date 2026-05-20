@@ -9,8 +9,8 @@ in
       inputs.hardware.nixosModules.common-pc-ssd
       inputs.hardware.nixosModules.common-gpu-amd
       ./_hardware.nix
-      nixos.stackLinuxBase
-      nixos.stackHyprland
+      nixos.base
+      nixos.hyprland
       nixos.gaming
     ];
 

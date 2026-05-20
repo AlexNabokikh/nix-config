@@ -15,10 +15,12 @@
           lib.filterAttrs (_: lib.isType "flake") inputs
         );
 
-        settings.experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
+        settings = {
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+        };
 
         optimise.automatic = true;
 

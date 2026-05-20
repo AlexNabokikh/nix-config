@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-ps -eo pid,comm --no-headers | fzf --multi --delimiter=' ' --nth=2.. | awk '{print $1}' | xargs -r sudo kill -"${1:-9}"
