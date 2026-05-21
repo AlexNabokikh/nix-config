@@ -90,7 +90,6 @@ in
           animations.enabled = false;
 
           dwindle = {
-            pseudotile = true;
             preserve_split = true;
           };
 
