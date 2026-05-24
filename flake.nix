@@ -11,10 +11,7 @@
 
     hardware.url = "github:nixos/nixos-hardware";
 
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    catppuccin.url = "github:catppuccin/nix";
 
     darwin = {
       url = "github:LnL7/nix-darwin";

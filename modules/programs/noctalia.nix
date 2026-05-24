@@ -13,7 +13,7 @@
       monospaceFont = config.profile.appearance.fonts.monospace.family;
 
       paletteFile = "${
-        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.palette
+        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.sources.palette
       }/palette.json";
       palette = builtins.fromJSON (builtins.readFile paletteFile);
       flavorPalette = palette.${catppuccin.flavor}.colors;

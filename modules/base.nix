@@ -19,7 +19,6 @@ in
       nixos.audio
       nixos.bluetooth
       nixos.boot
-      nixos.catppuccin
       nixos.containers
       nixos.locale
       nixos.networking

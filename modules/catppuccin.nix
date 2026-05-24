@@ -1,13 +1,5 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.catppuccin = {
-    imports = [
-      inputs.catppuccin.nixosModules.catppuccin
-    ];
-
-    catppuccin.cache.enable = true;
-  };
-
   flake.modules.homeManager.catppuccin =
     { config, ... }:
     {
