@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+freeze_pid=""
+
+cleanup() {
+  if [[ -n "$freeze_pid" ]]; then
+    kill "$freeze_pid" 2>/dev/null || true
+    wait "$freeze_pid" 2>/dev/null || true
+  fi
+}
+
+freeze() {
+  hyprpicker -rz >/dev/null 2>&1 &
+  freeze_pid=$!
+  sleep 0.2
+}
+
+trap cleanup EXIT
+
+case "${1:-}" in
+area)
+  freeze
+  grim -g "$(slurp)" -
+  ;;
+fullscreen)
+  freeze
+  grim -
+  ;;
+*)
+  printf 'Usage: %s {area|fullscreen}\n' "$(basename "$0")" >&2
+  exit 2
+  ;;
+esac

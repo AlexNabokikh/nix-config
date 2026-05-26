@@ -2,6 +2,6 @@
 
 set -eo pipefail
 
-grim -t png -g "$(slurp)" - |
+wayblast area |
 	tesseract stdin stdout -l "eng+rus+pol" |
 	tr -d '\f' | wl-copy

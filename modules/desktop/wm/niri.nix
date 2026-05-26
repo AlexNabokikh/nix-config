@@ -233,16 +233,16 @@ in
             Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
 
             // Pick color from screen and copy to clipboard
-            Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep -o '#.*' | wl-copy"; }
+            Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn "hyprpicker" "-a"; }
 
             // OCR
             Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "ocr"; }
 
             // Screenshot area
-            Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
+            Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "wayblast area | swappy -f -"; }
 
             // Screenshot entire screen
-            Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "grim - | swappy -f -"; }
+            Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "wayblast fullscreen | swappy -f -"; }
 
             // Screen recording
             Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "toggle-screen-recording"; }

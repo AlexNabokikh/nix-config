@@ -38,6 +38,7 @@ in
         gnome-text-editor
         gpu-screen-recorder
         grim
+        hyprpicker
         libnotify
         loupe
         nautilus

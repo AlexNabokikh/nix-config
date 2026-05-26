@@ -15,6 +15,7 @@
       linuxScripts = [
         "ocr"
         "toggle-screen-recording"
+        "wayblast"
       ];
 
       scriptNames = commonScripts ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux linuxScripts;

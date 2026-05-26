@@ -30,11 +30,6 @@ in
   flake.modules.homeManager.hyprland =
     { pkgs, ... }:
     {
-      home.packages = with pkgs; [
-        grimblast
-        hyprpicker
-      ];
-
       wayland.windowManager.hyprland = {
         enable = true;
         package = null;
@@ -206,10 +201,10 @@ in
             "ALT SHIFT, 2, exec, ocr"
 
             # Screenshot area
-            "$mainMod SHIFT, S, exec, grimblast -f save area - | swappy -f -"
+            "$mainMod SHIFT, S, exec, wayblast area | swappy -f -"
 
             # Screenshot entire screen
-            "$mainMod CTRL, S, exec, grimblast -f save output - | swappy -f -"
+            "$mainMod CTRL, S, exec, wayblast fullscreen | swappy -f -"
 
             # Screen recording
             "$mainMod SHIFT, R, exec, toggle-screen-recording"
