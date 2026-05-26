@@ -156,7 +156,7 @@ in
 
         window-rule {
             match app-id=r#"^org\.telegram\.desktop$"#
-            exclude title="Choose Files"
+            exclude title=r#"(Choose Files|Media viewer|Save (File|Video|Image))"#
             default-column-width { proportion 1.0; }
             open-on-workspace "messages"
         }
