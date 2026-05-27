@@ -20,11 +20,6 @@
             "nix-command"
             "flakes"
           ];
-          extra-substituters = [ "https://catppuccin.cachix.org" ];
-          extra-trusted-public-keys = [
-            "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-          ];
-          trusted-users = lib.mkAfter [ config.primaryUser ];
         };
 
         optimise.automatic = true;
