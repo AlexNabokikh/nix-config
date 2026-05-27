@@ -115,6 +115,7 @@ in
             "center on, match:float true"
 
             # Floating dialogs (sized)
+            "match:class ^(xdg-desktop-portal-gtk)$, float on, size (monitor_w*0.4) (monitor_h*0.4)"
             "match:class ^(org.pulseaudio.pavucontrol)$, float on, size (monitor_w*0.5) (monitor_h*0.5)"
             "match:initial_title ^(_crx_.*)$, float on, size (monitor_w*0.15) (monitor_h*0.4)"
 
