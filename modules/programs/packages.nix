@@ -11,14 +11,12 @@
         [
           awscli2
           brave
-          claude-code
           dig
           eza
           fd
           jq
           nh
           nodejs
-          opencode
           openconnect
           opentofu
           pipenv
