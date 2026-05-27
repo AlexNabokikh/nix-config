@@ -83,9 +83,6 @@
           open = "xdg-open";
         };
         initContent = ''
-          # kubectl auto-complete
-          source ${pkgs.kubectl}/share/zsh/site-functions/_kubectl
-
           # bindings
           bindkey -e
           bindkey '^H' backward-delete-word
