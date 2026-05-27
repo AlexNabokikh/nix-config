@@ -17,6 +17,7 @@
       terraformer # Terraform state management tool for importing existing resources
 
       #* Development Tools
+      codex # OpenAI Codex CLI
       delta # Enhanced git diff viewer with syntax highlighting
       direnv # Environment variable manager for project-specific environments
       glow # Markdown terminal viewer from Charmbracelet
@@ -27,6 +28,7 @@
       doggo # DNS client
 
       #* Language-Specific Tools
+      bun # JavaScript runtime and package manager
       nodejs # JavaScript runtime environment
       (python3.withPackages (ps:
         with ps; [

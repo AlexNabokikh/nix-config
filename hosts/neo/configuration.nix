@@ -22,7 +22,7 @@
     orientation = "left";
     autohide = false;
     persistent-apps = [
-      "/Applications/cmux.app"
+      # "/Applications/cmux.app"
       "/Applications/LM Studio.app"
       "/Applications/1Password.app"
       "/Applications/Brave Browser.app"

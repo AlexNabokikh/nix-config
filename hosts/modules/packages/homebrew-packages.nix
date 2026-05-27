@@ -121,7 +121,7 @@ _: {
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal
       "visual-studio-code" # Popular code editor
-      # "zed" # High-performance code editor
+      "zed" # High-performance code editor
       "pycharm" # IDE for Python development
       "ghostty" # Fast, native terminal emulator
       "warp" # Modern terminal with AI features
