@@ -2,7 +2,6 @@
   flake.modules.homeManager.gtk =
     {
       config,
-      lib,
       pkgs,
       ...
     }:
@@ -17,13 +16,15 @@
       };
     in
     {
+      catppuccin.gtk.icon.enable = false;
+
       gtk = {
         enable = true;
         colorScheme = "dark";
         gtk2.force = true;
         gtk4.theme = gtkTheme;
         theme = gtkTheme;
-        iconTheme = lib.mkForce {
+        iconTheme = {
           inherit (config.profile.appearance.iconTheme) name;
           inherit (config.profile.appearance.iconTheme) package;
         };
