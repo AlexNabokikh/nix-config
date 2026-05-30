@@ -24,7 +24,7 @@
           };
 
           window = {
-            decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "full";
+            decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "none";
             dynamic_title = false;
             dynamic_padding = true;
             dimensions = {
