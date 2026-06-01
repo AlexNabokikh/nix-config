@@ -19,7 +19,6 @@ in
       config,
       pkgs,
       catppuccinColor,
-      mkQuitAllEntry,
       ...
     }:
     let
@@ -29,7 +28,11 @@ in
     {
       home.packages = [ pkgs.xwayland-satellite ];
 
-      xdg.desktopEntries.quit-all-applications = mkQuitAllEntry "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}";
+      xdg.desktopEntries.quit-all-applications = {
+        name = "Quit All Applications";
+        exec = ''${pkgs.bash}/bin/bash -lc "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}"'';
+        icon = "system-log-out";
+      };
 
       xdg.configFile."niri/config.kdl".text = ''
         // Input device settings

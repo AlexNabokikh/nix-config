@@ -28,7 +28,7 @@ in
     };
 
   flake.modules.homeManager.hyprland =
-    { lib, mkQuitAllEntry, ... }:
+    { lib, ... }:
     let
       lua = lib.generators.mkLuaInline;
       mod = key: lua ''mainMod .. " + ${key}"'';
@@ -333,7 +333,11 @@ in
 
       xdg = {
         desktopEntries = {
-          quit-all-applications = mkQuitAllEntry "hyprctl -j clients | jq -r '.[].address' | xargs -r -I {} hyprctl dispatch closewindow address:{}";
+          quit-all-applications = {
+            name = "Quit All Applications";
+            exec = ''hyprctl eval "for _, w in ipairs(hl.get_windows()) do hl.dispatch(hl.dsp.window.close({ window = w })) end"'';
+            icon = "system-log-out";
+          };
 
           uuctl = {
             name = "uuctl";

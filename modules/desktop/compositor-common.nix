@@ -56,13 +56,6 @@ in
         hm.idle
       ];
 
-      # "Quit All Applications" desktop entry helper
-      _module.args.mkQuitAllEntry = pipeline: {
-        name = "Quit All Applications";
-        icon = "system-log-out";
-        exec = ''${pkgs.bash}/bin/bash -lc "${pipeline}"'';
-      };
-
       home.packages = with pkgs; [
         file-roller
         gnome-calculator
