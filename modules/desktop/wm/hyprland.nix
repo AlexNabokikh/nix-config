@@ -28,219 +28,305 @@ in
     };
 
   flake.modules.homeManager.hyprland =
-    { mkQuitAllEntry, ... }:
+    { lib, mkQuitAllEntry, ... }:
+    let
+      lua = lib.generators.mkLuaInline;
+      mod = key: lua ''mainMod .. " + ${key}"'';
+      exec = command: "hl.dsp.exec_cmd(${builtins.toJSON command})";
+      bind = keys: dispatcher: {
+        _args = [
+          keys
+          (lua dispatcher)
+        ];
+      };
+      bindExec = keys: command: bind keys (exec command);
+      bindMouse = keys: dispatcher: {
+        _args = [
+          keys
+          (lua dispatcher)
+          { mouse = true; }
+        ];
+      };
+    in
     {
       wayland.windowManager.hyprland = {
         enable = true;
         package = null;
         portalPackage = null;
-        configType = "hyprlang";
+        configType = "lua";
         systemd.enable = false;
+        importantPrefixes = [
+          "config"
+          "gesture"
+          "window_rule"
+          "bind"
+        ];
 
         settings = {
-          "$mainMod" = "SUPER";
+          mainMod._var = "SUPER";
 
-          input = {
-            kb_layout = "pl,ru";
-            kb_options = "grp:win_space_toggle";
-            repeat_delay = 250;
-            repeat_rate = 40;
+          config = {
+            input = {
+              kb_layout = "pl,ru";
+              kb_options = "grp:win_space_toggle";
+              repeat_delay = 250;
+              repeat_rate = 40;
 
-            follow_mouse = 1;
-            mouse_refocus = false;
+              follow_mouse = 1;
+              mouse_refocus = false;
 
-            touchpad.natural_scroll = true;
+              touchpad.natural_scroll = true;
 
-            sensitivity = 0;
-            accel_profile = "flat";
-          };
-
-          cursor.no_warps = true;
-
-          general = {
-            border_size = 1;
-            "col.active_border" = "$accent";
-            "col.inactive_border" = "$surface0";
-            gaps_in = 3;
-            gaps_out = 6;
-            layout = "master";
-          };
-
-          decoration = {
-            rounding = 8;
-            blur = {
-              enabled = false;
-              size = 3;
-              passes = 1;
+              sensitivity = 0;
+              accel_profile = "flat";
             };
-            shadow = {
-              enabled = false;
-              range = 4;
-              render_power = 3;
+
+            cursor.no_warps = true;
+
+            general = {
+              border_size = 1;
+              col = {
+                active_border = lua "colors.accent";
+                inactive_border = lua "colors.surface0";
+              };
+              gaps_in = 3;
+              gaps_out = 6;
+              layout = "master";
+            };
+
+            decoration = {
+              rounding = 8;
+              blur = {
+                enabled = false;
+                size = 3;
+                passes = 1;
+              };
+              shadow = {
+                enabled = false;
+                range = 4;
+                render_power = 3;
+              };
+            };
+
+            render.direct_scanout = 1;
+
+            animations.enabled = false;
+
+            dwindle.preserve_split = true;
+
+            master = {
+              orientation = "left";
+              mfact = 0.50;
+            };
+
+            misc = {
+              force_default_wallpaper = 0;
+              disable_hyprland_logo = true;
+              disable_splash_rendering = true;
+              vrr = 2;
             };
           };
 
-          render.direct_scanout = 1;
-
-          animations.enabled = false;
-
-          dwindle = {
-            preserve_split = true;
+          gesture = {
+            fingers = 3;
+            direction = "horizontal";
+            action = "workspace";
           };
 
-          master = {
-            orientation = "left";
-            mfact = 0.50;
-          };
-
-          gesture = "3, horizontal, workspace";
-
-          misc = {
-            force_default_wallpaper = 0;
-            disable_hyprland_logo = true;
-            disable_splash_rendering = true;
-            vrr = 2;
-          };
-
-          windowrule = [
+          window_rule = [
             # Workspace assignments
-            "match:class ^(brave-browser)$, workspace 1"
-            "match:class ^(Alacritty)$, workspace 2"
-            "match:class ^(org\\.telegram\\.desktop)$, workspace 3"
-            "match:class ^(steam)$, workspace 4"
-            "match:class ^(steam_app_\\d+)$, workspace 5"
-            "match:class ^(gnome-pomodoro)$, workspace special"
+            {
+              match.class = "^(brave-browser)$";
+              workspace = "1";
+            }
+            {
+              match.class = "^(Alacritty)$";
+              workspace = "2";
+            }
+            {
+              match.class = "^(org\\.telegram\\.desktop)$";
+              workspace = "3";
+            }
+            {
+              match.class = "^(steam)$";
+              workspace = "4";
+            }
+            {
+              match.class = "^(steam_app_\\d+)$";
+              workspace = "5";
+            }
+            {
+              match.class = "^(gnome-pomodoro)$";
+              workspace = "special";
+            }
 
             # Center all floating windows
-            "center on, match:float true"
+            {
+              match.float = true;
+              center = true;
+            }
 
             # Floating dialogs (sized)
-            "match:class ^(xdg-desktop-portal-gtk)$, float on, size (monitor_w*0.4) (monitor_h*0.4)"
-            "match:class ^(org.pulseaudio.pavucontrol)$, float on, size (monitor_w*0.5) (monitor_h*0.5)"
-            "match:initial_title ^(_crx_.*)$, float on, size (monitor_w*0.15) (monitor_h*0.4)"
+            {
+              match.class = "^(xdg-desktop-portal-gtk)$";
+              float = true;
+              size = [
+                "(monitor_w*0.4)"
+                "(monitor_h*0.4)"
+              ];
+            }
+            {
+              match.class = "^(org.pulseaudio.pavucontrol)$";
+              float = true;
+              size = [
+                "(monitor_w*0.5)"
+                "(monitor_h*0.5)"
+              ];
+            }
+            {
+              match.initial_title = "^(_crx_.*)$";
+              float = true;
+              size = [
+                "(monitor_w*0.15)"
+                "(monitor_h*0.4)"
+              ];
+            }
 
             # Floating dialogs (auto-size)
-            "match:class ^(gnome-calculator|org\\.gnome\\.Calculator)$, float on"
+            {
+              match.class = "^(gnome-calculator|org\\.gnome\\.Calculator)$";
+              float = true;
+            }
 
             # Screen sharing
-            "match:title ^(Select what to share)$, float on"
-            "match:title ^(.*is sharing (your screen|a window)\\.)$, float on, pin on, border_size 0, move ((monitor_w-window_w)/2) (monitor_h-window_h)"
+            {
+              match.title = "^(Select what to share)$";
+              float = true;
+            }
+            {
+              match.title = "^(.*is sharing (your screen|a window)\\.)$";
+              float = true;
+              pin = true;
+              border_size = 0;
+              move = [
+                "((monitor_w-window_w)/2)"
+                "(monitor_h-window_h)"
+              ];
+            }
           ];
 
           bind = [
             # Layout controls
-            "$mainMod, Return, layoutmsg, swapwithmaster"
-            "$mainMod, R, layoutmsg, orientationcycle"
+            (bind (mod "Return") ''hl.dsp.layout("swapwithmaster")'')
+            (bind (mod "R") ''hl.dsp.layout("orientationcycle")'')
 
             # Window management
-            "$mainMod, Q, killactive,"
-            "CTRL ALT, Q, exit"
-            "$mainMod, F, togglefloating"
-            "$mainMod, M, fullscreen, 1 toggle"
-            "$mainMod SHIFT, M, fullscreen"
+            (bind (mod "Q") "hl.dsp.window.close()")
+            (bindExec "CTRL + ALT + Q" "uwsm stop")
+            (bind (mod "F") ''hl.dsp.window.float({ action = "toggle" })'')
+            (bind (mod "M") ''hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" })'')
+            (bind (mod "SHIFT + M") ''hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" })'')
 
             # Special workspace
-            "$mainMod, P, togglespecialworkspace"
-            "$mainMod SHIFT, P, movetoworkspacesilent, special"
+            (bind (mod "P") ''hl.dsp.workspace.toggle_special("special")'')
+            (bind (mod "SHIFT + P") ''hl.dsp.window.move({ workspace = "special", follow = false })'')
 
             # Move focus with mainMod + vim keys
-            "$mainMod, l, movefocus, r"
-            "$mainMod, h, movefocus, l"
-            "$mainMod, k, movefocus, u"
-            "$mainMod, j, movefocus, d"
+            (bind (mod "l") ''hl.dsp.focus({ direction = "r" })'')
+            (bind (mod "h") ''hl.dsp.focus({ direction = "l" })'')
+            (bind (mod "k") ''hl.dsp.focus({ direction = "u" })'')
+            (bind (mod "j") ''hl.dsp.focus({ direction = "d" })'')
 
             # Move windows with mainMod + CTRL + vim keys
-            "$mainMod CTRL, h, movewindow, l"
-            "$mainMod CTRL, j, movewindow, d"
-            "$mainMod CTRL, k, movewindow, u"
-            "$mainMod CTRL, l, movewindow, r"
+            (bind (mod "CTRL + h") ''hl.dsp.window.move({ direction = "l" })'')
+            (bind (mod "CTRL + j") ''hl.dsp.window.move({ direction = "d" })'')
+            (bind (mod "CTRL + k") ''hl.dsp.window.move({ direction = "u" })'')
+            (bind (mod "CTRL + l") ''hl.dsp.window.move({ direction = "r" })'')
 
             # Resize windows with mainMod + SHIFT + arrow keys
-            "$mainMod SHIFT, left, resizeactive, -50 0"
-            "$mainMod SHIFT, right, resizeactive, 50 0"
-            "$mainMod SHIFT, up, resizeactive, 0 -50"
-            "$mainMod SHIFT, down, resizeactive, 0 50"
+            (bind (mod "SHIFT + left") "hl.dsp.window.resize({ x = -50, y = 0, relative = true })")
+            (bind (mod "SHIFT + right") "hl.dsp.window.resize({ x = 50, y = 0, relative = true })")
+            (bind (mod "SHIFT + up") "hl.dsp.window.resize({ x = 0, y = -50, relative = true })")
+            (bind (mod "SHIFT + down") "hl.dsp.window.resize({ x = 0, y = 50, relative = true })")
 
             # Center focused window
-            "CTRL ALT, C, centerwindow"
+            (bind "CTRL + ALT + C" "hl.dsp.window.center()")
 
             # Switch workspaces with mainMod + [1-5]
-            "$mainMod, 1, workspace, 1"
-            "$mainMod, 2, workspace, 2"
-            "$mainMod, 3, workspace, 3"
-            "$mainMod, 4, workspace, 4"
-            "$mainMod, 5, workspace, 5"
+            (bind (mod "1") "hl.dsp.focus({ workspace = 1 })")
+            (bind (mod "2") "hl.dsp.focus({ workspace = 2 })")
+            (bind (mod "3") "hl.dsp.focus({ workspace = 3 })")
+            (bind (mod "4") "hl.dsp.focus({ workspace = 4 })")
+            (bind (mod "5") "hl.dsp.focus({ workspace = 5 })")
 
             # Move active window to a workspace with mainMod + SHIFT + [1-5]
-            "$mainMod SHIFT, 1, movetoworkspace, 1"
-            "$mainMod SHIFT, 2, movetoworkspace, 2"
-            "$mainMod SHIFT, 3, movetoworkspace, 3"
-            "$mainMod SHIFT, 4, movetoworkspace, 4"
-            "$mainMod SHIFT, 5, movetoworkspace, 5"
+            (bind (mod "SHIFT + 1") "hl.dsp.window.move({ workspace = 1 })")
+            (bind (mod "SHIFT + 2") "hl.dsp.window.move({ workspace = 2 })")
+            (bind (mod "SHIFT + 3") "hl.dsp.window.move({ workspace = 3 })")
+            (bind (mod "SHIFT + 4") "hl.dsp.window.move({ workspace = 4 })")
+            (bind (mod "SHIFT + 5") "hl.dsp.window.move({ workspace = 5 })")
 
             # Scroll through existing workspaces with mainMod + scroll
-            "$mainMod, mouse_down, workspace, e+1"
-            "$mainMod, mouse_up, workspace, e-1"
+            (bind (mod "mouse_down") ''hl.dsp.focus({ workspace = "e+1" })'')
+            (bind (mod "mouse_up") ''hl.dsp.focus({ workspace = "e-1" })'')
 
             # Launch applications
-            "$mainMod SHIFT, Return, exec, alacritty"
-            "$mainMod SHIFT, B, exec, brave"
-            "$mainMod SHIFT, F, exec, nautilus"
-            "$mainMod SHIFT, T, exec, Telegram"
-            "CTRL ALT, P, exec, gnome-pomodoro --start-stop"
+            (bindExec (mod "SHIFT + Return") "alacritty")
+            (bindExec (mod "SHIFT + B") "brave")
+            (bindExec (mod "SHIFT + F") "nautilus")
+            (bindExec (mod "SHIFT + T") "Telegram")
+            (bindExec "CTRL + ALT + P" "gnome-pomodoro --start-stop")
 
             # Application launcher
-            "CTRL, Space, exec, noctalia-shell ipc call launcher toggle"
+            (bindExec "CTRL + Space" "noctalia-shell ipc call launcher toggle")
 
             # Clipboard history
-            "ALT SHIFT, V, exec, noctalia-shell ipc call launcher clipboard"
+            (bindExec "ALT + SHIFT + V" "noctalia-shell ipc call launcher clipboard")
 
             # Pick color from screen and copy to clipboard
-            "$mainMod SHIFT, C, exec, hyprpicker -a"
+            (bindExec (mod "SHIFT + C") "hyprpicker -a")
 
             # OCR
-            "ALT SHIFT, 2, exec, ocr"
+            (bindExec "ALT + SHIFT + 2" "ocr")
 
             # Screenshot area
-            "$mainMod SHIFT, S, exec, wayblast area | swappy -f -"
+            (bindExec (mod "SHIFT + S") "wayblast area | swappy -f -")
 
             # Screenshot entire screen
-            "$mainMod CTRL, S, exec, wayblast fullscreen | swappy -f -"
+            (bindExec (mod "CTRL + S") "wayblast fullscreen | swappy -f -")
 
             # Screen recording
-            "$mainMod SHIFT, R, exec, toggle-screen-recording"
+            (bindExec (mod "SHIFT + R") "toggle-screen-recording")
 
             # Lock screen
-            "CTRL ALT, L, exec, noctalia-shell ipc call lockScreen lock"
+            (bindExec "CTRL + ALT + L" "noctalia-shell ipc call lockScreen lock")
 
             # Toggle control center panel
-            "$mainMod, C, exec, noctalia-shell ipc call controlCenter toggle"
+            (bindExec (mod "C") "noctalia-shell ipc call controlCenter toggle")
 
             # Open notifications history
-            "$mainMod, N, exec, noctalia-shell ipc call notifications toggleHistory"
+            (bindExec (mod "N") "noctalia-shell ipc call notifications toggleHistory")
 
             # Clear all notifications
-            "$mainMod SHIFT, Backspace, exec, noctalia-shell ipc call notifications clear"
+            (bindExec (mod "SHIFT + Backspace") "noctalia-shell ipc call notifications clear")
 
             # Adjust brightness
-            ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
-            ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
+            (bindExec "XF86MonBrightnessUp" "noctalia-shell ipc call brightness increase")
+            (bindExec "XF86MonBrightnessDown" "noctalia-shell ipc call brightness decrease")
 
             # Adjust volume
-            ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
-            ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
-            ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
+            (bindExec "XF86AudioRaiseVolume" "noctalia-shell ipc call volume increase")
+            (bindExec "XF86AudioLowerVolume" "noctalia-shell ipc call volume decrease")
+            (bindExec "XF86AudioMute" "noctalia-shell ipc call volume muteOutput")
 
             # Adjust mic sensitivity
-            "SHIFT, XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increaseInput"
-            "SHIFT, XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decreaseInput"
-            "SHIFT, XF86AudioMute, exec, noctalia-shell ipc call volume muteInput"
-          ];
+            (bindExec "SHIFT + XF86AudioRaiseVolume" "noctalia-shell ipc call volume increaseInput")
+            (bindExec "SHIFT + XF86AudioLowerVolume" "noctalia-shell ipc call volume decreaseInput")
+            (bindExec "SHIFT + XF86AudioMute" "noctalia-shell ipc call volume muteInput")
 
-          bindm = [
             # Move/resize windows with mainMod + LMB/RMB and dragging
-            "$mainMod, mouse:272, movewindow"
-            "$mainMod, mouse:273, resizewindow"
+            (bindMouse (mod "mouse:272") "hl.dsp.window.drag()")
+            (bindMouse (mod "mouse:273") "hl.dsp.window.resize()")
           ];
         };
       };
