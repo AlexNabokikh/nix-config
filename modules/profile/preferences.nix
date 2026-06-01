@@ -65,6 +65,7 @@
                             options = {
                               family = lib.mkOption { type = lib.types.str; };
                               package = lib.mkOption { type = lib.types.package; };
+                              size = lib.mkOption { type = lib.types.int; };
                             };
                           };
                         };
@@ -141,6 +142,7 @@
             monospace = {
               family = "JetBrainsMono Nerd Font Mono";
               package = pkgs.nerd-fonts.jetbrains-mono;
+              size = 11;
             };
 
             terminal = {

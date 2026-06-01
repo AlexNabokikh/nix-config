@@ -8,7 +8,7 @@
     let
       qtFont = family: size: ''"${family},${toString size}"'';
       uiFont = qtFont config.profile.appearance.fonts.ui.family config.profile.appearance.fonts.ui.size;
-      monospaceFont = qtFont config.profile.appearance.fonts.monospace.family config.profile.appearance.fonts.ui.size;
+      monospaceFont = qtFont config.profile.appearance.fonts.monospace.family config.profile.appearance.fonts.monospace.size;
     in
     {
       qt = {
