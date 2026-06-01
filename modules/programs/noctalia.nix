@@ -1,10 +1,10 @@
-{ inputs, ... }:
 {
   flake.modules.homeManager.noctalia =
     {
       config,
       lib,
       pkgs,
+      catppuccinColor,
       ...
     }:
     let
@@ -12,12 +12,7 @@
       uiFont = config.profile.appearance.fonts.ui.family;
       monospaceFont = config.profile.appearance.fonts.monospace.family;
 
-      paletteFile = "${
-        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.sources.palette
-      }/palette.json";
-      palette = builtins.fromJSON (builtins.readFile paletteFile);
-      flavorPalette = palette.${catppuccin.flavor}.colors;
-      color = name: flavorPalette.${name}.hex;
+      color = catppuccinColor;
       accentColor = color catppuccin.accent;
 
       jsonFormat = pkgs.formats.json { };

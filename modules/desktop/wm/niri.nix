@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ config, ... }:
 let
   inherit (config.flake.modules) nixos homeManager;
 in
@@ -15,25 +15,21 @@ in
   };
 
   flake.modules.homeManager.niri =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      catppuccinColor,
+      mkQuitAllEntry,
+      ...
+    }:
     let
       inherit (config.profile.appearance) catppuccin;
-
-      paletteFile = "${
-        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.sources.palette
-      }/palette.json";
-      palette = builtins.fromJSON (builtins.readFile paletteFile);
-      flavorPalette = palette.${catppuccin.flavor}.colors;
-      color = name: flavorPalette.${name}.hex;
+      color = catppuccinColor;
     in
     {
       home.packages = [ pkgs.xwayland-satellite ];
 
-      xdg.desktopEntries.quit-all-applications = {
-        name = "Quit All Applications";
-        exec = ''${pkgs.bash}/bin/bash -lc "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}"'';
-        icon = "system-log-out";
-      };
+      xdg.desktopEntries.quit-all-applications = mkQuitAllEntry "niri msg -j windows | jq -r '.[].id' | xargs -r -I {} niri msg action close-window --id {}";
 
       xdg.configFile."niri/config.kdl".text = ''
         // Input device settings
