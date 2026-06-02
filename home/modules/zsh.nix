@@ -119,6 +119,9 @@
       setopt HIST_IGNORE_DUPS
       setopt HIST_IGNORE_SPACE
       setopt SHARE_HISTORY
+
+      # OrbStack shell integration
+      source ~/.orbstack/shell/init.zsh 2>/dev/null || :
     '';
   };
 }
