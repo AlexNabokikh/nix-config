@@ -64,6 +64,7 @@ _: {
       # "block-goose" # AI coding agent
       "cmux" # AI terminal multiplexer
       "codex" # Codex desktop client
+      "claudebar"
       "cursor" # AI  editor
       "lm-studio" # Local AI model runner and chat interface
       "opencode-desktop"
@@ -121,13 +122,14 @@ _: {
       "powershell" # Cross-platform automation and configuration tool
       "termius" # Cross-platform SSH client and terminal
       "visual-studio-code" # Popular code editor
-      "zed" # High-performance code editor
+      # "zed" # High-performance code editor
       "pycharm" # IDE for Python development
       "ghostty" # Fast, native terminal emulator
       "warp" # Modern terminal with AI features
 
       #* Browsers & Communication
       # "vivaldi" # Feature-rich web browser with customization options
+      "discord" # Communication platform for communities and gaming
       "brave-browser" # Privacy-focused web browser with ad blocker
       "netdownloadhelpercoapp"
       "telegram" # Messaging application
