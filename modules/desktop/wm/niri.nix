@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ config, ... }:
 let
   inherit (config.flake.modules) nixos homeManager;
 in
@@ -15,16 +15,15 @@ in
   };
 
   flake.modules.homeManager.niri =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      catppuccinColor,
+      ...
+    }:
     let
       inherit (config.profile.appearance) catppuccin;
-
-      paletteFile = "${
-        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.sources.palette
-      }/palette.json";
-      palette = builtins.fromJSON (builtins.readFile paletteFile);
-      flavorPalette = palette.${catppuccin.flavor}.colors;
-      color = name: flavorPalette.${name}.hex;
+      color = catppuccinColor;
     in
     {
       home.packages = [ pkgs.xwayland-satellite ];
