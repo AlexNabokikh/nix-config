@@ -199,6 +199,7 @@
     nixosConfigurations = {
       "nixos" = mkNixosConfiguration "nixos" "fs";
       "trinity" = mkNixosConfiguration "trinity" "fs";
+      "apoc" = mkNixosConfiguration "apoc" "fs";
       "morpheus" = mkNixosConfiguration "morpheus" "fs";
       "vm-cloud-image" = mkCloudImage "fs";
     };
@@ -211,6 +212,7 @@
     homeConfigurations = {
       "fs@nixos" = mkHomeConfiguration "x86_64-linux" "fs" "nixos";
       "fs@trinity" = mkHomeConfiguration "x86_64-linux" "fs" "trinity";
+      "fs@apoc" = mkHomeConfiguration "aarch64-linux" "fs" "apoc";
       "fs@morpheus" = mkHomeConfiguration "x86_64-linux" "fs" "morpheus";
       "fs@macvm-fs" = mkHomeConfiguration "aarch64-darwin" "fs" "macvm-fs";
       "fs@neo" = mkHomeConfiguration "aarch64-darwin" "fs" "neo";
