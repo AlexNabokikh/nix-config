@@ -1,72 +1,87 @@
 {pkgs, ...}: {
-  environment = {
-    systemPackages = with pkgs; [
-      #* DevOps & Infrastructure
-      ansible # IT automation and configuration management
-      # awscli2 # AWS Command Line Interface for managing AWS services - temporarily disabled due to hash mismatch
-      cloudflared # Cloudflare Tunnel client
-      doppler # Doppler CLI for secrets management
-      hcp # HashiCorp Cloud Platform CLI for managing HashiCorp cloud resources
-      kubernetes-helm # Kubernetes package manager
-      k3d # Lightweight Kubernetes in Docker
-      kubectl # Kubernetes command-line tool
-      lazydocker # Terminal UI for Docker management and monitoring
-      oci-cli # Oracle Cloud Infrastructure CLI
-      packer # Infrastructure as code tool for image building
-      terraform # Infrastructure as code tool for infrastructure provisioning
-      terraformer # Terraform state management tool for importing existing resources
+  environment.systemPackages = with pkgs; [
+    #* AI Tools
+    gemini-cli # AI-powered command-line interface
+    llmfit
+    ollama # Local AI model manager and runner
+    opencode # AI coding agent for the terminal
 
-      #* Development Tools
-      codex # OpenAI Codex CLI
-      delta # Enhanced git diff viewer with syntax highlighting
-      direnv # Environment variable manager for project-specific environments
-      glow # Markdown terminal viewer from Charmbracelet
-      gnupg # GNU Privacy Guard for encryption and signing
-      tree-sitter # Parser generator tool and incremental parsing library for nvim-treesitter
+    #* DevOps & Infrastructure
+    ansible # IT automation and configuration management
+    awscli2 # AWS Command Line Interface
+    cloudflared # Cloudflare Tunnel client
+    docker-compose # Multi-container Docker application tool
+    doppler # Doppler CLI for secrets management
+    gh # GitHub CLI
+    hcp # HashiCorp Cloud Platform CLI
+    kubernetes-helm # Kubernetes package manager
+    k3d # Lightweight Kubernetes in Docker
+    kubectl # Kubernetes command-line tool
+    kubectx # Switch between Kubernetes contexts
+    lazydocker # Terminal UI for Docker management
+    opentofu # Open-source infrastructure as code tool
+    packer # Infrastructure as code tool for image building
+    talosctl # CLI for managing Talos Linux clusters
+    terraform # Infrastructure as code tool
 
-      #* Networking
-      doggo # DNS client
+    #* Development Tools
+    codex # OpenAI Codex CLI
+    delta # Enhanced git diff viewer
+    direnv # Environment variable manager
+    glow # Markdown terminal viewer
+    gnupg # GNU Privacy Guard
+    hugo # Fast static site generator
+    mise # Runtime environment manager
+    tree-sitter # Parser generator for nvim-treesitter
 
-      #* Language-Specific Tools
-      bun # JavaScript runtime and package manager
-      nodejs # JavaScript runtime environment
-      (python3.withPackages (ps:
-        with ps; [
-          dnspython # DNS toolkit for Python
-          jmespath # JSON query language for Python
-          pip # Python package installer
-          virtualenv # Python virtual environment creator
-        ]))
-      pipenv # Python dependency management tool
+    #* Networking
+    doggo # DNS client
+    lazyssh # Minimal SSH config tool
+    nmap # Network exploration tool
 
-      #* System Utilities
-      dust # Intuitive disk usage analyzer with visual output
-      duf # Disk usage statistics utility with friendly UI
-      home-manager # Nix user environment manager
-      nh # Nix command wrapper and helper
-      mkpasswd # Generate hashed passwords
-      openconnect # VPN client compatible with Cisco AnyConnect
-      pre-commit # Git pre-commit hook framework
-      sshpass # Non-interactive ssh password authentication
-      sops # Secrets management tool
-      tree # Directory structure viewer
+    #* Language-Specific Tools
+    bun # JavaScript runtime and package manager
+    nodejs # JavaScript runtime environment
+    (python3.withPackages (ps:
+      with ps; [
+        dnspython # DNS toolkit for Python
+        jmespath # JSON query language for Python
+        pip # Python package installer
+        virtualenv # Python virtual environment creator
+      ]))
+    pipenv # Python dependency management tool
+    ruff # Extremely fast Python linter
+    uv # Fast Python package installer and resolver
 
-      #* Modern CLI Replacements
-      eza # Modern replacement for ls with more features
-      fd # User-friendly alternative to find
-      ripgrep # Fast alternative to grep with better syntax
+    #* System Utilities
+    bashInteractive # Modern GNU Bash shell
+    dust # Intuitive disk usage analyzer
+    duf # Disk usage statistics utility
+    home-manager # Nix user environment manager
+    nh # Nix command wrapper and helper
+    mkpasswd # Generate hashed passwords
+    openconnect # VPN client
+    pre-commit # Git pre-commit hook framework
+    sshpass # Non-interactive SSH password auth
+    sops # Secrets management tool
+    tree # Directory structure viewer
 
-      #* Task Runners and Processors
-      go-task # Task runner for Go projects
-      jq # Command-line JSON processor
-      just # Modern command runner alternative to make
-      yq # Command-line YAML processor
+    #* Modern CLI Replacements
+    eza # Modern replacement for ls
+    fd # Friendly alternative to find
+    ripgrep # Fast alternative to grep
+    zoxide # Smarter cd command
 
-      #* Terminal Recording
-      vhs # Terminal GIF/video recorder with code-based scripting
+    #* Task Runners and Processors
+    go-task # Task runner for Go projects
+    jq # Command-line JSON processor
+    just # Modern command runner
+    yq # Command-line YAML processor
 
-      #* Miscellaneous
-      cmatrix # Terminal based "The Matrix" like animation
-    ];
-  };
+    #* Terminal Recording
+    vhs # Terminal GIF/video recorder
+
+    #* Miscellaneous
+    cmatrix # Terminal Matrix animation
+  ];
 }

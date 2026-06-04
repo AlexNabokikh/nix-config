@@ -111,8 +111,8 @@ N = ['main', 'built-in', '2778G5'] # MAIN screen priority
 # O = ['main', 'built-in', '2778G5'] # MAIN screen priority (unused)
 P = ['main', 'built-in', '2778G5'] # MAIN screen priority
 S = ['main', 'built-in', '2778G5'] # MAIN screen priority
-T = ['built-in', 'main', '2778G5', ] # SMALL monitor priority
-U = ['built-in', 'main', '2778G5', ] # SMALL monitor priority
+T = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority
+U = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority
 V = ['2778G5', 'built-in', 'main'] # AOC/Vertical monitor priority
 W = ['main', 'built-in', '2778G5'] # MAIN screen priority
 

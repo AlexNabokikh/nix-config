@@ -7,6 +7,14 @@ enabled_darwin_hosts := "neo"
 enabled_vm_hosts := "trinity"
 enabled_nixos_hosts := "morpheus"
 
+# All known host names in the flake (used to validate explicit host filters).
+valid_hosts := "neo macvm-fs trinity morpheus"
+
+# Per-lane host sets: every host that can be deployed in a given lane.
+darwin_hosts := "neo macvm-fs"
+nixos_hosts := "morpheus"
+vm_hosts := "trinity"
+
 # Default recipe: Shows available commands
 default:
     @just --list
@@ -21,31 +29,113 @@ _banner color lane target action:
 # Print a non-fatal skip message for aggregate recipes.
 _skip color lane target reason:
     @printf '\n\033[1;{{color}}m%s :: %s\033[0m\n' "{{lane}}" "{{target}}"
-    @printf '\033[{{color}}mSkipping: %s\033[0m\n' "{{reason}}"
+    @printf '\033[1;{{color}}mSkipping: %s\033[0m\n' "{{reason}}"
+
+# Validate that every host in a comma-list filter is a known host. "all" is always valid.
+_validate-hosts filter:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    filter="{{filter}}"
+    if [ "$filter" = "all" ]; then
+        exit 0
+    fi
+    while IFS= read -r h; do
+        h=$(echo "$h" | xargs)
+        [ -z "$h" ] && continue
+        if ! echo "{{valid_hosts}}" | tr ' ' '\n' | grep -qx "$h"; then
+            echo "Unknown host '$h'. Valid hosts: {{valid_hosts}}" >&2
+            exit 1
+        fi
+    done < <(echo "$filter" | tr ',' '\n')
+
+# Resolve a host filter to the hosts a per-lane command should process.
+# "all" → the lane's enabled set. Comma-list → entries that are valid for the lane
+# (errors on entries that belong to other lanes so direct calls fail fast).
+# Echoes one host per line.
+_resolve-hosts filter enabled lane_hosts:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    filter="{{filter}}"
+    enabled="{{enabled}}"
+    lane_hosts="{{lane_hosts}}"
+    if [ "$filter" = "all" ]; then
+        echo "$enabled" | tr ' ' '\n'
+    else
+        while IFS= read -r h; do
+            h=$(echo "$h" | xargs)
+            [ -z "$h" ] && continue
+            if ! echo "$lane_hosts" | tr ' ' '\n' | grep -qx "$h"; then
+                echo "Host '$h' is not valid for this lane. Valid: $lane_hosts" >&2
+                exit 1
+            fi
+            echo "$h"
+        done < <(echo "$filter" | tr ',' '\n')
+    fi
+
+# Build a comma-list of hosts to process for a lane, given a user filter.
+# "all" → the lane's enabled set joined with commas. Comma-list → entries valid
+# for the lane, joined with commas (silently drops cross-lane entries).
+# Echoes "" if the lane has nothing to do.
+_quick-update-filter filter enabled lane_hosts:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    filter="{{filter}}"
+    enabled="{{enabled}}"
+    lane_hosts="{{lane_hosts}}"
+    if [ "$filter" = "all" ]; then
+        echo "$enabled" | tr ' ' '\n' | paste -sd ',' -
+        exit 0
+    fi
+    echo "$filter" | tr ',' '\n' | while IFS= read -r h; do
+        h=$(echo "$h" | xargs)
+        [ -z "$h" ] && continue
+        if echo "$lane_hosts" | tr ' ' '\n' | grep -qx "$h"; then
+            echo "$h"
+        fi
+    done | paste -sd ',' -
 
 # ============================================================================
 # Quick Update Commands
 # ============================================================================
 
-# Update flake inputs, then switch every enabled deployment lane.
-quick-update: update darwin-switch nixos-switch vm-switch
-
-# Update flake inputs, then switch one enabled deployment lane.
-quick-update-lane lane:
+# Update flake inputs, then switch every enabled deployment lane. Pass a host or
+# comma-separated host list (e.g. `quick-update neo` or `quick-update neo,morpheus`)
+# to limit the scope; lanes that have no matching hosts are skipped.
+quick-update hosts="all":
     #!/usr/bin/env bash
     set -euo pipefail
+    just _validate-hosts "{{hosts}}"
+    just update
+
+    # Build a per-lane filter (silently dropping cross-lane entries) and call each lane
+    # that has at least one host to process.
+    darwin_filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_darwin_hosts}}" "{{darwin_hosts}}")
+    nixos_filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_nixos_hosts}}" "{{nixos_hosts}}")
+    vm_filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_vm_hosts}}" "{{vm_hosts}}")
+
+    if [ -n "$darwin_filter" ]; then just darwin-switch "$darwin_filter"; fi
+    if [ -n "$nixos_filter" ]; then just nixos-switch "$nixos_filter"; fi
+    if [ -n "$vm_filter" ]; then just vm-switch "$vm_filter"; fi
+
+# Update flake inputs, then switch one enabled deployment lane. Pass a host or
+# comma-separated host list to limit the scope within the lane.
+quick-update-lane lane hosts="all":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    just _validate-hosts "{{hosts}}"
+    just update
     case "{{lane}}" in
       darwin)
-        just update
-        just darwin-switch
+        filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_darwin_hosts}}" "{{darwin_hosts}}")
+        if [ -n "$filter" ]; then just darwin-switch "$filter"; fi
         ;;
       nixos)
-        just update
-        just nixos-switch
+        filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_nixos_hosts}}" "{{nixos_hosts}}")
+        if [ -n "$filter" ]; then just nixos-switch "$filter"; fi
         ;;
       vm)
-        just update
-        just vm-switch
+        filter=$(just _quick-update-filter "{{hosts}}" "{{enabled_vm_hosts}}" "{{vm_hosts}}")
+        if [ -n "$filter" ]; then just vm-switch "$filter"; fi
         ;;
       *)
         echo "Unknown lane '{{lane}}'. Expected one of: darwin, nixos, vm" >&2
