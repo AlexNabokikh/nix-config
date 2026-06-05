@@ -10,7 +10,7 @@ in
       inputs.hardware.nixosModules.common-gpu-amd
       ./_hardware.nix
       nixos.base
-      nixos.hyprland
+      nixos.niri
       nixos.gaming
     ];
 
