@@ -28,18 +28,16 @@ in
     };
 
   flake.modules.homeManager.hyprland =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       wayland.windowManager.hyprland = {
         enable = true;
         package = null;
         portalPackage = null;
-        configType = "hyprlang";
+        configType = "lua";
         systemd.enable = false;
 
-        settings = {
-          "$mainMod" = "SUPER";
-
+        settings.config = {
           input = {
             kb_layout = "pl,ru";
             kb_options = "grp:win_space_toggle";
@@ -59,8 +57,10 @@ in
 
           general = {
             border_size = 1;
-            "col.active_border" = "$accent";
-            "col.inactive_border" = "$surface0";
+            col = {
+              active_border.colors = [ (lib.generators.mkLuaInline "colors.accent") ];
+              inactive_border.colors = [ (lib.generators.mkLuaInline "colors.surface0") ];
+            };
             gaps_in = 3;
             gaps_out = 6;
             layout = "master";
@@ -84,16 +84,12 @@ in
 
           animations.enabled = false;
 
-          dwindle = {
-            preserve_split = true;
-          };
+          dwindle.preserve_split = true;
 
           master = {
             orientation = "left";
             mfact = 0.50;
           };
-
-          gesture = "3, horizontal, workspace";
 
           misc = {
             force_default_wallpaper = 0;
@@ -101,148 +97,148 @@ in
             disable_splash_rendering = true;
             vrr = 2;
           };
-
-          windowrule = [
-            # Workspace assignments
-            "match:class ^(brave-browser)$, workspace 1"
-            "match:class ^(Alacritty)$, workspace 2"
-            "match:class ^(org\\.telegram\\.desktop)$, workspace 3"
-            "match:class ^(steam)$, workspace 4"
-            "match:class ^(steam_app_\\d+)$, workspace 5"
-            "match:class ^(gnome-pomodoro)$, workspace special"
-
-            # Center all floating windows
-            "center on, match:float true"
-
-            # Floating dialogs (sized)
-            "match:class ^(xdg-desktop-portal-gtk)$, float on, size (monitor_w*0.4) (monitor_h*0.4)"
-            "match:class ^(org.pulseaudio.pavucontrol)$, float on, size (monitor_w*0.5) (monitor_h*0.5)"
-            "match:initial_title ^(_crx_.*)$, float on, size (monitor_w*0.15) (monitor_h*0.4)"
-
-            # Floating dialogs (auto-size)
-            "match:class ^(gnome-calculator|org\\.gnome\\.Calculator)$, float on"
-
-            # Screen sharing
-            "match:title ^(Select what to share)$, float on"
-            "match:title ^(.*is sharing (your screen|a window)\\.)$, float on, pin on, border_size 0, move ((monitor_w-window_w)/2) (monitor_h-window_h)"
-          ];
-
-          bind = [
-            # Layout controls
-            "$mainMod, Return, layoutmsg, swapwithmaster"
-            "$mainMod, R, layoutmsg, orientationcycle"
-
-            # Window management
-            "$mainMod, Q, killactive,"
-            "CTRL ALT, Q, exit"
-            "$mainMod, F, togglefloating"
-            "$mainMod, M, fullscreen, 1 toggle"
-            "$mainMod SHIFT, M, fullscreen"
-
-            # Special workspace
-            "$mainMod, P, togglespecialworkspace"
-            "$mainMod SHIFT, P, movetoworkspacesilent, special"
-
-            # Move focus with mainMod + vim keys
-            "$mainMod, l, movefocus, r"
-            "$mainMod, h, movefocus, l"
-            "$mainMod, k, movefocus, u"
-            "$mainMod, j, movefocus, d"
-
-            # Move windows with mainMod + CTRL + vim keys
-            "$mainMod CTRL, h, movewindow, l"
-            "$mainMod CTRL, j, movewindow, d"
-            "$mainMod CTRL, k, movewindow, u"
-            "$mainMod CTRL, l, movewindow, r"
-
-            # Resize windows with mainMod + SHIFT + arrow keys
-            "$mainMod SHIFT, left, resizeactive, -50 0"
-            "$mainMod SHIFT, right, resizeactive, 50 0"
-            "$mainMod SHIFT, up, resizeactive, 0 -50"
-            "$mainMod SHIFT, down, resizeactive, 0 50"
-
-            # Center focused window
-            "CTRL ALT, C, centerwindow"
-
-            # Switch workspaces with mainMod + [1-5]
-            "$mainMod, 1, workspace, 1"
-            "$mainMod, 2, workspace, 2"
-            "$mainMod, 3, workspace, 3"
-            "$mainMod, 4, workspace, 4"
-            "$mainMod, 5, workspace, 5"
-
-            # Move active window to a workspace with mainMod + SHIFT + [1-5]
-            "$mainMod SHIFT, 1, movetoworkspace, 1"
-            "$mainMod SHIFT, 2, movetoworkspace, 2"
-            "$mainMod SHIFT, 3, movetoworkspace, 3"
-            "$mainMod SHIFT, 4, movetoworkspace, 4"
-            "$mainMod SHIFT, 5, movetoworkspace, 5"
-
-            # Scroll through existing workspaces with mainMod + scroll
-            "$mainMod, mouse_down, workspace, e+1"
-            "$mainMod, mouse_up, workspace, e-1"
-
-            # Launch applications
-            "$mainMod SHIFT, Return, exec, alacritty"
-            "$mainMod SHIFT, B, exec, brave"
-            "$mainMod SHIFT, F, exec, nautilus"
-            "$mainMod SHIFT, T, exec, Telegram"
-            "CTRL ALT, P, exec, gnome-pomodoro --start-stop"
-
-            # Application launcher
-            "CTRL, Space, exec, noctalia-shell ipc call launcher toggle"
-
-            # Clipboard history
-            "ALT SHIFT, V, exec, noctalia-shell ipc call launcher clipboard"
-
-            # Pick color from screen and copy to clipboard
-            "$mainMod SHIFT, C, exec, hyprpicker -a"
-
-            # OCR
-            "ALT SHIFT, 2, exec, ocr"
-
-            # Screenshot area
-            "$mainMod SHIFT, S, exec, wayblast area | swappy -f -"
-
-            # Screenshot entire screen
-            "$mainMod CTRL, S, exec, wayblast fullscreen | swappy -f -"
-
-            # Screen recording
-            "$mainMod SHIFT, R, exec, toggle-screen-recording"
-
-            # Lock screen
-            "CTRL ALT, L, exec, noctalia-shell ipc call lockScreen lock"
-
-            # Toggle control center panel
-            "$mainMod, C, exec, noctalia-shell ipc call controlCenter toggle"
-
-            # Open notifications history
-            "$mainMod, N, exec, noctalia-shell ipc call notifications toggleHistory"
-
-            # Clear all notifications
-            "$mainMod SHIFT, Backspace, exec, noctalia-shell ipc call notifications clear"
-
-            # Adjust brightness
-            ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
-            ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
-
-            # Adjust volume
-            ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
-            ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
-            ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
-
-            # Adjust mic sensitivity
-            "SHIFT, XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increaseInput"
-            "SHIFT, XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decreaseInput"
-            "SHIFT, XF86AudioMute, exec, noctalia-shell ipc call volume muteInput"
-          ];
-
-          bindm = [
-            # Move/resize windows with mainMod + LMB/RMB and dragging
-            "$mainMod, mouse:272, movewindow"
-            "$mainMod, mouse:273, resizewindow"
-          ];
         };
+
+        extraConfig = ''
+          -- Touchpad gesture: 3-finger horizontal swipe switches workspaces
+          hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
+
+          -- Layout controls
+          hl.bind("SUPER + Return", hl.dsp.layout("swapwithmaster"))
+          hl.bind("SUPER + R", hl.dsp.layout("orientationcycle"))
+
+          -- Window management
+          hl.bind("SUPER + Q", hl.dsp.window.close())
+          hl.bind("CTRL + ALT + Q", hl.dsp.exec_cmd("uwsm stop"))
+          hl.bind("SUPER + F", hl.dsp.window.float({ action = "toggle" }))
+          hl.bind("SUPER + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+          hl.bind("SUPER + SHIFT + M", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+
+          -- Special workspace
+          hl.bind("SUPER + P", hl.dsp.workspace.toggle_special())
+          hl.bind("SUPER + SHIFT + P", hl.dsp.window.move({ workspace = "special", follow = false }))
+
+          -- Move focus with SUPER + vim keys
+          hl.bind("SUPER + l", hl.dsp.focus({ direction = "r" }))
+          hl.bind("SUPER + h", hl.dsp.focus({ direction = "l" }))
+          hl.bind("SUPER + k", hl.dsp.focus({ direction = "u" }))
+          hl.bind("SUPER + j", hl.dsp.focus({ direction = "d" }))
+
+          -- Move windows with SUPER + CTRL + vim keys
+          hl.bind("SUPER + CTRL + h", hl.dsp.window.move({ direction = "l" }))
+          hl.bind("SUPER + CTRL + j", hl.dsp.window.move({ direction = "d" }))
+          hl.bind("SUPER + CTRL + k", hl.dsp.window.move({ direction = "u" }))
+          hl.bind("SUPER + CTRL + l", hl.dsp.window.move({ direction = "r" }))
+
+          -- Resize windows with SUPER + SHIFT + arrow keys
+          hl.bind("SUPER + SHIFT + left", hl.dsp.window.resize({ x = -50, y = 0, relative = true }))
+          hl.bind("SUPER + SHIFT + right", hl.dsp.window.resize({ x = 50, y = 0, relative = true }))
+          hl.bind("SUPER + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -50, relative = true }))
+          hl.bind("SUPER + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 50, relative = true }))
+
+          -- Center focused window
+          hl.bind("CTRL + ALT + C", hl.dsp.window.center())
+
+          -- Switch workspaces with SUPER + [1-5]
+          hl.bind("SUPER + 1", hl.dsp.focus({ workspace = "1" }))
+          hl.bind("SUPER + 2", hl.dsp.focus({ workspace = "2" }))
+          hl.bind("SUPER + 3", hl.dsp.focus({ workspace = "3" }))
+          hl.bind("SUPER + 4", hl.dsp.focus({ workspace = "4" }))
+          hl.bind("SUPER + 5", hl.dsp.focus({ workspace = "5" }))
+
+          -- Move active window to a workspace with SUPER + SHIFT + [1-5]
+          hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = "1" }))
+          hl.bind("SUPER + SHIFT + 2", hl.dsp.window.move({ workspace = "2" }))
+          hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = "3" }))
+          hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = "4" }))
+          hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = "5" }))
+
+          -- Scroll through existing workspaces with SUPER + scroll
+          hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+          hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+
+          -- Launch applications
+          hl.bind("SUPER + SHIFT + Return", hl.dsp.exec_cmd("alacritty"))
+          hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("brave"))
+          hl.bind("SUPER + SHIFT + F", hl.dsp.exec_cmd("nautilus"))
+          hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("Telegram"))
+          hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("gnome-pomodoro --start-stop"))
+
+          -- Application launcher
+          hl.bind("CTRL + Space", hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle"))
+
+          -- Clipboard history
+          hl.bind("ALT + SHIFT + V", hl.dsp.exec_cmd("noctalia-shell ipc call launcher clipboard"))
+
+          -- Pick color from screen and copy to clipboard
+          hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
+
+          -- OCR
+          hl.bind("ALT + SHIFT + 2", hl.dsp.exec_cmd("ocr"))
+
+          -- Screenshot area
+          hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("wayblast area | swappy -f -"))
+
+          -- Screenshot entire screen
+          hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("wayblast fullscreen | swappy -f -"))
+
+          -- Screen recording
+          hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("toggle-screen-recording"))
+
+          -- Lock screen
+          hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"))
+
+          -- Toggle control center panel
+          hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia-shell ipc call controlCenter toggle"))
+
+          -- Open notifications history
+          hl.bind("SUPER + N", hl.dsp.exec_cmd("noctalia-shell ipc call notifications toggleHistory"))
+
+          -- Clear all notifications
+          hl.bind("SUPER + SHIFT + Backspace", hl.dsp.exec_cmd("noctalia-shell ipc call notifications clear"))
+
+          -- Adjust brightness
+          hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia-shell ipc call brightness increase"))
+          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia-shell ipc call brightness decrease"))
+
+          -- Adjust volume
+          hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume increase"))
+          hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume decrease"))
+          hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteOutput"))
+
+          -- Adjust mic sensitivity
+          hl.bind("SHIFT + XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume increaseInput"))
+          hl.bind("SHIFT + XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume decreaseInput"))
+          hl.bind("SHIFT + XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteInput"))
+
+          -- Move/resize windows with SUPER + LMB/RMB and dragging
+          hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
+          hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+          -- Window rules (evaluated top to bottom)
+          -- Workspace assignments
+          hl.window_rule({ match = { class = [[^(brave-browser)$]] }, workspace = "1" })
+          hl.window_rule({ match = { class = [[^(Alacritty)$]] }, workspace = "2" })
+          hl.window_rule({ match = { class = [[^(org\.telegram\.desktop)$]] }, workspace = "3" })
+          hl.window_rule({ match = { class = [[^(steam)$]] }, workspace = "4" })
+          hl.window_rule({ match = { class = [[^(steam_app_\d+)$]] }, workspace = "5" })
+          hl.window_rule({ match = { class = [[^(gnome-pomodoro)$]] }, workspace = "special" })
+
+          -- Center all floating windows
+          hl.window_rule({ match = { float = true }, center = true })
+
+          -- Floating dialogs (sized)
+          hl.window_rule({ match = { class = [[^(xdg-desktop-portal-gtk)$]] }, float = true, size = { "monitor_w*0.4", "monitor_h*0.4" } })
+          hl.window_rule({ match = { class = [[^(org.pulseaudio.pavucontrol)$]] }, float = true, size = { "monitor_w*0.5", "monitor_h*0.5" } })
+          hl.window_rule({ match = { initial_title = [[^(_crx_.*)$]] }, float = true, size = { "monitor_w*0.15", "monitor_h*0.4" } })
+
+          -- Floating dialogs (auto-size)
+          hl.window_rule({ match = { class = [[^(gnome-calculator|org\.gnome\.Calculator)$]] }, float = true })
+
+          -- Screen sharing
+          hl.window_rule({ match = { title = [[^(Select what to share)$]] }, float = true })
+          hl.window_rule({ match = { title = [[^(.*is sharing (your screen|a window)\.)$]] }, float = true, pin = true, border_size = 0, move = { "(monitor_w-window_w)/2", "monitor_h-window_h" } })
+        '';
       };
 
       xdg = {
