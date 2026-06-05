@@ -28,7 +28,7 @@ in
     };
 
   flake.modules.homeManager.hyprland =
-    { pkgs, lib, ... }:
+    { lib, ... }:
     {
       wayland.windowManager.hyprland = {
         enable = true;
@@ -245,7 +245,7 @@ in
         desktopEntries = {
           quit-all-applications = {
             name = "Quit All Applications";
-            exec = ''${pkgs.bash}/bin/bash -lc "hyprctl -j clients | jq -r '.[].address' | xargs -r -I {} hyprctl dispatch closewindow address:{}"'';
+            exec = ''hyprctl eval "for _, w in ipairs(hl.get_windows()) do hl.dispatch(hl.dsp.window.close({ window = w })) end"'';
             icon = "system-log-out";
           };
 
