@@ -21,6 +21,7 @@
 
       catppuccin = {
         enable = true;
+        autoEnable = true;
         inherit (config.profile.appearance.catppuccin) flavor accent;
         sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (
           final: prev: {
