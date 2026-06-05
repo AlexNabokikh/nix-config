@@ -13,7 +13,7 @@ in
 
     security = {
       polkit.enable = true;
-      pam.services.gdm.enableGnomeKeyring = true;
+      pam.services.ly.enableGnomeKeyring = true;
     };
   };
 
