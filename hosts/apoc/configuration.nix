@@ -67,6 +67,11 @@
 
   # Allow flakes (matches morpheus/trinity)
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  # Trust nix-community.cachix so first-time pushes of pre-commit-hooks etc.
+  # don't get rejected by `require-sigs = true` (default).
+  nix.settings.extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
 
   # User (self-declared, not via vm-generic)
   users.users.${userConfig.name} = {
@@ -78,6 +83,11 @@
 
   # Passwordless sudo → enables nixos-rebuild over SSH without a tty.
   security.sudo.wheelNeedsPassword = false;
+
+  # Parallels shared-printer detection fails in this headless VM (no host
+  # printers shared) and its activation failure propagates as switch exit
+  # code 4. Disable to keep `just nixos-switch apoc` returning clean.
+  systemd.services.prlshprint.enable = false;
 
   # Programs
   programs.firefox.enable = true;
