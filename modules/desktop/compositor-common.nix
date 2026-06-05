@@ -5,7 +5,7 @@ in
 {
   flake.modules.nixos.compositorCommon = {
     services = {
-      displayManager.gdm.enable = true;
+      displayManager.ly.enable = true;
       power-profiles-daemon.enable = true;
       upower.enable = true;
       gnome.gnome-keyring.enable = true;
