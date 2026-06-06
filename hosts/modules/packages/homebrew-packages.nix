@@ -28,6 +28,7 @@ _: {
       "codex" # Codex desktop client
       "claudebar"
       "cursor" # AI editor
+      "block-goose" # AI coding assistant
       "lm-studio" # Local AI model runner and chat interface
       "opencode-desktop"
 

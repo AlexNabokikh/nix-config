@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ../modules/docker.nix
   ];
 
   # Bootloader
@@ -41,6 +42,9 @@
     layout = "gb";
     variant = "";
   };
+
+  # Docker
+  docker.enable = true;
 
   # KDE Plasma
   services.displayManager.sddm.enable = true;
@@ -77,7 +81,7 @@
   users.users.${userConfig.name} = {
     isNormalUser = true;
     description = userConfig.fullName;
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     openssh.authorizedKeys.keys = userConfig.sshKeys;
   };
 
