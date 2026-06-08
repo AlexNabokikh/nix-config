@@ -5,7 +5,7 @@ in
 {
   flake.modules.nixos.compositorCommon = {
     services = {
-      displayManager.ly.enable = true;
+      displayManager.gdm.enable = true;
       power-profiles-daemon.enable = true;
       upower.enable = true;
       gnome.gnome-keyring.enable = true;
@@ -13,7 +13,7 @@ in
 
     security = {
       polkit.enable = true;
-      pam.services.ly.enableGnomeKeyring = true;
+      pam.services.gdm.enableGnomeKeyring = true;
     };
   };
 
