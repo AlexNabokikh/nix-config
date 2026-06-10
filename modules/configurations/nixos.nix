@@ -37,17 +37,15 @@
       }
     ) config.configurations.nixos;
 
-    checks = lib.concatMapAttrs (
-      name: cfg:
+    checks = lib.foldlAttrs (
+      acc: name: _:
       let
         nixos = config.flake.nixosConfigurations.${name};
         inherit (nixos.config.nixpkgs.hostPlatform) system;
       in
-      {
-        ${system} = {
-          "nixos-${name}" = nixos.config.system.build.toplevel;
-        };
+      lib.recursiveUpdate acc {
+        ${system}."nixos-${name}" = nixos.config.system.build.toplevel;
       }
-    ) config.configurations.nixos;
+    ) { } config.configurations.nixos;
   };
 }

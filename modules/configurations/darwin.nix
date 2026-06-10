@@ -8,17 +8,10 @@
   options.configurations.darwin = lib.mkOption {
     type = lib.types.lazyAttrsOf (
       lib.types.submodule {
-        options = {
-          system = lib.mkOption {
-            type = lib.types.str;
-            default = "aarch64-darwin";
-            description = "System architecture";
-          };
-          module = lib.mkOption {
-            type = lib.types.deferredModule;
-            default = { };
-            description = "nix-darwin module for this configuration";
-          };
+        options.module = lib.mkOption {
+          type = lib.types.deferredModule;
+          default = { };
+          description = "nix-darwin module for this configuration";
         };
       }
     );
@@ -29,11 +22,11 @@
   config.flake = {
     darwinConfigurations = lib.mapAttrs (
       _name: cfg:
-      inputs.darwin.lib.darwinSystem {
-        inherit (cfg) system;
+      inputs.nix-darwin.lib.darwinSystem {
         modules = [
           inputs.home-manager.darwinModules.home-manager
           {
+            nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -44,16 +37,15 @@
       }
     ) config.configurations.darwin;
 
-    checks = lib.concatMapAttrs (
-      name: cfg:
+    checks = lib.foldlAttrs (
+      acc: name: _:
       let
         darwin = config.flake.darwinConfigurations.${name};
+        inherit (darwin.config.nixpkgs.hostPlatform) system;
       in
-      {
-        ${cfg.system} = {
-          "darwin-${name}" = darwin.config.system.build.toplevel;
-        };
+      lib.recursiveUpdate acc {
+        ${system}."darwin-${name}" = darwin.config.system.build.toplevel;
       }
-    ) config.configurations.darwin;
+    ) { } config.configurations.darwin;
   };
 }
