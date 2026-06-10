@@ -27,7 +27,6 @@
           with-key-origin = true;
           require-cross-certification = true;
           no-symkey-cache = true;
-          use-agent = true;
           throw-keyids = true;
         };
       };
