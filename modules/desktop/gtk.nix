@@ -24,8 +24,9 @@
         teal = "teal";
         sky = "teal";
         sapphire = "teal";
+        blue = "default";
       };
-      themeVariant = accentMap.${accent} or "default";
+      themeVariant = accentMap.${accent};
       themeSuffix = lib.optionalString (themeVariant != "default") "-${lib.toSentenceCase themeVariant}";
 
       mkCatppuccinColloid =
