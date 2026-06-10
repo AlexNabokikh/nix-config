@@ -36,7 +36,6 @@ in
       darwin.sudo
       darwin.systemPreferences
       darwin.users
-      darwin.zsh
     ];
     home-manager.sharedModules = [ homeManager.base ];
   };

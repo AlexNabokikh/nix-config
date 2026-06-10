@@ -6,10 +6,6 @@
       users.users.${config.primaryUser}.shell = pkgs.zsh;
     };
 
-  flake.modules.darwin.zsh = {
-    programs.zsh.enable = true;
-  };
-
   flake.modules.homeManager.zsh =
     {
       lib,
