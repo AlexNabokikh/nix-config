@@ -190,13 +190,6 @@ in
         }
 
         window-rule {
-            match app-id=r#"^dev\.noctalia\.Noctalia\.Settings$"#
-            default-column-width { fixed 1080; }
-            default-window-height { fixed 920; }
-            open-floating true
-        }
-
-        window-rule {
             match app-id="^anki$" title="^Study Deck$"
             open-floating true
         }

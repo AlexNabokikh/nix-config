@@ -234,7 +234,6 @@ in
 
           -- Floating dialogs (auto-size)
           hl.window_rule({ match = { class = [[^(gnome-calculator|org\.gnome\.Calculator)$]] }, float = true })
-          hl.window_rule({ match = { class = [[^(dev\.noctalia\.Noctalia\.Settings)$]] }, float = true, size = { 1080, 920 } })
 
           -- Screen sharing
           hl.window_rule({ match = { title = [[^(Select what to share)$]] }, float = true })
