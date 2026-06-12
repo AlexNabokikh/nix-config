@@ -165,10 +165,10 @@ in
           hl.bind("CTRL + ALT + P", hl.dsp.exec_cmd("gnome-pomodoro --start-stop"))
 
           -- Application launcher
-          hl.bind("CTRL + Space", hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle"))
+          hl.bind("CTRL + Space", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 
           -- Clipboard history
-          hl.bind("ALT + SHIFT + V", hl.dsp.exec_cmd("noctalia-shell ipc call launcher clipboard"))
+          hl.bind("ALT + SHIFT + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 
           -- Pick color from screen and copy to clipboard
           hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker -a"))
@@ -186,30 +186,30 @@ in
           hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("toggle-screen-recording"))
 
           -- Lock screen
-          hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"))
+          hl.bind("CTRL + ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 
           -- Toggle control center panel
-          hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia-shell ipc call controlCenter toggle"))
+          hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
 
           -- Open notifications history
-          hl.bind("SUPER + N", hl.dsp.exec_cmd("noctalia-shell ipc call notifications toggleHistory"))
+          hl.bind("SUPER + N", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center notifications"))
 
           -- Clear all notifications
-          hl.bind("SUPER + SHIFT + Backspace", hl.dsp.exec_cmd("noctalia-shell ipc call notifications clear"))
+          hl.bind("SUPER + SHIFT + Backspace", hl.dsp.exec_cmd("noctalia msg notification-clear-history"))
 
           -- Adjust brightness
-          hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia-shell ipc call brightness increase"))
-          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia-shell ipc call brightness decrease"))
+          hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"))
+          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"))
 
           -- Adjust volume
-          hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume increase"))
-          hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume decrease"))
-          hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteOutput"))
+          hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"))
+          hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"))
+          hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"))
 
           -- Adjust mic sensitivity
-          hl.bind("SHIFT + XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume increaseInput"))
-          hl.bind("SHIFT + XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia-shell ipc call volume decreaseInput"))
-          hl.bind("SHIFT + XF86AudioMute", hl.dsp.exec_cmd("noctalia-shell ipc call volume muteInput"))
+          hl.bind("SHIFT + XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg mic-volume-up"))
+          hl.bind("SHIFT + XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg mic-volume-down"))
+          hl.bind("SHIFT + XF86AudioMute", hl.dsp.exec_cmd("noctalia msg mic-mute"))
 
           -- Move/resize windows with SUPER + LMB/RMB and dragging
           hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -234,6 +234,7 @@ in
 
           -- Floating dialogs (auto-size)
           hl.window_rule({ match = { class = [[^(gnome-calculator|org\.gnome\.Calculator)$]] }, float = true })
+          hl.window_rule({ match = { class = [[^(dev\.noctalia\.Noctalia\.Settings)$]] }, float = true, size = { 1080, 920 } })
 
           -- Screen sharing
           hl.window_rule({ match = { title = [[^(Select what to share)$]] }, float = true })

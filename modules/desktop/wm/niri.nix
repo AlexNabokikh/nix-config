@@ -129,7 +129,7 @@ in
 
         // Layer rules
         layer-rule {
-            match namespace="^noctalia-overview.*"
+            match namespace="^noctalia-backdrop"
             place-within-backdrop true
         }
 
@@ -190,6 +190,13 @@ in
         }
 
         window-rule {
+            match app-id=r#"^dev\.noctalia\.Noctalia\.Settings$"#
+            default-column-width { fixed 1080; }
+            default-window-height { fixed 920; }
+            open-floating true
+        }
+
+        window-rule {
             match app-id="^anki$" title="^Study Deck$"
             open-floating true
         }
@@ -227,10 +234,10 @@ in
             Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
 
             // Application launcher
-            Ctrl+Space hotkey-overlay-title="Toggle Launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+            Ctrl+Space hotkey-overlay-title="Toggle Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
 
             // Clipboard history
-            Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
+            Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia msg panel-toggle clipboard"; }
 
             // Pick color from screen and copy to clipboard
             Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn "hyprpicker" "-a"; }
@@ -248,30 +255,30 @@ in
             Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "toggle-screen-recording"; }
 
             // Lock screen
-            Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
+            Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock"; }
 
             // Toggle control center panel
-            Mod+C hotkey-overlay-title="Toggle Control Center" { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
+            Mod+C hotkey-overlay-title="Toggle Control Center" { spawn-sh "noctalia msg panel-toggle control-center"; }
 
             // Open notifications history
-            Mod+N hotkey-overlay-title="Toggle Notifications" { spawn-sh "noctalia-shell ipc call notifications toggleHistory"; }
+            Mod+N hotkey-overlay-title="Toggle Notifications" { spawn-sh "noctalia msg panel-toggle control-center notifications"; }
 
             // Clear all notifications
-            Mod+Shift+Backspace hotkey-overlay-title="Clear Notifications" { spawn-sh "noctalia-shell ipc call notifications clear"; }
+            Mod+Shift+Backspace hotkey-overlay-title="Clear Notifications" { spawn-sh "noctalia msg notification-clear-history"; }
 
             // Adjust brightness
-            XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness increase"; }
-            XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia-shell ipc call brightness decrease"; }
+            XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
+            XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
 
             // Adjust volume
-            XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
-            XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
-            XF86AudioMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteOutput"; }
+            XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+            XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+            XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
 
             // Adjust mic sensitivity
-            Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increaseInput"; }
-            Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decreaseInput"; }
-            Shift+XF86AudioMute allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+            Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg mic-volume-up"; }
+            Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg mic-volume-down"; }
+            Shift+XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
 
             // Window management
             Mod+Q repeat=false { close-window; }
