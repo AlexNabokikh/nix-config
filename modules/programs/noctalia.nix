@@ -188,7 +188,11 @@
           };
 
           widget = {
-            battery.display_mode = "graphic";
+            battery = {
+              display_mode = "graphic";
+              scale = 0.8;
+              show_label = false;
+            };
             clock.format = "{:%H:%M %a, %b %d}";
             network.show_label = false;
             tray.drawer = true;
