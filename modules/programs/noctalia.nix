@@ -61,9 +61,6 @@
           };
         };
       };
-
-      wallpaperDir = "${config.home.homeDirectory}/Documents/repositories/nix-config/modules/profile";
-      wallpaperPath = "${wallpaperDir}/wallpaper.jpg";
     in
     {
       imports = [ inputs.noctalia.homeModules.default ];
@@ -75,7 +72,7 @@
 
         settings = {
           shell = {
-            avatar_path = "/var/lib/AccountsService/icons/${config.home.username}";
+            avatar_path = config.profile.avatar;
             font_family = uiFont;
             show_location = false;
 
@@ -164,9 +161,7 @@
           };
 
           wallpaper = {
-            directory = wallpaperDir;
-            default.path = wallpaperPath;
-            last.path = wallpaperPath;
+            default.path = config.profile.wallpaper;
           };
 
           bar.default = {
