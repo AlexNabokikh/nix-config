@@ -72,7 +72,6 @@
 
         settings = {
           shell = {
-            avatar_path = config.profile.avatar;
             font_family = uiFont;
             show_location = false;
 
@@ -92,7 +91,6 @@
 
           theme = {
             source = "custom";
-            builtin = "Catppuccin";
             custom_palette = "catppuccin-custom";
             templates = {
               enable_builtin_templates = false;
@@ -127,32 +125,6 @@
 
           lockscreen_widgets = {
             enabled = false;
-            schema_version = 2;
-            widget_order = [ "lockscreen-login-box@DP-1" ];
-
-            grid = {
-              cell_size = 16;
-              major_interval = 4;
-              visible = true;
-            };
-
-            widget."lockscreen-login-box@DP-1" = {
-              type = "login_box";
-              output = "DP-1";
-              box_height = 0.0;
-              box_width = 0.0;
-              cx = 1280.0;
-              cy = 1317.0;
-              rotation = 0.0;
-              settings = {
-                background_color = "surface_variant";
-                background_opacity = 0.88;
-                background_radius = 12.0;
-                input_opacity = 1.0;
-                input_radius = 6.0;
-                show_login_button = true;
-              };
-            };
           };
 
           keybinds = {
