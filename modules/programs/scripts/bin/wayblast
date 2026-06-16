@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+exec 200>"${XDG_RUNTIME_DIR:-/tmp}/wayblast.lock"
+flock -n 200 || exit 0
+
 freeze_pid=""
 
 cleanup() {
@@ -12,7 +15,7 @@ cleanup() {
 }
 
 freeze() {
-  hyprpicker -rz >/dev/null 2>&1 &
+  wayfreeze --hide-cursor --enable-keyboard >/dev/null 2>&1 &
   freeze_pid=$!
   sleep 0.2
 }

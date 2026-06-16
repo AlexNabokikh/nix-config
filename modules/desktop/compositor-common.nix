@@ -46,6 +46,7 @@ in
         seahorse
         showtime
         slurp
+        wayfreeze
       ];
     };
 }
