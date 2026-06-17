@@ -123,8 +123,35 @@
 
           desktop_widgets.enabled = false;
 
-          lockscreen_widgets = {
-            enabled = false;
+          lockscreen_widgets.enabled = false;
+
+          idle = {
+            behavior_order = [
+              "lock"
+              "screen-off"
+              "lock-and-suspend"
+            ];
+            pre_action_fade_seconds = 0;
+
+            behavior = {
+              lock = {
+                action = "lock";
+                enabled = true;
+                timeout = 600;
+              };
+
+              lock-and-suspend = {
+                action = "lock_and_suspend";
+                enabled = true;
+                timeout = 900;
+              };
+
+              screen-off = {
+                action = "screen_off";
+                enabled = true;
+                timeout = 660;
+              };
+            };
           };
 
           keybinds = {
@@ -173,7 +200,7 @@
             { type = "nightlight"; }
             { type = "notification"; }
             { type = "power_profile"; }
-            { type = "session"; }
+            { type = "caffeine"; }
           ];
         };
       };
