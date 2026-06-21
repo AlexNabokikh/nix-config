@@ -53,23 +53,23 @@
           font = {
             size =
               if pkgs.stdenv.hostPlatform.isDarwin then
-                config.profile.appearance.fonts.terminal.size.darwin
+                config.profile.appearance.fonts.terminalSize.darwin
               else
-                config.profile.appearance.fonts.terminal.size.linux;
+                config.profile.appearance.fonts.terminalSize.linux;
             normal = {
-              inherit (config.profile.appearance.fonts.terminal) family;
+              inherit (config.profile.appearance.fonts.monospace) family;
               style = "Regular";
             };
             bold = {
-              inherit (config.profile.appearance.fonts.terminal) family;
+              inherit (config.profile.appearance.fonts.monospace) family;
               style = "Bold";
             };
             italic = {
-              inherit (config.profile.appearance.fonts.terminal) family;
+              inherit (config.profile.appearance.fonts.monospace) family;
               style = "Italic";
             };
             bold_italic = {
-              inherit (config.profile.appearance.fonts.terminal) family;
+              inherit (config.profile.appearance.fonts.monospace) family;
               style = "Bold Italic";
             };
           };

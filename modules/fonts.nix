@@ -3,7 +3,7 @@
     { config, ... }:
     {
       fonts.packages = [
-        config.profile.appearance.fonts.terminal.package
+        config.profile.appearance.fonts.monospace.package
       ];
     };
 
@@ -20,17 +20,13 @@
           enable = true;
           defaultFonts = {
             sansSerif = [ config.profile.appearance.fonts.ui.family ];
-            monospace = [
-              config.profile.appearance.fonts.monospace.family
-              config.profile.appearance.fonts.terminal.family
-            ];
+            monospace = [ config.profile.appearance.fonts.monospace.family ];
           };
         };
 
         home.packages = [
           config.profile.appearance.fonts.ui.package
           config.profile.appearance.fonts.monospace.package
-          config.profile.appearance.fonts.terminal.package
         ];
       };
     };

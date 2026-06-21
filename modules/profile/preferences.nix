@@ -70,19 +70,11 @@
                           };
                         };
 
-                        terminal = lib.mkOption {
+                        terminalSize = lib.mkOption {
                           type = lib.types.submodule {
                             options = {
-                              family = lib.mkOption { type = lib.types.str; };
-                              package = lib.mkOption { type = lib.types.package; };
-                              size = lib.mkOption {
-                                type = lib.types.submodule {
-                                  options = {
-                                    linux = lib.mkOption { type = lib.types.int; };
-                                    darwin = lib.mkOption { type = lib.types.int; };
-                                  };
-                                };
-                              };
+                              linux = lib.mkOption { type = lib.types.int; };
+                              darwin = lib.mkOption { type = lib.types.int; };
                             };
                           };
                         };
@@ -140,18 +132,14 @@
             };
 
             monospace = {
-              family = "JetBrainsMono Nerd Font Mono";
-              package = pkgs.nerd-fonts.jetbrains-mono;
+              family = "MesloLGS Nerd Font Mono";
+              package = pkgs.nerd-fonts.meslo-lg;
               size = 11;
             };
 
-            terminal = {
-              family = "MesloLGS Nerd Font";
-              package = pkgs.nerd-fonts.meslo-lg;
-              size = {
-                linux = 12;
-                darwin = 15;
-              };
+            terminalSize = {
+              linux = 12;
+              darwin = 15;
             };
           };
         };
