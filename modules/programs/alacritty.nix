@@ -6,6 +6,9 @@
       pkgs,
       ...
     }:
+    let
+      promptNewlineChars = builtins.fromJSON ''"\u001b\u000d"'';
+    in
     {
       programs.alacritty = {
         enable = true;
@@ -42,7 +45,19 @@
             multiplier = 3;
           };
 
-          keyboard.bindings = lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+          keyboard.bindings = [
+            {
+              key = "Enter";
+              mods = "Shift";
+              chars = promptNewlineChars;
+            }
+          ]
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+            {
+              key = "Enter";
+              mods = "Command";
+              chars = promptNewlineChars;
+            }
             {
               key = "Slash";
               mods = "Control";
