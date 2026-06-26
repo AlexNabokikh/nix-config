@@ -77,9 +77,9 @@
 
             animation.enabled = false;
 
-            panel = {
-              launcher_categories = false;
-              launcher_session_search = true;
+            launcher = {
+              categories = false;
+              session_search = true;
             };
 
             screenshot = {
