@@ -13,6 +13,8 @@ in
         homeManager.hyprland
       ];
 
+      services.displayManager.defaultSession = "hyprland-uwsm";
+
       programs.hyprland = {
         enable = true;
         withUWSM = true;
