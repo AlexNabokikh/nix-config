@@ -4,9 +4,6 @@
       enable = true;
       settings = {
         add_newline = false;
-        directory = {
-          style = "bold lavender";
-        };
         aws = {
           disabled = true;
         };
@@ -18,7 +15,6 @@
         };
         kubernetes = {
           disabled = false;
-          style = "bold pink";
           symbol = "󱃾 ";
           format = "[$symbol$context( $namespace)]($style)";
           contexts = [
