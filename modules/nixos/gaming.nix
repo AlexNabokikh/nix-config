@@ -10,7 +10,6 @@
 
       boot.kernelParams = [
         "split_lock_detect=off"
-        "vsyscall=emulate"
       ];
 
       services.pipewire.extraConfig.pipewire."10-gaming" = {
