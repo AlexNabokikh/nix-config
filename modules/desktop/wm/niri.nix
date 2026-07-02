@@ -230,19 +230,19 @@ in
             Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
             Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
             Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }
-            Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn-sh "gnome-pomodoro --start-stop"; }
+            Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn "gnome-pomodoro" "--start-stop"; }
 
             // Application launcher
             Ctrl+Space hotkey-overlay-title="Toggle Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
 
             // Clipboard history
-            Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia msg panel-toggle clipboard"; }
+            Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
 
             // Pick color from screen and copy to clipboard
             Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep '^Hex:' | cut -d' ' -f2 | wl-copy"; }
 
             // OCR
-            Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "ocr"; }
+            Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn "ocr"; }
 
             // Screenshot area
             Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "wayblast area | swappy -f -"; }
@@ -251,33 +251,33 @@ in
             Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "wayblast fullscreen | swappy -f -"; }
 
             // Screen recording
-            Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn-sh "toggle-screen-recording"; }
+            Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn "toggle-screen-recording"; }
 
             // Lock screen
-            Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock"; }
+            Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn "noctalia" "msg" "session" "lock"; }
 
             // Toggle control center panel
-            Mod+C hotkey-overlay-title="Toggle Control Center" { spawn-sh "noctalia msg panel-toggle control-center"; }
+            Mod+C hotkey-overlay-title="Toggle Control Center" { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
 
             // Open notifications history
-            Mod+N hotkey-overlay-title="Toggle Notifications" { spawn-sh "noctalia msg panel-toggle control-center notifications"; }
+            Mod+N hotkey-overlay-title="Toggle Notifications" { spawn "noctalia" "msg" "panel-toggle" "control-center" "notifications"; }
 
             // Clear all notifications
-            Mod+Shift+Backspace hotkey-overlay-title="Clear Notifications" { spawn-sh "noctalia msg notification-clear-history"; }
+            Mod+Shift+Backspace hotkey-overlay-title="Clear Notifications" { spawn "noctalia" "msg" "notification-clear-history"; }
 
             // Adjust brightness
-            XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
-            XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
+            XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up"; }
+            XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down"; }
 
             // Adjust volume
-            XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
-            XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
-            XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
+            XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
+            XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
+            XF86AudioMute allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
 
             // Adjust mic sensitivity
-            Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg mic-volume-up"; }
-            Shift+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg mic-volume-down"; }
-            Shift+XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
+            Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "mic-volume-up"; }
+            Shift+XF86AudioLowerVolume allow-when-locked=true { spawn "noctalia" "msg" "mic-volume-down"; }
+            Shift+XF86AudioMute allow-when-locked=true { spawn "noctalia" "msg" "mic-mute"; }
 
             // Window management
             Mod+Q repeat=false { close-window; }
