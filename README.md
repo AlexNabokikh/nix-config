@@ -6,7 +6,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 ## Showcase
 
-### Hyprland / Niri
+### Niri
 
 ![linux](./assets/screenshots/linux.png)
 
@@ -26,18 +26,18 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Shared compositor config (gtk, qt, cursor, idle, …)
-    │   └── wm/       # Window manager choices (hyprland, niri, aerospace)
+    ├── desktop/      # Shared compositor config (gtk, qt, cursor, dconf, …)
+    │   └── wm/       # Window manager choices (niri, aerospace)
     ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
     └── *.nix         # Cross-class features (fonts, users, catppuccin, …)
 ```
 
 ## Conventions
 
-- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`).
-- Files at the root of `modules/`, and files under `modules/desktop/`, declare composites for more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`.
+- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). An exception is `programs/zsh.nix`, which declares both `nixos.zsh` and `homeManager.zsh`.
+- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `catppuccin.nix`, `desktop/gtk.nix`).
 - `modules/base.nix` collects every feature composite into `nixos.base`, `darwin.base`, and `homeManager.base`. New features are registered there.
-- Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.hyprland`, `nixos.gaming`, or `darwin.aerospace`.
+- Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.niri`, `nixos.gaming`, or `darwin.aerospace`.
 - Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
 
 ## How to use this repo for yourself
@@ -59,7 +59,7 @@ The remaining files in `modules/profile/` wire the `primaryUser` option into Nix
 
 ### 3. Trim or replace hosts
 
-Remove hosts under `modules/hosts/` that do not apply. `energy/` is a NixOS example; `work-mac.nix` is a macOS example.
+Remove hosts under `modules/hosts/` that do not apply. `energy/` and `xps/` are NixOS examples; `work-mac.nix` is a macOS example.
 
 ### 4. Add a host
 
@@ -82,7 +82,7 @@ in
     imports = [
       ./_hardware.nix
       nixos.base
-      nixos.hyprland
+      nixos.niri
     ];
 
     primaryUser = "your-user";
@@ -96,7 +96,7 @@ in
 
 - `laptop` (in both the directory path and `configurations.nixos.laptop.module`) — the machine's hostname; matches the flake output name used by the `Makefile`
 - `your-user` — the login username; must match the user account configured on the system
-- the feature list (`nixos.hyprland`, …) — adjust to taste
+- the feature list (`nixos.niri`, …) — adjust to taste
 
 For macOS:
 
