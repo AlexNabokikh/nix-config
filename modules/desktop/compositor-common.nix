@@ -28,7 +28,6 @@ in
         hm.xdg
         hm.noctalia
         hm.swappy
-        hm.idle
       ];
 
       home.packages = with pkgs; [

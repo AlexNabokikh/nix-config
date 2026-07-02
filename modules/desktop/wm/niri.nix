@@ -82,6 +82,11 @@ in
             }
         }
 
+        // Lock screen on lid close
+        switch-events {
+            lid-close { spawn "noctalia" "msg" "session" "lock"; }
+        }
+
         // Layout settings
         layout {
             background-color "#000000"
