@@ -239,7 +239,7 @@ in
             Alt+Shift+V hotkey-overlay-title="Clipboard History" { spawn-sh "noctalia msg panel-toggle clipboard"; }
 
             // Pick color from screen and copy to clipboard
-            Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn "hyprpicker" "-a"; }
+            Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep '^Hex:' | cut -d' ' -f2 | wl-copy"; }
 
             // OCR
             Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn-sh "ocr"; }
