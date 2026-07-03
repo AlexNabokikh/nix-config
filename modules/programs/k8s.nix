@@ -7,11 +7,6 @@
         kubectx
       ];
 
-      programs.zsh.initContent = ''
-        # kubectl auto-complete
-        source ${pkgs.kubectl}/share/zsh/site-functions/_kubectl
-      '';
-
       programs.k9s = {
         enable = true;
         settings.k9s = {
