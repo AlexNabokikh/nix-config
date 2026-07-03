@@ -5,7 +5,9 @@ in
 {
   configurations.nixos.xps.module = {
     imports = [
-      inputs.hardware.nixosModules.dell-xps-13-9350
+      inputs.hardware.nixosModules.common-cpu-intel
+      inputs.hardware.nixosModules.common-pc-laptop
+      inputs.hardware.nixosModules.common-pc-ssd
       ./_hardware.nix
       nixos.base
       nixos.niri
