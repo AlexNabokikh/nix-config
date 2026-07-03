@@ -6,17 +6,15 @@
         enable = true;
         baseIndex = 1;
         escapeTime = 10;
+        focusEvents = true;
         historyLimit = 10000;
         keyMode = "vi";
         mouse = true;
+        prefix = "C-q";
         sensibleOnTop = false;
         shell = "${pkgs.zsh}/bin/zsh";
 
         extraConfig = ''
-          # Set the prefix to `ctrl + q` instead of `ctrl + b`
-          set -g prefix C-q
-          unbind C-b
-
           # Use | and - to split a window vertically and horizontally instead of " and % respectively
           unbind '"'
           unbind %
@@ -40,9 +38,6 @@
 
           # Open a project in a separate window
           bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
-
-          # Enable focus-events
-          set -g focus-events on
 
           # Smart pane switching with awareness of Vim splits
           is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf|atuin)(diff)?$'"
