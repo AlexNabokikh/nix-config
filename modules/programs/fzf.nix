@@ -8,6 +8,8 @@
       programs.fzf = {
         enable = true;
 
+        historyWidget.zsh.command = "";
+
         defaultCommand = "fd --type f --hidden --follow --exclude .git";
         defaultOptions = [
           "--bind '?:toggle-preview'"
