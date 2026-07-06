@@ -24,7 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # v5 Alpha version
     noctalia.url = "github:noctalia-dev/noctalia";
 
     flake-parts = {
