@@ -29,7 +29,6 @@
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           anki-bin
           colima
-          hidden-bar
           mos
           podman
           raycast
