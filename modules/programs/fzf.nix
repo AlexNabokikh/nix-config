@@ -14,7 +14,7 @@
         defaultOptions = [
           "--bind '?:toggle-preview'"
           "--bind 'ctrl-a:select-all'"
-          "--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'"
+          "--bind 'ctrl-e:execute(nvim -- {+})'"
           "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCmd})'"
           "--height=40%"
           "--info=inline"
