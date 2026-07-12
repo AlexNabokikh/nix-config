@@ -118,8 +118,7 @@
         gtk4.theme = gtkTheme;
         theme = gtkTheme;
         iconTheme = {
-          inherit (config.profile.appearance.iconTheme) name;
-          inherit (config.profile.appearance.iconTheme) package;
+          inherit (config.profile.appearance.iconTheme) name package;
         };
         font = {
           name = config.profile.appearance.fonts.ui.family;
