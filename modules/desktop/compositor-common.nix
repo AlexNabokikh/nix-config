@@ -6,15 +6,14 @@ in
   flake.modules.nixos.compositorCommon = {
     services = {
       displayManager.gdm.enable = true;
+      gvfs.enable = true;
       power-profiles-daemon.enable = true;
+      udisks2.enable = true;
       upower.enable = true;
       gnome.gnome-keyring.enable = true;
     };
 
-    security = {
-      polkit.enable = true;
-      pam.services.gdm.enableGnomeKeyring = true;
-    };
+    security.polkit.enable = true;
   };
 
   flake.modules.homeManager.compositorCommon =
