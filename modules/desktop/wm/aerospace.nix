@@ -3,6 +3,8 @@
     services.aerospace = {
       enable = true;
       settings = {
+        config-version = 2;
+
         enable-normalization-flatten-containers = true;
         enable-normalization-opposite-orientation-for-nested-containers = true;
         accordion-padding = 30;
