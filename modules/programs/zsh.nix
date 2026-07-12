@@ -59,8 +59,6 @@
           kdsec = "kubectl describe secret";
           kdelsec = "kubectl delete secret";
 
-          lg = "lazygit";
-
           pt = "podman-tui";
 
           v = "nvim";
