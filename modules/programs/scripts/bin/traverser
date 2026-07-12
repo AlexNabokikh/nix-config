@@ -48,12 +48,19 @@ def get_current_context() -> str | None:
     return name or None
 
 
-def set_current_context(ctx: str) -> None:
-    subprocess.run(
+def set_current_context(ctx: str) -> bool:
+    r = subprocess.run(
         ["kubectl", "config", "use-context", ctx],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        capture_output=True,
+        text=True,
     )
+    if r.returncode != 0:
+        detail = r.stderr.strip() or r.stdout.strip()
+        suffix = f": {detail}" if detail else ""
+        print(f"traverser: failed to switch to context {ctx!r}{suffix}", file=sys.stderr)
+        return False
+
+    return True
 
 
 def account_from_context(ctx: str) -> str | None:
@@ -119,6 +126,7 @@ def main() -> None:
 
     original = get_current_context()
     ran = skipped = failed = 0
+    restore_failed = False
 
     try:
         for ctx in contexts:
@@ -148,7 +156,10 @@ def main() -> None:
                 skipped += 1
                 continue
 
-            set_current_context(ctx)
+            if not set_current_context(ctx):
+                failed += 1
+                continue
+
             env = {
                 **os.environ,
                 "AWS_PROFILE": profile,
@@ -162,11 +173,13 @@ def main() -> None:
                 failed += 1
     finally:
         if original:
-            set_current_context(original)
-            print(f"restored context: {original}")
+            if set_current_context(original):
+                print(f"restored context: {original}")
+            else:
+                restore_failed = True
 
     print(f"---\n{len(contexts)} contexts: {ran} ok, {skipped} skipped, {failed} failed")
-    sys.exit(0 if failed == 0 and ran > 0 else 1)
+    sys.exit(0 if failed == 0 and ran > 0 and not restore_failed else 1)
 
 
 if __name__ == "__main__":
