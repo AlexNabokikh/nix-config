@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.users =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
       users.users.${config.primaryUser} = {
         description = config.profile.fullName;
@@ -14,16 +14,12 @@
 
       system.activationScripts.setUserAvatar.text = ''
         mkdir -p /var/lib/AccountsService/{icons,users}
-        cp ${config.profile.avatar} "/var/lib/AccountsService/icons/${config.primaryUser}"
+        install -m644 ${config.profile.avatar} "/var/lib/AccountsService/icons/${config.primaryUser}"
 
         touch "/var/lib/AccountsService/users/${config.primaryUser}"
-
-        if ! grep -q "^Icon=" "/var/lib/AccountsService/users/${config.primaryUser}"; then
-          if ! grep -q "^\[User\]" "/var/lib/AccountsService/users/${config.primaryUser}"; then
-            echo "[User]" >> "/var/lib/AccountsService/users/${config.primaryUser}"
-          fi
-          echo "Icon=/var/lib/AccountsService/icons/${config.primaryUser}" >> "/var/lib/AccountsService/users/${config.primaryUser}"
-        fi
+        ${pkgs.crudini}/bin/crudini --set \
+          "/var/lib/AccountsService/users/${config.primaryUser}" \
+          User Icon "/var/lib/AccountsService/icons/${config.primaryUser}"
       '';
 
       security.sudo.wheelNeedsPassword = false;
