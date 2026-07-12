@@ -12,9 +12,7 @@
       nix = {
         nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
-        registry = lib.mapAttrs (_: flake: { inherit flake; }) (
-          lib.filterAttrs (_: lib.isType "flake") inputs
-        );
+        registry.nixpkgs.flake = inputs.nixpkgs;
 
         settings = {
           experimental-features = [
