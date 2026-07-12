@@ -73,6 +73,7 @@
         settings = {
           shell = {
             font_family = uiFont;
+            polkit_agent = true;
             show_location = false;
 
             animation.enabled = false;
