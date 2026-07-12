@@ -63,9 +63,6 @@
 
           pt = "podman-tui";
 
-          repo = "cd $HOME/Documents/repositories";
-          temp = "cd $HOME/Downloads/temp";
-
           v = "nvim";
           vi = "nvim";
           vim = "nvim";
