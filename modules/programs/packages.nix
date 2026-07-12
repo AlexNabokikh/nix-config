@@ -28,7 +28,6 @@
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           anki-bin
-          colima
           mos
           podman
           raycast
@@ -38,7 +37,13 @@
           gcc
           gnumake
           killall
-          tesseract
+          (tesseract.override {
+            enableLanguages = [
+              "eng"
+              "pol"
+              "rus"
+            ];
+          })
           unzip
           wl-clipboard
         ];
