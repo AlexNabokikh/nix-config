@@ -5,9 +5,7 @@
     let
       inherit (config.profile.appearance) catppuccin;
 
-      paletteFile = "${
-        inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.sources.palette
-      }/palette.json";
+      paletteFile = "${inputs.catppuccin-palette}/palette.json";
       palette = builtins.fromJSON (builtins.readFile paletteFile);
       flavorColors = palette.${catppuccin.flavor}.colors;
     in
