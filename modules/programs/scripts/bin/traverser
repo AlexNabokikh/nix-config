@@ -63,6 +63,21 @@ def set_current_context(ctx: str) -> bool:
     return True
 
 
+def clear_current_context() -> bool:
+    r = subprocess.run(
+        ["kubectl", "config", "unset", "current-context"],
+        capture_output=True,
+        text=True,
+    )
+    if r.returncode != 0:
+        detail = r.stderr.strip() or r.stdout.strip()
+        suffix = f": {detail}" if detail else ""
+        print(f"traverser: failed to clear current context{suffix}", file=sys.stderr)
+        return False
+
+    return True
+
+
 def account_from_context(ctx: str) -> str | None:
     m = ACCOUNT_RE.match(ctx)
 
@@ -177,6 +192,10 @@ def main() -> None:
                 print(f"restored context: {original}")
             else:
                 restore_failed = True
+        elif clear_current_context():
+            print("restored context: none")
+        else:
+            restore_failed = True
 
     print(f"---\n{len(contexts)} contexts: {ran} ok, {skipped} skipped, {failed} failed")
     sys.exit(0 if failed == 0 and ran > 0 and not restore_failed else 1)
