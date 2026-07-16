@@ -80,13 +80,7 @@
 
             launcher = {
               categories = false;
-              session_search = true;
-            };
-
-            screenshot = {
-              pipe_command = "swappy -f -";
-              pipe_to_command = true;
-              save_to_file = false;
+              providers.session.global = true;
             };
           };
 
@@ -116,6 +110,7 @@
           weather.enabled = false;
 
           location = {
+            custom_schedule = true;
             sunrise = "06:00";
             sunset = "20:00";
           };
