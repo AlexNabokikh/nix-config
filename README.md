@@ -110,7 +110,6 @@ New host files are picked up by `import-tree` without further registration (but 
 make nixos-rebuild     # NixOS
 make darwin-rebuild    # macOS
 make flake-check       # validate the flake
-make bootstrap-mac     # install Nix and nix-darwin on a fresh Mac
 ```
 
 `make help` lists all targets. The `Makefile` defaults to `.#$(hostname)`, so flake outputs named after the machine's hostname are selected automatically.
