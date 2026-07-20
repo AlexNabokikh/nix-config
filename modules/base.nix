@@ -14,6 +14,13 @@ let
   ];
 in
 {
+  flake.modules.generic.homeManagerIntegration = {
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+    };
+  };
+
   flake.modules.nixos.base = {
     imports = commonImports ++ [
       nixos.audio

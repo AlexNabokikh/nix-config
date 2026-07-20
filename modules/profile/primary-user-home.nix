@@ -1,21 +1,7 @@
 {
   flake.modules.generic.primaryUserHome =
+    { config, ... }:
     {
-      config,
-      pkgs,
-      ...
-    }:
-    {
-      home-manager.users.${config.primaryUser} = {
-        home = {
-          username = config.primaryUser;
-          homeDirectory =
-            if pkgs.stdenv.hostPlatform.isDarwin then
-              "/Users/${config.primaryUser}"
-            else
-              "/home/${config.primaryUser}";
-          stateVersion = "26.05";
-        };
-      };
+      home-manager.users.${config.primaryUser}.home.stateVersion = "26.05";
     };
 }

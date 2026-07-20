@@ -29,7 +29,6 @@
     { config, ... }:
     {
       users.users.${config.primaryUser} = {
-        name = config.primaryUser;
         home = "/Users/${config.primaryUser}";
       };
 

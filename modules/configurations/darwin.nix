@@ -25,12 +25,9 @@
       inputs.nix-darwin.lib.darwinSystem {
         modules = [
           inputs.home-manager.darwinModules.home-manager
+          config.flake.modules.generic.homeManagerIntegration
           {
             nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
           }
           cfg.module
         ];

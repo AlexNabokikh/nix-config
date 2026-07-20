@@ -25,12 +25,9 @@
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
           inputs.home-manager.nixosModules.home-manager
+          config.flake.modules.generic.homeManagerIntegration
           {
             networking.hostName = lib.mkDefault name;
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
           }
           cfg.module
         ];
