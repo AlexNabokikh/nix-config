@@ -38,7 +38,7 @@ nixos-rebuild:
 
 nix-gc:
 	@echo "Collecting Nix garbage..."
-	@nix-collect-garbage -d
+	@sudo nix-collect-garbage -d
 	@echo "Garbage collection complete."
 
 flake-update:
