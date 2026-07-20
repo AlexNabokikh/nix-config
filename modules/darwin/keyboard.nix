@@ -96,7 +96,7 @@
         "Zoom Out" = "^-";
       };
 
-      "-g".NSUserKeyEquivalents = {
+      NSGlobalDomain.NSUserKeyEquivalents = {
         "Lock Screen" = "@^l";
         "Paste and Match Style" = "^$v";
       };
