@@ -1,17 +1,21 @@
 { config, ... }:
 let
-  inherit (config.flake.modules) nixos homeManager;
+  inherit (config.flake.modules) homeManager;
 in
 {
   flake.modules.nixos.niri = {
-    imports = [ nixos.compositorCommon ];
+    home-manager.sharedModules = [ homeManager.niri ];
 
-    home-manager.sharedModules = [
-      homeManager.compositorCommon
-      homeManager.niri
-    ];
-
-    services.displayManager.defaultSession = "niri";
+    services = {
+      displayManager = {
+        defaultSession = "niri";
+        gdm.enable = true;
+      };
+      gvfs.enable = true;
+      power-profiles-daemon.enable = true;
+      udisks2.enable = true;
+      upower.enable = true;
+    };
 
     programs.niri.enable = true;
   };
@@ -28,7 +32,33 @@ in
       color = catppuccinColor;
     in
     {
-      home.packages = [ pkgs.xwayland-satellite ];
+      imports = [
+        homeManager.cursor
+        homeManager.dconf
+        homeManager.gtk
+        homeManager.qt
+        homeManager.xdg
+        homeManager.noctalia
+        homeManager.swappy
+      ];
+
+      home.packages = with pkgs; [
+        file-roller
+        gnome-calculator
+        gnome-pomodoro
+        gnome-text-editor
+        gpu-screen-recorder
+        grim
+        libnotify
+        loupe
+        nautilus
+        pavucontrol
+        seahorse
+        showtime
+        slurp
+        wayfreeze
+        xwayland-satellite
+      ];
 
       xdg.desktopEntries.quit-all-applications = {
         name = "Quit All Applications";
