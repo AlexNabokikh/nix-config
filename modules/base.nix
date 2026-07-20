@@ -55,7 +55,6 @@ in
       homeManager.bat
       homeManager.btop
       homeManager.catppuccin
-      homeManager.claudeCode
       homeManager.fastfetch
       homeManager.fonts
       homeManager.fzf
@@ -64,9 +63,7 @@ in
       homeManager.gpg
       homeManager.granted
       homeManager.k8s
-      homeManager.mcp
       homeManager.neovim
-      homeManager.opencode
       homeManager.packages
       homeManager.scripts
       homeManager.starship

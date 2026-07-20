@@ -18,6 +18,7 @@
           nh
           nodejs
           openconnect
+          opencode
           opentofu
           pipenv
           podman-compose
