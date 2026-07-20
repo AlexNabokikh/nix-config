@@ -25,7 +25,6 @@
             keep-plus-minus-markers = true;
             line-numbers = true;
             navigate = true;
-            width = 280;
           };
         };
 
