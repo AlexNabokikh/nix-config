@@ -20,24 +20,11 @@
 
       scriptNames = commonScripts ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux linuxScripts;
 
-      scripts = pkgs.stdenvNoCC.mkDerivation {
-        pname = "personal-scripts";
-        version = "0";
-        src = ./bin;
-
-        dontConfigure = true;
-        dontBuild = true;
-
-        installPhase = ''
-          runHook preInstall
-
-          for script in ${lib.escapeShellArgs scriptNames}; do
-            install -Dm755 "$script" "$out/bin/$script"
-          done
-
-          runHook postInstall
-        '';
-      };
+      scripts = pkgs.runCommand "personal-scripts" { } ''
+        for script in ${lib.escapeShellArgs scriptNames}; do
+          install -Dm755 "${./bin}/$script" "$out/bin/$script"
+        done
+      '';
     in
     {
       home.packages = [ scripts ];
