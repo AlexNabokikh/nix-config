@@ -10,6 +10,6 @@ in
     ];
 
     primaryUser = "alexander.nabokikh";
-    system.stateVersion = 6;
+    system.stateVersion = 7;
   };
 }
