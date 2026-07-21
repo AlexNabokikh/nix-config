@@ -15,16 +15,5 @@ in
 
     primaryUser = "nabokikh";
     system.stateVersion = "26.05";
-
-    home-manager.sharedModules = [
-      ({ lib, ... }: {
-        xdg.configFile."niri/config.kdl".text = lib.mkAfter ''
-          // Lock screen on lid close
-          switch-events {
-              lid-close { spawn "noctalia" "msg" "session" "lock"; }
-          }
-        '';
-      })
-    ];
   };
 }

@@ -16,16 +16,5 @@ in
 
     primaryUser = "nabokikh";
     system.stateVersion = "26.05";
-
-    home-manager.sharedModules = [
-      ({ lib, ... }: {
-        xdg.configFile."niri/config.kdl".text = lib.mkAfter ''
-          // Monitor settings
-          output "DP-1" {
-              variable-refresh-rate on-demand=true
-          }
-        '';
-      })
-    ];
   };
 }

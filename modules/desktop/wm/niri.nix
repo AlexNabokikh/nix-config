@@ -82,6 +82,11 @@ in
             focus-follows-mouse max-scroll-amount="0%"
         }
 
+        // Monitor settings
+        output "DP-1" {
+            variable-refresh-rate on-demand=true
+        }
+
         // General settings
         prefer-no-csd
 
@@ -93,6 +98,11 @@ in
             hot-corners {
                 off
             }
+        }
+
+        // Lock screen on lid close
+        switch-events {
+            lid-close { spawn "noctalia" "msg" "session" "lock"; }
         }
 
         // Layout settings
