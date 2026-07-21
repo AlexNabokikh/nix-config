@@ -28,6 +28,5 @@ else
     -q very_high \
     -cr limited \
     -cursor yes \
-    -a "" \
     -o "$RECORDINGS_DIR/recording_$(date +%Y%m%d_%H%M%S).mp4" &
 fi
