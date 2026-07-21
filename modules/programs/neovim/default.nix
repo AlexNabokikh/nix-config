@@ -16,7 +16,6 @@
 
         extraPackages = with pkgs; [
           bash-language-server
-          hadolint
           lua-language-server
           markdownlint-cli
           nixd
