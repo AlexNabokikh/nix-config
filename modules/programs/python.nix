@@ -4,11 +4,8 @@
     {
       home.packages = with pkgs; [
         pipenv
-        python3
-      ];
-
-      programs.neovim.extraPackages = with pkgs; [
         pyright
+        python3
         ruff
       ];
 

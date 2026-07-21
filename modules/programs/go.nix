@@ -6,18 +6,17 @@
       GOBIN = "${GOPATH}/bin";
     in
     {
-      home.packages = [ pkgs.golangci-lint ];
+
+      home.packages = with pkgs; [
+        golangci-lint
+        gopls
+        gotools
+      ];
 
       programs.go = {
         enable = true;
         env = { inherit GOBIN GOPATH; };
       };
-
-      programs.neovim.extraPackages = with pkgs; [
-        golangci-lint
-        gopls
-        gotools
-      ];
 
       programs.starship.settings.golang.symbol = " ";
 

@@ -2,9 +2,9 @@
   flake.modules.homeManager.opentofu =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.opentofu ];
 
-      programs.neovim.extraPackages = with pkgs; [
+      home.packages = with pkgs; [
+        opentofu
         tflint
         tofu-ls
       ];
