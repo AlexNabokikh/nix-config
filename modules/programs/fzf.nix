@@ -33,15 +33,12 @@
         fkill
       ];
 
-      programs.fd.enable = true;
-      programs.ripgrep.enable = true;
-
       programs.fzf = {
         enable = true;
 
         historyWidget.zsh.command = "";
 
-        defaultCommand = "fd --type f --hidden --follow --exclude .git";
+        defaultCommand = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
         defaultOptions = [
           "--bind '?:toggle-preview'"
           "--bind 'ctrl-a:select-all'"

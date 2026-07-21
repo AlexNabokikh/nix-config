@@ -10,8 +10,11 @@
         with pkgs;
         [
           dig
+          fd
           jq
+          nh
           openconnect
+          ripgrep
           telegram-desktop
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [

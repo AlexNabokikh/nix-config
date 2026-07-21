@@ -68,7 +68,6 @@ in
       homeManager.k8s
       homeManager.mos
       homeManager.neovim
-      homeManager.nh
       homeManager.node
       homeManager.opencode
       homeManager.opentofu
