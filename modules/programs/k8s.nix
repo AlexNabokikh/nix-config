@@ -43,21 +43,6 @@
         kns = "kubens";
       };
 
-      programs.starship.settings = {
-        kubernetes = {
-          disabled = false;
-          symbol = "󱃾 ";
-          format = "[$symbol$context( $namespace)]($style)";
-          contexts = [
-            {
-              context_pattern = ".*/(?P<cluster>.+)";
-              context_alias = "$cluster";
-            }
-          ];
-        };
-        helm.symbol = " ";
-      };
-
       programs.k9s = {
         enable = true;
         settings.k9s = {

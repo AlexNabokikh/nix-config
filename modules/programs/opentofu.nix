@@ -9,7 +9,6 @@
         tofu-ls
       ];
 
-      programs.starship.settings.terraform.symbol = " ";
       programs.zsh.shellAliases.terraform = "tofu";
     };
 }

@@ -17,8 +17,6 @@
         env = { inherit GOBIN GOPATH; };
       };
 
-      programs.starship.settings.golang.symbol = " ";
-
       home.sessionPath = [
         GOBIN
       ];

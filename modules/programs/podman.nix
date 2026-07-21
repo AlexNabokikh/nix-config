@@ -24,7 +24,6 @@
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ podman ];
 
-      programs.starship.settings.docker_context.symbol = " ";
       programs.zsh.shellAliases.pt = "podman-tui";
     };
 }

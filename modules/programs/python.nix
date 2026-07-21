@@ -8,7 +8,5 @@
         python3
         ruff
       ];
-
-      programs.starship.settings.python.symbol = " ";
     };
 }
