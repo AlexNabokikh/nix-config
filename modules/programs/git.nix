@@ -1,7 +1,21 @@
 {
   flake.modules.homeManager.git =
-    { config, ... }:
+    { config, pkgs, ... }:
+    let
+      pullAll = pkgs.writeShellApplication {
+        name = "pull-all";
+        runtimeInputs = with pkgs; [
+          git
+          python3
+        ];
+        text = ''
+          exec python3 ${./scripts/bin/pull-all} "$@"
+        '';
+      };
+    in
     {
+      home.packages = [ pullAll ];
+
       programs = {
         git = {
           enable = true;

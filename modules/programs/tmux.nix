@@ -1,7 +1,21 @@
 {
   flake.modules.homeManager.tmux =
     { pkgs, ... }:
+    let
+      cdToProject = pkgs.writeShellApplication {
+        name = "cd-to-project";
+        runtimeInputs = with pkgs; [
+          coreutils
+          fd
+          fzf
+          tmux
+        ];
+        text = builtins.readFile ./scripts/bin/cd-to-project;
+      };
+    in
     {
+      home.packages = [ cdToProject ];
+
       programs.tmux = {
         enable = true;
         baseIndex = 1;

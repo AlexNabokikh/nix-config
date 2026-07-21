@@ -1,10 +1,40 @@
 {
   flake.modules.homeManager.fzf =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     let
       copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
+      fif = pkgs.writeShellApplication {
+        name = "fif";
+        runtimeInputs = with pkgs; [
+          fzf
+          ripgrep
+        ];
+        text = builtins.readFile ./scripts/bin/fif;
+      };
+      fkill = pkgs.writeShellApplication {
+        name = "fkill";
+        runtimeInputs =
+          with pkgs;
+          [
+            findutils
+            fzf
+            gawk
+          ]
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+            procps
+          ];
+        text = builtins.readFile ./scripts/bin/fkill;
+      };
     in
     {
+      home.packages = [
+        fif
+        fkill
+      ];
+
+      programs.fd.enable = true;
+      programs.ripgrep.enable = true;
+
       programs.fzf = {
         enable = true;
 
@@ -25,5 +55,10 @@
           "--prompt='~ ' --pointer='▶' --marker='✓'"
         ];
       };
+
+      programs.zsh.initContent = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        # Enable ALT-C fzf keybinding on Mac
+        bindkey 'ć' fzf-cd-widget
+      '';
     };
 }

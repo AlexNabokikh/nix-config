@@ -1,9 +1,14 @@
 { config, ... }:
 let
-  inherit (config.flake.modules) homeManager;
+  inherit (config.flake.modules) homeManager nixos;
 in
 {
   flake.modules.nixos.niri = {
+    imports = [
+      nixos.desktopApps
+      nixos.noctalia
+    ];
+
     home-manager.sharedModules = [ homeManager.niri ];
 
     services = {
@@ -11,9 +16,7 @@ in
         defaultSession = "niri";
         gdm.enable = true;
       };
-      gvfs.enable = true;
       power-profiles-daemon.enable = true;
-      udisks2.enable = true;
       upower.enable = true;
     };
 
@@ -35,30 +38,15 @@ in
       imports = [
         homeManager.cursor
         homeManager.dconf
+        homeManager.desktopApps
         homeManager.gtk
         homeManager.qt
+        homeManager.waylandCapture
         homeManager.xdg
         homeManager.noctalia
-        homeManager.swappy
       ];
 
-      home.packages = with pkgs; [
-        file-roller
-        gnome-calculator
-        gnome-pomodoro
-        gnome-text-editor
-        gpu-screen-recorder
-        grim
-        libnotify
-        loupe
-        nautilus
-        pavucontrol
-        seahorse
-        showtime
-        slurp
-        wayfreeze
-        xwayland-satellite
-      ];
+      home.packages = [ pkgs.xwayland-satellite ];
 
       xdg.desktopEntries.quit-all-applications = {
         name = "Quit All Applications";
@@ -94,11 +82,6 @@ in
             focus-follows-mouse max-scroll-amount="0%"
         }
 
-        // Monitor settings
-        output "DP-1" {
-            variable-refresh-rate on-demand=true
-        }
-
         // General settings
         prefer-no-csd
 
@@ -110,11 +93,6 @@ in
             hot-corners {
                 off
             }
-        }
-
-        // Lock screen on lid close
-        switch-events {
-            lid-close { spawn "noctalia" "msg" "session" "lock"; }
         }
 
         // Layout settings
@@ -160,8 +138,6 @@ in
         workspace "main"
         workspace "terminal"
         workspace "messages"
-        workspace "steam"
-        workspace "games"
 
         // Layer rules
         layer-rule {
@@ -197,17 +173,6 @@ in
             open-on-workspace "messages"
         }
 
-        window-rule {
-            match app-id=r#"^steam$"#
-            default-column-width { proportion 1.0; }
-            open-on-workspace "steam"
-        }
-
-        window-rule {
-            match app-id=r#"^steam_app_\d+$"#
-            open-on-workspace "games"
-        }
-
         // Floating dialogs
         window-rule {
             match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
@@ -241,14 +206,6 @@ in
             }
             open-floating true
             default-floating-position x=0 y=0 relative-to="bottom"
-        }
-
-        // Games
-        window-rule {
-            match app-id=r#"^steam_app_\d+$"#
-            exclude title="^$"
-            open-fullscreen true
-            variable-refresh-rate true
         }
 
         // Bindings

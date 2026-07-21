@@ -22,6 +22,10 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 ├── Makefile          # Common rebuild, update, and check commands
 └── modules/
     ├── base.nix      # Composes features into nixos.base, darwin.base, homeManager.base
+    ├── configurations/ # Instantiates hosts and generates system checks
+    ├── flake-parts.nix # Flake-parts module integrations
+    ├── systems.nix   # Systems supported by per-system outputs
+    ├── formatter.nix # Repository-wide Nix formatter
     ├── profile/      # Identity and shared appearance settings
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
@@ -34,9 +38,9 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 ## Conventions
 
-- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). An exception is `programs/zsh.nix`, which declares both `nixos.zsh` and `homeManager.zsh`.
+- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, Brave, and Mos may declare modules for more than one class.
 - Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `catppuccin.nix`, `desktop/gtk.nix`).
-- `modules/base.nix` collects every feature composite into `nixos.base`, `darwin.base`, and `homeManager.base`. New features are registered there.
+- `modules/base.nix` collects default workstation features into `nixos.base`, `darwin.base`, and `homeManager.base`. Opt-in features are composed by their owning host or parent feature instead.
 - Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.niri`, `nixos.gaming`, or `darwin.aerospace`.
 - Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
 
@@ -109,16 +113,17 @@ New host files are picked up by `import-tree` without further registration (but 
 ```sh
 make nixos-rebuild     # NixOS
 make darwin-rebuild    # macOS
+make fmt               # format the repository
 make flake-check       # validate the flake
 ```
 
-`make help` lists all targets. The `Makefile` defaults to `.#$(hostname)`, so flake outputs named after the machine's hostname are selected automatically.
+`make help` lists all targets. The `Makefile` defaults to `.#$(hostname)`, so flake outputs named after the machine's hostname are selected automatically. Complete NixOS and Darwin system checks must be built on their matching platforms.
 
 ## Adding modules
 
-- A new Home-Manager program lives in `modules/programs/<name>.nix` and declares `flake.modules.homeManager.<name>`. Register `homeManager.<name>` in `homeManager.base.imports` inside `modules/base.nix`.
-- A new NixOS-only or Darwin-only system feature lives in `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix`, declares `flake.modules.{nixos,darwin}.<name>`, and is registered in the matching `*.base.imports` list.
-- A feature spanning more than one class lives at the root of `modules/`, or under `modules/desktop/` for compositor-adjacent features, and declares one composite per class. `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, each registered in its own `base.imports`.
+- A new Home-Manager program lives in `modules/programs/<name>.nix` and declares `flake.modules.homeManager.<name>`. Register default workstation programs in `homeManager.base`; import opt-in programs from their owning feature.
+- A new NixOS-only or Darwin-only system feature lives in `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix` and declares `flake.modules.{nixos,darwin}.<name>`. Register defaults in the matching base and import opt-in features from hosts.
+- A feature spanning more than one class may live beside its primary concern or under `modules/desktop/` for compositor-adjacent features. Register each default class module independently; parent features may compose subordinate modules directly.
 
 ## License
 

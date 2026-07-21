@@ -13,6 +13,14 @@
         env = { inherit GOBIN GOPATH; };
       };
 
+      programs.neovim.extraPackages = with pkgs; [
+        golangci-lint
+        gopls
+        gotools
+      ];
+
+      programs.starship.settings.golang.symbol = " ";
+
       home.sessionPath = [
         GOBIN
       ];

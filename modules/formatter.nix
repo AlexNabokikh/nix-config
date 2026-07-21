@@ -2,6 +2,6 @@
   perSystem =
     { pkgs, ... }:
     {
-      formatter = pkgs.nixfmt;
+      formatter = pkgs.nixfmt-tree;
     };
 }

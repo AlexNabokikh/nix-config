@@ -1,11 +1,62 @@
 {
   flake.modules.homeManager.k8s =
     { pkgs, ... }:
+    let
+      ks = pkgs.writeShellApplication {
+        name = "ks";
+        runtimeInputs = with pkgs; [
+          granted
+          kubectl
+          kubectx
+          python3
+        ];
+        text = ''
+          exec python3 ${./scripts/bin/ks} "$@"
+        '';
+      };
+      traverser = pkgs.writeShellApplication {
+        name = "traverser";
+        runtimeInputs = with pkgs; [
+          kubectl
+          python3
+        ];
+        text = ''
+          exec python3 ${./scripts/bin/traverser} "$@"
+        '';
+      };
+    in
     {
-      home.packages = with pkgs; [
-        kubectl
-        kubectx
-      ];
+      home.packages =
+        with pkgs;
+        [
+          kubectl
+          kubectx
+        ]
+        ++ [
+          ks
+          traverser
+        ];
+
+      programs.zsh.shellAliases = {
+        k = "kubectl";
+        kctx = "kubectx";
+        kns = "kubens";
+      };
+
+      programs.starship.settings = {
+        kubernetes = {
+          disabled = false;
+          symbol = "󱃾 ";
+          format = "[$symbol$context( $namespace)]($style)";
+          contexts = [
+            {
+              context_pattern = ".*/(?P<cluster>.+)";
+              context_alias = "$cluster";
+            }
+          ];
+        };
+        helm.symbol = " ";
+      };
 
       programs.k9s = {
         enable = true;

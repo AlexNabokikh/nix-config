@@ -62,11 +62,7 @@
         disable-shadow = true;
       };
 
-      CustomUserPreferences = {
-        "com.caldis.Mos".hideStatusItem = true;
-
-        NSGlobalDomain."com.apple.mouse.linear" = true;
-      };
+      CustomUserPreferences.NSGlobalDomain."com.apple.mouse.linear" = true;
     };
   };
 }
