@@ -21,13 +21,14 @@
 
   config.flake = {
     darwinConfigurations = lib.mapAttrs (
-      _name: cfg:
+      name: cfg:
       inputs.nix-darwin.lib.darwinSystem {
         modules = [
           inputs.home-manager.darwinModules.home-manager
           config.flake.modules.generic.homeManagerIntegration
           {
             nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
+            networking.hostName = lib.mkDefault name;
           }
           cfg.module
         ];
