@@ -4,7 +4,6 @@
     let
       commonScripts = [
         "cd-to-project"
-        "docker"
         "fif"
         "fkill"
         "ks"
