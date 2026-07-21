@@ -7,10 +7,10 @@ let
     homeManager
     ;
   commonImports = [
-    generic.profile
+    generic.nixSettings
     generic.primaryUser
     generic.primaryUserHome
-    generic.nixSettings
+    generic.profile
   ];
 in
 {

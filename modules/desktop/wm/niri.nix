@@ -36,13 +36,12 @@ in
     {
       imports = [
         homeManager.cursor
-        homeManager.dconf
         homeManager.desktopApps
         homeManager.gtk
-        homeManager.qt
-        homeManager.xdg
         homeManager.noctalia
+        homeManager.qt
         homeManager.swappy
+        homeManager.xdg
       ];
 
       home.packages = with pkgs; [

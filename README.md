@@ -30,7 +30,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Shared compositor config (gtk, qt, cursor, dconf, …)
+    ├── desktop/      # Shared compositor config (gtk, qt, cursor, …)
     │   └── wm/       # Window manager choices (niri, aerospace)
     ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
     │   └── scripts/bin/ # Scripts embedded into feature modules via builtins.readFile
