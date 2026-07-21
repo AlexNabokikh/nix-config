@@ -55,8 +55,8 @@ in
       homeManager.atuin
       homeManager.aws
       homeManager.bat
-      homeManager.btop
       homeManager.brave
+      homeManager.btop
       homeManager.catppuccin
       homeManager.eza
       homeManager.fastfetch
@@ -71,8 +71,8 @@ in
       homeManager.opencode
       homeManager.opentofu
       homeManager.packages
-      homeManager.scripts
       homeManager.podman
+      homeManager.scripts
       homeManager.starship
       homeManager.tmux
       homeManager.zsh
