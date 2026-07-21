@@ -138,6 +138,8 @@ in
         workspace "main"
         workspace "terminal"
         workspace "messages"
+        workspace "steam"
+        workspace "games"
 
         // Layer rules
         layer-rule {
@@ -173,6 +175,17 @@ in
             open-on-workspace "messages"
         }
 
+        window-rule {
+            match app-id=r#"^steam$"#
+            default-column-width { proportion 1.0; }
+            open-on-workspace "steam"
+        }
+
+        window-rule {
+            match app-id=r#"^steam_app_\d+$"#
+            open-on-workspace "games"
+        }
+
         // Floating dialogs
         window-rule {
             match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
@@ -206,6 +219,14 @@ in
             }
             open-floating true
             default-floating-position x=0 y=0 relative-to="bottom"
+        }
+
+        // Games
+        window-rule {
+            match app-id=r#"^steam_app_\d+$"#
+            exclude title="^$"
+            open-fullscreen true
+            variable-refresh-rate true
         }
 
         // Bindings
