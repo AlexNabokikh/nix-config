@@ -13,7 +13,9 @@
           fd
           jq
           nh
+          nodejs
           openconnect
+          python3
           ripgrep
           telegram-desktop
         ]

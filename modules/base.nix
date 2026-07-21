@@ -68,12 +68,10 @@ in
       homeManager.k8s
       homeManager.mos
       homeManager.neovim
-      homeManager.node
       homeManager.opencode
       homeManager.opentofu
       homeManager.packages
       homeManager.podman
-      homeManager.python
       homeManager.starship
       homeManager.tmux
       homeManager.zsh
