@@ -33,6 +33,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── desktop/      # Shared compositor config (gtk, qt, cursor, dconf, …)
     │   └── wm/       # Window manager choices (niri, aerospace)
     ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
+    │   └── scripts/bin/ # Scripts embedded into feature modules via builtins.readFile
     └── *.nix         # Cross-class features (fonts, users, catppuccin, …)
 ```
 

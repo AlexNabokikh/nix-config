@@ -6,7 +6,6 @@
       GOBIN = "${GOPATH}/bin";
     in
     {
-
       home.packages = with pkgs; [
         golangci-lint
         gopls

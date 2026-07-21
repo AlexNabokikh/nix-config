@@ -2,7 +2,8 @@
   flake.modules.homeManager.fzf =
     { lib, pkgs, ... }:
     let
-      copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
+      copyCmd =
+        if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "${pkgs.wl-clipboard}/bin/wl-copy";
       fif = pkgs.writeShellApplication {
         name = "fif";
         runtimeInputs = with pkgs; [
