@@ -2,43 +2,15 @@
   flake.modules.homeManager.fzf =
     { lib, pkgs, ... }:
     let
-      copyCmd =
-        if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "${pkgs.wl-clipboard}/bin/wl-copy";
-      fif = pkgs.writeShellApplication {
-        name = "fif";
-        runtimeInputs = with pkgs; [
-          fzf
-          ripgrep
-        ];
-        text = builtins.readFile ./scripts/bin/fif;
-      };
-      fkill = pkgs.writeShellApplication {
-        name = "fkill";
-        runtimeInputs =
-          with pkgs;
-          [
-            findutils
-            fzf
-            gawk
-          ]
-          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-            procps
-          ];
-        text = builtins.readFile ./scripts/bin/fkill;
-      };
+      copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
     in
     {
-      home.packages = [
-        fif
-        fkill
-      ];
-
       programs.fzf = {
         enable = true;
 
         historyWidget.zsh.command = "";
 
-        defaultCommand = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
+        defaultCommand = "fd --type f --hidden --follow --exclude .git";
         defaultOptions = [
           "--bind '?:toggle-preview'"
           "--bind 'ctrl-e:execute(nvim -- {+})'"

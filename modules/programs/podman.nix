@@ -18,7 +18,6 @@
         with pkgs;
         [
           docker
-          hadolint
           podman-compose
           podman-tui
         ]

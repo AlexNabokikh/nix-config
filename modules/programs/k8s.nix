@@ -1,41 +1,11 @@
 {
   flake.modules.homeManager.k8s =
     { pkgs, ... }:
-    let
-      ks = pkgs.writeShellApplication {
-        name = "ks";
-        runtimeInputs = with pkgs; [
-          granted
-          kubectl
-          kubectx
-          python3
-        ];
-        text = ''
-          exec python3 ${./scripts/bin/ks} "$@"
-        '';
-      };
-      traverser = pkgs.writeShellApplication {
-        name = "traverser";
-        runtimeInputs = with pkgs; [
-          kubectl
-          python3
-        ];
-        text = ''
-          exec python3 ${./scripts/bin/traverser} "$@"
-        '';
-      };
-    in
     {
-      home.packages =
-        with pkgs;
-        [
-          kubectl
-          kubectx
-        ]
-        ++ [
-          ks
-          traverser
-        ];
+      home.packages = with pkgs; [
+        kubectl
+        kubectx
+      ];
 
       programs.zsh.shellAliases = {
         k = "kubectl";

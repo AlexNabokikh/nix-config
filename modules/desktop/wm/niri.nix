@@ -6,7 +6,6 @@ in
   flake.modules.nixos.niri = {
     imports = [
       nixos.desktopApps
-      nixos.noctalia
     ];
 
     home-manager.sharedModules = [ homeManager.niri ];
@@ -41,12 +40,19 @@ in
         homeManager.desktopApps
         homeManager.gtk
         homeManager.qt
-        homeManager.waylandCapture
         homeManager.xdg
         homeManager.noctalia
+        homeManager.swappy
       ];
 
-      home.packages = [ pkgs.xwayland-satellite ];
+      home.packages = with pkgs; [
+        gpu-screen-recorder
+        grim
+        libnotify
+        slurp
+        wayfreeze
+        xwayland-satellite
+      ];
 
       xdg.desktopEntries.quit-all-applications = {
         name = "Quit All Applications";
