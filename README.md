@@ -30,11 +30,11 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Shared compositor config (gtk, qt, cursor, …)
+    ├── desktop/      # Desktop integration (apps, gtk, qt, cursor, xdg, …)
     │   └── wm/       # Window manager choices (niri, aerospace)
-    ├── programs/     # Home-Manager program modules (alacritty, git, neovim, tmux, zsh, …)
-    │   └── scripts/bin/ # Scripts embedded into feature modules via builtins.readFile
-    └── *.nix         # Cross-class features (fonts, users, catppuccin, …)
+    ├── programs/     # Program-oriented modules, mostly for Home Manager
+    │   └── scripts/bin/ # Scripts packaged into a Home Manager derivation
+    └── *.nix         # Repository-level features for one or more module classes
 ```
 
 ## Conventions
@@ -53,14 +53,14 @@ Fork this repository and clone the fork.
 
 ### 2. Replace personal settings
 
-[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, GPG key, Catppuccin flavor, icon and cursor theme, fonts, locale, and timezone.
+[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, Catppuccin flavor, icon and cursor theme, fonts, locale, and timezone.
 
 Replace the asset files with your own:
 
 - `modules/profile/avatar`
 - `modules/profile/wallpaper.jpg`
 
-The remaining files in `modules/profile/` wire the `primaryUser` option into NixOS, Darwin, and Home Manager.
+The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.
 
 ### 3. Trim or replace hosts
 
@@ -99,8 +99,8 @@ in
 > [!IMPORTANT]
 > Substitute the placeholders before building:
 
-- `laptop` (in both the directory path and `configurations.nixos.laptop.module`) — the machine's hostname; matches the flake output name used by the `Makefile`
-- `your-user` — the login username; must match the user account configured on the system
+- `laptop` in `configurations.nixos.laptop.module`: the machine's hostname and the flake output name used by the `Makefile`; using the same name for the directory is only a convention
+- `your-user`: the managed account name on NixOS; on macOS it must match the existing login short name
 - the feature list (`nixos.niri`, …) — adjust to taste
 
 For macOS:
