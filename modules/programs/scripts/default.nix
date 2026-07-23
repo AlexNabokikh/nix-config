@@ -6,9 +6,6 @@
         "cd-to-project"
         "fif"
         "fkill"
-        "ks"
-        "pull-all"
-        "traverser"
       ];
 
       linuxScripts = [
