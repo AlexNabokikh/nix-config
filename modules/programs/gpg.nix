@@ -13,7 +13,6 @@
           personal-digest-preferences = "SHA512";
           default-preference-list = "SHA512 AES256 ZLIB BZIP2 ZIP Uncompressed";
           charset = "utf-8";
-          fixed-list-mode = true;
           no-greeting = true;
           with-key-origin = true;
           throw-keyids = true;
