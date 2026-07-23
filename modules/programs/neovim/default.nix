@@ -16,6 +16,7 @@
 
         extraPackages = with pkgs; [
           bash-language-server
+          golangci-lint
           gopls
           gotools
           hadolint
