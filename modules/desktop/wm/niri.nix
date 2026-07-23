@@ -38,6 +38,7 @@ in
         homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
+        homeManager.idle
         homeManager.noctalia
         homeManager.qt
         homeManager.swappy
@@ -103,11 +104,6 @@ in
             hot-corners {
                 off
             }
-        }
-
-        // Lock screen on lid close
-        switch-events {
-            lid-close { spawn "noctalia" "msg" "session" "lock"; }
         }
 
         // Layout settings
