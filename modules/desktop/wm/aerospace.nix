@@ -5,18 +5,9 @@
       settings = {
         config-version = 2;
 
-        enable-normalization-flatten-containers = true;
-        enable-normalization-opposite-orientation-for-nested-containers = true;
-        accordion-padding = 30;
-
-        default-root-container-layout = "tiles";
-        default-root-container-orientation = "auto";
-
         on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
         on-focus-changed = [ "move-mouse window-lazy-center" ];
         automatically-unhide-macos-hidden-apps = true;
-
-        key-mapping.preset = "qwerty";
 
         gaps = {
           inner = {

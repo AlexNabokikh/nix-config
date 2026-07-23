@@ -1,5 +1,7 @@
 {
   flake.modules.homeManager.fastfetch = {
+    programs.zsh.shellAliases.ff = "fastfetch";
+
     programs.fastfetch = {
       enable = true;
       settings = {

@@ -14,5 +14,7 @@
       };
       plymouth.enable = true;
     };
+
+    systemd.services.plymouth-quit-wait.enable = false;
   };
 }

@@ -13,10 +13,6 @@
       programs.alacritty = {
         enable = true;
         settings = {
-          general = {
-            live_config_reload = true;
-          };
-
           terminal = {
             shell.program = "${pkgs.zsh}/bin/zsh";
             shell.args = [
@@ -38,11 +34,6 @@
               x = 5;
               y = 1;
             };
-          };
-
-          scrolling = {
-            history = 10000;
-            multiplier = 3;
           };
 
           keyboard.bindings = [
@@ -73,19 +64,6 @@
                 config.profile.appearance.fonts.terminalSize.linux;
             normal = {
               inherit (config.profile.appearance.fonts.monospace) family;
-              style = "Regular";
-            };
-            bold = {
-              inherit (config.profile.appearance.fonts.monospace) family;
-              style = "Bold";
-            };
-            italic = {
-              inherit (config.profile.appearance.fonts.monospace) family;
-              style = "Italic";
-            };
-            bold_italic = {
-              inherit (config.profile.appearance.fonts.monospace) family;
-              style = "Bold Italic";
             };
           };
 

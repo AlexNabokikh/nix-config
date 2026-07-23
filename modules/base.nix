@@ -7,10 +7,10 @@ let
     homeManager
     ;
   commonImports = [
-    generic.profile
+    generic.nixSettings
     generic.primaryUser
     generic.primaryUserHome
-    generic.nixSettings
+    generic.profile
   ];
 in
 {
@@ -26,10 +26,9 @@ in
       nixos.audio
       nixos.bluetooth
       nixos.boot
-      nixos.containers
       nixos.locale
       nixos.networking
-      nixos.services
+      nixos.podman
       nixos.users
       nixos.zsh
     ];
@@ -38,8 +37,10 @@ in
 
   flake.modules.darwin.base = {
     imports = commonImports ++ [
+      darwin.brave
       darwin.fonts
       darwin.keyboard
+      darwin.mos
       darwin.sudo
       darwin.systemPreferences
       darwin.users
@@ -52,19 +53,25 @@ in
       generic.profile
       homeManager.alacritty
       homeManager.atuin
+      homeManager.aws
       homeManager.bat
+      homeManager.brave
       homeManager.btop
       homeManager.catppuccin
+      homeManager.eza
       homeManager.fastfetch
       homeManager.fonts
       homeManager.fzf
       homeManager.git
       homeManager.go
       homeManager.gpg
-      homeManager.granted
       homeManager.k8s
+      homeManager.mos
       homeManager.neovim
+      homeManager.opencode
+      homeManager.opentofu
       homeManager.packages
+      homeManager.podman
       homeManager.scripts
       homeManager.starship
       homeManager.tmux

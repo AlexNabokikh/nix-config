@@ -6,8 +6,6 @@
         inline_height = 25;
         invert = true;
         search_mode = "skim";
-        secrets_filter = true;
-        style = "compact";
       };
       flags = [ "--disable-up-arrow" ];
     };

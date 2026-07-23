@@ -9,31 +9,22 @@
       home.packages =
         with pkgs;
         [
-          awscli2
-          brave
           dig
-          eza
           fd
           jq
           nh
           nodejs
           openconnect
-          opencode
-          opentofu
           pipenv
-          podman-compose
-          podman-tui
           python3
           ripgrep
           telegram-desktop
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           anki-bin
-          mos
-          podman
           raycast
         ]
-        ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           anki
           gcc
           gnumake

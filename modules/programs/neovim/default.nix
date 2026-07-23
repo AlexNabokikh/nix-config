@@ -9,12 +9,14 @@
       programs.neovim = {
         enable = true;
         defaultEditor = true;
+        vimAlias = true;
         withNodeJs = true;
         withPython3 = true;
         withRuby = false;
 
         extraPackages = with pkgs; [
           bash-language-server
+          golangci-lint
           gopls
           gotools
           hadolint

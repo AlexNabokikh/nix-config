@@ -1,23 +1,12 @@
 {
-  flake.modules.homeManager.xdg =
-    { pkgs, ... }:
-    {
-      xdg = {
+  flake.modules.homeManager.xdg = {
+    xdg = {
+      enable = true;
+
+      userDirs = {
         enable = true;
-
-        mimeApps = {
-          enable = true;
-          defaultApplicationPackages = [
-            pkgs.gnome-text-editor
-            pkgs.loupe
-            pkgs.showtime
-          ];
-        };
-
-        userDirs = {
-          enable = true;
-          createDirectories = true;
-        };
+        createDirectories = true;
       };
     };
+  };
 }

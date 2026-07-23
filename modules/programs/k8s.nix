@@ -7,6 +7,12 @@
         kubectx
       ];
 
+      programs.zsh.shellAliases = {
+        k = "kubectl";
+        kctx = "kubectx";
+        kns = "kubens";
+      };
+
       programs.k9s = {
         enable = true;
         settings.k9s = {

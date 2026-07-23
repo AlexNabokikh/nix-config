@@ -1,12 +1,11 @@
 {
   flake.modules.homeManager.go =
-    { config, pkgs, ... }:
+    { config, ... }:
     let
       GOPATH = "${config.home.homeDirectory}/go";
       GOBIN = "${GOPATH}/bin";
     in
     {
-      home.packages = [ pkgs.golangci-lint ];
 
       programs.go = {
         enable = true;

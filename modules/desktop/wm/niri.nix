@@ -1,9 +1,13 @@
 { config, ... }:
 let
-  inherit (config.flake.modules) homeManager;
+  inherit (config.flake.modules) homeManager nixos;
 in
 {
   flake.modules.nixos.niri = {
+    imports = [
+      nixos.desktopApps
+    ];
+
     home-manager.sharedModules = [ homeManager.niri ];
 
     services = {
@@ -11,9 +15,7 @@ in
         defaultSession = "niri";
         gdm.enable = true;
       };
-      gvfs.enable = true;
       power-profiles-daemon.enable = true;
-      udisks2.enable = true;
       upower.enable = true;
     };
 
@@ -34,27 +36,19 @@ in
     {
       imports = [
         homeManager.cursor
-        homeManager.dconf
+        homeManager.desktopApps
         homeManager.gtk
-        homeManager.qt
-        homeManager.xdg
+        homeManager.idle
         homeManager.noctalia
+        homeManager.qt
         homeManager.swappy
+        homeManager.xdg
       ];
 
       home.packages = with pkgs; [
-        file-roller
-        gnome-calculator
-        gnome-pomodoro
-        gnome-text-editor
         gpu-screen-recorder
         grim
         libnotify
-        loupe
-        nautilus
-        pavucontrol
-        seahorse
-        showtime
         slurp
         wayfreeze
         xwayland-satellite
@@ -110,11 +104,6 @@ in
             hot-corners {
                 off
             }
-        }
-
-        // Lock screen on lid close
-        switch-events {
-            lid-close { spawn "noctalia" "msg" "session" "lock"; }
         }
 
         // Layout settings
