@@ -15,9 +15,6 @@
     {
       programs.zsh = {
         enable = true;
-        shellAliases = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-          open = "xdg-open";
-        };
         initContent = ''
           # bindings
           bindkey -e
@@ -29,6 +26,11 @@
           autoload -z edit-command-line
           zle -N edit-command-line
           bindkey "^v" edit-command-line
+        ''
+        + lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+          open() {
+            xdg-open "$@" </dev/null >/dev/null 2>&1 &!
+          }
         '';
       };
     };
