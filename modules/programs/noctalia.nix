@@ -75,6 +75,7 @@
             font_family = uiFont;
             launch_apps_as_systemd_services = true;
             polkit_agent = true;
+            setup_wizard_enabled = false;
             show_location = false;
 
             animation.enabled = false;
