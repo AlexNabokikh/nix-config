@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.catppuccin =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (config.profile.appearance) catppuccin;
 
@@ -10,8 +15,7 @@
           whiskers = pkgs.catppuccin-whiskers;
         }
       );
-      paletteFile = "${catppuccinSources.sources.palette}/palette.json";
-      palette = builtins.fromJSON (builtins.readFile paletteFile);
+      palette = lib.importJSON "${inputs.catppuccin-palette}/palette.json";
       flavorColors = palette.${catppuccin.flavor}.colors;
     in
     {
