@@ -7,7 +7,8 @@
       ...
     }:
     let
-      promptNewlineChars = builtins.fromJSON ''"\u001b\u000d"'';
+      promptNewline = ''\u001b\u000d'';
+      unitSeparator = ''\u001f'';
     in
     {
       programs.alacritty = {
@@ -40,19 +41,19 @@
             {
               key = "Enter";
               mods = "Shift";
-              chars = promptNewlineChars;
+              chars = promptNewline;
             }
           ]
           ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
             {
               key = "Enter";
               mods = "Command";
-              chars = promptNewlineChars;
+              chars = promptNewline;
             }
             {
               key = "Slash";
               mods = "Control";
-              chars = ''\u001f'';
+              chars = unitSeparator;
             }
           ];
 
