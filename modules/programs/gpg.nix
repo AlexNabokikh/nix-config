@@ -19,7 +19,7 @@
         };
       };
 
-      services.gpg-agent = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
+      services.gpg-agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         enable = true;
         enableSshSupport = true;
         pinentry.package = lib.mkDefault pkgs.pinentry-gnome3;
