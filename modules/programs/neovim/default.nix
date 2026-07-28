@@ -6,6 +6,8 @@
       ...
     }:
     {
+      catppuccin.nvim.enable = false;
+
       programs.neovim = {
         enable = true;
         defaultEditor = true;
@@ -45,8 +47,6 @@
           recursive = true;
         };
       };
-
-      catppuccin.nvim.enable = false;
 
       home.sessionVariables = {
         CATPPUCCIN_FLAVOR = config.catppuccin.flavor;
