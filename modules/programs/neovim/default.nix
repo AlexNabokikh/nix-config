@@ -49,7 +49,7 @@
       };
 
       home.sessionVariables = {
-        CATPPUCCIN_FLAVOR = config.catppuccin.flavor;
+        CATPPUCCIN_FLAVOR = config.profile.appearance.catppuccin.flavor;
       };
     };
 }
