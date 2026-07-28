@@ -2,6 +2,7 @@
   flake.modules.nixos.podman = {
     virtualisation.podman = {
       enable = true;
+      dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
   };
@@ -10,18 +11,20 @@
     { lib, pkgs, ... }:
     let
       docker = pkgs.writeShellScriptBin "docker" ''
-        exec ${pkgs.podman}/bin/podman "$@"
+        exec ${lib.getExe pkgs.podman} "$@"
       '';
     in
     {
       home.packages =
         with pkgs;
         [
-          docker
           podman-compose
           podman-tui
         ]
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ podman ];
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+          docker
+          podman
+        ];
 
       programs.zsh.shellAliases.pt = "podman-tui";
     };
