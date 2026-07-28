@@ -72,6 +72,7 @@
 
         settings = {
           shell = {
+            avatar_path = config.profile.avatar;
             font_family = uiFont;
             launch_apps_as_systemd_services = true;
             polkit_agent = true;

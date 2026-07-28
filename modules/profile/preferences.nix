@@ -102,7 +102,7 @@
         email = "alexander.nabokikh@olx.pl";
         fullName = "Alexander Nabokikh";
         gitKey = "C5810093";
-        avatar = ./avatar;
+        avatar = ./avatar.jpg;
         wallpaper = ./wallpaper.jpg;
 
         appearance = {
