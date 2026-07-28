@@ -55,6 +55,9 @@ Fork this repository and clone the fork.
 
 [`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, Catppuccin flavor, icon and cursor theme, fonts, locale, and timezone.
 
+> [!NOTE]
+> `profile` is an untyped option, so edit the values in place and keep the existing attribute names and nesting. A misspelled attribute is not reported against this file — it surfaces later as a missing-attribute error in whichever module consumes it (for example `desktop/gtk.nix` or `programs/alacritty.nix`).
+
 Replace the asset files with your own:
 
 - `modules/profile/avatar.jpg`
