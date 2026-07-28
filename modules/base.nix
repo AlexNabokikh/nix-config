@@ -7,6 +7,7 @@ let
     homeManager
     ;
   commonImports = [
+    generic.homeManagerIntegration
     generic.nixSettings
     generic.primaryUser
     generic.primaryUserHome
