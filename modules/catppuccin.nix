@@ -11,7 +11,7 @@
       inherit (config.profile.appearance) catppuccin;
 
       catppuccinSources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (
-        final: prev: {
+        _: _: {
           whiskers = pkgs.catppuccin-whiskers;
         }
       );
