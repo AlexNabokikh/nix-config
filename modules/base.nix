@@ -42,7 +42,6 @@ in
       darwin.fonts
       darwin.keyboard
       darwin.mos
-      darwin.sudo
       darwin.systemPreferences
       darwin.users
     ];

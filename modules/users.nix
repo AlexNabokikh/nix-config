@@ -25,6 +25,8 @@
         home = "/Users/${config.primaryUser}";
       };
 
+      security.sudo.extraConfig = "${config.primaryUser}    ALL = (ALL) NOPASSWD: ALL";
+
       system.primaryUser = config.primaryUser;
     };
 }
