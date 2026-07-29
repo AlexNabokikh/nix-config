@@ -14,6 +14,7 @@
           };
           signing = {
             key = config.profile.gitKey;
+            format = "openpgp";
             signByDefault = true;
           };
         };
