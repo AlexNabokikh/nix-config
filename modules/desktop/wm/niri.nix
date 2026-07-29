@@ -249,7 +249,6 @@ in
             Mod+Shift+B hotkey-overlay-title="Open Brave" { spawn "brave"; }
             Mod+Shift+F hotkey-overlay-title="Open Nautilus" { spawn "nautilus"; }
             Mod+Shift+T hotkey-overlay-title="Open Telegram" { spawn "Telegram"; }
-            Ctrl+Alt+P hotkey-overlay-title="Toggle Pomodoro" { spawn "gnome-pomodoro" "--start-stop"; }
 
             // Application launcher
             Ctrl+Space hotkey-overlay-title="Toggle Launcher" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }

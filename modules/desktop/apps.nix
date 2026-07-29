@@ -9,7 +9,6 @@
       home.packages = with pkgs; [
         file-roller
         gnome-calculator
-        gnome-pomodoro
         gnome-text-editor
         loupe
         nautilus
