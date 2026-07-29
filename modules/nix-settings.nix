@@ -10,9 +10,8 @@
       nixpkgs.config.allowUnfree = true;
 
       nix = {
+        channel.enable = false;
         nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-
-        registry.nixpkgs.flake = inputs.nixpkgs;
 
         settings = {
           experimental-features = [
