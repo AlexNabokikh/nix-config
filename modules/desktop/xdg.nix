@@ -1,12 +1,12 @@
 {
   flake.modules.homeManager.xdg = {
-    xdg = {
-      enable = true;
+    xdg.enable = true;
+  };
 
-      userDirs = {
-        enable = true;
-        createDirectories = true;
-      };
+  flake.modules.homeManager.xdgUserDirs = {
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = true;
     };
   };
 }

@@ -19,6 +19,7 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      sharedModules = [ homeManager.base ];
     };
   };
 
@@ -33,7 +34,6 @@ in
       nixos.users
       nixos.zsh
     ];
-    home-manager.sharedModules = [ homeManager.base ];
   };
 
   flake.modules.darwin.base = {
@@ -46,7 +46,6 @@ in
       darwin.systemPreferences
       darwin.users
     ];
-    home-manager.sharedModules = [ homeManager.base ];
   };
 
   flake.modules.homeManager.base = {
@@ -76,6 +75,7 @@ in
       homeManager.scripts
       homeManager.starship
       homeManager.tmux
+      homeManager.xdg
       homeManager.zsh
     ];
   };

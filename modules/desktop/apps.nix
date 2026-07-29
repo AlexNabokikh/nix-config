@@ -1,9 +1,6 @@
 {
   flake.modules.nixos.desktopApps = {
-    services = {
-      gvfs.enable = true;
-      udisks2.enable = true;
-    };
+    services.gvfs.enable = true;
   };
 
   flake.modules.homeManager.desktopApps =
@@ -44,8 +41,10 @@
       xdg.mimeApps = {
         enable = true;
         defaultApplicationPackages = [
+          pkgs.file-roller
           pkgs.gnome-text-editor
           pkgs.loupe
+          pkgs.nautilus
           pkgs.showtime
         ];
       };

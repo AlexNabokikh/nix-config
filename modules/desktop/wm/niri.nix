@@ -42,7 +42,7 @@ in
         homeManager.noctalia
         homeManager.qt
         homeManager.swappy
-        homeManager.xdg
+        homeManager.xdgUserDirs
       ];
 
       home.packages = with pkgs; [
