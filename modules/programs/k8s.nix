@@ -13,6 +13,7 @@
         kns = "kubens";
       };
 
+      catppuccin.k9s.transparent = true;
       programs.k9s = {
         enable = true;
         settings.k9s = {

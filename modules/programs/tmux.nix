@@ -13,6 +13,7 @@
         prefix = "C-q";
         sensibleOnTop = false;
         shell = "${pkgs.zsh}/bin/zsh";
+        terminal = "tmux-256color";
 
         extraConfig = ''
           # Use | and - to split a window vertically and horizontally instead of " and % respectively
