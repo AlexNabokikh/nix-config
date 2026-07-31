@@ -38,7 +38,6 @@ in
         homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
-        homeManager.idle
         homeManager.noctalia
         homeManager.qt
         homeManager.swappy
