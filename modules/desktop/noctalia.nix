@@ -76,6 +76,7 @@
 
           launcher = {
             categories = false;
+            sort_by_usage = false;
             providers.session.global = true;
           };
         };
