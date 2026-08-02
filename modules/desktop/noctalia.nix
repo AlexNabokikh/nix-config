@@ -76,6 +76,8 @@
 
           launcher = {
             categories = false;
+            fetch_exchange_rates = false;
+
             sort_by_usage = false;
             providers.session.global = true;
           };
