@@ -1,8 +1,9 @@
-{ inputs, ... }:
 {
   flake.modules.homeManager.noctalia =
     {
       config,
+      lib,
+      pkgs,
       catppuccinColor,
       ...
     }:
@@ -61,147 +62,179 @@
           };
         };
       };
+
+      settings = {
+        shell = {
+          avatar_path = config.profile.avatar;
+          font_family = uiFont;
+          launch_apps_as_systemd_services = true;
+          polkit_agent = true;
+          setup_wizard_enabled = false;
+          show_location = false;
+
+          animation.enabled = false;
+
+          launcher = {
+            categories = false;
+            providers.session.global = true;
+          };
+        };
+
+        theme = {
+          source = "custom";
+          custom_palette = "catppuccin-custom";
+          templates = {
+            enable_builtin_templates = false;
+            enable_community_templates = false;
+          };
+        };
+
+        backdrop.enabled = true;
+
+        notification = {
+          show_actions = false;
+          show_app_name = false;
+        };
+
+        osd = {
+          position = "top_right";
+          kinds.keyboard_layout = false;
+        };
+
+        nightlight.enabled = true;
+
+        weather.enabled = false;
+
+        location = {
+          custom_schedule = true;
+          sunrise = "06:00";
+          sunset = "20:00";
+        };
+
+        system.monitor.enabled = false;
+
+        desktop_widgets.enabled = false;
+
+        lockscreen_widgets.enabled = false;
+
+        idle = {
+          behavior_order = [
+            "lock"
+            "screen-off"
+            "lock-and-suspend"
+          ];
+          pre_action_fade_seconds = 0;
+
+          behavior = {
+            lock = {
+              action = "lock";
+              enabled = true;
+              timeout = 600;
+            };
+
+            lock-and-suspend = {
+              action = "lock_and_suspend";
+              enabled = true;
+              timeout = 900;
+            };
+
+            screen-off = {
+              action = "screen_off";
+              enabled = true;
+              timeout = 660;
+            };
+          };
+        };
+
+        keybinds = {
+          down = [ "Ctrl+j" ];
+          up = [ "Ctrl+k" ];
+        };
+
+        wallpaper = {
+          default.path = config.profile.wallpaper;
+        };
+
+        bar.default = {
+          start = [ "workspaces" ];
+          end = [
+            "tray"
+            "keyboard_layout"
+            "network"
+            "volume"
+            "battery"
+            "notifications"
+          ];
+          margin_edge = 0;
+          margin_ends = 0;
+          padding = 6;
+          radius = 0;
+          shadow = false;
+          widget_spacing = 12;
+        };
+
+        widget = {
+          battery = {
+            display_mode = "graphic";
+            scale = 0.8;
+            show_label = false;
+          };
+          clock.format = "{:%H:%M %a, %b %d}";
+          network.show_label = false;
+          tray.drawer = true;
+          volume.show_label = false;
+          workspaces.hide_when_empty = true;
+        };
+
+        control_center.shortcuts = [
+          { type = "wifi"; }
+          { type = "bluetooth"; }
+          { type = "nightlight"; }
+          { type = "notification"; }
+          { type = "power_profile"; }
+          { type = "caffeine"; }
+        ];
+      };
+
+      tomlFormat = pkgs.formats.toml { };
+      jsonFormat = pkgs.formats.json { };
+
+      rawConfig = tomlFormat.generate "config.toml" settings;
+
+      # Catch schema errors at build time rather than at runtime
+      configFile = pkgs.runCommand "noctalia-config" { } ''
+        ${lib.getExe pkgs.noctalia} config validate ${rawConfig}
+        cp ${rawConfig} $out
+      '';
+
+      paletteFile = jsonFormat.generate "catppuccin-custom-palette.json" catppuccinPalette;
     in
     {
-      imports = [ inputs.noctalia.homeModules.default ];
+      home.packages = [ pkgs.noctalia ];
 
-      programs.noctalia = {
-        enable = true;
-        systemd.enable = true;
-        customPalettes."catppuccin-custom" = catppuccinPalette;
+      xdg.configFile = {
+        "noctalia/config.toml".source = configFile;
+        "noctalia/palettes/catppuccin-custom.json".source = paletteFile;
+      };
 
-        settings = {
-          shell = {
-            avatar_path = config.profile.avatar;
-            font_family = uiFont;
-            launch_apps_as_systemd_services = true;
-            polkit_agent = true;
-            setup_wizard_enabled = false;
-            show_location = false;
-
-            animation.enabled = false;
-
-            launcher = {
-              categories = false;
-              providers.session.global = true;
-            };
-          };
-
-          theme = {
-            source = "custom";
-            custom_palette = "catppuccin-custom";
-            templates = {
-              enable_builtin_templates = false;
-              enable_community_templates = false;
-            };
-          };
-
-          backdrop.enabled = true;
-
-          notification = {
-            show_actions = false;
-            show_app_name = false;
-          };
-
-          osd = {
-            position = "top_right";
-            kinds.keyboard_layout = false;
-          };
-
-          nightlight.enabled = true;
-
-          weather.enabled = false;
-
-          location = {
-            custom_schedule = true;
-            sunrise = "06:00";
-            sunset = "20:00";
-          };
-
-          system.monitor.enabled = false;
-
-          desktop_widgets.enabled = false;
-
-          lockscreen_widgets.enabled = false;
-
-          idle = {
-            behavior_order = [
-              "lock"
-              "screen-off"
-              "lock-and-suspend"
-            ];
-            pre_action_fade_seconds = 0;
-
-            behavior = {
-              lock = {
-                action = "lock";
-                enabled = true;
-                timeout = 600;
-              };
-
-              lock-and-suspend = {
-                action = "lock_and_suspend";
-                enabled = true;
-                timeout = 900;
-              };
-
-              screen-off = {
-                action = "screen_off";
-                enabled = true;
-                timeout = 660;
-              };
-            };
-          };
-
-          keybinds = {
-            down = [ "Ctrl+j" ];
-            up = [ "Ctrl+k" ];
-          };
-
-          wallpaper = {
-            default.path = config.profile.wallpaper;
-          };
-
-          bar.default = {
-            start = [ "workspaces" ];
-            end = [
-              "tray"
-              "keyboard_layout"
-              "network"
-              "volume"
-              "battery"
-              "notifications"
-            ];
-            margin_edge = 0;
-            margin_ends = 0;
-            padding = 6;
-            radius = 0;
-            shadow = false;
-            widget_spacing = 12;
-          };
-
-          widget = {
-            battery = {
-              display_mode = "graphic";
-              scale = 0.8;
-              show_label = false;
-            };
-            clock.format = "{:%H:%M %a, %b %d}";
-            network.show_label = false;
-            tray.drawer = true;
-            volume.show_label = false;
-            workspaces.hide_when_empty = true;
-          };
-
-          control_center.shortcuts = [
-            { type = "wifi"; }
-            { type = "bluetooth"; }
-            { type = "nightlight"; }
-            { type = "notification"; }
-            { type = "power_profile"; }
-            { type = "caffeine"; }
+      systemd.user.services.noctalia = {
+        Unit = {
+          Description = "Noctalia - A lightweight Wayland shell and bar";
+          Documentation = "https://docs.noctalia.dev/v5/";
+          PartOf = [ config.wayland.systemd.target ];
+          After = [ config.wayland.systemd.target ];
+          X-Restart-Triggers = [
+            "${configFile}"
+            "${paletteFile}"
           ];
         };
+
+        Service = {
+          ExecStart = lib.getExe pkgs.noctalia;
+          Restart = "on-failure";
+        };
+
+        Install.WantedBy = [ config.wayland.systemd.target ];
       };
     };
 }
