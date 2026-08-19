@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.tmux =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       programs.tmux = {
         enable = true;
@@ -32,13 +32,13 @@
           bind r command-prompt -I "#W" "rename-window '%%'"
 
           # Reload tmux config by pressing prefix + R
-          bind R source-file "$HOME/.config/tmux/tmux.conf" \; display "TMUX Conf Reloaded"
+          bind R source-file "${config.xdg.configHome}/tmux/tmux.conf" \; display "TMUX Conf Reloaded"
 
-          # Clear screen with prefix + l
+          # Clear screen with prefix + C-l
           bind C-l send-keys 'C-l'
 
           # Open a project in a separate window
-          bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
+          bind-key -n C-f new-window -t 10 -n project-selector cd-to-project
 
           # Smart pane switching with awareness of Vim splits
           is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf|atuin)(diff)?$'"
