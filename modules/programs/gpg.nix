@@ -1,27 +1,11 @@
 {
   flake.modules.homeManager.gpg =
+    { pkgs, lib, ... }:
     {
-      pkgs,
-      lib,
-      ...
-    }:
-    {
-      programs.gpg = {
-        enable = true;
-        settings = {
-          personal-cipher-preferences = "AES256";
-          personal-digest-preferences = "SHA512";
-          default-preference-list = "SHA512 AES256 ZLIB BZIP2 ZIP Uncompressed";
-          charset = "utf-8";
-          no-greeting = true;
-          with-key-origin = true;
-          throw-keyids = true;
-        };
-      };
+      programs.gpg.enable = true;
 
       services.gpg-agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         enable = true;
-        enableSshSupport = true;
         pinentry.package = pkgs.pinentry-gnome3;
       };
     };
