@@ -14,9 +14,9 @@
       programs.alacritty = {
         enable = true;
         settings = {
-          terminal = {
-            shell.program = "${pkgs.zsh}/bin/zsh";
-            shell.args = [
+          terminal.shell = {
+            program = "${pkgs.zsh}/bin/zsh";
+            args = [
               "-l"
               "-c"
               "tmux attach || tmux"
@@ -25,14 +25,9 @@
 
           window = {
             decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "none";
-            dynamic_title = false;
             dynamic_padding = true;
-            dimensions = {
-              columns = 170;
-              lines = 45;
-            };
             padding = {
-              x = 5;
+              x = 2;
               y = 1;
             };
           };
@@ -41,6 +36,7 @@
             {
               key = "Enter";
               mods = "Shift";
+              mode = "~Vi|~Search";
               chars = promptNewline;
             }
           ]
@@ -48,11 +44,13 @@
             {
               key = "Enter";
               mods = "Command";
+              mode = "~Vi|~Search";
               chars = promptNewline;
             }
             {
               key = "Slash";
               mods = "Control";
+              mode = "~Vi|~Search";
               chars = unitSeparator;
             }
           ];
@@ -69,7 +67,6 @@
           };
 
           selection = {
-            semantic_escape_chars = '',│`|:"' ()[]{}<>'';
             save_to_clipboard = true;
           };
         };
