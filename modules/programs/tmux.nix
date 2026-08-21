@@ -27,7 +27,7 @@
           bind -n S-Right resize-pane -R 8
 
           # Rename window with prefix + r
-          bind r command-prompt -I "#W" "rename-window '%%'"
+          bind r command-prompt -I "#W" { rename-window -- "%%" }
 
           # Reload tmux config by pressing prefix + R
           bind R source-file "${config.xdg.configHome}/tmux/tmux.conf" \; display "TMUX Conf Reloaded"
