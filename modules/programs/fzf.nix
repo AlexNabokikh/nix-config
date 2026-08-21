@@ -8,24 +8,23 @@
       programs.fzf = {
         enable = true;
 
-        historyWidget.zsh.command = "";
+        historyWidget.command = "";
 
-        defaultCommand = "fd --type f --hidden --follow --exclude .git";
         defaultOptions = [
           "--bind '?:toggle-preview'"
           "--bind 'ctrl-e:execute(nvim -- {+})'"
-          "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCmd})'"
+          "--bind 'ctrl-y:execute-silent(printf \"%s\\n\" {+} | ${copyCmd})'"
           "--height=40%"
           "--info=inline"
           "--layout=reverse"
-          "--preview '( [[ -f {} ]] && (bat --color=always --style=numbers,changes {} || cat {}) || [[ -d {} ]] && eza --all --long --color=always {} || echo {} ) 2> /dev/null | head -200'"
-          "--preview-window=:hidden"
-          "--prompt='~ ' --pointer='▶' --marker='✓'"
+          "--marker='✓'"
+          "--pointer='▶'"
+          "--prompt='~ '"
         ];
       };
 
       programs.zsh.initContent = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-        # Enable ALT-C fzf keybinding on Mac
+        # macOS terminal/keyboard mapping for ALT-C.
         bindkey 'ć' fzf-cd-widget
       '';
     };

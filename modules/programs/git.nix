@@ -33,18 +33,13 @@
           enable = true;
 
           settings = {
-            gui = {
-              showNumstatInFilesView = true;
-            };
+            gui.showNumstatInFilesView = true;
 
-            git = {
-              diffRenderers = [
-                {
-                  colorArg = "always";
-                  command = "delta --paging=never";
-                }
-              ];
-            };
+            git.diffRenderers = [
+              {
+                command = "delta --paging=never";
+              }
+            ];
           };
         };
       };

@@ -7,4 +7,11 @@ if [ ! "$#" -gt 0 ]; then
   exit 1
 fi
 
-rg --hidden --glob '!.git' --files-with-matches --no-messages "$1" | fzf --preview "rg --ignore-case --pretty --context 10 '$1' {}"
+FIF_PATTERN=$1
+export FIF_PATTERN
+
+# shellcheck disable=SC2016
+rg --hidden --glob '!.git' --files-with-matches --no-messages -- "$FIF_PATTERN" |
+  fzf \
+    --scheme=path \
+    --preview='rg --pretty --context 10 -- "$FIF_PATTERN" {}'

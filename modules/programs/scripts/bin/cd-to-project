@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-selected=$(fd --type d --hidden --min-depth 1 --max-depth 2 --exclude .git . "$HOME/Documents/repositories" | fzf)
+selected=$(fd --type d --hidden --min-depth 1 --max-depth 2 --exclude .git . "$HOME/Documents/repositories" | fzf --scheme=path --no-height)
 if [ -n "$selected" ]; then
   tmux new-window -c "$selected" -n "$(basename "$selected")" || exit
 fi
