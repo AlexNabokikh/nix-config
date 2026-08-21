@@ -3,7 +3,7 @@
 set -euo pipefail
 
 signal="${1:-9}"
-pids=$(ps -A -o pid= -o comm= | fzf --multi --bind='ctrl-a:select-all' --nth=2.. --accept-nth=1)
+pids=$(ps -A -o pid= -o comm= | fzf --multi --nth=2.. --accept-nth=1)
 
 if [ -n "$pids" ]; then
   printf '%s\n' "$pids" | xargs sudo kill -"$signal"

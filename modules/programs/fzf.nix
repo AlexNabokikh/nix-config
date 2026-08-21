@@ -13,7 +13,7 @@
         defaultOptions = [
           "--bind '?:toggle-preview'"
           "--bind 'ctrl-e:execute(nvim -- {+})'"
-          "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCmd})'"
+          "--bind 'ctrl-y:execute-silent(printf \"%s\\n\" {+} | ${copyCmd})'"
           "--height=40%"
           "--info=inline"
           "--layout=reverse"
