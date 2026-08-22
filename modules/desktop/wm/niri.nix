@@ -11,10 +11,7 @@ in
     home-manager.sharedModules = [ homeManager.niri ];
 
     services = {
-      displayManager = {
-        defaultSession = "niri";
-        gdm.enable = true;
-      };
+      displayManager.gdm.enable = true;
       power-profiles-daemon.enable = true;
       upower.enable = true;
     };
