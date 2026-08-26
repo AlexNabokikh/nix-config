@@ -154,6 +154,13 @@ in
             place-within-backdrop true
         }
 
+        layer-rule {
+            match namespace="^noctalia-"
+            background-effect {
+                blur false
+            }
+        }
+
         // Window rules (global)
         window-rule {
             clip-to-geometry true
