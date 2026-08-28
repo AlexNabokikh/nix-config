@@ -60,7 +60,6 @@
           };
         };
       };
-
     in
     {
       programs.noctalia = {

@@ -30,7 +30,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Desktop integration (apps, gtk, qt, cursor, xdg, …)
+    ├── desktop/      # Desktop integration (desktop-apps, gtk, qt, cursor, xdg, …)
     │   └── wm/       # Window manager choices (niri, aerospace)
     ├── programs/     # Program-oriented modules, mostly for Home Manager
     │   └── scripts/bin/ # Scripts packaged into a Home Manager derivation
