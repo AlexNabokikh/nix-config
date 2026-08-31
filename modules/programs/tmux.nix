@@ -56,6 +56,10 @@
           set -g status-right-length 100
           set -g status-right "#{E:@catppuccin_status_host}#{E:@catppuccin_status_date_time}"
           set -g status-left ""
+
+          # TODO: Remove after https://github.com/catppuccin/tmux/pull/602 is released.
+          set -gF message-style "fg=#{@thm_teal},bg=default,fill=terminal"
+          set -gF message-command-style "fg=#{@thm_teal},bg=default,fill=terminal"
         '';
       };
 
