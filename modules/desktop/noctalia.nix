@@ -2,76 +2,21 @@
   flake.modules.homeManager.noctalia =
     {
       config,
-      catppuccinColor,
+      lib,
       ...
     }:
     let
       inherit (config.profile.appearance) catppuccin;
-      uiFont = config.profile.appearance.fonts.ui.family;
-
-      color = catppuccinColor;
-      accentColor = color catppuccin.accent;
-
-      catppuccinPalette = {
-        dark = {
-          mPrimary = accentColor;
-          mOnPrimary = color "crust";
-          mSecondary = color "pink";
-          mOnSecondary = color "crust";
-          mTertiary = color "mauve";
-          mOnTertiary = color "crust";
-          mError = color "red";
-          mOnError = color "crust";
-          mSurface = color "base";
-          mOnSurface = color "text";
-          mSurfaceVariant = color "surface0";
-          mOnSurfaceVariant = color "subtext0";
-          mOutline = color "overlay0";
-          mShadow = color "crust";
-          mHover = accentColor;
-          mOnHover = color "crust";
-          terminal = {
-            background = color "base";
-            foreground = color "text";
-            cursor = color "rosewater";
-            cursorText = color "base";
-            selectionBg = color "surface2";
-            selectionFg = color "text";
-            normal = {
-              black = color "surface1";
-              red = color "red";
-              green = color "green";
-              yellow = color "yellow";
-              blue = color "blue";
-              magenta = color "pink";
-              cyan = color "teal";
-              white = color "subtext1";
-            };
-            bright = {
-              black = color "surface2";
-              red = color "red";
-              green = color "green";
-              yellow = color "yellow";
-              blue = color "blue";
-              magenta = color "pink";
-              cyan = color "teal";
-              white = color "subtext0";
-            };
-          };
-        };
-      };
     in
     {
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
 
-        customPalettes."catppuccin-custom" = catppuccinPalette;
-
         settings = {
           shell = {
             avatar_path = config.profile.avatar;
-            font_family = uiFont;
+            font_family = config.profile.appearance.fonts.ui.family;
             launch_apps_as_systemd_services = true;
             polkit_agent = true;
             setup_wizard_enabled = false;
@@ -89,8 +34,8 @@
           };
 
           theme = {
-            source = "custom";
-            custom_palette = "catppuccin-custom";
+            source = "community";
+            community_palette = "Catppuccin ${lib.toSentenceCase catppuccin.flavor} ${lib.toSentenceCase catppuccin.accent}";
             templates = {
               enable_builtin_templates = false;
               enable_community_templates = false;
