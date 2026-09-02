@@ -20,12 +20,6 @@
           bind v split-window -h -c "#{pane_current_path}"
           bind s split-window -v -c "#{pane_current_path}"
 
-          # Resize panes with Shift+Arrow
-          bind -n S-Down resize-pane -D 8
-          bind -n S-Up resize-pane -U 8
-          bind -n S-Left resize-pane -L 8
-          bind -n S-Right resize-pane -R 8
-
           # Rename window with prefix + r
           bind r command-prompt -I "#W" { rename-window -- "%%" }
 
