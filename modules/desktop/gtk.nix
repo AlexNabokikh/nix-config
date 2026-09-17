@@ -107,6 +107,8 @@
 
             postInstall = (old.postInstall or "") + ''
               test -d "$out/share/themes/${themeName}"
+              test -f "$out/share/themes/${themeName}/gtk-3.0/gtk.css"
+              test -f "$out/share/themes/${themeName}/gtk-4.0/gtk.css"
             '';
           });
 
