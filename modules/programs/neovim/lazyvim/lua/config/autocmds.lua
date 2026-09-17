@@ -3,7 +3,7 @@
 -- Add any additional autocmds here
 vim.filetype.add({
   pattern = {
-    [".*/chart/*/templates/.*%.yaml"] = "helm",
-    [".*/chart/*/templates/.*%.tpl"] = "helm",
+    [".*/chart/[^/]+/templates/.*%.ya?ml"] = "helm",
+    [".*/chart/[^/]+/templates/.*%.tpl"] = "helm",
   },
 })
