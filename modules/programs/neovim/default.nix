@@ -14,11 +14,10 @@
         sideloadInitLua = true;
         vimAlias = true;
         withNodeJs = true;
-        withPython3 = true;
-        withRuby = false;
 
         extraPackages = with pkgs; [
           bash-language-server
+          eslint
           golangci-lint
           gopls
           gotools
@@ -47,10 +46,17 @@
           source = ./lazyvim;
           recursive = true;
         };
-      };
 
-      home.sessionVariables = {
-        CATPPUCCIN_FLAVOR = config.profile.appearance.catppuccin.flavor;
+        "nvim/lua/plugins/catppuccin.lua".text = ''
+          return {
+            {
+              "LazyVim/LazyVim",
+              opts = {
+                colorscheme = "catppuccin-${config.profile.appearance.catppuccin.flavor}",
+              },
+            },
+          }
+        '';
       };
     };
 }
