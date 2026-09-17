@@ -1,6 +1,6 @@
 # Variables (override these as needed)
 HOSTNAME ?= $(shell hostname)
-FLAKE ?= .#$(HOSTNAME)
+FLAKE ?= .\#$(HOSTNAME)
 EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
 
 .PHONY: help install-nix install-nix-darwin darwin-rebuild nixos-rebuild \
@@ -24,17 +24,17 @@ install-nix:
 
 install-nix-darwin:
 	@echo "Installing nix-darwin..."
-	@sudo nix $(EXPERIMENTAL) run nix-darwin#darwin-rebuild -- switch --flake $(FLAKE)
+	@sudo nix $(EXPERIMENTAL) run --inputs-from . nix-darwin#darwin-rebuild -- switch --flake "$(FLAKE)"
 	@echo "nix-darwin installation complete."
 
 darwin-rebuild:
 	@echo "Rebuilding darwin configuration..."
-	@sudo darwin-rebuild switch --flake $(FLAKE)
+	@sudo darwin-rebuild switch --flake "$(FLAKE)"
 	@echo "Darwin rebuild complete."
 
 nixos-rebuild:
 	@echo "Rebuilding NixOS configuration..."
-	@sudo nixos-rebuild switch --flake $(FLAKE)
+	@sudo nixos-rebuild switch --flake "$(FLAKE)"
 	@echo "NixOS rebuild complete."
 
 nix-gc:
