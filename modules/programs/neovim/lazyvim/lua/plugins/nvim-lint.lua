@@ -7,7 +7,6 @@ return {
       javascript = { "eslint" },
       javascriptreact = { "eslint" },
       markdown = { "markdownlint" },
-      python = { "ruff" },
       sh = { "shellcheck" },
       terraform = { "tflint" },
       tf = { "tflint" },

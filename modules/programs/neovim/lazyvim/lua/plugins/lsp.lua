@@ -52,6 +52,9 @@ return {
         },
         pyright = {
           settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
             python = {
               analysis = {
                 autoSearchPaths = true,
@@ -59,7 +62,6 @@ return {
                 typeCheckingMode = "basic",
                 diagnosticMode = "openFilesOnly",
               },
-              disableOrganizeImports = true,
             },
           },
         },
