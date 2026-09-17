@@ -29,6 +29,8 @@
       themeVariant = accentMap.${accent};
       themeSuffix = lib.optionalString (themeVariant != "default") "-${lib.toSentenceCase themeVariant}";
 
+      themeName = "Colloid${themeSuffix}-Dark-Compact-Catppuccin";
+
       mkCatppuccinColloid =
         { themeVariant, accent }:
         let
@@ -99,12 +101,17 @@
         }).overrideAttrs
           (old: {
             postPatch = (old.postPatch or "") + ''
+              test -f src/sass/_color-palette-catppuccin.scss
               cp ${palette} src/sass/_color-palette-catppuccin.scss
+            '';
+
+            postInstall = (old.postInstall or "") + ''
+              test -d "$out/share/themes/${themeName}"
             '';
           });
 
       gtkTheme = {
-        name = "Colloid${themeSuffix}-Dark-Compact-Catppuccin";
+        name = themeName;
         package = mkCatppuccinColloid { inherit themeVariant accent; };
       };
     in
