@@ -6,12 +6,12 @@ in
   flake.modules.nixos.niri = {
     imports = [
       nixos.desktopApps
+      nixos.noctaliaGreeter
     ];
 
     home-manager.sharedModules = [ homeManager.niri ];
 
     services = {
-      displayManager.gdm.enable = true;
       power-profiles-daemon.enable = true;
       upower.enable = true;
     };
