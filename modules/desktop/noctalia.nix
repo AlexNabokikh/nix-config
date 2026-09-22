@@ -3,12 +3,23 @@
     {
       config,
       lib,
+      pkgs,
       ...
     }:
     let
       inherit (config.profile.appearance) catppuccin;
+
+      ocrLanguages = [
+        "eng"
+        "pol"
+        "rus"
+      ];
+
+      tesseract = pkgs.tesseract.override { enableLanguages = ocrLanguages; };
     in
     {
+      home.packages = [ pkgs.gpu-screen-recorder ];
+
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
@@ -30,6 +41,14 @@
 
               sort_by_usage = false;
               providers.session.global = true;
+            };
+
+            screenshot = {
+              annotate = true;
+              copy_to_clipboard = false;
+              pipe_to_command = true;
+              pipe_command = "${lib.getExe tesseract} stdin stdout -l ${lib.concatStringsSep "+" ocrLanguages} | ${lib.getExe' pkgs.coreutils "tr"} -d '\\f' | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
+              save_to_file = false;
             };
           };
 
@@ -117,6 +136,7 @@
               "volume"
               "battery"
               "notifications"
+              "privacy"
             ];
             margin_edge = 0;
             margin_ends = 0;
@@ -134,19 +154,32 @@
             };
             clock.format = "{:%H:%M %a, %b %d}";
             network.show_label = false;
+            privacy = {
+              active_color = "error";
+              hide_inactive = true;
+              icon_spacing = 12;
+            };
             tray.drawer = true;
             volume.show_label = false;
             workspaces.hide_when_empty = true;
           };
 
-          control_center.shortcuts = [
-            { type = "wifi"; }
-            { type = "bluetooth"; }
-            { type = "nightlight"; }
-            { type = "notification"; }
-            { type = "power_profile"; }
-            { type = "caffeine"; }
-          ];
+          control_center = {
+            calendar.show_week_numbers = true;
+
+            shortcuts = [
+              { type = "wifi"; }
+              { type = "bluetooth"; }
+              { type = "nightlight"; }
+              { type = "notification"; }
+              { type = "power_profile"; }
+              { type = "caffeine"; }
+            ];
+          };
+
+          plugins.enabled = [ "noctalia/screen_recorder" ];
+
+          plugin_settings."noctalia/screen_recorder".video_codec = "hevc";
         };
       };
     };

@@ -28,14 +28,6 @@
           anki
           gcc
           gnumake
-          killall
-          (tesseract.override {
-            enableLanguages = [
-              "eng"
-              "pol"
-              "rus"
-            ];
-          })
           unzip
           wl-clipboard
         ];
