@@ -2,19 +2,11 @@
   flake.modules.homeManager.scripts =
     { lib, pkgs, ... }:
     let
-      commonScripts = [
+      scriptNames = [
         "cd-to-project"
         "fif"
         "fkill"
       ];
-
-      linuxScripts = [
-        "ocr"
-        "toggle-screen-recording"
-        "wayblast"
-      ];
-
-      scriptNames = commonScripts ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux linuxScripts;
 
       scripts = pkgs.runCommand "personal-scripts" { } ''
         for script in ${lib.escapeShellArgs scriptNames}; do

@@ -37,18 +37,10 @@ in
         homeManager.gtk
         homeManager.noctalia
         homeManager.qt
-        homeManager.swappy
         homeManager.xdgUserDirs
       ];
 
-      home.packages = with pkgs; [
-        gpu-screen-recorder
-        grim
-        libnotify
-        slurp
-        wayfreeze
-        xwayland-satellite
-      ];
+      home.packages = [ pkgs.xwayland-satellite ];
 
       xdg.desktopEntries.quit-all-applications = {
         name = "Quit All Applications";
@@ -262,17 +254,14 @@ in
             // Pick color from screen and copy to clipboard
             Mod+Shift+C hotkey-overlay-title="Color Picker" { spawn-sh "niri msg pick-color | grep '^Hex:' | cut -d' ' -f2 | wl-copy"; }
 
-            // OCR
-            Alt+Shift+2 hotkey-overlay-title="OCR Screenshot" { spawn "ocr"; }
-
             // Screenshot area
-            Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn-sh "wayblast area | swappy -f -"; }
+            Mod+Shift+S hotkey-overlay-title="Screenshot Area" { spawn "noctalia" "msg" "screenshot-region"; }
 
             // Screenshot entire screen
-            Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn-sh "wayblast fullscreen | swappy -f -"; }
+            Mod+Ctrl+S hotkey-overlay-title="Screenshot Screen" { spawn "noctalia" "msg" "screenshot-fullscreen"; }
 
             // Screen recording
-            Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn "toggle-screen-recording"; }
+            Mod+Shift+R hotkey-overlay-title="Toggle Screen Recording" { spawn "noctalia" "msg" "plugin" "noctalia/screen_recorder:service" "all" "toggle"; }
 
             // Lock screen
             Ctrl+Alt+L hotkey-overlay-title="Lock Screen" { spawn "noctalia" "msg" "session" "lock"; }
