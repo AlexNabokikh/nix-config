@@ -13,7 +13,6 @@
         defaultEditor = true;
         sideloadInitLua = true;
         vimAlias = true;
-        withNodeJs = true;
 
         extraPackages = with pkgs; [
           bash-language-server
