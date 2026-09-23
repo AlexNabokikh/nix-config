@@ -20,9 +20,7 @@
 
       xdg.mimeApps = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         enable = true;
-        defaultApplicationPackages = [
-          pkgs.brave
-        ];
+        defaultApplicationPackages = lib.mkAfter [ pkgs.brave ];
       };
     };
 }
