@@ -13,6 +13,7 @@ return {
       python = { "ruff_organize_imports", "ruff_format" },
       sh = { "shfmt" },
       terraform = { "tofu_fmt" },
+      ["terraform-vars"] = { "tofu_fmt" },
       tf = { "tofu_fmt" },
       typescript = { "prettier" },
       typescriptreact = { "prettier" },
