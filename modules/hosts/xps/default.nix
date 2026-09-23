@@ -7,7 +7,6 @@ in
     imports = [
       inputs.nixos-hardware.nixosModules.common-cpu-intel
       inputs.nixos-hardware.nixosModules.common-pc-laptop
-      inputs.nixos-hardware.nixosModules.common-pc-ssd
       ./_hardware.nix
       nixos.base
       nixos.niri
