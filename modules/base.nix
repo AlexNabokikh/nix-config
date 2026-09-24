@@ -53,7 +53,6 @@ in
       homeManager.alacritty
       homeManager.atuin
       homeManager.aws
-      homeManager.bat
       homeManager.brave
       homeManager.btop
       homeManager.catppuccin
