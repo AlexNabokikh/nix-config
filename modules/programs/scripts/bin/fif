@@ -14,4 +14,5 @@ export FIF_PATTERN
 rg --hidden --glob '!.git' --files-with-matches --no-messages -- "$FIF_PATTERN" |
   fzf \
     --scheme=path \
+    --bind='ctrl-e:execute(nvim -- {+})' \
     --preview='rg --pretty --context 10 -- "$FIF_PATTERN" {}'

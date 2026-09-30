@@ -10,9 +10,10 @@
 
         historyWidget.command = "";
 
+        fileWidget.options = [ "--bind 'ctrl-e:execute(nvim -- {+})'" ];
+
         defaultOptions = [
           "--bind '?:toggle-preview'"
-          "--bind 'ctrl-e:execute(nvim -- {+})'"
           "--bind 'ctrl-y:execute-silent(printf \"%s\\n\" {+} | ${copyCmd})'"
           "--height=40%"
           "--info=inline"
