@@ -29,17 +29,18 @@
           # Clear screen with prefix + C-l
           bind C-l send-keys 'C-l'
 
-          # Open project selector in a popup
-          bind -n C-f display-popup -E cd-to-project
+          # Open project selector with prefix + C-f
+          unbind -n -q C-f
+          bind C-f display-popup -E cd-to-project
 
-          # Smart pane switching with awareness of Vim splits
-          vim_pattern='(\S+/)?g?\.?(view|l?n?vim?x?|fzf|atuin)(diff)?(-wrapped)?'
-          is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +''${vim_pattern}$'"
+          # Let applications with their own navigation handle Ctrl-H/J/K/L
+          passthrough_pattern='(\S+/)?g?\.?(view|l?n?vim?x?|fzf|atuin|lazygit)(diff)?(-wrapped)?'
+          is_passthrough="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +''${passthrough_pattern}$'"
 
-          bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
-          bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
-          bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
-          bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
+          bind -n 'C-h' if-shell "$is_passthrough" 'send-keys C-h' 'select-pane -L'
+          bind -n 'C-j' if-shell "$is_passthrough" 'send-keys C-j' 'select-pane -D'
+          bind -n 'C-k' if-shell "$is_passthrough" 'send-keys C-k' 'select-pane -U'
+          bind -n 'C-l' if-shell "$is_passthrough" 'send-keys C-l' 'select-pane -R'
 
           bind -T copy-mode-vi 'C-h' select-pane -L
           bind -T copy-mode-vi 'C-j' select-pane -D
