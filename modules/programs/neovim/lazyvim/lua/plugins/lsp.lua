@@ -3,7 +3,13 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        bashls = {},
+        bashls = {
+          settings = {
+            bashIde = {
+              shellcheckPath = "",
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -66,7 +72,9 @@ return {
           },
         },
         ruff = {},
-        tofu_ls = {},
+        tofu_ls = {
+          filetypes = { "opentofu", "opentofu-vars", "terraform", "terraform-vars" },
+        },
         ts_ls = {},
         yamlls = {
           settings = {
