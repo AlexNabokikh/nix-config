@@ -3,7 +3,7 @@ return {
   opts = {
     formatters_by_ft = {
       css = { "prettier" },
-      go = { "goimports", "gofmt" },
+      go = { "goimports" },
       hcl = { "tofu_fmt" },
       javascript = { "prettier" },
       javascriptreact = { "prettier" },
@@ -18,11 +18,6 @@ return {
       typescript = { "prettier" },
       typescriptreact = { "prettier" },
       yaml = { "prettier" },
-    },
-    formatters = {
-      ruff_format = {
-        append_args = { "--line-length", "120" },
-      },
     },
   },
 }
