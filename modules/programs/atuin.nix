@@ -5,7 +5,7 @@
       settings = {
         inline_height = 25;
         invert = true;
-        search_mode = "skim";
+        search_mode = "fuzzy";
       };
       flags = [ "--disable-up-arrow" ];
     };
