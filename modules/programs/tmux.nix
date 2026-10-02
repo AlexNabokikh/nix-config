@@ -1,6 +1,11 @@
 {
   flake.modules.homeManager.tmux =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       programs.tmux = {
         enable = true;
@@ -10,7 +15,7 @@
         keyMode = "vi";
         mouse = true;
         prefix = "C-q";
-        shell = "${pkgs.zsh}/bin/zsh";
+        shell = lib.getExe pkgs.zsh;
         terminal = "tmux-256color";
 
         extraConfig = ''
