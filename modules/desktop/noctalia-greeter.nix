@@ -1,19 +1,23 @@
-{ inputs, ... }:
+{ config, ... }:
+let
+  inherit (config.flake.modules) generic;
+in
 {
   flake.modules.nixos.noctaliaGreeter =
     {
       config,
-      lib,
+      catppuccinColor,
       ...
     }:
     let
       inherit (config.profile.appearance) catppuccin cursorTheme;
       inherit (config.profile.appearance.fonts) ui;
 
-      palette = lib.importJSON "${inputs.catppuccin-palette}/palette.json";
-      color = name: palette.${catppuccin.flavor}.colors.${name}.hex;
+      color = catppuccinColor;
     in
     {
+      imports = [ generic.catppuccinColor ];
+
       fonts.packages = [ ui.package ];
 
       services.displayManager.noctalia-greeter = {

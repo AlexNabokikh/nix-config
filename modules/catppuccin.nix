@@ -1,9 +1,22 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
+let
+  inherit (config.flake.modules) generic;
+in
 {
+  # Catppuccin colors helper, shared by NixOS and Home Manager modules
+  flake.modules.generic.catppuccinColor =
+    { config, lib, ... }:
+    let
+      palette = lib.importJSON "${inputs.catppuccin-palette}/palette.json";
+      flavorColors = palette.${config.profile.appearance.catppuccin.flavor}.colors;
+    in
+    {
+      _module.args.catppuccinColor = name: flavorColors.${name}.hex;
+    };
+
   flake.modules.homeManager.catppuccin =
     {
       config,
-      lib,
       pkgs,
       ...
     }:
@@ -15,21 +28,17 @@
           whiskers = pkgs.catppuccin-whiskers;
         }
       );
-      palette = lib.importJSON "${inputs.catppuccin-palette}/palette.json";
-      flavorColors = palette.${catppuccin.flavor}.colors;
     in
     {
       imports = [
         inputs.catppuccin.homeModules.catppuccin
+        generic.catppuccinColor
       ];
-
-      # Catppuccin colors helper
-      _module.args.catppuccinColor = name: flavorColors.${name}.hex;
 
       catppuccin = {
         enable = true;
         autoEnable = true;
-        inherit (config.profile.appearance.catppuccin) flavor accent;
+        inherit (catppuccin) flavor accent;
         sources = catppuccinSources;
       };
     };
