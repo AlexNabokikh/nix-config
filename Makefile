@@ -1,5 +1,5 @@
 # Variables (override these as needed)
-HOSTNAME ?= $(shell hostname)
+HOSTNAME ?= $(shell hostname -s)
 FLAKE ?= .\#$(HOSTNAME)
 EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
 
