@@ -1,4 +1,12 @@
+{ config, ... }:
+let
+  inherit (config.flake.modules) homeManager;
+in
 {
+  flake.modules.nixos.fonts = {
+    home-manager.sharedModules = [ homeManager.fonts ];
+  };
+
   flake.modules.darwin.fonts =
     { config, ... }:
     {
@@ -8,26 +16,19 @@
     };
 
   flake.modules.homeManager.fonts =
+    { config, ... }:
     {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-        fonts.fontconfig = {
-          enable = true;
-          defaultFonts = {
-            sansSerif = [ config.profile.appearance.fonts.ui.family ];
-            monospace = [ config.profile.appearance.fonts.monospace.family ];
-          };
+      fonts.fontconfig = {
+        enable = true;
+        defaultFonts = {
+          sansSerif = [ config.profile.appearance.fonts.ui.family ];
+          monospace = [ config.profile.appearance.fonts.monospace.family ];
         };
-
-        home.packages = [
-          config.profile.appearance.fonts.ui.package
-          config.profile.appearance.fonts.monospace.package
-        ];
       };
+
+      home.packages = [
+        config.profile.appearance.fonts.ui.package
+        config.profile.appearance.fonts.monospace.package
+      ];
     };
 }

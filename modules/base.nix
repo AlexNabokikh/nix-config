@@ -28,6 +28,7 @@ in
       nixos.audio
       nixos.bluetooth
       nixos.boot
+      nixos.fonts
       nixos.locale
       nixos.networking
       nixos.podman
@@ -44,6 +45,7 @@ in
       darwin.mos
       darwin.systemPreferences
       darwin.users
+      darwin.zsh
     ];
   };
 
@@ -58,13 +60,11 @@ in
       homeManager.catppuccin
       homeManager.eza
       homeManager.fastfetch
-      homeManager.fonts
       homeManager.fzf
       homeManager.git
       homeManager.go
       homeManager.gpg
       homeManager.k8s
-      homeManager.mos
       homeManager.neovim
       homeManager.opencode
       homeManager.opentofu
