@@ -21,6 +21,7 @@
           gopls
           gotools
           hadolint
+          helm-ls
           lua-language-server
           markdownlint-cli
           nixd
