@@ -18,12 +18,9 @@ in
   flake.modules.homeManager.fonts =
     { config, ... }:
     {
-      fonts.fontconfig = {
-        enable = true;
-        defaultFonts = {
-          sansSerif = [ config.profile.appearance.fonts.ui.family ];
-          monospace = [ config.profile.appearance.fonts.monospace.family ];
-        };
+      fonts.fontconfig.defaultFonts = {
+        sansSerif = [ config.profile.appearance.fonts.ui.family ];
+        monospace = [ config.profile.appearance.fonts.monospace.family ];
       };
 
       home.packages = [
