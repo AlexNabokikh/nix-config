@@ -123,7 +123,7 @@
       gtk = {
         enable = true;
         colorScheme = "dark";
-        gtk2.force = true;
+        gtk2.enable = false;
         gtk4.theme = gtkTheme;
         theme = gtkTheme;
         iconTheme = {
