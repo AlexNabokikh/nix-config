@@ -29,7 +29,6 @@
           prettier
           pyright
           ruff
-          shellcheck
           shfmt
           stylua
           tflint
