@@ -1,12 +1,12 @@
 {
   flake.modules.nixos.zsh =
-    { config, pkgs, ... }:
+    { config, ... }:
     {
       programs.zsh = {
         enable = true;
         enableGlobalCompInit = false;
       };
-      users.users.${config.primaryUser}.shell = pkgs.zsh;
+      users.users.${config.primaryUser}.shell = config.programs.zsh.package;
     };
 
   flake.modules.darwin.zsh = {
