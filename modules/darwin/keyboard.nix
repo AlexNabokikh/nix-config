@@ -1,26 +1,8 @@
 {
-  flake.modules.darwin.keyboard = {
-    system.keyboard = {
-      enableKeyMapping = true;
-      nonUS.remapTilde = true;
-    };
-
+  flake.modules.darwin.keyboard = { lib, ... }: {
     system.defaults.CustomUserPreferences = {
       "com.apple.symbolichotkeys" = {
         AppleSymbolicHotKeys = {
-          # Show Notification Center → Option+N
-          "163" = {
-            enabled = true;
-            value = {
-              parameters = [
-                110
-                45
-                524288
-              ];
-              type = "standard";
-            };
-          };
-
           # Screenshot and recording options → Shift+Option+R
           "184" = {
             enabled = true;
@@ -89,5 +71,51 @@
         "Paste and Match Style" = "^$v";
       };
     };
+
+    # /usr/bin/hidutil under System Settings → Privacy & Security → Input Monitoring.
+    # Use +, then Command+Shift+G in the file chooser to enter /usr/bin/hidutil.
+    environment.userLaunchAgents."org.nixos.keyboard-remap.plist".text =
+      lib.generators.toPlist { escape = true; }
+        {
+          Label = "org.nixos.keyboard-remap";
+          ProgramArguments = [
+            "/usr/bin/hidutil"
+            "property"
+            "--matching"
+            (builtins.toJSON {
+              Product = "Apple Internal Keyboard / Trackpad";
+              PrimaryUsagePage = 1;
+              PrimaryUsage = 6;
+            })
+            "--set"
+            (builtins.toJSON {
+              UserKeyMapping = [
+                {
+                  # Fn (0xff00000003) -> left Control (0x7000000e0).
+                  HIDKeyboardModifierMappingSrc = 1095216660483;
+                  HIDKeyboardModifierMappingDst = 30064771296;
+                }
+                {
+                  # Right Command -> right Option
+                  HIDKeyboardModifierMappingSrc = 30064771303;
+                  HIDKeyboardModifierMappingDst = 30064771302;
+                }
+                # Section symbol ->  backtick/tilde
+                {
+                  HIDKeyboardModifierMappingSrc = 30064771125;
+                  HIDKeyboardModifierMappingDst = 30064771172;
+                }
+                {
+                  HIDKeyboardModifierMappingSrc = 30064771172;
+                  HIDKeyboardModifierMappingDst = 30064771125;
+                }
+              ];
+            })
+          ];
+          RunAtLoad = true;
+          KeepAlive = false;
+          StandardOutPath = "/tmp/keyboard-remap.log";
+          StandardErrorPath = "/tmp/keyboard-remap.err.log";
+        };
   };
 }
