@@ -60,6 +60,11 @@ in
         };
 
         extraConfig = ''
+          // Monitor settings
+          output "DP-1" {
+              variable-refresh-rate on-demand=true
+          }
+
           // Input device settings
           input {
               keyboard {
