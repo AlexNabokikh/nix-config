@@ -87,6 +87,8 @@
 
           desktop_widgets.enabled = false;
 
+          lockscreen.transition = [ ];
+
           lockscreen_widgets.enabled = false;
 
           idle = {
