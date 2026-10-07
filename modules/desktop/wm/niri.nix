@@ -247,8 +247,6 @@ in
 
           // Bindings
           binds {
-              Mod+Shift+Slash repeat=false { show-hotkey-overlay; }
-
               // Launch applications
               Mod+Shift+Return repeat=false hotkey-overlay-title="Open Terminal" { spawn "alacritty"; }
               Mod+Shift+B repeat=false hotkey-overlay-title="Open Brave" { spawn "brave"; }
@@ -302,91 +300,21 @@ in
               // Window management
               Mod+Q repeat=false { close-window; }
               Mod+F repeat=false { toggle-window-floating; }
-              Mod+Shift+V repeat=false { switch-focus-between-floating-and-tiling; }
               Mod+M repeat=false { maximize-column; }
               Mod+Shift+M repeat=false { fullscreen-window; }
-              Mod+W repeat=false { toggle-column-tabbed-display; }
               Mod+O repeat=false { toggle-overview; }
 
               // Move focus with Mod + vim keys / arrows
-              Mod+Left  { focus-column-left; }
-              Mod+Down  { focus-window-down; }
-              Mod+Up    { focus-window-up; }
-              Mod+Right { focus-column-right; }
               Mod+H     { focus-column-left; }
               Mod+J     { focus-window-down; }
               Mod+K     { focus-window-up; }
               Mod+L     { focus-column-right; }
 
               // Move windows with Mod + Ctrl + vim keys / arrows
-              Mod+Ctrl+Left  { move-column-left; }
-              Mod+Ctrl+Down  { move-window-down; }
-              Mod+Ctrl+Up    { move-window-up; }
-              Mod+Ctrl+Right { move-column-right; }
               Mod+Ctrl+H     { move-column-left; }
               Mod+Ctrl+J     { move-window-down; }
               Mod+Ctrl+K     { move-window-up; }
               Mod+Ctrl+L     { move-column-right; }
-
-              // Focus first/last column
-              Mod+Home { focus-column-first; }
-              Mod+End  { focus-column-last; }
-              Mod+Ctrl+Home { move-column-to-first; }
-              Mod+Ctrl+End  { move-column-to-last; }
-
-              // Focus monitor
-              Mod+Shift+Left  { focus-monitor-left; }
-              Mod+Shift+Down  { focus-monitor-down; }
-              Mod+Shift+Up    { focus-monitor-up; }
-              Mod+Shift+Right { focus-monitor-right; }
-              Mod+Shift+H     { focus-monitor-left; }
-              Mod+Shift+J     { focus-monitor-down; }
-              Mod+Shift+K     { focus-monitor-up; }
-              Mod+Shift+L     { focus-monitor-right; }
-
-              // Move column to monitor
-              Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-              Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-              Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-              Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-              Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-              Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-              Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-              Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
-              // Focus workspace
-              Mod+Page_Down { focus-workspace-down; }
-              Mod+Page_Up   { focus-workspace-up; }
-              Mod+U         { focus-workspace-down; }
-              Mod+I         { focus-workspace-up; }
-
-              // Move column to workspace
-              Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-              Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-              Mod+Ctrl+U         { move-column-to-workspace-down; }
-              Mod+Ctrl+I         { move-column-to-workspace-up; }
-
-              // Move workspace
-              Mod+Shift+Page_Down { move-workspace-down; }
-              Mod+Shift+Page_Up   { move-workspace-up; }
-              Mod+Shift+U         { move-workspace-down; }
-              Mod+Shift+I         { move-workspace-up; }
-
-              // Scroll through workspaces with mouse wheel
-              Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
-              Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-              Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-              Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
-
-              // Scroll through columns with mouse wheel
-              Mod+WheelScrollRight      { focus-column-right; }
-              Mod+WheelScrollLeft       { focus-column-left; }
-              Mod+Ctrl+WheelScrollRight { move-column-right; }
-              Mod+Ctrl+WheelScrollLeft  { move-column-left; }
-              Mod+Shift+WheelScrollDown { focus-column-right; }
-              Mod+Shift+WheelScrollUp   { focus-column-left; }
-              Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-              Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
               // Switch workspaces with Mod + [0-9]
               Mod+1 repeat=false { focus-workspace 1; }
@@ -398,7 +326,6 @@ in
               Mod+7 repeat=false { focus-workspace 7; }
               Mod+8 repeat=false { focus-workspace 8; }
               Mod+9 repeat=false { focus-workspace 9; }
-              Mod+0 repeat=false { focus-workspace 10; }
 
               // Move active column to a workspace with Mod + Shift + [0-9]
               Mod+Shift+1 repeat=false { move-column-to-workspace 1; }
@@ -410,7 +337,6 @@ in
               Mod+Shift+7 repeat=false { move-column-to-workspace 7; }
               Mod+Shift+8 repeat=false { move-column-to-workspace 8; }
               Mod+Shift+9 repeat=false { move-column-to-workspace 9; }
-              Mod+Shift+0 repeat=false { move-column-to-workspace 10; }
 
               // Column management
               Mod+BracketLeft  { consume-or-expel-window-left; }
@@ -420,23 +346,12 @@ in
 
               // Resize windows
               Mod+R repeat=false { switch-preset-column-width; }
-              Mod+Ctrl+R repeat=false { reset-window-height; }
-              Mod+Ctrl+F repeat=false { expand-column-to-available-width; }
-              Mod+Ctrl+C repeat=false { center-visible-columns; }
-              Ctrl+Alt+C repeat=false { center-column; }
-              Mod+Minus { set-column-width "-10%"; }
-              Mod+Equal { set-column-width "+10%"; }
-              Mod+Shift+Minus { set-window-height "-10%"; }
-              Mod+Shift+Equal { set-window-height "+10%"; }
 
               // Switch keyboard layout
               Mod+Space repeat=false { switch-layout "next"; }
 
               // Misc
-              Mod+Escape repeat=false allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-              Mod+Shift+E repeat=false { quit; }
               Ctrl+Alt+Q repeat=false { quit; }
-              Mod+Shift+P repeat=false { power-off-monitors; }
           }
         '';
       };
