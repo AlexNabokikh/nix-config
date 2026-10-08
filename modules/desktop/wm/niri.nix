@@ -50,7 +50,6 @@ in
       wayland.windowManager.niri = {
         enable = true;
         package = osConfig.programs.niri.package;
-        checkConfig = true;
         systemd.enable = false;
         portalPackage = null;
 
