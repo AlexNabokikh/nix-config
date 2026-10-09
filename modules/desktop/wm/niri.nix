@@ -24,13 +24,8 @@ in
       config,
       osConfig,
       pkgs,
-      catppuccinColor,
       ...
     }:
-    let
-      inherit (config.profile.appearance) catppuccin;
-      color = catppuccinColor;
-    in
     {
       imports = [
         homeManager.cursor
@@ -120,8 +115,8 @@ in
 
               focus-ring {
                   width 1
-                  active-color "${color catppuccin.accent}"
-                  inactive-color "${color "surface0"}"
+                  active-color "#b4befe"
+                  inactive-color "#313244"
               }
 
               border {

@@ -1,19 +1,5 @@
-{ inputs, config, ... }:
-let
-  inherit (config.flake.modules) generic;
-in
+{ inputs, ... }:
 {
-  # Catppuccin colors helper, shared by NixOS and Home Manager modules
-  flake.modules.generic.catppuccinColor =
-    { config, lib, ... }:
-    let
-      palette = lib.importJSON "${inputs.catppuccin-palette}/palette.json";
-      flavorColors = palette.${config.profile.appearance.catppuccin.flavor}.colors;
-    in
-    {
-      _module.args.catppuccinColor = name: flavorColors.${name}.hex;
-    };
-
   flake.modules.homeManager.catppuccin =
     {
       config,
@@ -30,10 +16,7 @@ in
       );
     in
     {
-      imports = [
-        inputs.catppuccin.homeModules.catppuccin
-        generic.catppuccinColor
-      ];
+      imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
       catppuccin = {
         enable = true;
