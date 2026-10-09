@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.keyboard = { lib, ... }: {
+  flake.modules.darwin.keyboard = {
     system.defaults.CustomUserPreferences = {
       "com.apple.symbolichotkeys" = {
         AppleSymbolicHotKeys = {
@@ -74,48 +74,45 @@
 
     # /usr/bin/hidutil under System Settings → Privacy & Security → Input Monitoring.
     # Use +, then Command+Shift+G in the file chooser to enter /usr/bin/hidutil.
-    environment.userLaunchAgents."org.nixos.keyboard-remap.plist".text =
-      lib.generators.toPlist { escape = true; }
-        {
-          Label = "org.nixos.keyboard-remap";
-          ProgramArguments = [
-            "/usr/bin/hidutil"
-            "property"
-            "--matching"
-            (builtins.toJSON {
-              Product = "Apple Internal Keyboard / Trackpad";
-              PrimaryUsagePage = 1;
-              PrimaryUsage = 6;
-            })
-            "--set"
-            (builtins.toJSON {
-              UserKeyMapping = [
-                {
-                  # Fn (0xff00000003) -> left Control (0x7000000e0).
-                  HIDKeyboardModifierMappingSrc = 1095216660483;
-                  HIDKeyboardModifierMappingDst = 30064771296;
-                }
-                {
-                  # Right Command -> right Option
-                  HIDKeyboardModifierMappingSrc = 30064771303;
-                  HIDKeyboardModifierMappingDst = 30064771302;
-                }
-                # Section symbol ->  backtick/tilde
-                {
-                  HIDKeyboardModifierMappingSrc = 30064771125;
-                  HIDKeyboardModifierMappingDst = 30064771172;
-                }
-                {
-                  HIDKeyboardModifierMappingSrc = 30064771172;
-                  HIDKeyboardModifierMappingDst = 30064771125;
-                }
-              ];
-            })
+    launchd.user.agents.keyboard-remap.serviceConfig = {
+      ProgramArguments = [
+        "/usr/bin/hidutil"
+        "property"
+        "--matching"
+        (builtins.toJSON {
+          Product = "Apple Internal Keyboard / Trackpad";
+          PrimaryUsagePage = 1;
+          PrimaryUsage = 6;
+        })
+        "--set"
+        (builtins.toJSON {
+          UserKeyMapping = [
+            {
+              # Fn (0xff00000003) -> left Control (0x7000000e0).
+              HIDKeyboardModifierMappingSrc = 1095216660483;
+              HIDKeyboardModifierMappingDst = 30064771296;
+            }
+            {
+              # Right Command -> right Option
+              HIDKeyboardModifierMappingSrc = 30064771303;
+              HIDKeyboardModifierMappingDst = 30064771302;
+            }
+            # Section symbol ->  backtick/tilde
+            {
+              HIDKeyboardModifierMappingSrc = 30064771125;
+              HIDKeyboardModifierMappingDst = 30064771172;
+            }
+            {
+              HIDKeyboardModifierMappingSrc = 30064771172;
+              HIDKeyboardModifierMappingDst = 30064771125;
+            }
           ];
-          RunAtLoad = true;
-          KeepAlive = false;
-          StandardOutPath = "/tmp/keyboard-remap.log";
-          StandardErrorPath = "/tmp/keyboard-remap.err.log";
-        };
+        })
+      ];
+      RunAtLoad = true;
+      KeepAlive = false;
+      StandardOutPath = "/tmp/keyboard-remap.log";
+      StandardErrorPath = "/tmp/keyboard-remap.err.log";
+    };
   };
 }
