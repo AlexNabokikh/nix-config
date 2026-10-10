@@ -199,11 +199,6 @@ in
 
           // Floating dialogs
           window-rule {
-              match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
-              open-floating true
-          }
-
-          window-rule {
               match app-id=r#"^brave-nngceckbapebfimnlniiiahkandclblb-.+$"#
               open-floating true
           }
