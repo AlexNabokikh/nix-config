@@ -12,7 +12,6 @@
         gnome-text-editor
         loupe
         nautilus
-        pavucontrol
         seahorse
         showtime
       ];
