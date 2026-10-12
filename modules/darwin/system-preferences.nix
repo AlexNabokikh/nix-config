@@ -57,11 +57,6 @@
         wvous-tr-corner = 1;
       };
 
-      screencapture = {
-        type = "png";
-        disable-shadow = true;
-      };
-
       CustomUserPreferences.NSGlobalDomain."com.apple.mouse.linear" = true;
     };
   };
