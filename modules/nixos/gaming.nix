@@ -2,10 +2,6 @@
   flake.modules.nixos.gaming = {
     programs.steam.enable = true;
 
-    boot.kernelParams = [
-      "split_lock_detect=off"
-    ];
-
     services.pipewire.extraConfig.pipewire."10-gaming" = {
       "context.properties" = {
         "default.clock.quantum" = 256;
