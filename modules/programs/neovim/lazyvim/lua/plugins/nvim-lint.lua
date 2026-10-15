@@ -9,8 +9,6 @@ return {
       markdown = { "markdownlint" },
       opentofu = { "tflint" },
       terraform = { "tflint" },
-      typescript = { "eslint" },
-      typescriptreact = { "eslint" },
     },
     linters = {
       markdownlint = {

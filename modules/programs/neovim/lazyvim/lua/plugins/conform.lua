@@ -16,8 +16,6 @@ return {
       sh = { "shfmt" },
       terraform = { "tofu_fmt" },
       ["terraform-vars"] = { "tofu_fmt" },
-      typescript = { "prettier" },
-      typescriptreact = { "prettier" },
       yaml = { "prettier" },
     },
   },

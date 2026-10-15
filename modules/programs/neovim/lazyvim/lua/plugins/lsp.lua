@@ -69,7 +69,6 @@ return {
         tofu_ls = {
           filetypes = { "terraform", "terraform-vars", "opentofu", "opentofu-vars" },
         },
-        ts_ls = {},
         yamlls = {
           settings = {
             yaml = {

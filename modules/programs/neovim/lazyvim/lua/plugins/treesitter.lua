@@ -22,8 +22,6 @@ return {
       "regex",
       "terraform",
       "toml",
-      "tsx",
-      "typescript",
       "vim",
       "vimdoc",
       "yaml",
