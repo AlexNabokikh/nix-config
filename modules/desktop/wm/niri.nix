@@ -293,6 +293,7 @@ in
 
               // Window management
               Mod+Q repeat=false { close-window; }
+              Ctrl+Alt+C repeat=false { center-window; }
               Mod+F repeat=false { toggle-window-floating; }
               Mod+M repeat=false { maximize-column; }
               Mod+Shift+M repeat=false { fullscreen-window; }
