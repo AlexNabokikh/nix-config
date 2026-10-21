@@ -36,6 +36,7 @@
             animation.enabled = false;
 
             launcher = {
+              layout = "simple";
               categories = false;
               fetch_exchange_rates = false;
 
