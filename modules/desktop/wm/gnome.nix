@@ -160,6 +160,7 @@ in
         };
 
         "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
           enable-animations = false;
           enable-hot-corners = false;
           show-battery-percentage = true;
