@@ -19,13 +19,13 @@
           };
         };
 
-        delta = {
+        # Uses the terminal's ANSI palette, so diffs follow Stylix.
+        difftastic = {
           enable = true;
-          enableGitIntegration = true;
+          git.enable = true;
           options = {
-            keep-plus-minus-markers = true;
-            line-numbers = true;
-            navigate = true;
+            background = "dark";
+            color = "always";
           };
         };
 
@@ -37,7 +37,8 @@
 
             git.diffRenderers = [
               {
-                command = "delta --paging=never";
+                type = "extDiff";
+                command = "difft --color=always --display=inline";
               }
             ];
           };

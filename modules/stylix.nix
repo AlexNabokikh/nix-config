@@ -7,6 +7,9 @@
       pkgs,
       ...
     }:
+    let
+      colors = config.lib.stylix.colors.withHashtag;
+    in
     {
       imports = [ inputs.stylix.homeModules.stylix ];
 
@@ -35,10 +38,6 @@
           fzf.enable = true;
           k9s.enable = true;
           lazygit.enable = true;
-          neovim = {
-            enable = true;
-            plugin = "mini.base16";
-          };
           opencode.enable = true;
           starship.enable = true;
           tmux.enable = true;
@@ -53,5 +52,39 @@
           mode = "dark";
         };
       };
+
+      # Match other TUIs: regular text instead of base04 and no rosewater highlight.
+      programs.fzf.colors = lib.mkIf config.stylix.targets.fzf.enable (
+        with colors;
+        {
+          fg = lib.mkForce base05;
+          "fg+" = lib.mkForce base05;
+          "bg+" = lib.mkForce base02;
+          gutter = base00;
+          border = base03;
+        }
+      );
+
+      # tinted-tmux predates tmux theme colours, which popups and menus default to.
+      programs.tmux.extraConfig = lib.mkIf config.stylix.targets.tmux.enable (
+        with colors;
+        lib.mkAfter ''
+          set -s theme dark
+          set -s dark-theme-black "${base00}"
+          set -s dark-theme-dark-grey "${base01}"
+          set -s dark-theme-light-grey "${base03}"
+          set -s dark-theme-white "${base05}"
+          set -s dark-theme-red "${base08}"
+          set -s dark-theme-yellow "${base0A}"
+          set -s dark-theme-green "${base0B}"
+          set -s dark-theme-cyan "${base0C}"
+          set -s dark-theme-blue "${base0D}"
+          set -s dark-theme-magenta "${base0E}"
+
+          # Share the fzf background so popup borders and content match.
+          set -g popup-style "bg=${base00},fg=${base05}"
+          set -g popup-border-style "bg=${base00},fg=${base03}"
+        ''
+      );
     };
 }

@@ -19,11 +19,8 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      opts = {
-        colorscheme = function()
-          require("mini.base16").setup({ palette = require("config.stylix") })
-        end,
-      },
+      -- Neovim ships its own "catppuccin" colorscheme; name the plugin's flavour explicitly.
+      opts = { colorscheme = "catppuccin-mocha" },
     },
     { import = "lazyvim.plugins.extras.lang.helm" },
     { import = "plugins" },
@@ -32,7 +29,7 @@ require("lazy").setup({
     lazy = false,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { "habamax" } },
+  install = { colorscheme = { "catppuccin-mocha", "habamax" } },
   checker = {
     enabled = false,
     notify = false,
@@ -42,8 +39,6 @@ require("lazy").setup({
   },
   performance = {
     rtp = {
-      -- Retain Home Manager's Nix-provided plugins, including mini.base16.
-      paths = vim.opt.rtp:get(),
       disabled_plugins = {
         "gzip",
         "tarPlugin",

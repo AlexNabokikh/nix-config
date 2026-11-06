@@ -120,7 +120,6 @@ in
         homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
-        # homeManager.qt
         homeManager.xdgUserDirs
       ];
 
@@ -131,7 +130,6 @@ in
 
       programs.gnome-shell = {
         enable = true;
-        # theme = config.gtk.theme;
         extensions = [
           { package = pkgs.gnomeExtensions.auto-move-windows; }
           { package = pkgs.gnomeExtensions.blur-my-shell; }
@@ -151,8 +149,8 @@ in
         };
 
         "org/gnome/desktop/background" = {
-          # picture-uri = "file://${config.profile.wallpaper}";
-          # picture-uri-dark = "file://${config.profile.wallpaper}";
+          picture-uri = "file://${config.profile.wallpaper.light}";
+          picture-uri-dark = "file://${config.profile.wallpaper.dark}";
           primary-color = "#000000000000";
         };
 
@@ -161,10 +159,8 @@ in
         };
 
         "org/gnome/desktop/interface" = {
-          # document-font-name = uiFont;
           enable-animations = false;
           enable-hot-corners = false;
-          # monospace-font-name = monospaceFont;
           show-battery-percentage = true;
         };
 
@@ -270,30 +266,6 @@ in
           mouse-cursor-focus-location = mkUint32 4;
           tile-by-default = true;
         };
-
-        # "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
-        #   skip-libadwaita-app = false;
-        #
-        #   global-rounded-corner-settings = mkDict {
-        #     padding = mkVariant (mkDict (lib.genAttrs [ "left" "right" "top" "bottom" ] (_: mkUint32 1)));
-        #
-        #     keepRoundedCorners = mkVariant (mkDict {
-        #       maximized = false;
-        #       fullscreen = false;
-        #     });
-        #
-        #     borderRadius = mkVariant (mkUint32 8);
-        #     smoothing = mkVariant 0.0;
-        #     borderColor = mkVariant (mkTuple [
-        #       0.71764707565307617
-        #       0.74117660522460938
-        #       0.97254902124404907
-        #       1.0
-        #     ]);
-        #     enabled = mkVariant true;
-        #   };
-        #   settings-version = mkUint32 9;
-        # };
 
         "org/gnome/shell".disable-extension-version-validation = true;
 

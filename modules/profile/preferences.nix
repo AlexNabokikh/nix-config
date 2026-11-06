@@ -17,7 +17,10 @@
         fullName = "Alexander Nabokikh";
         gitKey = "C5810093";
         avatar = ./avatar.jpg;
-        wallpaper = ./wallpaper.jpg;
+        wallpaper = {
+          light = ./wallpapaer-light.png;
+          dark = ./wallpaper-dark.png;
+        };
 
         appearance = {
           iconTheme = {

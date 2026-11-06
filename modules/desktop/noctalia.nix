@@ -125,7 +125,7 @@
           };
 
           wallpaper = {
-            default.path = config.profile.wallpaper;
+            default.path = config.profile.wallpaper.dark;
           };
 
           bar.default = {

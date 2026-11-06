@@ -61,15 +61,18 @@ Fork this repository and clone the fork.
 Replace the asset files with your own:
 
 - `modules/profile/avatar.jpg`
-- `modules/profile/wallpaper.jpg`
+- `modules/profile/wallpapaer-light.png`
+- `modules/profile/wallpaper-dark.png`
+
+The `profile.wallpaper.light` and `profile.wallpaper.dark` paths select the two images. GNOME automatically uses the matching wallpaper when switching between Light and Dark in Settings → Appearance. Noctalia and its greeter use the dark image by default.
 
 The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.
 
 ### Terminal appearance
 
-[`modules/stylix.nix`](modules/stylix.nix) configures Stylix only through Home Manager, on both Linux and macOS. Automatic target theming is disabled; the explicit allowlist covers Alacritty, btop, fzf, k9s, lazygit, Neovim (including LazyVim), OpenCode, Starship, and tmux.
+[`modules/stylix.nix`](modules/stylix.nix) configures Stylix only through Home Manager, on both Linux and macOS. Automatic target theming is disabled; the explicit allowlist covers Alacritty, btop, fzf, k9s, lazygit, OpenCode, Starship, and tmux. Neovim uses LazyVim's stock catppuccin.nvim Mocha with only its background layers (base, mantle, crust) taken from Stylix's `base00`, and tmux 3.8 theme colors, popups, and fzf text are aligned with it.
 
-The [Catppuccin Mocha Base16 palette](https://tinted-theming.github.io/tinted-gallery/#base16-catppuccin-mocha) comes from nixpkgs' theme collection. Its background and muted colors (`base00`–`base03`) are overridden with Adwaita-like grays (`#1d1d20`, `#222226`, `#2e2e32`, and `#6c6c70`), while Mocha's pastel text and accents are preserved. These overrides coordinate terminal appearance with native GNOME without recoloring GTK or Libadwaita. Alacritty keeps the fonts, platform-specific sizes, and opacity configured separately. Stylix does not manage desktop themes, wallpapers, cursors, or system-wide fonts. Atuin and Delta are not explicitly themed by this module.
+The [Catppuccin Mocha Base16 palette](https://tinted-theming.github.io/tinted-gallery/#base16-catppuccin-mocha) comes from nixpkgs' theme collection. Its background and muted colors (`base00`–`base03`) are overridden with Adwaita-like grays (`#1d1d20`, `#222226`, `#2e2e32`, and `#6c6c70`), while Mocha's pastel text and accents are preserved. These overrides coordinate terminal appearance with native GNOME without recoloring GTK or Libadwaita. Alacritty keeps the fonts, platform-specific sizes, and opacity configured separately. Stylix does not manage desktop themes, wallpapers, cursors, or system-wide fonts. Atuin is not explicitly themed by this module; git diffs use difftastic, which inherits the terminal's ANSI palette.
 
 OpenCode uses Stylix's generated theme in dark mode. A compatibility override selects it through OpenCode 2's `cli.json` instead of the legacy `tui.json` emitted by the pinned Stylix target.
 

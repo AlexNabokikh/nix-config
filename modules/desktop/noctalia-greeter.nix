@@ -23,7 +23,7 @@
             hide_logo = true;
 
             wallpaper = {
-              path = config.profile.wallpaper;
+              path = config.profile.wallpaper.dark;
               fill_mode = "crop";
             };
           };

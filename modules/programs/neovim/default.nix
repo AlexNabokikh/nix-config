@@ -13,11 +13,6 @@
         sideloadInitLua = true;
         vimAlias = true;
 
-        # Sideloaded config runs before Neovim loads its start packages.
-        initLua = lib.mkBefore ''
-          vim.opt.rtp:prepend("${pkgs.vimPlugins.mini-nvim}")
-        '';
-
         extraPackages = with pkgs; [
           bash-language-server
           eslint
@@ -44,7 +39,9 @@
       };
 
       xdg.configFile = {
-        "nvim/lua/config/stylix.lua".text =
+        # Data rather than a Lua module: vim.loader caches modules by size and mtime, and both
+        # stay constant across generations for Nix store files, so palette changes would be missed.
+        "nvim/stylix.json".text =
           let
             palette = lib.genAttrs [
               "base00"
@@ -65,7 +62,7 @@
               "base0F"
             ] (name: config.lib.stylix.colors.withHashtag.${name});
           in
-          "return ${lib.generators.toLua { } palette}";
+          builtins.toJSON palette;
 
         "nvim" = {
           source = ./lazyvim;
