@@ -31,6 +31,8 @@
             setup_wizard_enabled = false;
             show_location = false;
 
+            greeter_sync.auto_sync = true;
+
             animation.enabled = false;
 
             launcher = {
