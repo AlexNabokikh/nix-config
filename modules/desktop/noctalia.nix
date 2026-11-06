@@ -14,20 +14,6 @@
       ];
 
       tesseract = pkgs.tesseract.override { enableLanguages = ocrLanguages; };
-
-      syncWallpaper = pkgs.writeShellApplication {
-        name = "noctalia-sync-wallpaper";
-        runtimeInputs = [ config.programs.noctalia.package ];
-        text = ''
-          case "$(noctalia msg theme-mode-get)" in
-            light) wallpaper=${lib.escapeShellArg "${config.profile.wallpaper.light}"} ;;
-            dark) wallpaper=${lib.escapeShellArg "${config.profile.wallpaper.dark}"} ;;
-            *) exit 0 ;;
-          esac
-
-          exec noctalia msg wallpaper-set "$wallpaper"
-        '';
-      };
     in
     {
       home.packages = [ pkgs.gpu-screen-recorder ];
@@ -65,7 +51,6 @@
             };
           };
 
-          # Stylix manages application themes, not Noctalia's template engine.
           theme.templates = {
             enable_builtin_templates = false;
             enable_community_templates = false;
@@ -137,11 +122,6 @@
 
           wallpaper = {
             default.path = config.profile.wallpaper.dark;
-          };
-
-          hooks = {
-            started = lib.getExe syncWallpaper;
-            theme_mode_changed = lib.getExe syncWallpaper;
           };
 
           bar.default = {

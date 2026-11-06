@@ -22,7 +22,7 @@
         polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
-        # Coordinate with Adwaita's dark surfaces while retaining Mocha's accents.
+        # Adwaita's dark surfaces with Catppuccin Mocha's accents.
         override = {
           base00 = "1d1d20";
           base01 = "222226";
@@ -30,7 +30,6 @@
           base03 = "6c6c70";
         };
 
-        # Keep desktop appearance and system-wide font settings independent.
         targets = {
           alacritty = {
             enable = true;

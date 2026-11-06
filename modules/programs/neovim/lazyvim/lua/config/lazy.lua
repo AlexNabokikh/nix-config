@@ -19,7 +19,6 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      -- Neovim ships its own "catppuccin" colorscheme; name the plugin's flavour explicitly.
       opts = { colorscheme = "catppuccin-mocha" },
     },
     { import = "lazyvim.plugins.extras.lang.helm" },

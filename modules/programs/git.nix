@@ -19,7 +19,6 @@
           };
         };
 
-        # Uses the terminal's ANSI palette, so diffs follow Stylix.
         difftastic = {
           enable = true;
           git.enable = true;

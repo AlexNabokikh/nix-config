@@ -7,7 +7,6 @@
     {
       gtk = {
         enable = true;
-        # Let the desktop shell manage the light/dark preference at runtime.
         colorScheme = null;
         gtk2.enable = false;
         iconTheme = {

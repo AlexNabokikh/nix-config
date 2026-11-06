@@ -39,8 +39,6 @@
       };
 
       xdg.configFile = {
-        # Data rather than a Lua module: vim.loader caches modules by size and mtime, and both
-        # stay constant across generations for Nix store files, so palette changes would be missed.
         "nvim/stylix.json".text =
           let
             palette = lib.genAttrs [
