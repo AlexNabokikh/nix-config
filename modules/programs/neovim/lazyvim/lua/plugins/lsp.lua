@@ -41,15 +41,7 @@ return {
             },
           },
         },
-        nixd = {
-          settings = {
-            nixd = {
-              formatting = {
-                command = { "nixfmt" },
-              },
-            },
-          },
-        },
+        nixd = {},
         pyright = {
           settings = {
             pyright = {
