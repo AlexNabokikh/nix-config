@@ -9,9 +9,6 @@
     }:
     let
       colors = config.lib.stylix.colors.withHashtag;
-      lightColors =
-        (config.stylix.base16.mkSchemeAttrs "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml")
-        .withHashtag;
     in
     {
       imports = [ inputs.stylix.homeModules.stylix ];
@@ -51,61 +48,6 @@
           tmux.enable = true;
         };
       };
-
-      # The pinned target only supplies dark colors; Noctalia otherwise reuses
-      # them in light mode, making its runtime theme toggle appear ineffective.
-      programs.noctalia.customPalettes.stylix.light =
-        lib.mkIf (config.stylix.enable && config.stylix.targets.noctalia.enable)
-          (
-            with lightColors;
-            {
-              mPrimary = base0D;
-              mOnPrimary = base00;
-              mSecondary = base0E;
-              mOnSecondary = base00;
-              mTertiary = base0C;
-              mOnTertiary = base00;
-              mError = base08;
-              mOnError = base00;
-              mSurface = base00;
-              mOnSurface = base05;
-              mHover = base0C;
-              mOnHover = base00;
-              mSurfaceVariant = base01;
-              mOnSurfaceVariant = base04;
-              mOutline = base03;
-              mShadow = base00;
-
-              terminal = {
-                foreground = base05;
-                background = base00;
-                cursor = base05;
-                cursorText = base00;
-                selectionFg = base05;
-                selectionBg = base02;
-                normal = {
-                  black = base00;
-                  red = base08;
-                  green = base0B;
-                  yellow = base0A;
-                  blue = base0D;
-                  magenta = base0E;
-                  cyan = base0C;
-                  white = base05;
-                };
-                bright = {
-                  black = base03;
-                  red = base08;
-                  green = base0B;
-                  yellow = base0A;
-                  blue = base0D;
-                  magenta = base0E;
-                  cyan = base0C;
-                  white = base07;
-                };
-              };
-            }
-          );
 
       # The pinned Stylix target generates the theme but selects it via V1's tui.json.
       programs.opencode = lib.mkIf config.stylix.targets.opencode.enable {
