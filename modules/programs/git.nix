@@ -19,13 +19,9 @@
           };
         };
 
-        difftastic = {
+        diff-so-fancy = {
           enable = true;
-          git.enable = true;
-          options = {
-            background = "dark";
-            color = "always";
-          };
+          enableGitIntegration = true;
         };
 
         lazygit = {
@@ -36,8 +32,9 @@
 
             git.diffRenderers = [
               {
-                type = "extDiff";
-                command = "difft --color=always --display=inline";
+                type = "stdinFilter";
+                colorArg = "always";
+                command = "diff-so-fancy";
               }
             ];
           };

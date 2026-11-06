@@ -19,6 +19,11 @@
         terminal = "tmux-256color";
 
         extraConfig = ''
+          # Allow applications inside tmux to copy to the system clipboard
+          set -s set-clipboard on
+          # Forward tmux-wrapped terminal sequences, including clipboard requests
+          set -g allow-passthrough on
+
           # Split panes while preserving the current directory
           unbind '"'
           unbind %
