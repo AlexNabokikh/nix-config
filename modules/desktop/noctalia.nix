@@ -7,8 +7,6 @@
       ...
     }:
     let
-      inherit (config.profile.appearance) catppuccin;
-
       ocrLanguages = [
         "eng"
         "pol"
@@ -53,14 +51,14 @@
             };
           };
 
-          theme = {
-            source = "community";
-            community_palette = "Catppuccin ${lib.toSentenceCase catppuccin.flavor} ${lib.toSentenceCase catppuccin.accent}";
-            templates = {
-              enable_builtin_templates = false;
-              enable_community_templates = false;
-            };
-          };
+          # theme = {
+          #   source = "community";
+          #   community_palette = "";
+          #   templates = {
+          #     enable_builtin_templates = false;
+          #     enable_community_templates = false;
+          #   };
+          # };
 
           backdrop.enabled = true;
 

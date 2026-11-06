@@ -1,7 +1,5 @@
 {
   flake.modules.homeManager.starship = {
-    catppuccin.starship.enable = false;
-
     programs.starship = {
       enable = true;
       settings = {

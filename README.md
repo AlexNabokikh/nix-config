@@ -40,7 +40,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 ## Conventions
 
 - Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, Brave, and Mos may declare modules for more than one class.
-- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `catppuccin.nix`, `desktop/gtk.nix`).
+- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `desktop/gtk.nix`).
 - `modules/base.nix` collects default workstation features into `nixos.base`, `darwin.base`, and `homeManager.base`. Opt-in features are composed by their owning host or parent feature instead.
 - Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.niri`, `nixos.gaming`, or `darwin.aerospace`.
 - Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
@@ -53,7 +53,7 @@ Fork this repository and clone the fork.
 
 ### 2. Replace personal settings
 
-[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, Catppuccin flavor, icon and cursor theme, fonts, locale, and timezone.
+[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, icon and cursor theme, fonts, locale, and timezone.
 
 > [!NOTE]
 > `profile` is an untyped option, so edit the values in place and keep the existing attribute names and nesting. A misspelled attribute is not reported against this file — it surfaces later as a missing-attribute error in whichever module consumes it (for example `desktop/gtk.nix` or `programs/alacritty.nix`).

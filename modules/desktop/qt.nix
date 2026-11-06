@@ -16,7 +16,7 @@
       qt = {
         enable = true;
         platformTheme.name = "qtct";
-        style.name = "kvantum";
+        # style.name = "kvantum";
         qt5ctSettings = qtctSettings;
         qt6ctSettings = qtctSettings;
       };
@@ -29,11 +29,6 @@
 
         qt6ct = {
           name = "qt6ct";
-          noDisplay = true;
-        };
-
-        kvantummanager = {
-          name = "kvantum";
           noDisplay = true;
         };
       };

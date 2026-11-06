@@ -1,13 +1,10 @@
 {
   flake.modules.homeManager.neovim =
     {
-      config,
       pkgs,
       ...
     }:
     {
-      catppuccin.nvim.enable = false;
-
       programs.neovim = {
         enable = true;
         defaultEditor = true;
@@ -44,17 +41,6 @@
           source = ./lazyvim;
           recursive = true;
         };
-
-        "nvim/lua/plugins/catppuccin.lua".text = ''
-          return {
-            {
-              "LazyVim/LazyVim",
-              opts = {
-                colorscheme = "catppuccin-${config.profile.appearance.catppuccin.flavor}",
-              },
-            },
-          }
-        '';
       };
     };
 }

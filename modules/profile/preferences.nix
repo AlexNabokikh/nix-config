@@ -20,16 +20,9 @@
         wallpaper = ./wallpaper.jpg;
 
         appearance = {
-          catppuccin = {
-            flavor = "mocha";
-            accent = "lavender";
-          };
-
           iconTheme = {
-            name = "Colloid-Catppuccin-Dark";
-            package = pkgs.colloid-icon-theme.override {
-              schemeVariants = [ "catppuccin" ];
-            };
+            name = "Colloid";
+            package = pkgs.colloid-icon-theme;
           };
 
           cursorTheme = {
