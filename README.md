@@ -65,6 +65,16 @@ Replace the asset files with your own:
 
 The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.
 
+### Terminal appearance
+
+[`modules/stylix.nix`](modules/stylix.nix) configures Stylix only through Home Manager, on both Linux and macOS. Automatic target theming is disabled; the explicit allowlist covers Alacritty, btop, fzf, k9s, lazygit, Neovim (including LazyVim), OpenCode, Starship, and tmux.
+
+The [Neovim Dark Base16 palette](https://tinted-theming.github.io/tinted-gallery/#base16-neovim-dark) is vendored in [`modules/profile/neovim-dark.yaml`](modules/profile/neovim-dark.yaml), since the pinned nixpkgs theme collection does not include it. Alacritty keeps the fonts, platform-specific sizes, and opacity configured separately. Stylix does not manage desktop themes, wallpapers, cursors, or system-wide fonts. Atuin and Delta are not explicitly themed by this module.
+
+OpenCode uses Stylix's generated theme in dark mode. A compatibility override selects it through OpenCode 2's `cli.json` instead of the legacy `tui.json` emitted by the pinned Stylix target.
+
+To theme another supported terminal program, enable its target in `modules/stylix.nix`; new targets remain disabled by default. Keep the rolling-release Stylix, nixpkgs, and Home Manager inputs compatible when updating the flake.
+
 ### 3. Trim or replace hosts
 
 Remove hosts under `modules/hosts/` that do not apply. `energy/` and `xps/` are NixOS examples; `work-mac.nix` is a macOS example.

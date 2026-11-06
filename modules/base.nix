@@ -71,6 +71,7 @@ in
       homeManager.podman
       homeManager.scripts
       homeManager.starship
+      homeManager.stylix
       homeManager.tmux
       homeManager.xdg
       homeManager.zsh

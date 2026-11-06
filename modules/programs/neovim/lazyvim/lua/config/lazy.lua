@@ -16,7 +16,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    {
+      "LazyVim/LazyVim",
+      import = "lazyvim.plugins",
+      opts = {
+        colorscheme = function()
+          require("mini.base16").setup({ palette = require("config.stylix") })
+        end,
+      },
+    },
     { import = "lazyvim.plugins.extras.lang.helm" },
     { import = "plugins" },
   },
@@ -34,6 +42,8 @@ require("lazy").setup({
   },
   performance = {
     rtp = {
+      -- Retain Home Manager's Nix-provided plugins, including mini.base16.
+      paths = vim.opt.rtp:get(),
       disabled_plugins = {
         "gzip",
         "tarPlugin",

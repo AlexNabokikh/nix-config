@@ -1,6 +1,8 @@
 {
   flake.modules.homeManager.neovim =
     {
+      config,
+      lib,
       pkgs,
       ...
     }:
@@ -10,6 +12,11 @@
         defaultEditor = true;
         sideloadInitLua = true;
         vimAlias = true;
+
+        # Sideloaded config runs before Neovim loads its start packages.
+        initLua = lib.mkBefore ''
+          vim.opt.rtp:prepend("${pkgs.vimPlugins.mini-nvim}")
+        '';
 
         extraPackages = with pkgs; [
           bash-language-server
@@ -37,6 +44,29 @@
       };
 
       xdg.configFile = {
+        "nvim/lua/config/stylix.lua".text =
+          let
+            palette = lib.genAttrs [
+              "base00"
+              "base01"
+              "base02"
+              "base03"
+              "base04"
+              "base05"
+              "base06"
+              "base07"
+              "base08"
+              "base09"
+              "base0A"
+              "base0B"
+              "base0C"
+              "base0D"
+              "base0E"
+              "base0F"
+            ] (name: config.lib.stylix.colors.withHashtag.${name});
+          in
+          "return ${lib.generators.toLua { } palette}";
+
         "nvim" = {
           source = ./lazyvim;
           recursive = true;
