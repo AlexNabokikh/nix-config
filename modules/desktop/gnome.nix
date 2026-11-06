@@ -117,17 +117,13 @@ in
     in
     {
       imports = [
-        homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
         homeManager.qt
         homeManager.xdgUserDirs
       ];
 
-      home = {
-        packages = [ pkgs.gradia ];
-        sessionVariables.XCURSOR_SIZE = null;
-      };
+      home.packages = [ pkgs.gradia ];
 
       programs.gnome-shell = {
         enable = true;

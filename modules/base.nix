@@ -7,6 +7,7 @@ let
     homeManager
     ;
   commonImports = [
+    generic.fonts
     generic.homeManagerIntegration
     generic.nixSettings
     generic.primaryUser
@@ -28,7 +29,6 @@ in
       nixos.audio
       nixos.bluetooth
       nixos.boot
-      nixos.fonts
       nixos.locale
       nixos.networking
       nixos.podman
@@ -40,7 +40,6 @@ in
   flake.modules.darwin.base = {
     imports = commonImports ++ [
       darwin.brave
-      darwin.fonts
       darwin.keyboard
       darwin.mos
       darwin.systemPreferences

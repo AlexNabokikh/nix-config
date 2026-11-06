@@ -16,7 +16,6 @@
         email = "alexander.nabokikh@olx.pl";
         fullName = "Alexander Nabokikh";
         gitKey = "C5810093";
-        avatar = ./avatar.jpg;
         wallpaper = {
           light = ./wallpaper-light.png;
           dark = ./wallpaper-dark.png;
@@ -28,24 +27,10 @@
             package = pkgs.colloid-icon-theme;
           };
 
-          cursorTheme = {
-            name = "Adwaita";
-            package = pkgs.adwaita-icon-theme;
-            size = 24;
-          };
-
-          fonts = {
-            ui = {
-              family = "Inter";
-              package = pkgs.inter;
-            };
-
-            monospace = {
-              family = "MesloLGS Nerd Font Mono";
-              package = pkgs.nerd-fonts.meslo-lg;
-            };
-
-            terminalSize = {
+          terminalFont = {
+            family = "MesloLGS Nerd Font Mono";
+            package = pkgs.nerd-fonts.meslo-lg;
+            size = {
               linux = 12;
               darwin = 15;
             };

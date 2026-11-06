@@ -37,12 +37,6 @@
           fzf.enable = true;
           k9s.enable = true;
           lazygit.enable = true;
-          noctalia = {
-            enable = true;
-            fonts.enable = false;
-            image.enable = false;
-            opacity.enable = false;
-          };
           opencode.enable = true;
           starship.enable = true;
           tmux.enable = true;

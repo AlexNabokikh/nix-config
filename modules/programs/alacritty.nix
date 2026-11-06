@@ -9,6 +9,7 @@
     let
       promptNewline = ''\u001b\u000d'';
       unitSeparator = ''\u001f'';
+      inherit (config.profile.appearance) terminalFont;
     in
     {
       programs.alacritty = {
@@ -57,13 +58,8 @@
 
           font = {
             size =
-              if pkgs.stdenv.hostPlatform.isDarwin then
-                config.profile.appearance.fonts.terminalSize.darwin
-              else
-                config.profile.appearance.fonts.terminalSize.linux;
-            normal = {
-              inherit (config.profile.appearance.fonts.monospace) family;
-            };
+              if pkgs.stdenv.hostPlatform.isDarwin then terminalFont.size.darwin else terminalFont.size.linux;
+            normal.family = terminalFont.family;
           };
 
           selection = {
