@@ -8,7 +8,7 @@ in
       inputs.nixos-hardware.nixosModules.common-cpu-intel
       ./_hardware.nix
       nixos.base
-      nixos.niri
+      nixos.gnome
     ];
 
     primaryUser = "nabokikh";
