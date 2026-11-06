@@ -24,6 +24,9 @@
           # Forward tmux-wrapped terminal sequences, including clipboard requests
           set -g allow-passthrough on
 
+          # Use rounded corners for popup windows
+          set -g popup-border-lines rounded
+
           # Split panes while preserving the current directory
           unbind '"'
           unbind %

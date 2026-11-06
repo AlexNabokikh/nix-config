@@ -262,7 +262,6 @@ in
           animation = 0;
           dash = false;
           notification-banner-position = 2;
-          panel-button-padding-size = 5;
           support-notifier-type = 0;
         };
 
