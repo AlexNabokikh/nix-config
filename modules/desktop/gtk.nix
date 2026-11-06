@@ -7,7 +7,8 @@
     {
       gtk = {
         enable = true;
-        colorScheme = "dark";
+        # Let the desktop shell manage the light/dark preference at runtime.
+        colorScheme = null;
         gtk2.enable = false;
         iconTheme = {
           inherit (config.profile.appearance.iconTheme) name package;

@@ -25,7 +25,16 @@
         appearance = {
           iconTheme = {
             name = "Colloid";
-            package = pkgs.colloid-icon-theme;
+            package = pkgs.colloid-icon-theme.overrideAttrs (old: {
+              # The package does not expose upstream's bold panel icon variant.
+              installPhase =
+                lib.replaceStrings
+                  [ "--dest $out/share/icons" ]
+                  [
+                    "--bold --dest $out/share/icons"
+                  ]
+                  old.installPhase;
+            });
           };
 
           cursorTheme = {

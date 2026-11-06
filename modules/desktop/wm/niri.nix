@@ -26,6 +26,9 @@ in
       pkgs,
       ...
     }:
+    let
+      colors = config.lib.stylix.colors.withHashtag;
+    in
     {
       imports = [
         homeManager.cursor
@@ -101,7 +104,7 @@ in
 
           // Layout settings
           layout {
-              background-color "#000000"
+              background-color "${colors.base00}"
               gaps 6
               center-focused-column "never"
 
@@ -113,18 +116,26 @@ in
 
               default-column-width { proportion 0.5; }
 
-              # focus-ring {
-              #     width 1
-              #     active-color ""
-              #     inactive-color ""
-              # }
+              focus-ring {
+                  off
+                  active-color "${colors.base0D}"
+                  inactive-color "${colors.base03}"
+                  urgent-color "${colors.base08}"
+              }
 
               border {
                   off
+                  active-color "${colors.base0D}"
+                  inactive-color "${colors.base03}"
+                  urgent-color "${colors.base08}"
               }
 
               shadow {
                   off
+              }
+
+              insert-hint {
+                  color "${colors.base0D}80"
               }
           }
 
@@ -162,7 +173,7 @@ in
           window-rule {
               clip-to-geometry true
               draw-border-with-background false
-              geometry-corner-radius 8
+              geometry-corner-radius 15
               open-maximized-to-edges false
           }
 

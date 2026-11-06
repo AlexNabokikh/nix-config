@@ -120,6 +120,7 @@ in
         homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
+        homeManager.qt
         homeManager.xdgUserDirs
       ];
 
