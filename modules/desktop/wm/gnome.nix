@@ -151,8 +151,8 @@ in
         };
 
         "org/gnome/desktop/background" = {
-          picture-uri = "file://${config.profile.wallpaper}";
-          picture-uri-dark = "file://${config.profile.wallpaper}";
+          # picture-uri = "file://${config.profile.wallpaper}";
+          # picture-uri-dark = "file://${config.profile.wallpaper}";
           primary-color = "#000000000000";
         };
 

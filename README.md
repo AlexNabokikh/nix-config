@@ -69,7 +69,7 @@ The remaining files in `modules/profile/` declare the `primaryUser` option and c
 
 [`modules/stylix.nix`](modules/stylix.nix) configures Stylix only through Home Manager, on both Linux and macOS. Automatic target theming is disabled; the explicit allowlist covers Alacritty, btop, fzf, k9s, lazygit, Neovim (including LazyVim), OpenCode, Starship, and tmux.
 
-The [Neovim Dark Base16 palette](https://tinted-theming.github.io/tinted-gallery/#base16-neovim-dark) is vendored in [`modules/profile/neovim-dark.yaml`](modules/profile/neovim-dark.yaml), since the pinned nixpkgs theme collection does not include it. Alacritty keeps the fonts, platform-specific sizes, and opacity configured separately. Stylix does not manage desktop themes, wallpapers, cursors, or system-wide fonts. Atuin and Delta are not explicitly themed by this module.
+The [Catppuccin Mocha Base16 palette](https://tinted-theming.github.io/tinted-gallery/#base16-catppuccin-mocha) comes from nixpkgs' theme collection. Its background and muted colors (`base00`–`base03`) are overridden with Adwaita-like grays (`#1d1d20`, `#222226`, `#2e2e32`, and `#6c6c70`), while Mocha's pastel text and accents are preserved. These overrides coordinate terminal appearance with native GNOME without recoloring GTK or Libadwaita. Alacritty keeps the fonts, platform-specific sizes, and opacity configured separately. Stylix does not manage desktop themes, wallpapers, cursors, or system-wide fonts. Atuin and Delta are not explicitly themed by this module.
 
 OpenCode uses Stylix's generated theme in dark mode. A compatibility override selects it through OpenCode 2's `cli.json` instead of the legacy `tui.json` emitted by the pinned Stylix target.
 

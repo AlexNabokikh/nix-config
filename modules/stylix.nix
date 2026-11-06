@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.stylix =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       imports = [ inputs.stylix.homeModules.stylix ];
 
@@ -9,7 +14,15 @@
         enable = true;
         autoEnable = false;
         polarity = "dark";
-        base16Scheme = ./profile/neovim-dark.yaml;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+
+        # Coordinate with Adwaita's dark surfaces while retaining Mocha's accents.
+        override = {
+          base00 = "1d1d20";
+          base01 = "222226";
+          base02 = "2e2e32";
+          base03 = "6c6c70";
+        };
 
         # Keep desktop appearance and system-wide font settings independent.
         targets = {
