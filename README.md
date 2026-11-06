@@ -61,7 +61,7 @@ Fork this repository and clone the fork.
 Replace the asset files with your own:
 
 - `modules/profile/avatar.jpg`
-- `modules/profile/wallpapaer-light.png`
+- `modules/profile/wallpaper-light.png`
 - `modules/profile/wallpaper-dark.png`
 
 The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.

@@ -9,7 +9,7 @@ in
       inputs.nixos-hardware.nixosModules.common-gpu-amd
       ./_hardware.nix
       nixos.base
-      nixos.gnome
+      nixos.niri
       nixos.gaming
     ];
 

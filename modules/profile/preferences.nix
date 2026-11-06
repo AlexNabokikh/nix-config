@@ -18,7 +18,7 @@
         gitKey = "C5810093";
         avatar = ./avatar.jpg;
         wallpaper = {
-          light = ./wallpapaer-light.png;
+          light = ./wallpaper-light.png;
           dark = ./wallpaper-dark.png;
         };
 
@@ -37,14 +37,12 @@
           fonts = {
             ui = {
               family = "Inter";
-              size = 11;
               package = pkgs.inter;
             };
 
             monospace = {
               family = "MesloLGS Nerd Font Mono";
               package = pkgs.nerd-fonts.meslo-lg;
-              size = 11;
             };
 
             terminalSize = {
