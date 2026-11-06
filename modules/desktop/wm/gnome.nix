@@ -245,6 +245,11 @@ in
           "steam.desktop:4"
         ];
 
+        "org/gnome/shell/extensions/blur-my-shell/popup" = {
+          pipeline = "pipeline_default_rounded";
+          static-blur = true;
+        };
+
         "org/gnome/shell/extensions/clipboard-history" = {
           display-mode = 3;
           next-entry = [ "<Shift><Alt>j" ];
@@ -257,7 +262,6 @@ in
           dash = false;
           notification-banner-position = 2;
           panel-button-padding-size = 5;
-          panel-indicator-padding-size = 9;
           support-notifier-type = 0;
         };
 
