@@ -38,9 +38,24 @@ in
     }:
     let
       inherit (lib.hm.gvariant)
+        mkArray
+        mkDictionaryEntry
         mkTuple
         mkUint32
+        mkVariant
         ;
+
+      mkVariantDictionary =
+        attrs:
+        mkArray "{sv}" (
+          lib.mapAttrsToList (
+            name: value:
+            mkDictionaryEntry [
+              name
+              (mkVariant value)
+            ]
+          ) attrs
+        );
 
       inputSources = [
         (mkTuple [
@@ -132,9 +147,7 @@ in
       programs.gnome-shell = {
         enable = true;
         extensions = [
-          {
-            package = pkgs.gnome50Extensions."auto-move-windows@gnome-shell-extensions.gcampax.github.com";
-          }
+          { package = pkgs.gnome50Extensions."auto-move-windows@gnome-shell-extensions.gcampax.github.com"; }
           { package = pkgs.gnomeExtensions.blur-my-shell; }
           { package = pkgs.gnomeExtensions.clipboard-history; }
           { package = pkgs.gnomeExtensions.just-perfection; }
@@ -274,6 +287,32 @@ in
           gap-outer = mkUint32 1;
           mouse-cursor-focus-location = mkUint32 4;
           tile-by-default = true;
+        };
+
+        "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
+          border-width = 1;
+          settings-version = mkUint32 9;
+          global-rounded-corner-settings = mkVariantDictionary {
+            padding = mkVariantDictionary {
+              left = mkUint32 1;
+              right = mkUint32 1;
+              top = mkUint32 1;
+              bottom = mkUint32 1;
+            };
+            keepRoundedCorners = mkVariantDictionary {
+              maximized = false;
+              fullscreen = false;
+            };
+            borderRadius = mkUint32 15;
+            smoothing = 0.0;
+            borderColor = mkTuple [
+              1.0
+              1.0
+              1.0
+              0.07
+            ];
+            enabled = true;
+          };
         };
 
         "org/gnome/shell".favorite-apps = [ ];
