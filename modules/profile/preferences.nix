@@ -27,6 +27,12 @@
             package = pkgs.colloid-icon-theme;
           };
 
+          cursorTheme = {
+            name = "Adwaita";
+            package = pkgs.adwaita-icon-theme;
+            size = 24;
+          };
+
           terminalFont = {
             family = "MesloLGS Nerd Font Mono";
             package = pkgs.nerd-fonts.meslo-lg;

@@ -117,13 +117,17 @@ in
     in
     {
       imports = [
+        homeManager.cursor
         homeManager.desktopApps
         homeManager.gtk
         homeManager.qt
         homeManager.xdgUserDirs
       ];
 
-      home.packages = [ pkgs.gradia ];
+      home = {
+        packages = [ pkgs.gradia ];
+        sessionVariables.XCURSOR_SIZE = null;
+      };
 
       programs.gnome-shell = {
         enable = true;
@@ -230,7 +234,6 @@ in
           );
 
           logout = [
-            "<Control><Alt>Delete"
             "<Alt><Ctrl>q"
           ];
           screensaver = [ "<Alt><Ctrl>l" ];
