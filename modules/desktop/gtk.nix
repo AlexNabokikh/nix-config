@@ -7,7 +7,6 @@
     {
       gtk = {
         enable = true;
-        colorScheme = null;
         gtk2.enable = false;
         iconTheme = {
           inherit (config.profile.appearance.iconTheme) name package;

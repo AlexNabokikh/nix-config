@@ -132,7 +132,9 @@ in
       programs.gnome-shell = {
         enable = true;
         extensions = [
-          { package = pkgs.gnomeExtensions.auto-move-windows; }
+          {
+            package = pkgs.gnome50Extensions."auto-move-windows@gnome-shell-extensions.gcampax.github.com";
+          }
           { package = pkgs.gnomeExtensions.blur-my-shell; }
           { package = pkgs.gnomeExtensions.clipboard-history; }
           { package = pkgs.gnomeExtensions.just-perfection; }
@@ -273,8 +275,6 @@ in
           mouse-cursor-focus-location = mkUint32 4;
           tile-by-default = true;
         };
-
-        "org/gnome/shell".disable-extension-version-validation = true;
 
         "org/gnome/shell".favorite-apps = [ ];
 
