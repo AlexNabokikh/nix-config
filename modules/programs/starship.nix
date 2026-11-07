@@ -4,14 +4,13 @@
       enable = true;
       settings = {
         add_newline = false;
+        format =
+          "$username$hostname$directory"
+          + "$git_branch$git_commit$git_state$git_status"
+          + "$nix_shell$cmd_duration"
+          + "$line_break$jobs$status$character";
         aws = {
           disabled = true;
-        };
-        docker_context = {
-          symbol = " ";
-        };
-        golang = {
-          symbol = " ";
         };
         kubernetes = {
           disabled = false;
@@ -23,36 +22,6 @@
               context_alias = "$cluster";
             }
           ];
-        };
-        helm = {
-          symbol = " ";
-        };
-        gradle = {
-          symbol = " ";
-        };
-        java = {
-          symbol = " ";
-        };
-        kotlin = {
-          symbol = " ";
-        };
-        lua = {
-          symbol = " ";
-        };
-        package = {
-          symbol = " ";
-        };
-        php = {
-          symbol = " ";
-        };
-        python = {
-          symbol = " ";
-        };
-        rust = {
-          symbol = " ";
-        };
-        terraform = {
-          symbol = " ";
         };
         right_format = "$kubernetes";
       };
