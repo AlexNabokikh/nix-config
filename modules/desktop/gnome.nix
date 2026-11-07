@@ -168,6 +168,7 @@ in
         };
 
         "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
+        "org/gnome/desktop/session".idle-delay = mkUint32 0;
         "org/gnome/desktop/sound".event-sounds = false;
         "org/gnome/gnome-session".logout-prompt = false;
 
@@ -234,6 +235,8 @@ in
           ];
           screensaver = [ "<Alt><Ctrl>l" ];
         };
+
+        "org/gnome/settings-daemon/plugins/power".sleep-inactive-ac-type = "nothing";
 
         "org/gnome/shell/extensions/auto-move-windows".application-list = [
           "brave-browser.desktop:1"
