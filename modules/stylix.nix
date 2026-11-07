@@ -39,7 +39,6 @@
           lazygit.enable = true;
           opencode.enable = true;
           starship.enable = true;
-          tmux.enable = false;
         };
       };
 

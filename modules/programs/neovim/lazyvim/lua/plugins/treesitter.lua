@@ -1,30 +1,14 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
+    -- LazyVim extends its default parser list; only list additions here.
     ensure_installed = {
-      "bash",
-      "c",
       "dockerfile",
       "go",
       "hcl",
-      "helm",
-      "javascript",
-      "json",
-      "jsonc",
-      "lua",
-      "luadoc",
-      "luap",
       "make",
-      "markdown",
-      "markdown_inline",
       "nix",
-      "python",
-      "regex",
       "terraform",
-      "toml",
-      "vim",
-      "vimdoc",
-      "yaml",
     },
   },
 }

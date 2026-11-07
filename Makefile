@@ -49,7 +49,7 @@ flake-update:
 
 flake-check:
 	@echo "Checking flake..."
-	@nix flake check
+	@nix flake check --no-build --all-systems --no-write-lock-file
 	@echo "Flake check complete."
 
 fmt:
