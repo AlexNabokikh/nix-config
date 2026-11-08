@@ -2,7 +2,7 @@
   flake.modules.homeManager.fastfetch =
     { config, ... }:
     {
-      programs.zsh.shellAliases.ff = "fastfetch";
+      programs.zsh.shellAliases.ff = "fastfetch --structure-disabled title";
       programs.fastfetch.enable = true;
 
       xdg.configFile."fastfetch/config.jsonc".source =
