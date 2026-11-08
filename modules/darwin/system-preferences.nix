@@ -58,6 +58,8 @@
       };
 
       CustomUserPreferences.NSGlobalDomain."com.apple.mouse.linear" = true;
+      # Show menu bar background.
+      CustomUserPreferences.NSGlobalDomain.SLSMenuBarUseBlurredAppearance = true;
     };
   };
 }
