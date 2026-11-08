@@ -20,8 +20,6 @@
       ...
     }:
     {
-      catppuccin.zsh-syntax-highlighting.enable = false;
-
       programs.zsh = {
         enable = true;
         defaultKeymap = "viins";

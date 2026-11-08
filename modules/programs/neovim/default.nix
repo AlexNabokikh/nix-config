@@ -6,8 +6,6 @@
       ...
     }:
     {
-      catppuccin.nvim.enable = false;
-
       programs.neovim = {
         enable = true;
         defaultEditor = true;
@@ -40,21 +38,14 @@
       };
 
       xdg.configFile = {
+        "nvim/stylix.json".text = builtins.toJSON {
+          inherit (config.lib.stylix.colors.withHashtag) base00;
+        };
+
         "nvim" = {
           source = ./lazyvim;
           recursive = true;
         };
-
-        "nvim/lua/plugins/catppuccin.lua".text = ''
-          return {
-            {
-              "LazyVim/LazyVim",
-              opts = {
-                colorscheme = "catppuccin-${config.profile.appearance.catppuccin.flavor}",
-              },
-            },
-          }
-        '';
       };
     };
 }

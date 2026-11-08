@@ -6,7 +6,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 ## Showcase
 
-### Niri
+### GNOME
 
 ![linux](./assets/screenshots/linux.png)
 
@@ -30,8 +30,7 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # Desktop integration (desktop-apps, gtk, qt, cursor, xdg, …)
-    │   └── wm/       # Window manager choices (niri, aerospace)
+    ├── desktop/      # GNOME desktop and its integration (gnome, desktop-apps, gtk, qt, xdg)
     ├── programs/     # Program-oriented modules, mostly for Home Manager
     │   └── scripts/bin/ # Scripts packaged into a Home Manager derivation
     └── *.nix         # Repository-level features for one or more module classes
@@ -40,9 +39,9 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 ## Conventions
 
 - Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, Brave, and Mos may declare modules for more than one class.
-- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares both `darwin.fonts` and `homeManager.fonts`, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `catppuccin.nix`, `desktop/gtk.nix`).
+- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares `generic.fonts` for both NixOS and Darwin, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `desktop/gtk.nix`).
 - `modules/base.nix` collects default workstation features into `nixos.base`, `darwin.base`, and `homeManager.base`. Opt-in features are composed by their owning host or parent feature instead.
-- Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.niri`, `nixos.gaming`, or `darwin.aerospace`.
+- Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.gnome`, `nixos.gaming`, or `darwin.aerospace`.
 - Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
 
 ## How to use this repo for yourself
@@ -53,15 +52,15 @@ Fork this repository and clone the fork.
 
 ### 2. Replace personal settings
 
-[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, Catppuccin flavor, icon and cursor theme, fonts, locale, and timezone.
+[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, icon theme, terminal font, locale, and timezone.
 
 > [!NOTE]
 > `profile` is an untyped option, so edit the values in place and keep the existing attribute names and nesting. A misspelled attribute is not reported against this file — it surfaces later as a missing-attribute error in whichever module consumes it (for example `desktop/gtk.nix` or `programs/alacritty.nix`).
 
 Replace the asset files with your own:
 
-- `modules/profile/avatar.jpg`
-- `modules/profile/wallpaper.jpg`
+- `modules/profile/wallpaper-light.png`
+- `modules/profile/wallpaper-dark.png`
 
 The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.
 
@@ -90,7 +89,7 @@ in
     imports = [
       ./_hardware.nix
       nixos.base
-      nixos.niri
+      nixos.gnome
     ];
 
     primaryUser = "your-user";
@@ -104,7 +103,7 @@ in
 
 - `laptop` in `configurations.nixos.laptop.module`: the machine's hostname and the flake output name used by the `Makefile`; using the same name for the directory is only a convention
 - `your-user`: the managed account name on NixOS; on macOS it must match the existing login short name
-- the feature list (`nixos.niri`, …) — adjust to taste
+- the feature list (`nixos.gnome`, …) — adjust to taste
 
 For macOS:
 
@@ -127,7 +126,7 @@ make flake-check       # validate the flake
 
 - A new Home-Manager program lives in `modules/programs/<name>.nix` and declares `flake.modules.homeManager.<name>`. Register default workstation programs in `homeManager.base`; import opt-in programs from their owning feature.
 - A new NixOS-only or Darwin-only system feature lives in `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix` and declares `flake.modules.{nixos,darwin}.<name>`. Register defaults in the matching base and import opt-in features from hosts.
-- A feature spanning more than one class may live beside its primary concern or under `modules/desktop/` for compositor-adjacent features. Register each default class module independently; parent features may compose subordinate modules directly.
+- A feature spanning more than one class may live beside its primary concern or under `modules/desktop/` for desktop features. Register each default class module independently; parent features may compose subordinate modules directly.
 
 ## License
 

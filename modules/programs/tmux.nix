@@ -6,6 +6,9 @@
       pkgs,
       ...
     }:
+    let
+      colors = config.lib.stylix.colors.withHashtag;
+    in
     {
       programs.tmux = {
         enable = true;
@@ -18,7 +21,68 @@
         shell = lib.getExe pkgs.zsh;
         terminal = "tmux-256color";
 
-        extraConfig = ''
+        plugins = [
+          {
+            plugin = pkgs.tmuxPlugins.dotbar;
+            extraConfig = with colors; ''
+              set -g @tmux-dotbar-bg "${base00}"
+              set -g @tmux-dotbar-fg "${base03}"
+              set -g @tmux-dotbar-fg-current "${base05}"
+              set -g @tmux-dotbar-fg-prefix "${base0E}"
+              set -g @tmux-dotbar-bold-current-window true
+              set -g @tmux-dotbar-left false
+              set -g @tmux-dotbar-right false
+              set -g @tmux-dotbar-window-status-format " #I #W "
+
+              # Preserve numbered window names during SSH sessions.
+              set -g @tmux-dotbar-ssh-icon-only true
+              # Use our blue instead of dotbar's hard-coded zoom icon colour.
+              set -g @tmux-dotbar-maximized-icon "#[fg=${base0D}]󰊓"
+            '';
+          }
+          {
+            plugin = pkgs.tmuxPlugins.vim-tmux-navigator;
+            extraConfig = ''
+              # Preserve Atuin's own navigation keys alongside Vim and fzf.
+              set -g @vim_navigator_pattern '(\S+/)?g?\.?(view|l?n?vim?x?|fzf|atuin)(diff)?(-wrapped)?'
+            '';
+          }
+        ];
+
+        extraConfig = with colors; ''
+          # Match tmux's menus and other UI elements to the shared terminal palette.
+          set -s theme dark
+          set -s dark-theme-black "${base00}"
+          set -s dark-theme-dark-grey "${base01}"
+          set -s dark-theme-light-grey "${base03}"
+          set -s dark-theme-white "${base05}"
+          set -s dark-theme-red "${base08}"
+          set -s dark-theme-yellow "${base0A}"
+          set -s dark-theme-green "${base0B}"
+          set -s dark-theme-cyan "${base0C}"
+          set -s dark-theme-blue "${base0D}"
+          set -s dark-theme-magenta "${base0E}"
+
+          set -g window-status-current-style default
+          set -g pane-border-style "fg=${base02}"
+          # Retain tmux's state colours, with blue for the normal active pane.
+          set -g pane-active-border-style "fg=#{?pane_modal_flag,themeblue,#{?pane_marked,thememagenta,#{?synchronize-panes,themered,#{?pane_in_mode,themeyellow,themeblue}}}}"
+          set -g message-style "bg=${base01},fg=${base05}"
+          set -g message-command-style "bg=${base01},fg=${base0E}"
+          set -g mode-style "bg=${base02},fg=${base05}"
+          set -g display-panes-colour "${base03}"
+          set -g display-panes-active-colour "${base0D}"
+
+          # Allow applications inside tmux to copy to the system clipboard
+          set -s set-clipboard on
+          # Forward tmux-wrapped terminal sequences, including clipboard requests
+          set -g allow-passthrough on
+
+          # Share the fzf background and use rounded popup borders.
+          set -g popup-style "bg=${base00},fg=${base05}"
+          set -g popup-border-style "bg=${base00},fg=${base03}"
+          set -g popup-border-lines rounded
+
           # Split panes while preserving the current directory
           unbind '"'
           unbind %
@@ -31,43 +95,9 @@
           # Reload tmux config by pressing prefix + R
           bind R source-file "${config.xdg.configHome}/tmux/tmux.conf" \; display "TMUX Conf Reloaded"
 
-          # Clear screen with prefix + C-l
-          bind C-l send-keys 'C-l'
-
           # Open project selector in a popup
           bind -n C-f display-popup -E cd-to-project
-
-          # Smart pane switching with awareness of Vim splits
-          vim_pattern='(\S+/)?g?\.?(view|l?n?vim?x?|fzf|atuin)(diff)?(-wrapped)?'
-          is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +''${vim_pattern}$'"
-
-          bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
-          bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
-          bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
-          bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
-
-          bind -T copy-mode-vi 'C-h' select-pane -L
-          bind -T copy-mode-vi 'C-j' select-pane -D
-          bind -T copy-mode-vi 'C-k' select-pane -U
-          bind -T copy-mode-vi 'C-l' select-pane -R
-
-          # Compose status line after Catppuccin has loaded
-          set -g window-status-current-style default
-          set -g status-right-length 100
-          set -g status-right "#{E:@catppuccin_status_host}#{E:@catppuccin_status_date_time}"
-          set -g status-left ""
         '';
       };
-
-      catppuccin.tmux.extraConfig = ''
-        set -g @catppuccin_status_background "none"
-        set -g @catppuccin_window_current_number_color "#{@thm_peach}"
-        set -g @catppuccin_window_current_text " #W"
-        set -g @catppuccin_window_current_text_color "#{@thm_bg}"
-        set -g @catppuccin_window_number_color "#{@thm_blue}"
-        set -g @catppuccin_window_text " #W"
-        set -g @catppuccin_status_left_separator "█"
-        set -g @catppuccin_status_right_separator "█"
-      '';
     };
 }

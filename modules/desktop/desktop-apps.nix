@@ -1,8 +1,4 @@
 {
-  flake.modules.nixos.desktopApps = {
-    services.gvfs.enable = true;
-  };
-
   flake.modules.homeManager.desktopApps =
     { pkgs, ... }:
     {

@@ -58,9 +58,7 @@ return {
           },
         },
         ruff = {},
-        tofu_ls = {
-          filetypes = { "terraform", "terraform-vars", "opentofu", "opentofu-vars" },
-        },
+        tofu_ls = {},
         yamlls = {
           settings = {
             yaml = {

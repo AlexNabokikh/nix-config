@@ -19,14 +19,9 @@
           };
         };
 
-        delta = {
+        diff-so-fancy = {
           enable = true;
           enableGitIntegration = true;
-          options = {
-            keep-plus-minus-markers = true;
-            line-numbers = true;
-            navigate = true;
-          };
         };
 
         lazygit = {
@@ -37,7 +32,9 @@
 
             git.diffRenderers = [
               {
-                command = "delta --paging=never";
+                type = "stdinFilter";
+                colorArg = "always";
+                command = "diff-so-fancy";
               }
             ];
           };
