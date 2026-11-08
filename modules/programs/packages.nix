@@ -22,7 +22,6 @@
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
           anki-bin
-          raycast
         ]
         ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
           anki
