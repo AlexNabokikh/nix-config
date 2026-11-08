@@ -23,8 +23,8 @@
 
         appearance = {
           iconTheme = {
-            name = "Colloid";
-            package = pkgs.colloid-icon-theme;
+            name = "MoreWaita";
+            package = pkgs.morewaita-icon-theme;
           };
 
           cursorTheme = {
