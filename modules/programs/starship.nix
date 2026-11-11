@@ -9,9 +9,6 @@
           + "$git_branch$git_commit$git_state$git_status"
           + "$nix_shell$cmd_duration"
           + "$line_break$jobs$status$character";
-        aws = {
-          disabled = true;
-        };
         kubernetes = {
           disabled = false;
           symbol = "󱃾 ";
