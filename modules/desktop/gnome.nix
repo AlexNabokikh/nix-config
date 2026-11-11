@@ -8,6 +8,8 @@ in
     {
       home-manager.sharedModules = [ homeManager.gnome ];
 
+      i18n.inputMethod.enable = false;
+
       services = {
         desktopManager.gnome.enable = true;
         displayManager.gdm.enable = true;
@@ -22,7 +24,9 @@ in
           gnome-online-accounts.enable = false;
           gnome-remote-desktop.enable = false;
           gnome-user-share.enable = false;
+          localsearch.enable = false;
           rygel.enable = false;
+          tinysparql.enable = false;
         };
       };
 
@@ -269,7 +273,9 @@ in
         };
 
         "org/gnome/shell/extensions/clipboard-history" = {
+          cache-size = 20;
           display-mode = 3;
+          history-size = 100;
           next-entry = [ "<Shift><Alt>j" ];
           prev-entry = [ "<Shift><Alt>k" ];
           toggle-menu = [ "<Shift><Alt>v" ];
