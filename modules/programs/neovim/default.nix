@@ -12,6 +12,9 @@
         sideloadInitLua = true;
         vimAlias = true;
 
+        # Runs before init.lua; read by lua/plugins/colorscheme.lua.
+        initLua = ''vim.g.stylix_base00 = "${config.lib.stylix.colors.withHashtag.base00}"'';
+
         extraPackages = with pkgs; [
           bash-language-server
           eslint
@@ -37,15 +40,9 @@
         ];
       };
 
-      xdg.configFile = {
-        "nvim/stylix.json".text = builtins.toJSON {
-          inherit (config.lib.stylix.colors.withHashtag) base00;
-        };
-
-        "nvim" = {
-          source = ./lazyvim;
-          recursive = true;
-        };
+      xdg.configFile."nvim" = {
+        source = ./lazyvim;
+        recursive = true;
       };
     };
 }

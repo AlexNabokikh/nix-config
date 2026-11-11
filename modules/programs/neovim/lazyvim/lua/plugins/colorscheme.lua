@@ -11,9 +11,8 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   opts = function(_, opts)
-    local file = assert(io.open(vim.fn.stdpath("config") .. "/stylix.json"))
-    local base = vim.json.decode(file:read("*a")).base00
-    file:close()
+    -- Set by Home Manager's programs.neovim.initLua.
+    local base = assert(vim.g.stylix_base00, "vim.g.stylix_base00 is not set")
 
     opts.flavour = "mocha"
     opts.color_overrides = {
