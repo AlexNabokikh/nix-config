@@ -136,28 +136,6 @@ in
           name = "Gradia Interactive Screenshot";
         };
       };
-
-      quitAllApplications = pkgs.writeShellApplication {
-        name = "quit-all-applications";
-        runtimeInputs = with pkgs; [
-          findutils
-          jq
-          systemd
-        ];
-        text = ''
-          busctl --user --json=short call \
-            org.gnome.Shell \
-            /org/gnome/Shell/Extensions/Windows \
-            org.gnome.Shell.Extensions.Windows \
-            List \
-            | jq -r '.data[0] | fromjson | .[].id' \
-            | xargs -r -n1 busctl --user call \
-                org.gnome.Shell \
-                /org/gnome/Shell/Extensions/Windows \
-                org.gnome.Shell.Extensions.Windows \
-                Close u
-        '';
-      };
     in
     {
       imports = [
@@ -181,7 +159,6 @@ in
           { package = pkgs.gnomeExtensions.just-perfection; }
           { package = pkgs.gnomeExtensions.pop-shell; }
           { package = pkgs.gnomeExtensions.rounded-window-corners-reborn; }
-          { package = pkgs.gnomeExtensions.window-calls; }
         ];
       };
 
@@ -195,7 +172,6 @@ in
         "org/gnome/desktop/background" = {
           picture-uri = "file://${config.profile.wallpaper.light}";
           picture-uri-dark = "file://${config.profile.wallpaper.dark}";
-          primary-color = "#000000000000";
         };
 
         "org/gnome/desktop/input-sources" = {
@@ -381,12 +357,6 @@ in
       ) customKeybindings;
 
       xdg = {
-        desktopEntries.quit-all-applications = {
-          name = "Quit All Applications";
-          exec = lib.getExe quitAllApplications;
-          icon = "system-log-out";
-        };
-
         configFile."pop-shell/config.json".text = builtins.toJSON {
           float = [
             { class = "be.alexandervanhee.gradia"; }
