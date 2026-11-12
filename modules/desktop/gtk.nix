@@ -18,13 +18,5 @@
           "file://${config.home.homeDirectory}/Videos"
         ];
       };
-
-      dconf.settings = {
-        "org/gnome/desktop/wm/preferences".button-layout = "";
-
-        "org/gtk/gtk4/settings/file-chooser" = {
-          show-hidden = true;
-        };
-      };
     };
 }

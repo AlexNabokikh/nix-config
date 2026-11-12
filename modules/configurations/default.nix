@@ -22,7 +22,10 @@ let
     };
 
   mkSystems =
-    { builder, extraModules }:
+    {
+      builder,
+      extraModules ? [ ],
+    }:
     lib.mapAttrs (
       name: cfg:
       builder {
@@ -44,13 +47,11 @@ let
 
   nixosConfigurations = mkSystems {
     builder = inputs.nixpkgs.lib.nixosSystem;
-    extraModules = [ inputs.home-manager.nixosModules.home-manager ];
   } config.configurations.nixos;
 
   darwinConfigurations = mkSystems {
     builder = inputs.nix-darwin.lib.darwinSystem;
     extraModules = [
-      inputs.home-manager.darwinModules.home-manager
       { nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin"; }
     ];
   } config.configurations.darwin;

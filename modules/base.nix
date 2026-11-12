@@ -1,4 +1,4 @@
-{ config, ... }:
+{ inputs, config, ... }:
 let
   inherit (config.flake.modules)
     generic
@@ -11,21 +11,24 @@ let
     generic.homeManagerIntegration
     generic.nixSettings
     generic.primaryUser
-    generic.primaryUserHome
     generic.profile
   ];
 in
 {
-  flake.modules.generic.homeManagerIntegration = {
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      sharedModules = [ homeManager.base ];
+  flake.modules.generic.homeManagerIntegration =
+    { config, lib, ... }:
+    {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        sharedModules = [ homeManager.base ];
+        users.${config.primaryUser}.home.stateVersion = lib.mkDefault "26.05";
+      };
     };
-  };
 
   flake.modules.nixos.base = {
     imports = commonImports ++ [
+      inputs.home-manager.nixosModules.home-manager
       nixos.audio
       nixos.bluetooth
       nixos.boot
@@ -39,9 +42,9 @@ in
 
   flake.modules.darwin.base = {
     imports = commonImports ++ [
+      inputs.home-manager.darwinModules.home-manager
       darwin.brave
       darwin.keyboard
-      darwin.mos
       darwin.systemPreferences
       darwin.users
       darwin.zsh

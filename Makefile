@@ -19,7 +19,7 @@ help:
 
 install-nix:
 	@echo "Installing Nix..."
-	@curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
+	@bash -o pipefail -c 'curl -fsSL https://nixos.org/nix/install | sh -s -- --daemon --yes'
 	@echo "Nix installation complete."
 
 install-nix-darwin:
@@ -39,6 +39,7 @@ nixos-rebuild:
 
 nix-gc:
 	@echo "Collecting Nix garbage..."
+	@nix-collect-garbage -d
 	@sudo nix-collect-garbage -d
 	@echo "Garbage collection complete."
 
