@@ -52,17 +52,7 @@
           };
 
           # Show Help menu → disabled
-          "98" = {
-            enabled = false;
-            value = {
-              parameters = [
-                47
-                44
-                1179648
-              ];
-              type = "standard";
-            };
-          };
+          "98".enabled = false;
         };
       };
 

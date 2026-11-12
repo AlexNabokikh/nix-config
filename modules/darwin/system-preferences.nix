@@ -20,7 +20,9 @@
         NSAutomaticWindowAnimationsEnabled = false;
         NSDocumentSaveNewDocumentsToCloud = false;
         NSNavPanelExpandedStateForSaveMode = true;
+        NSNavPanelExpandedStateForSaveMode2 = true;
         PMPrintingExpandedStateForPrint = true;
+        PMPrintingExpandedStateForPrint2 = true;
       };
 
       LaunchServices.LSQuarantine = false;

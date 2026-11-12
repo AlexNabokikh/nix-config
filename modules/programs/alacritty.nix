@@ -20,7 +20,7 @@
             args = [
               "-l"
               "-c"
-              "tmux attach || tmux"
+              "tmux new-session -A -s main"
             ];
           };
 

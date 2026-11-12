@@ -23,14 +23,12 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 └── modules/
     ├── base.nix      # Composes features into nixos.base, darwin.base, homeManager.base
     ├── configurations/ # Instantiates hosts and generates system checks
-    ├── flake-parts.nix # Flake-parts module integrations
-    ├── systems.nix   # Systems supported by per-system outputs
-    ├── formatter.nix # Repository-wide Nix formatter
+    ├── flake-parts.nix # Module integration, supported systems, and formatter
     ├── profile/      # Identity and shared appearance settings
     ├── hosts/        # Hosts definitions
     ├── nixos/        # NixOS-only system features
     ├── darwin/       # macOS-only system features
-    ├── desktop/      # GNOME desktop and its integration (gnome, desktop-apps, gtk, qt, xdg)
+    ├── desktop/      # GNOME desktop and its integration (gnome, gtk, qt, xdg)
     ├── programs/     # Program-oriented modules, mostly for Home Manager
     │   └── scripts/bin/ # Scripts packaged into a Home Manager derivation
     └── *.nix         # Repository-level features for one or more module classes
@@ -38,8 +36,8 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 ## Conventions
 
-- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, Brave, and Mos may declare modules for more than one class.
-- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares `generic.fonts` for both NixOS and Darwin, and `users.nix` declares both `nixos.users` and `darwin.users`. Single-class modules may also live there (e.g. `desktop/gtk.nix`).
+- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, and Brave may declare modules for more than one class.
+- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares `generic.fonts` for both NixOS and Darwin, and `users.nix` declares `generic.primaryUser`, `nixos.users`, and `darwin.users`. Single-class modules may also live there (e.g. `desktop/gtk.nix`).
 - `modules/base.nix` collects default workstation features into `nixos.base`, `darwin.base`, and `homeManager.base`. Opt-in features are composed by their owning host or parent feature instead.
 - Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.gnome`, `nixos.gaming`, or `darwin.aerospace`.
 - Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
@@ -61,8 +59,11 @@ Replace the asset files with your own:
 
 - `modules/profile/wallpaper-light.png`
 - `modules/profile/wallpaper-dark.png`
+- `modules/profile/wallpaper-mac.heic`
 
-The remaining files in `modules/profile/` declare the `primaryUser` option and configure its Home Manager state version. `modules/users.nix` configures the corresponding NixOS or Darwin user.
+The PNGs are used by GNOME; the HEIC contains the matching light/dark variants and is selected manually in macOS.
+
+`modules/users.nix` declares the `primaryUser` option and configures the corresponding NixOS or Darwin user. The platform bases in `modules/base.nix` import Home Manager and default the primary user's `home.stateVersion` to `"26.05"` with `lib.mkDefault`, allowing per-host overrides.
 
 ### 3. Trim or replace hosts
 
@@ -120,7 +121,7 @@ make fmt               # format the repository
 make flake-check       # validate the flake
 ```
 
-`make help` lists all targets. The `Makefile` defaults to `.#$(hostname)`, so flake outputs named after the machine's hostname are selected automatically. Complete NixOS and Darwin system checks must be built on their matching platforms.
+`make help` lists all targets. The `Makefile` defaults to `.#$(hostname -s)`, so flake outputs named after the machine's short hostname are selected automatically. Complete NixOS and Darwin system checks must be built on their matching platforms.
 
 ## Adding modules
 

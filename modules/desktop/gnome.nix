@@ -16,7 +16,6 @@ in
         dleyna.enable = false;
         geoclue2.enable = false;
         gnome = {
-          core-apps.enable = false;
           evolution-data-server.enable = lib.mkForce false;
           gcr-ssh-agent.enable = false;
           gnome-browser-connector.enable = false;
@@ -30,7 +29,33 @@ in
         };
       };
 
-      environment.gnome.excludePackages = [ pkgs.gnome-tour ];
+      programs.bash.vteIntegration = false;
+      programs.zsh.vteIntegration = false;
+
+      environment.gnome.excludePackages = with pkgs; [
+        baobab
+        decibels
+        epiphany
+        gnome-calendar
+        gnome-characters
+        gnome-clocks
+        gnome-connections
+        gnome-console
+        gnome-contacts
+        gnome-disk-utility
+        gnome-font-viewer
+        gnome-logs
+        gnome-maps
+        gnome-music
+        gnome-system-monitor
+        gnome-tecla
+        gnome-tour
+        gnome-weather
+        papers
+        simple-scan
+        snapshot
+        yelp
+      ];
     };
 
   flake.modules.homeManager.gnome =
@@ -137,7 +162,6 @@ in
     {
       imports = [
         homeManager.cursor
-        homeManager.desktopApps
         homeManager.gtk
         homeManager.qt
         homeManager.xdgUserDirs
@@ -240,6 +264,8 @@ in
           toggle-tiled-left = [ ];
           toggle-tiled-right = [ ];
         };
+
+        "org/gnome/nautilus/preferences".default-folder-viewer = "list-view";
 
         "org/gnome/settings-daemon/plugins/color" = {
           night-light-enabled = true;

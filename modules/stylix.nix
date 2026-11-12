@@ -17,7 +17,7 @@
         enable = true;
         autoEnable = false;
         polarity = "dark";
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+        base16Scheme = "${inputs.stylix.inputs.tinted-schemes}/base16/catppuccin-mocha.yaml";
 
         # Adwaita's dark surfaces with Catppuccin Mocha's accents.
         override = {
@@ -41,6 +41,17 @@
           starship.enable = true;
         };
       };
+
+      # The pinned Stylix target puts ui.skin at the root instead of under k9s.
+      xdg.configFile."k9s/config.yaml" =
+        lib.mkIf (config.stylix.targets.k9s.enable && config.programs.k9s.enable)
+          {
+            source = lib.mkForce (
+              (pkgs.formats.yaml { }).generate "k9s-config" (
+                lib.recursiveUpdate { k9s.ui.skin = "stylix"; } (removeAttrs config.programs.k9s.settings [ "ui" ])
+              )
+            );
+          };
 
       # The pinned Stylix target generates the theme but selects it via V1's tui.json.
       programs.opencode = lib.mkIf config.stylix.targets.opencode.enable {
