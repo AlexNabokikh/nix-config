@@ -251,6 +251,7 @@ in
         };
 
         "org/gnome/desktop/wm/preferences" = {
+          button-layout = "";
           focus-mode = "sloppy";
         };
 
@@ -367,6 +368,10 @@ in
           switch-to-application-7 = [ ];
           switch-to-application-8 = [ ];
           switch-to-application-9 = [ ];
+        };
+
+        "org/gtk/gtk4/settings/file-chooser" = {
+          show-hidden = true;
         };
 
         "system/locale".region = config.profile.locale.extra.LC_TIME;
