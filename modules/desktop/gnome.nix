@@ -163,12 +163,6 @@ in
       };
 
       dconf.settings = {
-        "be/alexandervanhee/gradia" = {
-          draw-mode = "ARROW";
-          exit-method = "none";
-          overwrite-screenshot = true;
-        };
-
         "org/gnome/desktop/background" = {
           picture-uri = "file://${config.profile.wallpaper.light}";
           picture-uri-dark = "file://${config.profile.wallpaper.dark}";
