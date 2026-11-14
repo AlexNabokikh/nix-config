@@ -1,4 +1,3 @@
-{ osConfig, ... }:
 {
   stylix.targets.lazygit.enable = true;
 
@@ -7,13 +6,13 @@
       enable = true;
       settings = {
         user = {
-          inherit (osConfig.user) email;
-          name = osConfig.user.fullName;
+          name = "Alexander Nabokikh";
+          email = "alexander.nabokikh@olx.pl";
         };
         pull.rebase = true;
       };
       signing = {
-        key = osConfig.user.gitKey;
+        key = "C5810093";
         format = "openpgp";
         signByDefault = true;
       };

@@ -6,7 +6,6 @@
   };
 
   users.users.${config.user.name} = {
-    description = config.user.fullName;
     extraGroups = [
       "networkmanager"
       "wheel"

@@ -1,8 +1,40 @@
+# Wiring shared by NixOS and nix-darwin.
 {
-  imports = [
-    ./fonts.nix
-    ./nix-settings.nix
-    ./preferences.nix
-    ./users.nix
-  ];
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  options.user.name = lib.mkOption {
+    type = lib.types.str;
+    description = "Primary username for this system (set per host).";
+  };
+
+  config = {
+    nixpkgs.config.allowUnfree = true;
+
+    nix = {
+      channel.enable = false;
+
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      optimise.automatic = true;
+    };
+
+    # Only the terminal font (used by alacritty) is managed; everything else uses the desktop's defaults.
+    fonts.packages = [ pkgs.nerd-fonts.meslo-lg ];
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      extraSpecialArgs = { inherit inputs; };
+      sharedModules = [ ../home/base.nix ];
+      users.${config.user.name}.home.stateVersion = lib.mkDefault "26.05";
+    };
+  };
 }

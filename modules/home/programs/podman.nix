@@ -1,3 +1,4 @@
+# User tools; on NixOS the podman service itself comes from modules/nixos/podman.nix.
 { lib, pkgs, ... }:
 let
   docker = pkgs.writeShellScriptBin "docker" ''

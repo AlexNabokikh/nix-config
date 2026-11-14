@@ -1,13 +1,11 @@
 {
   lib,
   pkgs,
-  osConfig,
   ...
 }:
 let
   promptNewline = ''\u001b\u000d'';
   unitSeparator = ''\u001f'';
-  inherit (osConfig) terminalFont;
 in
 {
   stylix.targets.alacritty = {
@@ -61,9 +59,9 @@ in
       ];
 
       font = {
-        size =
-          if pkgs.stdenv.hostPlatform.isDarwin then terminalFont.size.darwin else terminalFont.size.linux;
-        normal.family = terminalFont.family;
+        size = if pkgs.stdenv.hostPlatform.isDarwin then 15 else 12;
+        # Installed system-wide by fonts.packages in modules/common/base.nix.
+        normal.family = "MesloLGS Nerd Font Mono";
       };
 
       selection = {

@@ -1,9 +1,7 @@
-{ inputs, ... }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware.nix
-    ../../modules/desktop/gnome.nix
+    ../../modules/nixos/gnome.nix
   ];
 
   user.name = "nabokikh";

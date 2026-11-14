@@ -14,11 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,10 +53,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./modules/darwin/base.nix
-            {
-              networking.hostName = lib.mkDefault hostName;
-              nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
-            }
+            { networking.hostName = lib.mkDefault hostName; }
             hostModule
           ];
         };
