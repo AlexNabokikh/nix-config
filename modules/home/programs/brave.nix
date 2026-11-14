@@ -1,0 +1,3 @@
+{
+  programs.brave.enable = true;
+}

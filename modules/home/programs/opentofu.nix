@@ -1,0 +1,8 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    opentofu
+  ];
+
+  programs.zsh.shellAliases.terraform = "tofu";
+}

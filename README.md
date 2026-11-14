@@ -26,18 +26,20 @@ A single Nix flake covering my NixOS and macOS machines.
 │   ├── xps/           # NixOS laptop (GNOME)
 │   └── work-mac.nix   # macOS work laptop (AeroSpace)
 └── modules/
-    ├── common/        # Shared NixOS + nix-darwin base, user, and font options
-    ├── nixos/         # NixOS base and opt-in capabilities (gnome, gaming)
-    ├── darwin/        # macOS base, preferences, keyboard, and AeroSpace
-    └── home/          # Home Manager workstation modules, Neovim, and scripts
+    ├── common/        # Shared options, preferences, fonts, nix settings, and HM wiring
+    ├── nixos/         # NixOS system features (boot, audio, bluetooth, networking, gaming, …)
+    ├── darwin/        # macOS system features (preferences, keyboard, users, aerospace)
+    ├── desktop/       # GNOME desktop and its integration (gnome, gtk, qt, cursor)
+    └── home/          # Home Manager base, Stylix palette, and per-program modules
+        └── programs/  # Individual CLI/GUI tool configurations, Neovim, and scripts
 ```
 
 ## Conventions
 
-- `flake.nix` wires each host directly via `nixpkgs.lib.nixosSystem` or `nix-darwin.lib.darwinSystem`, importing the platform base (`modules/nixos/base.nix` or `modules/darwin/base.nix`) automatically.
-- `modules/common/base.nix` defines typed `user` (`name`, `fullName`, `email`, `gitKey`) and `terminalFont` options, Nix daemon settings, and Home Manager integration. Home Manager modules read host-level settings through `osConfig`.
-- Opt-in system features (`modules/nixos/gnome.nix`, `modules/nixos/gaming.nix`, `modules/darwin/aerospace.nix`) are imported explicitly by the hosts that use them.
-- `modules/home/stylix.nix` defines the shared Base16 color palette; individual `stylix.targets.*` toggles live alongside the programs they theme.
+- `flake.nix` wires each host directly via `nixpkgs.lib.nixosSystem` or `nix-darwin.lib.darwinSystem`, automatically importing `modules/nixos/base.nix` or `modules/darwin/base.nix`.
+- `modules/common/` defines typed `user`, `terminalFont`, and `locale` options and sets shared defaults in [`modules/common/preferences.nix`](modules/common/preferences.nix). Home Manager modules access host-level settings through `osConfig`.
+- Baseline workstation features are imported by `modules/nixos/base.nix`, `modules/darwin/base.nix`, and `modules/home/base.nix`. Opt-in features (`modules/desktop/gnome.nix`, `modules/nixos/gaming.nix`, `modules/darwin/aerospace.nix`) are imported explicitly by the hosts that use them.
+- `modules/home/stylix.nix` defines the shared Base16 color palette; individual `stylix.targets.*` toggles live inside the program modules they theme.
 
 ## How to use this repo for yourself
 
@@ -47,7 +49,7 @@ Fork this repository and clone the fork.
 
 ### 2. Replace personal settings
 
-Edit defaults in [`modules/common/base.nix`](modules/common/base.nix) (`user.fullName`, `user.email`, `user.gitKey`, `terminalFont`) or override them per host in `hosts/`. Locale and timezone live in [`modules/nixos/base.nix`](modules/nixos/base.nix).
+Edit [`modules/common/preferences.nix`](modules/common/preferences.nix) to set your shared defaults (`user.fullName`, `user.email`, `user.gitKey`, `terminalFont`, and `locale`). Because all options are typed and set with `lib.mkDefault`, typos are caught immediately and any host in `hosts/` can override them.
 
 Replace the wallpaper files with your own:
 
@@ -76,7 +78,7 @@ sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
 {
   imports = [
     ./hardware.nix
-    ../../modules/nixos/gnome.nix
+    ../../modules/desktop/gnome.nix
   ];
 
   user.name = "your-user";
@@ -104,6 +106,11 @@ make flake-check       # validate the flake
 ```
 
 `make help` lists all targets. The `Makefile` defaults to `.#$(hostname -s)`, so flake outputs named after the machine's short hostname are selected automatically.
+
+## Adding modules
+
+- A new Home Manager program lives in `modules/home/programs/<name>.nix` and is imported in `modules/home/base.nix` (or by its parent feature if opt-in).
+- A new NixOS or macOS system feature lives in `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix`; import baseline defaults in the matching `base.nix` and opt-in features in the relevant `hosts/` files.
 
 ## License
 

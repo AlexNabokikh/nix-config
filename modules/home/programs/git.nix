@@ -1,20 +1,8 @@
-{
-  lib,
-  pkgs,
-  osConfig,
-  ...
-}:
+{ osConfig, ... }:
 {
   stylix.targets.lazygit.enable = true;
 
-  services.gpg-agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-    enable = true;
-    pinentry.package = pkgs.pinentry-gnome3;
-  };
-
   programs = {
-    gpg.enable = true;
-
     git = {
       enable = true;
       settings = {

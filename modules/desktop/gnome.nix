@@ -11,7 +11,6 @@ let
 
   hmModule =
     {
-      config,
       lib,
       pkgs,
       osConfig,
@@ -93,33 +92,6 @@ let
       home = {
         packages = [ pkgs.gradia ];
         sessionVariables.XCURSOR_SIZE = null;
-        pointerCursor = {
-          enable = true;
-          gtk.enable = true;
-          name = "Adwaita";
-          package = pkgs.adwaita-icon-theme;
-          size = 24;
-        };
-      };
-
-      gtk = {
-        enable = true;
-        gtk2.enable = false;
-        iconTheme = {
-          name = "MoreWaita";
-          package = pkgs.morewaita-icon-theme;
-        };
-        gtk3.bookmarks = [
-          "file://${config.home.homeDirectory}/Documents"
-          "file://${config.home.homeDirectory}/Downloads"
-          "file://${config.home.homeDirectory}/Pictures"
-          "file://${config.home.homeDirectory}/Videos"
-        ];
-      };
-
-      qt = {
-        enable = true;
-        platformTheme.name = "xdgdesktopportal";
       };
 
       programs.gnome-shell = {
@@ -343,7 +315,12 @@ let
     };
 in
 {
-  home-manager.sharedModules = [ hmModule ];
+  home-manager.sharedModules = [
+    ./cursor.nix
+    ./gtk.nix
+    ./qt.nix
+    hmModule
+  ];
 
   i18n.inputMethod.enable = false;
 

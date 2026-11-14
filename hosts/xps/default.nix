@@ -3,7 +3,7 @@
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     ./hardware.nix
-    ../../modules/nixos/gnome.nix
+    ../../modules/desktop/gnome.nix
   ];
 
   user.name = "nabokikh";
