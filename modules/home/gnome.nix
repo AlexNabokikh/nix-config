@@ -11,10 +11,12 @@ let
     path = ../../assets/wallpapers/wallpaper-light.png;
     name = "wallpaper-light.png";
   };
+
   wallpaperDark = builtins.path {
     path = ../../assets/wallpapers/wallpaper-dark.png;
     name = "wallpaper-dark.png";
   };
+
   inherit (lib.hm.gvariant)
     mkArray
     mkDictionaryEntry
