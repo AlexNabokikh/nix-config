@@ -1,8 +1,6 @@
 # NixOS & nix-darwin Configurations
 
-A single Nix flake covering my NixOS hosts and macOS hosts.
-
-The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic).
+A single Nix flake covering my NixOS and macOS machines.
 
 ## Showcase
 
@@ -18,29 +16,28 @@ The repo follows the [dendritic pattern](https://github.com/mightyiam/dendritic)
 
 ```text
 .
-├── flake.nix         # Inputs; imports everything in modules/
-├── Makefile          # Common rebuild, update, and check commands
+├── flake.nix          # Inputs, host definitions, checks, and formatter
+├── Makefile           # Common rebuild, update, format, and check commands
+├── assets/
+│   ├── screenshots/
+│   └── wallpapers/    # GNOME light/dark PNGs and macOS dynamic HEIC
+├── hosts/             # Machine-specific configurations
+│   ├── energy/        # NixOS desktop (GNOME + gaming)
+│   ├── xps/           # NixOS laptop (GNOME)
+│   └── work-mac.nix   # macOS work laptop (AeroSpace)
 └── modules/
-    ├── base.nix      # Composes features into nixos.base, darwin.base, homeManager.base
-    ├── configurations/ # Instantiates hosts and generates system checks
-    ├── flake-parts.nix # Module integration, supported systems, and formatter
-    ├── profile/      # Identity and shared appearance settings
-    ├── hosts/        # Hosts definitions
-    ├── nixos/        # NixOS-only system features
-    ├── darwin/       # macOS-only system features
-    ├── desktop/      # GNOME desktop and its integration (gnome, gtk, qt, xdg)
-    ├── programs/     # Program-oriented modules, mostly for Home Manager
-    │   └── scripts/bin/ # Scripts packaged into a Home Manager derivation
-    └── *.nix         # Repository-level features for one or more module classes
+    ├── common/        # Shared NixOS + nix-darwin base, user, and font options
+    ├── nixos/         # NixOS base and opt-in capabilities (gnome, gaming)
+    ├── darwin/        # macOS base, preferences, keyboard, and AeroSpace
+    └── home/          # Home Manager workstation modules, Neovim, and scripts
 ```
 
 ## Conventions
 
-- Files under `modules/nixos/`, `modules/darwin/`, or `modules/programs/` typically declare modules of a single class (`nixos.*`, `darwin.*`, `homeManager.*`). Vertical program features such as Zsh, Podman, and Brave may declare modules for more than one class.
-- Files at the root of `modules/`, and files under `modules/desktop/`, may span more than one class. For example, `fonts.nix` declares `generic.fonts` for both NixOS and Darwin, and `users.nix` declares `generic.primaryUser`, `nixos.users`, and `darwin.users`. Single-class modules may also live there (e.g. `desktop/gtk.nix`).
-- `modules/base.nix` collects default workstation features into `nixos.base`, `darwin.base`, and `homeManager.base`. Opt-in features are composed by their owning host or parent feature instead.
-- Hosts in `modules/hosts/` import `nixos.base` or `darwin.base` together with any opt-in extras such as `nixos.gnome`, `nixos.gaming`, or `darwin.aerospace`.
-- Files and directories prefixed with `_` (for example `_hardware.nix`) are skipped by `import-tree` and imported explicitly where needed.
+- `flake.nix` wires each host directly via `nixpkgs.lib.nixosSystem` or `nix-darwin.lib.darwinSystem`, importing the platform base (`modules/nixos/base.nix` or `modules/darwin/base.nix`) automatically.
+- `modules/common/base.nix` defines typed `user` (`name`, `fullName`, `email`, `gitKey`) and `terminalFont` options, Nix daemon settings, and Home Manager integration. Home Manager modules read host-level settings through `osConfig`.
+- Opt-in system features (`modules/nixos/gnome.nix`, `modules/nixos/gaming.nix`, `modules/darwin/aerospace.nix`) are imported explicitly by the hosts that use them.
+- `modules/home/stylix.nix` defines the shared Base16 color palette; individual `stylix.targets.*` toggles live alongside the programs they theme.
 
 ## How to use this repo for yourself
 
@@ -50,67 +47,52 @@ Fork this repository and clone the fork.
 
 ### 2. Replace personal settings
 
-[`modules/profile/preferences.nix`](modules/profile/preferences.nix) declares the personal settings shared across all hosts: name, email, Git signing key ID, icon theme, terminal font, locale, and timezone.
+Edit defaults in [`modules/common/base.nix`](modules/common/base.nix) (`user.fullName`, `user.email`, `user.gitKey`, `terminalFont`) or override them per host in `hosts/`. Locale and timezone live in [`modules/nixos/base.nix`](modules/nixos/base.nix).
 
-> [!NOTE]
-> `profile` is an untyped option, so edit the values in place and keep the existing attribute names and nesting. A misspelled attribute is not reported against this file — it surfaces later as a missing-attribute error in whichever module consumes it (for example `desktop/gtk.nix` or `programs/alacritty.nix`).
+Replace the wallpaper files with your own:
 
-Replace the asset files with your own:
+- `assets/wallpapers/wallpaper-light.png`
+- `assets/wallpapers/wallpaper-dark.png`
+- `assets/wallpapers/wallpaper-mac.heic`
 
-- `modules/profile/wallpaper-light.png`
-- `modules/profile/wallpaper-dark.png`
-- `modules/profile/wallpaper-mac.heic`
-
-The PNGs are used by GNOME; the HEIC contains the matching light/dark variants and is selected manually in macOS.
-
-`modules/users.nix` declares the `primaryUser` option and configures the corresponding NixOS or Darwin user. The platform bases in `modules/base.nix` import Home Manager and default the primary user's `home.stateVersion` to `"26.05"` with `lib.mkDefault`, allowing per-host overrides.
+The PNGs are applied automatically in GNOME; the HEIC contains matching light/dark variants for manual selection in macOS.
 
 ### 3. Trim or replace hosts
 
-Remove hosts under `modules/hosts/` that do not apply. `energy/` and `xps/` are NixOS examples; `work-mac.nix` is a macOS example.
+Update or remove hosts under `hosts/` and their entries in `flake.nix`.
 
 ### 4. Add a host
 
 For NixOS:
 
 ```sh
-mkdir -p modules/hosts/laptop
-sudo nixos-generate-config --show-hardware-config > modules/hosts/laptop/_hardware.nix
+mkdir -p hosts/laptop
+sudo nixos-generate-config --show-hardware-config > hosts/laptop/hardware.nix
 ```
 
-`modules/hosts/laptop/default.nix`:
+`hosts/laptop/default.nix`:
 
 ```nix
-{ config, ... }:
-let
-  inherit (config.flake.modules) nixos;
-in
 {
-  configurations.nixos.laptop.module = {
-    imports = [
-      ./_hardware.nix
-      nixos.base
-      nixos.gnome
-    ];
+  imports = [
+    ./hardware.nix
+    ../../modules/nixos/gnome.nix
+  ];
 
-    primaryUser = "your-user";
-    system.stateVersion = "26.05";
-  };
+  user.name = "your-user";
+  system.stateVersion = "26.05";
 }
 ```
 
-> [!IMPORTANT]
-> Substitute the placeholders before building:
+Register it under `nixosConfigurations` in `flake.nix`:
 
-- `laptop` in `configurations.nixos.laptop.module`: the machine's hostname and the flake output name used by the `Makefile`; using the same name for the directory is only a convention
-- `your-user`: the managed account name on NixOS; on macOS it must match the existing login short name
-- the feature list (`nixos.gnome`, …) — adjust to taste
+```nix
+laptop = mkNixos "laptop" ./hosts/laptop;
+```
 
-For macOS:
+For macOS, copy `hosts/work-mac.nix`, set `user.name` to your macOS login short name, and register the machine's short hostname under `darwinConfigurations` in `flake.nix`.
 
-copy `modules/hosts/work-mac.nix` and substitute the same placeholders. The shape mirrors the NixOS example, with three differences: the attribute key is `configurations.darwin."<hostname>".module`, the base is `darwin.base` (plus macOS-only extras like `darwin.aerospace`), and there is no `_hardware.nix`.
-
-New host files are picked up by `import-tree` without further registration (but don't forget `git add .` new files).
+Remember to `git add` any new files before building.
 
 ### 5. Build
 
@@ -121,13 +103,7 @@ make fmt               # format the repository
 make flake-check       # validate the flake
 ```
 
-`make help` lists all targets. The `Makefile` defaults to `.#$(hostname -s)`, so flake outputs named after the machine's short hostname are selected automatically. Complete NixOS and Darwin system checks must be built on their matching platforms.
-
-## Adding modules
-
-- A new Home-Manager program lives in `modules/programs/<name>.nix` and declares `flake.modules.homeManager.<name>`. Register default workstation programs in `homeManager.base`; import opt-in programs from their owning feature.
-- A new NixOS-only or Darwin-only system feature lives in `modules/nixos/<name>.nix` or `modules/darwin/<name>.nix` and declares `flake.modules.{nixos,darwin}.<name>`. Register defaults in the matching base and import opt-in features from hosts.
-- A feature spanning more than one class may live beside its primary concern or under `modules/desktop/` for desktop features. Register each default class module independently; parent features may compose subordinate modules directly.
+`make help` lists all targets. The `Makefile` defaults to `.#$(hostname -s)`, so flake outputs named after the machine's short hostname are selected automatically.
 
 ## License
 

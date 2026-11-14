@@ -1,67 +1,67 @@
 {
-  flake.modules.darwin.systemPreferences = {
-    system.defaults = {
-      controlcenter = {
-        BatteryShowPercentage = true;
-        NowPlaying = false;
-      };
+  system.defaults = {
+    controlcenter = {
+      BatteryShowPercentage = true;
+      NowPlaying = false;
+    };
 
-      NSGlobalDomain = {
-        "com.apple.sound.beep.volume" = 0.000;
-        AppleInterfaceStyle = "Dark";
-        ApplePressAndHoldEnabled = false;
-        AppleShowAllExtensions = true;
-        InitialKeyRepeat = 20;
-        KeyRepeat = 2;
-        NSAutomaticCapitalizationEnabled = false;
-        NSAutomaticDashSubstitutionEnabled = false;
-        NSAutomaticQuoteSubstitutionEnabled = false;
-        NSAutomaticSpellingCorrectionEnabled = false;
-        NSAutomaticWindowAnimationsEnabled = false;
-        NSDocumentSaveNewDocumentsToCloud = false;
-        NSNavPanelExpandedStateForSaveMode = true;
-        NSNavPanelExpandedStateForSaveMode2 = true;
-        PMPrintingExpandedStateForPrint = true;
-        PMPrintingExpandedStateForPrint2 = true;
-      };
+    NSGlobalDomain = {
+      "com.apple.sound.beep.volume" = 0.000;
+      AppleInterfaceStyle = "Dark";
+      ApplePressAndHoldEnabled = false;
+      AppleShowAllExtensions = true;
+      InitialKeyRepeat = 20;
+      KeyRepeat = 2;
+      NSAutomaticCapitalizationEnabled = false;
+      NSAutomaticDashSubstitutionEnabled = false;
+      NSAutomaticQuoteSubstitutionEnabled = false;
+      NSAutomaticSpellingCorrectionEnabled = false;
+      NSAutomaticWindowAnimationsEnabled = false;
+      NSDocumentSaveNewDocumentsToCloud = false;
+      NSNavPanelExpandedStateForSaveMode = true;
+      NSNavPanelExpandedStateForSaveMode2 = true;
+      PMPrintingExpandedStateForPrint = true;
+      PMPrintingExpandedStateForPrint2 = true;
+    };
 
-      LaunchServices.LSQuarantine = false;
+    LaunchServices.LSQuarantine = false;
 
-      trackpad = {
-        TrackpadRightClick = true;
-        TrackpadThreeFingerDrag = true;
-        Clicking = true;
-      };
+    trackpad = {
+      TrackpadRightClick = true;
+      TrackpadThreeFingerDrag = true;
+      Clicking = true;
+    };
 
-      finder = {
-        AppleShowAllFiles = true;
-        CreateDesktop = false;
-        FXDefaultSearchScope = "SCcf";
-        FXEnableExtensionChangeWarning = false;
-        FXPreferredViewStyle = "Nlsv";
-        QuitMenuItem = true;
-        ShowPathbar = true;
-        ShowStatusBar = true;
-        _FXShowPosixPathInTitle = true;
-        _FXSortFoldersFirst = true;
-      };
+    finder = {
+      AppleShowAllFiles = true;
+      CreateDesktop = false;
+      FXDefaultSearchScope = "SCcf";
+      FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "Nlsv";
+      QuitMenuItem = true;
+      ShowPathbar = true;
+      ShowStatusBar = true;
+      _FXShowPosixPathInTitle = true;
+      _FXSortFoldersFirst = true;
+    };
 
-      dock = {
-        autohide = true;
-        expose-animation-duration = 0.15;
-        show-recents = false;
-        showhidden = true;
-        persistent-apps = [ ];
-        tilesize = 30;
-        wvous-bl-corner = 1;
-        wvous-br-corner = 1;
-        wvous-tl-corner = 1;
-        wvous-tr-corner = 1;
-      };
+    dock = {
+      autohide = true;
+      expose-animation-duration = 0.15;
+      show-recents = false;
+      showhidden = true;
+      persistent-apps = [ ];
+      tilesize = 30;
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
+    };
 
-      CustomUserPreferences.NSGlobalDomain."com.apple.mouse.linear" = true;
+    CustomUserPreferences.NSGlobalDomain = {
+      "com.apple.mouse.linear" = true;
       # Show menu bar background.
-      CustomUserPreferences.NSGlobalDomain.SLSMenuBarUseBlurredAppearance = true;
+      SLSMenuBarUseBlurredAppearance = true;
     };
   };
 }
