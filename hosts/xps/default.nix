@@ -1,8 +1,5 @@
 {
-  imports = [
-    ./hardware.nix
-    ../../modules/nixos/gnome.nix
-  ];
+  imports = [ ./hardware.nix ];
 
   user.name = "nabokikh";
   system.stateVersion = "26.05";

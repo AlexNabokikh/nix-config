@@ -1,5 +1,5 @@
 # GNOME user session: shell extensions, dconf, look and feel.
-# Opt-in: injected into Home Manager by modules/nixos/gnome.nix.
+# NixOS only: injected into Home Manager by modules/nixos/gnome.nix, not by home/base.nix.
 {
   config,
   lib,

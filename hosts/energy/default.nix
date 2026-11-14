@@ -1,7 +1,6 @@
 {
   imports = [
     ./hardware.nix
-    ../../modules/nixos/gnome.nix
     ../../modules/nixos/gaming.nix
   ];
 

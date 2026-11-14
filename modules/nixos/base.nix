@@ -6,6 +6,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./boot.nix
+    ./gnome.nix
     ./networking.nix
     ./podman.nix
     ./users.nix
