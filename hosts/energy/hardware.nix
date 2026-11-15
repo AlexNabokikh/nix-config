@@ -17,6 +17,7 @@
     "uas"
     "sd_mod"
   ];
+
   boot.kernelModules = [ "kvm-amd" ];
 
   fileSystems."/" = {

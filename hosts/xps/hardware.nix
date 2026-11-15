@@ -2,11 +2,11 @@
   config,
   lib,
   modulesPath,
-  pkgs,
   ...
 }:
 {
   imports = [
+    (modulesPath + "/hardware/network/broadcom-43xx.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -14,8 +14,6 @@
     "xhci_pci"
     "ahci"
     "nvme"
-    "uas"
-    "sd_mod"
     "rtsx_pci_sdmmc"
   ];
 
@@ -39,13 +37,4 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.firmware = [ pkgs.broadcom-bt-firmware ];
-
-  boot.initrd.kernelModules = [ "i915" ];
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-    intel-vaapi-driver
-    intel-compute-runtime-legacy1
-  ];
 }
