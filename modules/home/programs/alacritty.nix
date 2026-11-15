@@ -18,7 +18,7 @@ in
     enable = true;
     settings = {
       terminal.shell = {
-        program = lib.getExe pkgs.zsh;
+        program = "/run/current-system/sw/bin/zsh";
         args = [
           "-l"
           "-c"
