@@ -11,11 +11,10 @@
 
   boot.initrd.availableKernelModules = [
     "nvme"
-    "xhci_pci"
+    "xhci_pci_prom21"
     "ahci"
+    "xhci_pci"
     "usbhid"
-    "uas"
-    "sd_mod"
   ];
 
   boot.kernelModules = [ "kvm-amd" ];
