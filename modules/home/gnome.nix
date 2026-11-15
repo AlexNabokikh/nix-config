@@ -7,15 +7,8 @@
   ...
 }:
 let
-  wallpaperLight = builtins.path {
-    path = ../../assets/wallpapers/wallpaper-light.png;
-    name = "wallpaper-light.png";
-  };
-
-  wallpaperDark = builtins.path {
-    path = ../../assets/wallpapers/wallpaper-dark.png;
-    name = "wallpaper-dark.png";
-  };
+  wallpaperLight = ../../assets/wallpapers/wallpaper-light.png;
+  wallpaperDark = ../../assets/wallpapers/wallpaper-dark.png;
 
   inherit (lib.hm.gvariant)
     mkArray

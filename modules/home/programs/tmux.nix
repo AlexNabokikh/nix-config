@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -15,7 +16,7 @@ in
     keyMode = "vi";
     mouse = true;
     prefix = "C-q";
-    shell = "/run/current-system/sw/bin/zsh";
+    shell = lib.getExe config.programs.zsh.package;
     terminal = "tmux-256color";
 
     plugins = [
