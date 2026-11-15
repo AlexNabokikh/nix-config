@@ -54,8 +54,8 @@ Personal values live where they are used:
 
 - Git name, email, and signing key: [`modules/home/programs/git.nix`](modules/home/programs/git.nix)
 - Terminal font family and size: [`modules/home/programs/alacritty.nix`](modules/home/programs/alacritty.nix) (the font package is in [`modules/common/base.nix`](modules/common/base.nix))
-- Regional formats: [`modules/home/gnome.nix`](modules/home/gnome.nix) and [`modules/nixos/gnome.nix`](modules/nixos/gnome.nix)
-- Username: `user.name` in each file under `hosts/`
+- Keyboard layouts and regional formats: [`modules/home/gnome.nix`](modules/home/gnome.nix) and [`modules/nixos/gnome.nix`](modules/nixos/gnome.nix)
+- Username: `user.name` in each file under `hosts/` (and the NixOS user description in [`modules/nixos/users.nix`](modules/nixos/users.nix))
 
 Replace the wallpaper files with your own:
 
