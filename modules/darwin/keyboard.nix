@@ -37,7 +37,7 @@
         # Show Spotlight file-search window → disabled
         "65".enabled = false;
 
-        # Paste without formatting → Control+Command+C
+        # Paste without formatting → Control+Shift+V
         "238" = {
           enabled = true;
           value = {
