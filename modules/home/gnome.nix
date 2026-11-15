@@ -119,8 +119,7 @@ in
   programs.gnome-shell = {
     enable = true;
     extensions = [
-      # Pinned to the GNOME 50 build (v78; gnomeExtensions has v77). Revisit on GNOME upgrades.
-      { package = pkgs.gnome50Extensions."auto-move-windows@gnome-shell-extensions.gcampax.github.com"; }
+      { package = pkgs.gnomeExtensions.auto-move-windows; }
       { package = pkgs.gnomeExtensions.blur-my-shell; }
       { package = pkgs.gnomeExtensions.clipboard-history; }
       { package = pkgs.gnomeExtensions.just-perfection; }
