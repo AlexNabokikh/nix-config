@@ -1,6 +1,7 @@
 { config, ... }:
 {
   users.users.${config.user.name} = {
+    description = "Alexander Nabokikh";
     extraGroups = [
       "networkmanager"
       "wheel"
