@@ -26,6 +26,12 @@
       optimise.automatic = true;
     };
 
+    # Home Manager's zsh runs compinit itself.
+    programs.zsh = {
+      enable = true;
+      enableGlobalCompInit = false;
+    };
+
     # Only the terminal font (used by alacritty) is managed; everything else uses the desktop's defaults.
     fonts.packages = [ pkgs.nerd-fonts.meslo-lg ];
 

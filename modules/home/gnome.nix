@@ -89,15 +89,19 @@ let
   };
 in
 {
-  home.pointerCursor = {
-    enable = true;
-    gtk.enable = true;
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 24;
+  home = {
+    pointerCursor = {
+      enable = true;
+      gtk.enable = true;
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+      size = 24;
+    };
+    # GNOME picks the cursor size itself (scaling-aware); don't pin it via the environment.
+    sessionVariables.XCURSOR_SIZE = null;
+
+    packages = [ pkgs.gradia ];
   };
-  # GNOME picks the cursor size itself (scaling-aware); don't pin it via the environment.
-  home.sessionVariables.XCURSOR_SIZE = null;
 
   gtk = {
     enable = true;
@@ -118,8 +122,6 @@ in
     enable = true;
     platformTheme.name = "xdgdesktopportal";
   };
-
-  home.packages = [ pkgs.gradia ];
 
   programs.gnome-shell = {
     enable = true;

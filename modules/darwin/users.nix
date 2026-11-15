@@ -1,7 +1,5 @@
 { config, ... }:
 {
-  programs.zsh.enableGlobalCompInit = false;
-
   users.users.${config.user.name} = {
     home = "/Users/${config.user.name}";
   };
