@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }:
 {
@@ -11,6 +12,8 @@
     ./keyboard.nix
     ./system-preferences.nix
   ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 
   programs.zsh.enableBashCompletion = false;
 

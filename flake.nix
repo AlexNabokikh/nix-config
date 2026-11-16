@@ -28,10 +28,11 @@
       };
     };
 
-    # Keyed by `hostname -s` so Makefile / darwin-rebuild selects it automatically.
-    darwinConfigurations."PL-OLX-KCGXHGK3PY" = inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = { inherit inputs; };
-      modules = [ ./hosts/work-mac.nix ];
+    darwinConfigurations = {
+      "PL-OLX-KCGXHGK3PY" = inputs.nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit inputs; };
+        modules = [ ./hosts/work-mac ];
+      };
     };
 
     formatter = {

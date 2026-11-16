@@ -24,7 +24,7 @@ A single Nix flake covering my NixOS and macOS machines.
 ├── hosts/             # Machine-specific configurations
 │   ├── energy/        # NixOS desktop (GNOME + gaming)
 │   ├── xps/           # NixOS laptop (GNOME)
-│   └── work-mac.nix   # macOS work laptop (AeroSpace)
+│   └── work-mac/      # macOS work laptop (AeroSpace)
 └── modules/
     ├── common/        # Shared Nix settings, user.name option, and HM wiring
     ├── nixos/         # NixOS baseline, GNOME desktop + session, and opt-in gaming
@@ -102,7 +102,7 @@ laptop = inputs.nixpkgs.lib.nixosSystem {
 };
 ```
 
-For macOS, copy `hosts/work-mac.nix`, set `user.name` to your macOS login short name, and register the machine's short hostname under `darwinConfigurations` in `flake.nix`.
+For macOS, copy `hosts/work-mac`, set `networking.hostName` and `user.name` (your macOS login short name), and register the machine's short hostname under `darwinConfigurations` in `flake.nix`.
 
 Remember to `git add` any new files before building.
 
