@@ -114,6 +114,11 @@ in
 
   dconf.settings = lib.mkMerge [
     {
+      "be/alexandervanhee/gradia" = {
+        exit-method = "none";
+        overwrite-screenshot = true;
+      };
+
       "org/gnome/desktop/background" = {
         picture-uri = "file://${wallpaperLight}";
         picture-uri-dark = "file://${wallpaperDark}";
