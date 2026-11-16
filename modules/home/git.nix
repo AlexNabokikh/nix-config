@@ -28,7 +28,6 @@
       enable = true;
       settings = {
         gui.showNumstatInFilesView = true;
-
         git.diffRenderers = [
           {
             type = "stdinFilter";
