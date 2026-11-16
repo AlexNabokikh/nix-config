@@ -66,11 +66,13 @@
         };
       };
 
+      # Lock screen → Ctrl+Command+V, Paste without formatting → Ctrl+Shift+V
       NSGlobalDomain.NSUserKeyEquivalents = {
         "Lock Screen" = "@^l";
         "Paste and Match Style" = "^$v";
       };
 
+      # Remap Command to Ctrl to match hotkeys on Linux
       "com.brave.Browser".NSUserKeyEquivalents = {
         "Actual Size" = "^0";
         "Close Tab" = "^w";
