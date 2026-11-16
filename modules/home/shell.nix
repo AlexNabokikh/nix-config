@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -13,8 +12,6 @@ in
       enable = true;
       defaultKeymap = "viins";
       shellAliases = {
-        ff = "fastfetch --structure-disabled title";
-        pt = "podman-tui";
         terraform = "tofu";
       };
       initContent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
@@ -57,8 +54,6 @@ in
       extraOptions = [ "--group-directories-first" ];
     };
 
-    fastfetch.enable = true;
-
     starship = {
       enable = true;
       settings = {
@@ -83,7 +78,4 @@ in
       };
     };
   };
-
-  xdg.configFile."fastfetch/config.jsonc".source =
-    "${config.programs.fastfetch.package}/share/fastfetch/presets/examples/12.jsonc";
 }

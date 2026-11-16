@@ -10,15 +10,13 @@ let
   '';
 in
 {
-  programs = {
-    awscli.enable = true;
-    brave.enable = true;
-    granted.enable = true;
-  };
+  programs.granted.enable = true;
 
   home.packages =
     with pkgs;
     [
+      awscli2
+      brave
       dig
       fd
       go
@@ -29,7 +27,6 @@ in
       opentofu
       pipenv
       podman-compose
-      podman-tui
       python3
       ripgrep
     ]
