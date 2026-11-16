@@ -1,9 +1,9 @@
-# GNOME desktop (system side). The user session lives in modules/home/gnome.nix.
+# GNOME desktop (system side). The user session lives in ./session.nix.
 { lib, pkgs, ... }:
 {
-  home-manager.sharedModules = [ ../home/gnome.nix ];
+  home-manager.sharedModules = [ ./session.nix ];
 
-  # Compile en_IE into glibc so GNOME's Formats setting (home/gnome.nix) can use it.
+  # Compile en_IE into glibc so GNOME's Formats setting (./session.nix) can use it.
   # The timezone is set imperatively in GNOME Settings / `timedatectl`, as on macOS.
   i18n.extraLocales = [ "en_IE.UTF-8/UTF-8" ];
 

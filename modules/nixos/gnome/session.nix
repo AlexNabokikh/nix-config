@@ -1,5 +1,4 @@
 # GNOME user session: shell extensions, dconf, look and feel.
-# NixOS only: injected into Home Manager by modules/nixos/gnome.nix, not by home/base.nix.
 {
   config,
   lib,
@@ -7,8 +6,8 @@
   ...
 }:
 let
-  wallpaperLight = ../../assets/wallpapers/wallpaper-light.png;
-  wallpaperDark = ../../assets/wallpapers/wallpaper-dark.png;
+  wallpaperLight = ../../../assets/wallpapers/wallpaper-light.png;
+  wallpaperDark = ../../../assets/wallpapers/wallpaper-dark.png;
 
   inherit (lib.hm.gvariant)
     mkArray
@@ -165,19 +164,19 @@ in
 
         toggle-fullscreen = [ "<Super><Shift>m" ];
         toggle-maximized = [ "<Super>m" ];
-      }
-      // builtins.listToAttrs (
-        lib.concatMap (
-          n:
-          let
-            idx = toString (n + 1);
-          in
-          [
-            (lib.nameValuePair "move-to-workspace-${idx}" [ "<Super><Shift>${idx}" ])
-            (lib.nameValuePair "switch-to-workspace-${idx}" [ "<Super>${idx}" ])
-          ]
-        ) (lib.genList lib.id 5)
-      );
+
+        switch-to-workspace-1 = [ "<Super>1" ];
+        switch-to-workspace-2 = [ "<Super>2" ];
+        switch-to-workspace-3 = [ "<Super>3" ];
+        switch-to-workspace-4 = [ "<Super>4" ];
+        switch-to-workspace-5 = [ "<Super>5" ];
+
+        move-to-workspace-1 = [ "<Super><Shift>1" ];
+        move-to-workspace-2 = [ "<Super><Shift>2" ];
+        move-to-workspace-3 = [ "<Super><Shift>3" ];
+        move-to-workspace-4 = [ "<Super><Shift>4" ];
+        move-to-workspace-5 = [ "<Super><Shift>5" ];
+      };
 
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "";
@@ -282,14 +281,21 @@ in
 
         toggle-quick-settings = [ "<Super>c" ];
         toggle-message-tray = [ "<Super>n" ];
-      }
-      // builtins.listToAttrs (
-        lib.genList (i: lib.nameValuePair "switch-to-application-${toString (i + 1)}" [ ]) 9
-      );
+
+        switch-to-application-1 = [ ];
+        switch-to-application-2 = [ ];
+        switch-to-application-3 = [ ];
+        switch-to-application-4 = [ ];
+        switch-to-application-5 = [ ];
+        switch-to-application-6 = [ ];
+        switch-to-application-7 = [ ];
+        switch-to-application-8 = [ ];
+        switch-to-application-9 = [ ];
+      };
 
       "org/gtk/gtk4/settings/file-chooser".show-hidden = true;
 
-      # Regional formats; the locale is compiled in by i18n.extraLocales in nixos/gnome.nix.
+      # Regional formats; the locale is compiled in by i18n.extraLocales in ./default.nix.
       "system/locale".region = "en_IE.UTF-8";
     }
     (lib.mapAttrs' (

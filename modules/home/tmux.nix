@@ -4,9 +4,6 @@
   pkgs,
   ...
 }:
-let
-  colors = config.lib.stylix.colors.withHashtag;
-in
 {
   programs.tmux = {
     enable = true;
@@ -22,11 +19,11 @@ in
     plugins = [
       {
         plugin = pkgs.tmuxPlugins.dotbar;
-        extraConfig = with colors; ''
-          set -g @tmux-dotbar-bg "${base00}"
-          set -g @tmux-dotbar-fg "${base03}"
-          set -g @tmux-dotbar-fg-current "${base05}"
-          set -g @tmux-dotbar-fg-prefix "${base0E}"
+        extraConfig = ''
+          set -g @tmux-dotbar-bg "default"
+          set -g @tmux-dotbar-fg "brightblack"
+          set -g @tmux-dotbar-fg-current "white"
+          set -g @tmux-dotbar-fg-prefix "magenta"
           set -g @tmux-dotbar-bold-current-window true
           set -g @tmux-dotbar-left false
           set -g @tmux-dotbar-right false
@@ -34,8 +31,8 @@ in
 
           # Preserve numbered window names during SSH sessions.
           set -g @tmux-dotbar-ssh-icon-only true
-          # Use our blue instead of dotbar's hard-coded zoom icon colour.
-          set -g @tmux-dotbar-maximized-icon "#[fg=${base0D}]󰊓"
+          # Use terminal blue instead of dotbar's hard-coded zoom icon colour.
+          set -g @tmux-dotbar-maximized-icon "#[fg=blue]󰊓"
         '';
       }
       {
@@ -47,38 +44,28 @@ in
       }
     ];
 
-    extraConfig = with colors; ''
-      # Match tmux's menus and other UI elements to the shared terminal palette.
-      set -s theme dark
-      set -s dark-theme-black "${base00}"
-      set -s dark-theme-dark-grey "${base01}"
-      set -s dark-theme-light-grey "${base03}"
-      set -s dark-theme-white "${base05}"
-      set -s dark-theme-red "${base08}"
-      set -s dark-theme-yellow "${base0A}"
-      set -s dark-theme-green "${base0B}"
-      set -s dark-theme-cyan "${base0C}"
-      set -s dark-theme-blue "${base0D}"
-      set -s dark-theme-magenta "${base0E}"
+    extraConfig = ''
+      # Derive tmux's menus and theme* colours directly from terminal ANSI colours.
+      set -s theme terminal
 
       set -g window-status-current-style default
-      set -g pane-border-style "fg=${base02}"
+      set -g pane-border-style "fg=brightblack"
       # Retain tmux's state colours, with blue for the normal active pane.
       set -g pane-active-border-style "fg=#{?pane_modal_flag,themeblue,#{?pane_marked,thememagenta,#{?synchronize-panes,themered,#{?pane_in_mode,themeyellow,themeblue}}}}"
-      set -g message-style "bg=${base01},fg=${base05}"
-      set -g message-command-style "bg=${base01},fg=${base0E}"
-      set -g mode-style "bg=${base02},fg=${base05}"
-      set -g display-panes-colour "${base03}"
-      set -g display-panes-active-colour "${base0D}"
+      set -g message-style "bg=black,fg=white"
+      set -g message-command-style "bg=black,fg=magenta"
+      set -g mode-style "reverse"
+      set -g display-panes-colour "brightblack"
+      set -g display-panes-active-colour "blue"
 
       # Allow applications inside tmux to copy to the system clipboard
       set -s set-clipboard on
       # Forward tmux-wrapped terminal sequences, including clipboard requests
       set -g allow-passthrough on
 
-      # Share the fzf background and use rounded popup borders.
-      set -g popup-style "bg=${base00},fg=${base05}"
-      set -g popup-border-style "bg=${base00},fg=${base03}"
+      # Use terminal background and rounded popup borders.
+      set -g popup-style "bg=default,fg=default"
+      set -g popup-border-style "bg=default,fg=brightblack"
       set -g popup-border-lines rounded
 
       # Split panes while preserving the current directory

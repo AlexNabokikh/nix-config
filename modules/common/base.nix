@@ -1,9 +1,7 @@
 # Wiring shared by NixOS and nix-darwin.
 {
   config,
-  inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -32,15 +30,10 @@
       enableGlobalCompInit = false;
     };
 
-    # Only the terminal font (used by alacritty) is managed; everything else uses the desktop's defaults.
-    fonts.packages = [ pkgs.nerd-fonts.meslo-lg ];
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      extraSpecialArgs = { inherit inputs; };
-      sharedModules = [ ../home/base.nix ];
-      users.${config.user.name}.home.stateVersion = lib.mkDefault "26.05";
+      users.${config.user.name}.imports = [ ../home/base.nix ];
     };
   };
 }

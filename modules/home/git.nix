@@ -1,6 +1,5 @@
+{ lib, pkgs, ... }:
 {
-  stylix.targets.lazygit.enable = true;
-
   programs = {
     git = {
       enable = true;
@@ -17,6 +16,8 @@
         signByDefault = true;
       };
     };
+
+    gpg.enable = true;
 
     diff-so-fancy = {
       enable = true;
@@ -37,5 +38,10 @@
         ];
       };
     };
+  };
+
+  services.gpg-agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    enable = true;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 }

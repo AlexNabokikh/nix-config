@@ -1,4 +1,4 @@
--- Stock Catppuccin Mocha with only its background layers taken from Stylix's base00.
+-- Stock Catppuccin Mocha with Adwaita's dark surface (#1d1d20) matching Alacritty.
 local function darken(hex, amount)
   local out = {}
   for _, i in ipairs({ 2, 4, 6 }) do
@@ -11,8 +11,7 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   opts = function(_, opts)
-    -- Set by Home Manager's programs.neovim.initLua.
-    local base = assert(vim.g.stylix_base00, "vim.g.stylix_base00 is not set")
+    local base = "#1d1d20"
 
     opts.flavour = "mocha"
     opts.color_overrides = {

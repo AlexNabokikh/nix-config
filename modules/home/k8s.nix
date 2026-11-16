@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -16,16 +15,13 @@
     kns = "kubens";
   };
 
-  stylix.targets.k9s.enable = true;
-
   programs.k9s = {
     enable = true;
-    settings.k9s = {
-      ui = {
-        headless = true;
-        logoless = true;
-      };
+    settings.k9s.ui = {
+      headless = true;
+      logoless = true;
     };
+    skins.transparent = "${config.programs.k9s.package}/share/k9s/skins/transparent.yaml";
     hotKeys = {
       shift-1 = {
         shortCut = "Shift-1";
@@ -64,11 +60,4 @@
       };
     };
   };
-
-  # The pinned Stylix target puts ui.skin at the root instead of under k9s.
-  xdg.configFile."k9s/config.yaml".source = lib.mkForce (
-    (pkgs.formats.yaml { }).generate "k9s-config" (
-      lib.recursiveUpdate { k9s.ui.skin = "stylix"; } (removeAttrs config.programs.k9s.settings [ "ui" ])
-    )
-  );
 }

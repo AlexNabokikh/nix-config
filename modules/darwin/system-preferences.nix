@@ -8,14 +8,7 @@
     NSGlobalDomain = {
       "com.apple.sound.beep.volume" = 0.000;
       AppleInterfaceStyle = "Dark";
-      ApplePressAndHoldEnabled = false;
       AppleShowAllExtensions = true;
-      InitialKeyRepeat = 20;
-      KeyRepeat = 2;
-      NSAutomaticCapitalizationEnabled = false;
-      NSAutomaticDashSubstitutionEnabled = false;
-      NSAutomaticQuoteSubstitutionEnabled = false;
-      NSAutomaticSpellingCorrectionEnabled = false;
       NSAutomaticWindowAnimationsEnabled = false;
       NSDocumentSaveNewDocumentsToCloud = false;
       NSNavPanelExpandedStateForSaveMode = true;
