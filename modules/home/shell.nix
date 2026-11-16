@@ -17,17 +17,11 @@ in
         pt = "podman-tui";
         terraform = "tofu";
       };
-      initContent = lib.mkMerge [
-        (lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
-          open() {
-            xdg-open "$@" </dev/null >/dev/null 2>&1 &!
-          }
-        '')
-        (lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-          # macOS terminal/keyboard mapping for ALT-C (Polish language layout).
-          bindkey 'ć' fzf-cd-widget
-        '')
-      ];
+      initContent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        open() {
+          xdg-open "$@" </dev/null >/dev/null 2>&1 &!
+        }
+      '';
     };
 
     # Atuin owns Ctrl-R; fzf's history widget is disabled below to avoid conflict.

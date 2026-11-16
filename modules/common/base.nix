@@ -24,10 +24,11 @@
       optimise.automatic = true;
     };
 
-    # Home Manager's zsh runs compinit itself.
+    # Home Manager owns compinit and the prompt.
     programs.zsh = {
       enable = true;
       enableGlobalCompInit = false;
+      promptInit = "";
     };
 
     home-manager = {

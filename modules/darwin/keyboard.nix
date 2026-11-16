@@ -124,7 +124,5 @@
     ];
     RunAtLoad = true;
     KeepAlive = false;
-    StandardOutPath = "/tmp/keyboard-remap.log";
-    StandardErrorPath = "/tmp/keyboard-remap.err.log";
   };
 }

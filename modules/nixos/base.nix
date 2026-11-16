@@ -29,20 +29,8 @@
     plymouth.enable = true;
   };
 
-  networking.networkmanager.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-  };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
+  hardware.bluetooth.powerOnBoot = false;
 
   # CLI tools and the macOS docker shim live in modules/home/packages.nix.
   virtualisation.podman = {

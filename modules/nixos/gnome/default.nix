@@ -16,7 +16,6 @@
     geoclue2.enable = false;
     gnome = {
       evolution-data-server.enable = lib.mkForce false;
-      gcr-ssh-agent.enable = false;
       gnome-browser-connector.enable = false;
       gnome-initial-setup.enable = false;
       gnome-online-accounts.enable = false;
@@ -49,6 +48,7 @@
     gnome-system-monitor
     gnome-tecla
     gnome-tour
+    gnome-user-docs
     gnome-weather
     papers
     simple-scan
