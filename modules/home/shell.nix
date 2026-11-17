@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -11,11 +10,6 @@ in
     zsh = {
       enable = true;
       defaultKeymap = "viins";
-      initContent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        open() {
-          xdg-open "$@" </dev/null >/dev/null 2>&1 &!
-        }
-      '';
     };
 
     # Atuin owns Ctrl-R; fzf's history widget is disabled below to avoid conflict.
