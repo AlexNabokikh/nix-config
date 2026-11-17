@@ -24,15 +24,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.helm" },
     { import = "plugins" },
   },
-  defaults = {
-    lazy = false,
-    version = false, -- always use the latest git commit
-  },
-  install = { colorscheme = { "catppuccin-mocha", "habamax" } },
-  checker = {
-    enabled = false,
-    notify = false,
-  },
+  install = { colorscheme = { "catppuccin-mocha" } },
   rocks = {
     enabled = false,
   },

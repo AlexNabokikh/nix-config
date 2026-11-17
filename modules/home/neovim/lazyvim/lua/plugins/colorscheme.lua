@@ -7,22 +7,19 @@ local function darken(hex, amount)
   return "#" .. table.concat(out)
 end
 
+local base = "#1d1d20"
+
 return {
   "catppuccin/nvim",
   name = "catppuccin",
-  opts = function(_, opts)
-    local base = "#1d1d20"
-
-    opts.flavour = "mocha"
-    opts.color_overrides = {
+  opts = {
+    color_overrides = {
       mocha = {
         base = base,
         -- Mocha's mantle and crust sit ~20% and ~42% darker than its base.
         mantle = darken(base, 0.2),
         crust = darken(base, 0.42),
       },
-    }
-
-    return opts
-  end,
+    },
+  },
 }

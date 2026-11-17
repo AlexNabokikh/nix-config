@@ -1,57 +1,41 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        bashls = {},
-        gopls = {
-          settings = {
-            gopls = {
-              semanticTokens = true,
-              analyses = {
-                fieldalignment = false,
-                nilness = false,
-                printf = false,
-                shadow = false,
-                unusedparams = false,
-              },
-              staticcheck = false,
-              hints = {
-                assignVariableTypes = false,
-                compositeLiteralFields = false,
-                compositeLiteralTypes = false,
-                constantValues = false,
-                functionTypeParameters = false,
-                parameterNames = false,
-                rangeVariableTypes = false,
-              },
+  "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      bashls = {},
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = {
+              nilness = false,
+              printf = false,
+              unusedparams = false,
             },
           },
         },
-        jsonls = {},
-        nixd = {},
-        pyright = {
-          settings = {
-            pyright = {
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                typeCheckingMode = "basic",
-                diagnosticMode = "openFilesOnly",
-              },
+      },
+      jsonls = {},
+      nixd = {
+        cmd = { "nixd", "--log=error" },
+      },
+      pyright = {
+        settings = {
+          pyright = {
+            disableOrganizeImports = true,
+          },
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
             },
           },
         },
-        ruff = {},
-        tofu_ls = {},
-        yamlls = {
-          settings = {
-            yaml = {
-              keyOrdering = false,
-            },
+      },
+      ruff = {},
+      tofu_ls = {},
+      yamlls = {
+        settings = {
+          yaml = {
+            keyOrdering = false,
           },
         },
       },
