@@ -11,9 +11,6 @@ in
     zsh = {
       enable = true;
       defaultKeymap = "viins";
-      shellAliases = {
-        terraform = "tofu";
-      };
       initContent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
         open() {
           xdg-open "$@" </dev/null >/dev/null 2>&1 &!
