@@ -66,7 +66,7 @@
         };
       };
 
-      # Lock screen → Ctrl+Command+V, Paste without formatting → Ctrl+Shift+V
+      # Lock screen → Ctrl+Command+L, Paste without formatting → Ctrl+Shift+V
       NSGlobalDomain.NSUserKeyEquivalents = {
         "Lock Screen" = "@^l";
         "Paste and Match Style" = "^$v";
