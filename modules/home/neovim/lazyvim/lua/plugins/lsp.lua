@@ -29,18 +29,6 @@ return {
           },
         },
         jsonls = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        },
         nixd = {},
         pyright = {
           settings = {

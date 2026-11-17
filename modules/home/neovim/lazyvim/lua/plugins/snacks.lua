@@ -1,6 +1,9 @@
 return {
   "snacks.nvim",
   opts = {
+    lazygit = {
+      configure = false,
+    },
     picker = {
       sources = {
         files = {
