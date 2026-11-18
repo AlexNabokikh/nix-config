@@ -41,7 +41,6 @@ in
       anki
       gcc
       gnumake
-      telegram-desktop
       unzip
       wl-clipboard
     ];
