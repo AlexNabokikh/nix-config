@@ -4,7 +4,7 @@ FLAKE ?= .\#$(HOSTNAME)
 EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
 
 .PHONY: help install-nix install-nix-darwin darwin-rebuild nixos-rebuild \
-	nix-gc flake-update flake-check fmt
+	nix-gc flake-update fmt
 
 help:
 	@echo "Available targets:"
@@ -14,7 +14,6 @@ help:
 	@echo "  nixos-rebuild        - Rebuild the NixOS configuration"
 	@echo "  nix-gc               - Run Nix garbage collection"
 	@echo "  flake-update         - Update flake inputs"
-	@echo "  flake-check          - Check the flake for issues"
 	@echo "  fmt                  - Format the repository"
 
 install-nix:
@@ -47,11 +46,6 @@ flake-update:
 	@echo "Updating flake inputs..."
 	@nix flake update
 	@echo "Flake update complete."
-
-flake-check:
-	@echo "Checking flake..."
-	@nix flake check --no-build --all-systems --no-write-lock-file
-	@echo "Flake check complete."
 
 fmt:
 	@nix fmt
