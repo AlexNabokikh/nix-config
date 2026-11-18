@@ -14,10 +14,7 @@
   boot = {
     consoleLogLevel = 0;
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "quiet"
-      "rd.udev.log_level=3"
-    ];
+    kernelParams = [ "quiet" ];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
@@ -30,7 +27,6 @@
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
-  hardware.bluetooth.powerOnBoot = false;
 
   # CLI tools and the macOS docker shim live in modules/home/packages.nix.
   virtualisation.podman = {
