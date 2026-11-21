@@ -56,7 +56,7 @@ in
         args = [
           "-l"
           "-c"
-          "tmux new-session -A -s main"
+          "exec tmux new-session -A -s main"
         ];
       };
 
