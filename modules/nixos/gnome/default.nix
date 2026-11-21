@@ -10,6 +10,7 @@
   i18n.inputMethod.enable = false;
 
   services = {
+    avahi.enable = false;
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
     dleyna.enable = false;
@@ -25,6 +26,7 @@
       rygel.enable = false;
       tinysparql.enable = false;
     };
+    speechd.enable = false;
   };
 
   programs.bash.vteIntegration = false;
@@ -50,6 +52,7 @@
     gnome-tour
     gnome-user-docs
     gnome-weather
+    orca
     papers
     simple-scan
     snapshot

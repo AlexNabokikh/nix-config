@@ -1,6 +1,5 @@
 # GNOME user session: shell extensions, dconf, look and feel.
 {
-  config,
   lib,
   pkgs,
   ...
@@ -84,12 +83,6 @@ in
       name = "MoreWaita";
       package = pkgs.morewaita-icon-theme;
     };
-    gtk3.bookmarks = [
-      "file://${config.home.homeDirectory}/Documents"
-      "file://${config.home.homeDirectory}/Downloads"
-      "file://${config.home.homeDirectory}/Pictures"
-      "file://${config.home.homeDirectory}/Videos"
-    ];
   };
 
   qt = {
