@@ -30,7 +30,6 @@
         gui.showNumstatInFilesView = true;
         git.diffRenderers = [
           {
-            colorArg = "always";
             command = "diff-so-fancy";
           }
         ];
