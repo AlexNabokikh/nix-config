@@ -22,7 +22,7 @@
 
       mode = {
         main.binding = {
-          alt-shift-enter = "exec-and-forget open -a alacritty";
+          alt-shift-enter = "exec-and-forget open -a Alacritty";
           alt-shift-b = "exec-and-forget open -a \"Brave Browser\"";
           alt-shift-t = "exec-and-forget open -a \"Telegram\"";
           alt-shift-f = "exec-and-forget open -a Finder";
